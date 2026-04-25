@@ -1,0 +1,176 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&family=Nunito+Sans:wght@400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Nunito Sans', sans-serif;
+  color: #334155;
+  background-color: #ffffff;
+  /* Prevent horizontal overflow on mobile */
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Rubik', sans-serif;
+  color: #0C4A6E;
+  font-weight: bold;
+}
+
+/* ─── Keyframes ─────────────────────────────────────────────── */
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-12px); }
+}
+
+@keyframes particleFloat {
+  0%   { transform: translateY(0px) translateX(0px); opacity: 0.3; }
+  33%  { transform: translateY(-20px) translateX(10px); opacity: 0.7; }
+  66%  { transform: translateY(-10px) translateX(-8px); opacity: 0.5; }
+  100% { transform: translateY(0px) translateX(0px); opacity: 0.3; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes bounce-gentle {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.animate-fadeIn { animation: fadeIn 0.3s ease forwards; }
+.animate-slideUp { animation: slideUp 0.4s cubic-bezier(0.22,1,0.36,1) forwards; }
+
+/* ─── Utility Classes ───────────────────────────────────────── */
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+
+.fade-up.d1 { animation-delay: 0.1s; }
+.fade-up.d2 { animation-delay: 0.2s; }
+.fade-up.d3 { animation-delay: 0.3s; }
+.fade-up.d4 { animation-delay: 0.4s; }
+.fade-up.d5 { animation-delay: 0.5s; }
+.fade-up.d6 { animation-delay: 0.6s; }
+
+.float {
+  animation: float 3.5s ease-in-out infinite;
+}
+
+/* ─── Touch optimizations ────────────────────────────────────── */
+.touch-manipulation {
+  touch-action: manipulation;
+}
+
+/* Ensure all interactive elements have proper tap size on mobile */
+@media (max-width: 640px) {
+  button, a, [role="button"] {
+    min-height: 44px;
+  }
+}
+
+/* ─── Horizontal scroll hide scrollbar ──────────────────────── */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ─── Mobile safe area for sticky CTA ──────────────────────── */
+.safe-area-bottom {
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+}
+
+/* ─── Gradient text ─────────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(90deg, #0EA5E9, #38BDF8, #F97316, #0EA5E9);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+/* ─── Card hover ─────────────────────────────────────────────── */
+.card-hover {
+  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 48px -12px rgba(14,165,233,0.18);
+}
+
+/* ─── SVG chart rect transition ─────────────────────────────── */
+rect {
+  transition: height 1.2s cubic-bezier(0.34,1.56,0.64,1), y 1.2s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+/* ─── Mobile menu animation helpers ─────────────────────────── */
+@media (max-width: 768px) {
+  .mobile-nav-item {
+    animation: fadeUp 0.4s cubic-bezier(0.22,1,0.36,1) forwards;
+    opacity: 0;
+  }
+}
+
+/* ─── Scrollbar ─────────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #0EA5E9; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #0284C7; }
+
+/* ─── Snap scroll (testimonials carousel) ────────────────────── */
+.snap-x { scroll-snap-type: x mandatory; }
+.snap-start { scroll-snap-align: start; }
+
+/* ─── Button base ────────────────────────────────────────────── */
+.button-primary {
+  @apply px-6 py-3.5 bg-cta text-white font-bold rounded-2xl hover:bg-cta-hover active:scale-95 transition-all duration-200 cursor-pointer shadow-lg touch-manipulation;
+}
+
+.button-secondary {
+  @apply px-6 py-3.5 bg-white text-heading font-bold rounded-2xl border border-gray-200 hover:border-primary/30 hover:text-primary active:scale-95 transition-all duration-200 cursor-pointer touch-manipulation;
+}
+
+/* ─── Mobile: reduce motion for performance ──────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
