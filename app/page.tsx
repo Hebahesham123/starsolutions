@@ -283,7 +283,7 @@ export default function Home() {
   return (
     <div dir={isRtl ? 'rtl' : 'ltr'}>
       {/* ═══ HERO ═══════════════════════════════════════════════════ */}
-      <section className="relative pt-20 pb-16 sm:pt-32 sm:pb-24 lg:pt-44 lg:pb-32 overflow-hidden bg-gradient-to-br from-[#EFF9FF] via-[#F0F9FF] to-white min-h-screen flex items-center">
+      <section className="relative pt-28 pb-16 sm:pt-36 sm:pb-24 lg:pt-44 lg:pb-32 overflow-hidden bg-gradient-to-br from-[#EFF9FF] via-[#F0F9FF] to-white min-h-screen flex items-center">
         {/* Particles */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           {[...Array(16)].map((_, i) => (
@@ -306,11 +306,6 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
             {/* Left content */}
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-5 text-xs font-bold tracking-wider uppercase text-primary bg-primary/10 rounded-full border border-primary/20 fade-up">
-                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                {t.hero.badge}
-              </div>
-
               <h1 className="fade-up d1 font-heading text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-[1.08] tracking-tight mb-5 text-heading">
                 {t.hero.h1a}<br />{t.hero.h1b}<br />
                 <span className="text-primary">{t.hero.h1c}</span>

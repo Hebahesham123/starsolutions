@@ -236,13 +236,14 @@ function DiscountRibbon() {
   const [visible, setVisible] = useState(true)
   if (!visible) return null
   return (
-    <div className="fixed top-0 left-0 right-0 z-[60] bg-gradient-to-r from-primary via-primary-dark to-primary text-white text-center py-2 px-4" dir={isRtl ? 'rtl' : 'ltr'}>
-      <p className="text-xs sm:text-sm font-bold">
-        🎁 {isRtl ? 'عرض حصري' : 'Exclusive Offer'} — {isRtl ? 'خصم 15% باستخدام الكود' : 'Get 15% off with code'}{' '}
-        <span className="font-extrabold bg-white text-primary px-2 py-0.5 rounded-md mx-1 tracking-widest text-xs">STAR15</span>
-        {isRtl ? 'على أي خدمة' : 'on any service'}
+    <div className="fixed top-0 left-0 right-0 z-[60] h-8 flex items-center justify-center overflow-hidden bg-gradient-to-r from-primary via-primary-dark to-primary text-white px-10" dir={isRtl ? 'rtl' : 'ltr'}>
+      <p className="flex items-center justify-center gap-1.5 text-[11px] sm:text-sm font-bold whitespace-nowrap leading-none">
+        <span>🎁</span>
+        <span>{isRtl ? 'عرض حصري' : 'Exclusive Offer'} — {isRtl ? 'خصم 15% باستخدام الكود' : 'Get 15% off with code'}</span>
+        <span className="font-extrabold bg-white text-primary px-1.5 py-0.5 rounded-md tracking-wider text-[10px] sm:text-xs">STAR15</span>
+        <span className="hidden sm:inline">{isRtl ? 'على أي خدمة' : 'on any service'}</span>
       </p>
-      <button onClick={() => setVisible(false)} className="absolute right-3 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors">
+      <button onClick={() => setVisible(false)} aria-label="Close offer" className={`absolute ${isRtl ? 'left-2 sm:left-3' : 'right-2 sm:right-3'} top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors`}>
         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
       </button>
     </div>
