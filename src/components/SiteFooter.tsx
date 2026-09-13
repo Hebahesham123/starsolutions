@@ -37,13 +37,12 @@ export function SiteFooter() {
             </ul>
           </nav>
 
-          {/* Pricing, docs and the two legal pages came across from the previous
-              site. Nothing linked to them here, and a page nothing links to is
-              a page nobody finds — the footer is where these belong anyway. */}
+          {/* Docs and the two legal pages came across from the previous site.
+              Nothing linked to them here, and a page nothing links to is a page
+              nobody finds — the footer is where these belong anyway. */}
           <nav aria-labelledby="fMore">
             <h2 id="fMore" className="footer-h">More</h2>
             <ul>
-              <li><Link href="/pricing">Pricing</Link></li>
               <li><Link href="/docs">Docs</Link></li>
               <li><Link href="/privacy">Privacy</Link></li>
               <li><Link href="/terms">Terms</Link></li>

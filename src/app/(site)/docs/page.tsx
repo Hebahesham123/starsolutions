@@ -91,10 +91,10 @@ export default function DocsPage() {
             ))}
           </ul>
 
-          <Reveal className="plan-cta">
+          <Reveal className="page-cta">
             <h2>Cannot find what you are looking for?</h2>
             <p>Ask us directly — we answer within a business day.</p>
-            <div className="plan-cta-actions">
+            <div className="page-cta-actions">
               <a href={site.contact.whatsapp} className="btn btn-primary btn-lg">
                 <Icon name="whatsapp" className="h-5 w-5" /> Contact support
               </a>
