@@ -574,7 +574,7 @@ export function Automations({ automations }: { automations: Entry[] }) {
                 </span>
                 <span>
                   <strong>{a.title}</strong>
-                  <span>{a.summary}</span>
+                  <span>{a.short ?? a.summary}</span>
                 </span>
               </Link>
             </li>

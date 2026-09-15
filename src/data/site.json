@@ -650,6 +650,7 @@
       "eyebrow": "Automation",
       "title": "Smart Multi-Number WhatsApp Inbox",
       "summary": "A unified, real-time inbox that connects many WhatsApp numbers into one screen, where AI tags every conversation, classifies intent and sentiment, and prioritizes the queue so your team manages by exception.",
+      "short": "Manage multiple numbers in one unified inbox.",
       "stats": [
         [
           "Connection",
@@ -686,6 +687,7 @@
       "eyebrow": "Automation",
       "title": "YouTube AI generator",
       "summary": "Turns your product catalog and blog content into scripted, scheduled video output.",
+      "short": "Your catalog and blog, turned into scripted, scheduled video.",
       "stats": [
         [
           "Output",
@@ -712,6 +714,7 @@
       "eyebrow": "Automation",
       "title": "E-commerce chatbot",
       "summary": "An all-in-one, AI-powered platform that unifies customer messaging, order management, marketing and analytics into a single operations hub — turning conversations into orders, and data into decisions.",
+      "short": "An all-in-one, AI-powered platform that unifies customer messaging, order management, and support.",
       "stats": [
         [
           "Coverage",
@@ -751,6 +754,7 @@
       "eyebrow": "Automation",
       "title": "Custom automations",
       "summary": "If it happens more than twice a week and follows rules, it can be automated. Tell us the workflow.",
+      "short": "If it happens more than twice a week and follows rules, it can be automated. Tell us the details, and we'll handle the rest.",
       "stats": [
         [
           "Confirmation",

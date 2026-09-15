@@ -84,6 +84,10 @@ const SUMMARY: Field = {
   name: 'summary', label: 'Summary', kind: 'textarea', wide: true,
   help: 'The lede under the title, and the description search engines show.',
 };
+const SHORT: Field = {
+  name: 'short', label: 'Short', kind: 'textarea', wide: true,
+  help: 'One line, for where this entry sits beside others — the web diagram on the home page. Falls back to the summary when empty.',
+};
 const TAGLINE: Field = {
   name: 'tagline', label: 'Tagline', kind: 'textarea', wide: true,
   help: 'Optional. Renders in italic between the lede and the stats.',
@@ -115,7 +119,7 @@ export const ENTITIES: Entity[] = [
       { name: 'eyebrow', label: 'Eyebrow', kind: 'text' },
       { name: 'icon', label: 'Icon', kind: 'text', help: 'Icon name: bot, whatsapp, package, revenue, build or play.' },
       { name: 'tone', label: 'Tone', kind: 'color', help: 'Card accent colour.' },
-      SUMMARY, TAGLINE, STATS, POINTS, SORT, HIDDEN,
+      SUMMARY, SHORT, TAGLINE, STATS, POINTS, SORT, HIDDEN,
     ],
   },
   {

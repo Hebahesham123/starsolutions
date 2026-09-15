@@ -97,6 +97,8 @@ create table if not exists public.automations (
 alter table public.automations add column if not exists icon text;
 alter table public.automations add column if not exists tone text;
 alter table public.automations add column if not exists tagline text;
+-- one-line version of the summary, for listings that show entries side by side
+alter table public.automations add column if not exists short text;
 
 create table if not exists public.team (
   id           text primary key,

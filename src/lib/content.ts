@@ -23,13 +23,42 @@ function visible<T>(rows: T[]): T[] {
   return rows.filter((row) => !(row as { hidden?: boolean }).hidden);
 }
 
+/**
+ * Fills in fields the live table has no column for.
+ *
+ * The schema in supabase/ moves with the code; the database it describes moves
+ * when someone runs the migration. Between a deploy and that run, `select('*')`
+ * succeeds and simply returns rows without the new column — so the page renders
+ * against a row that is missing a field the component already reads, and the
+ * only signal is copy that silently stays old.
+ *
+ * The test is `key in row`, not `row[key] == null`, and the difference matters:
+ * PostgREST returns an existing-but-empty column as `null`, and omits the key
+ * entirely only when the column does not exist. So this fills exactly the gap
+ * the migration closes, and never overrides a field someone cleared in /admin.
+ * Once the column is there, every key is present and this does nothing.
+ */
+function fillMissingColumns<T>(rows: T[], fallback: T[]): T[] {
+  const slugOf = (row: T) => (row as { slug?: string }).slug;
+  // Testimonials have no slug — every row's key would be undefined, and the
+  // first seeded one would then be merged into all of them.
+  const bySlug = new Map(fallback.filter(slugOf).map((row) => [slugOf(row), row]));
+  return rows.map((row) => {
+    const slug = slugOf(row);
+    const seeded = slug ? bySlug.get(slug) : undefined;
+    if (!seeded) return row;
+    const gaps = Object.entries(seeded as object).filter(([key]) => !(key in (row as object)));
+    return gaps.length ? { ...row, ...Object.fromEntries(gaps) } : row;
+  });
+}
+
 async function fromTable<T>(table: string, fallback: T[]): Promise<T[]> {
   const db = getSupabase();
   if (!db) return visible(fallback);
   try {
     const { data, error } = await db.from(table).select('*').order('sort_order', { ascending: true });
     if (error || !data || data.length === 0) return visible(fallback);
-    return visible(data as T[]);
+    return visible(fillMissingColumns(data as T[], fallback));
   } catch {
     return visible(fallback);
   }
