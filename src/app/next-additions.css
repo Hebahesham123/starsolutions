@@ -3070,3 +3070,155 @@
 .web-dot svg{ width:44%; height:44%; }
 
 
+
+/* =========================================================
+   Proven results — the detail the reference has and this did not.
+
+   Same palette throughout: blue, violet, the two tints and the hairline.
+   Nothing here introduces a colour, because the note on this was to match the
+   arrangement and leave the colours alone. What it adds is the things that
+   were missing — a ribbon over the headline, a trace under the bars, a drawing
+   on each figure, and a frame around the plot — all of which the dark
+   reference gets for free from light on black and a white panel does not.
+   ========================================================= */
+
+/* ---------- the head, in its own panel ---------- */
+.stats-head-card{
+  padding:18px 18px 19px; border-radius:18px;
+  background:linear-gradient(160deg,#fff, #FBFCFF 60%, var(--lav-100));
+  border:1px solid var(--line);
+  box-shadow:0 18px 40px -34px rgba(11,18,32,.4);
+}
+@media (min-width:900px){ .stats-head-card{ padding:24px 26px 25px; border-radius:22px; } }
+.stats-head-card .section-head{ margin:0; }
+
+/* ---------- the ribbon over the headline ---------- */
+.rp-chart{ isolation:isolate; }
+.rp-ribbon{
+  position:absolute; top:0; right:0; z-index:0; pointer-events:none;
+  width:min(74%, 340px); height:clamp(74px, 15vw, 128px);
+  opacity:.5;
+}
+/* Everything in the panel sits over it. The ribbon is the only thing in here
+   with a z-index, so the rest only has to be positioned to win. */
+.rp-chart > figcaption, .rp-chart > .rp-plot{ position:relative; z-index:1; }
+
+/* ---------- the supporting line, with its arrow ---------- */
+.rp-note{ display:flex; align-items:flex-start; gap:7px; }
+.rp-note-icon{
+  flex:none; width:15px; height:15px; margin-top:2px; color:var(--brand);
+}
+
+/* ---------- the plot, framed ---------- */
+/* On black the plot separates itself; on white it needs an edge, or the bars
+   read as sitting directly on the headline's panel. */
+.rp-plot{
+  border-radius:16px;
+  background:linear-gradient(180deg, rgba(255,255,255,.7), var(--blue-100) 320%);
+  border:1px solid var(--line);
+  padding-top:16px; padding-left:10px; padding-right:10px;
+  /* The frame is only a frame if nothing crosses it. */
+  overflow:hidden;
+}
+@media (min-width:900px){ .rp-plot{ border-radius:20px; padding-top:20px; } }
+
+/* The rule lines stop at the frame now rather than running to the panel edge. */
+.rp-line{ left:12px; right:12px; }
+
+/* ---------- the trace the bars are two points on ---------- */
+.rp-trace{
+  /* An svg is a replaced element: with height:auto it keeps its viewBox ratio
+     and ignores `bottom`, so on a wide plot it grew to 0.6 of its own width —
+     taller than the frame — and the curve ran out of the bottom left corner.
+     Stated width and height make it fill the box the dots are placed against,
+     which is also what puts the two in the same coordinate system. */
+  position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none;
+  color:color-mix(in srgb, var(--brand) 34%, transparent);
+}
+.rp-trace-dot{
+  position:absolute; left:var(--x); top:var(--y); z-index:0; pointer-events:none;
+  width:5px; height:5px; margin:-2.5px 0 0 -2.5px; border-radius:50%;
+  background:#fff; border:1.5px solid color-mix(in srgb, var(--brand) 55%, transparent);
+}
+/* The columns are the measurement and stay over the gesture. */
+.rp-col{ z-index:1; }
+
+/* ---------- the drawing on each figure ---------- */
+.rt{ overflow:hidden; }
+.rt-art{
+  position:absolute; right:8px; bottom:auto; top:8px;
+  width:clamp(44px, 12.5vw, 70px); height:auto;
+  color:var(--brand); opacity:.3; pointer-events:none;
+  transition:opacity .35s var(--ease-out), transform .35s var(--ease-out);
+}
+@media (min-width:900px){ .rt-art{ right:12px; top:14px; width:74px; } }
+.rt:hover .rt-art, .rt.is-active .rt-art{ opacity:.48; transform:translateY(-2px); }
+.rt.is-active .rt-art{ color:var(--brand-deep); }
+
+/* The number has to stay legible over it, so the drawing keeps to the top
+   right and the text keeps its own column. */
+.rt-num, .rt-label, .rt-sub{ position:relative; }
+
+/* ---------- the tag on the one figure that carries one ---------- */
+.rt-tag{
+  position:absolute; right:10px; top:6px; z-index:2;
+  padding:2px 7px; border-radius:999px;
+  font-family:'JetBrains Mono',monospace; font-size:8.5px; letter-spacing:.08em;
+  color:var(--brand-deep);
+  background:var(--blue-100); border:1px solid color-mix(in srgb, var(--brand) 22%, transparent);
+}
+@media (min-width:900px){ .rt-tag{ right:14px; top:10px; font-size:9px; } }
+/* It sits where the drawing starts, so the drawing starts lower on that tile. */
+.rt[data-metric="adspend"] .rt-art{ top:24px; }
+@media (min-width:900px){ .rt[data-metric="adspend"] .rt-art{ top:30px; } }
+
+/* The rating row is a single line across the foot of the grid — no drawing,
+   as in the reference. */
+.rt:last-child .rt-art{ display:none; }
+
+@media (prefers-reduced-motion:reduce){
+  .rt-art{ transition:none; }
+}
+
+/* The winning number as a chip with a tail, at every width.
+   It was already a chip on phones and loose blue text everywhere else, which
+   is the one detail of the reference that only half the site had. The tail is
+   what makes it point at the bar rather than float above it. */
+.rp-col-after .rp-val{
+  position:relative; color:#fff; font-weight:600;
+  font-size:15px; padding:3.5px 11px; border-radius:999px; margin-bottom:13px;
+  background:linear-gradient(115deg,var(--brand),var(--accent));
+  box-shadow:0 12px 24px -12px rgba(59,130,246,.95);
+}
+.rp-col-after .rp-val::after{
+  content:''; position:absolute; left:50%; top:100%;
+  width:9px; height:9px; margin:-5px 0 0 -4.5px; border-radius:2px;
+  background:var(--accent); transform:rotate(45deg);
+}
+@media (max-width:639px){
+  .rp-col-after .rp-val{ font-size:11.5px; padding:2.5px 8px; margin-bottom:10px; }
+  .rp-col-after .rp-val::after{ width:7px; height:7px; margin:-4px 0 0 -3.5px; }
+}
+
+/* The head card is a block, not a banner.
+   Full width it is a bordered box with a heading in the left third and nothing
+   in the other two — the emptiness the reference does not have, because the
+   reference is a phone where the text fills it. Held to the text's own measure
+   it reads as deliberate at any width, and still fills the screen on a phone. */
+.stats-head-card{ max-width:760px; }
+
+/* Phones: the drawing keeps to the top corner, beside the icon chip.
+   The reference is a tall mock roughly a thousand pixels wide, where a figure
+   tile is about 170px; a real phone at 390 gives it 116, and at 320 it gives
+   92. At that size the drawing and the number are competing for the same
+   space, so the drawing shrinks to sit on the icon's row and leaves the number
+   and its label a clear column underneath.
+
+   The `save` tag wants that same corner and there is no room for both, so
+   below this it goes and the falling chart — which says the same thing and
+   says it about this tile specifically — stays. */
+@media (max-width:559px){
+  .rt-art{ width:clamp(30px, 9.5vw, 38px); top:8px; right:7px; }
+  .rt-tag{ display:none; }
+  .rt[data-metric="adspend"] .rt-art{ top:8px; }
+}

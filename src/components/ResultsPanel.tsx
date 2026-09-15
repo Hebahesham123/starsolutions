@@ -4,6 +4,7 @@ import { AnimatePresence, motion, useInView, useReducedMotion } from 'framer-mot
 import * as React from 'react';
 import { Icon } from './Icon';
 import { Counter } from './Counter';
+import { StatArt } from './ui/StatArt';
 import type { Chart, Figure } from '@/lib/types';
 
 /**
@@ -23,6 +24,26 @@ export function ResultsPanel({ charts, figures }: { charts: Record<string, Chart
   return (
     <div className="results-panel is-lit" id="resultsPanel" ref={ref}>
       <figure className="rp-chart">
+        {/* The sweep across the top corner. Purely decorative, and the one
+            place in this panel with any weight to it — the panel is otherwise
+            a white box, and the reference puts a ribbon here to stop the
+            headline floating on nothing. */}
+        <svg className="rp-ribbon" viewBox="0 0 320 120" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="rpRibbonA" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0%" stopColor="var(--accent)" stopOpacity="0" />
+              <stop offset="45%" stopColor="var(--accent)" stopOpacity=".5" />
+              <stop offset="100%" stopColor="var(--brand)" stopOpacity=".75" />
+            </linearGradient>
+            <linearGradient id="rpRibbonB" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0%" stopColor="var(--brand)" stopOpacity="0" />
+              <stop offset="60%" stopColor="var(--brand)" stopOpacity=".38" />
+              <stop offset="100%" stopColor="var(--accent)" stopOpacity=".5" />
+            </linearGradient>
+          </defs>
+          <path d="M0 104C86 104 132 52 196 26 244 6 286 0 320 0v22c-34 0-72 8-116 28-62 28-108 76-204 76Z" fill="url(#rpRibbonA)" />
+          <path d="M44 120C126 120 168 66 232 40 272 24 300 18 320 18" fill="none" stroke="url(#rpRibbonB)" strokeWidth="2.5" />
+        </svg>
         <figcaption>
           <AnimatePresence mode="wait">
             <motion.div
@@ -44,7 +65,10 @@ export function ResultsPanel({ charts, figures }: { charts: Record<string, Chart
                 />
                 <span className="rp-head-label">{chart.label}</span>
               </p>
-              <p className="rp-note">{chart.note}</p>
+              <p className="rp-note">
+                <Icon name="revenue" className="rp-note-icon" />
+                <span>{chart.note}</span>
+              </p>
             </motion.div>
           </AnimatePresence>
         </figcaption>
@@ -57,6 +81,21 @@ export function ResultsPanel({ charts, figures }: { charts: Record<string, Chart
           <span className="rp-line" style={{ ['--t' as string]: '12%' }} />
           <span className="rp-line" style={{ ['--t' as string]: '40%' }} />
           <span className="rp-line" style={{ ['--t' as string]: '68%' }} />
+
+          {/* A trace of the same movement the two bars describe, drawn across
+              the whole plot so the pair reads as two points on a climb rather
+              than as two unrelated columns. Stretched to the plot with
+              preserveAspectRatio="none": it is a gesture, not a measurement,
+              and the bars are the measurement. */}
+          <svg className="rp-trace" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <path d="M4 44C30 42 46 30 96 14" fill="none" stroke="currentColor" strokeWidth=".9" vectorEffect="non-scaling-stroke" />
+          </svg>
+          {/* On the curve, not near it: these are the same coordinates as the
+              path above, read off it and converted to percentages of the same
+              box. */}
+          <span className="rp-trace-dot" style={{ ['--x' as string]: '4%', ['--y' as string]: '73.3%' }} />
+          <span className="rp-trace-dot" style={{ ['--x' as string]: '48%', ['--y' as string]: '50%' }} />
+          <span className="rp-trace-dot" style={{ ['--x' as string]: '96%', ['--y' as string]: '23.3%' }} />
 
           {chart.bars.map((bar, i) => {
             const solo = chart.bars.length === 1;
@@ -99,6 +138,8 @@ export function ResultsPanel({ charts, figures }: { charts: Record<string, Chart
               }}
             >
               <span className="rt-icon"><Icon name={f.icon} /></span>
+              <StatArt name={f.metric} />
+              {f.metric === 'adspend' && <span className="rt-tag">save</span>}
               <p className="rt-num">
                 <Counter value={f.count} decimals={f.decimals ?? 0} prefix={f.prefix ?? ''} suffix={f.suffix ?? ''} />
               </p>

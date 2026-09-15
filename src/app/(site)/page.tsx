@@ -25,7 +25,12 @@ export default async function HomePage() {
       <section id="results" className="section section-soft stats-section" aria-labelledby="statsTitle">
         <div className="starfield starfield-dim" aria-hidden="true" />
         <div className="mx-auto max-w-shell px-5 lg:px-8">
-          <SectionHead id="statsTitle" eyebrow="Proven results" title="Numbers that speak for themselves" sub="Real client data." />
+          {/* The reference frames the heading rather than letting it sit on the
+              page, which on a dark ground is how it separates from the panel
+              below. Scoped to this section — nothing else on the site does it. */}
+          <div className="stats-head-card">
+            <SectionHead id="statsTitle" eyebrow="Proven results" title="Numbers that speak for themselves" sub="Real client data." />
+          </div>
           <ResultsPanel charts={site.charts} figures={site.figures} />
         </div>
       </section>
