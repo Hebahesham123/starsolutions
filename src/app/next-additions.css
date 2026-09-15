@@ -2669,3 +2669,120 @@
 /* "Your automations don't clock out" was breaking after "clock", leaving "out"
    alone on a line under a centred heading. */
 .sleep-head h2, .sleep-head h3{ text-wrap:balance; }
+
+/* =========================================================
+   The dial, closer to the reference — in this site's colours
+   ---------------------------------------------------------
+   What the reference had that the first build did not: a colour per event,
+   rays converging on the agent, a centre with some weight to it, and the
+   totals as a panel with a mark against each rather than four numbers in a
+   row. All of that, none of the neon.
+
+   The one thing still deliberately different is the shape of the nodes. The
+   reference puts the text inside the circles and every caption is clipped by
+   its own edge — "TikTok post published / AI caption, peak time." runs off the
+   side of its node. Rounded cards hold the same three lines and can shrink to
+   a phone; circles that size would fit about eight characters a line.
+   ========================================================= */
+
+/* Each event carries its own tone now, on the mark and as a hairline down the
+   leading edge — enough to tell them apart at a glance, not enough to turn the
+   panel into a paintbox. */
+.dial-item{
+  border-left:2px solid color-mix(in srgb, var(--tone, var(--brand)) 55%, transparent);
+}
+.dial-icon{
+  color:#fff;
+  background:linear-gradient(150deg, var(--tone, var(--brand)), color-mix(in srgb, var(--tone, var(--brand)) 62%, var(--accent)));
+  border-color:color-mix(in srgb, var(--tone, var(--brand)) 30%, #fff);
+  box-shadow:0 6px 14px -8px color-mix(in srgb, var(--tone, var(--brand)) 90%, transparent);
+}
+.dial-item:hover{
+  border-left-color:var(--tone, var(--brand));
+}
+
+/* ---------- the rays ----------
+   Hidden on a phone. There, the cards are so large next to the dial that the
+   clear space between the agent and the nearest card edge is about 18px — a
+   ray drawn across it is a smudge, not a connection. From 640px there is 60px
+   or more of gap and it reads. */
+.dial-rays{ display:none; position:absolute; inset:0; pointer-events:none; }
+.dial-ray{
+  position:absolute; left:50%; top:50%;
+  width:var(--reach, 19%); height:2px;
+  transform-origin:0 50%;
+  /* -90deg puts 0 at the top, matching where the first event sits. */
+  transform:rotate(calc(var(--deg) - 90deg));
+  /* Starts well out from the middle. Anchored at the centre the ray is drawn
+     straight through "AI agent" and the line under it — the core sits on top
+     of the ray, but the ray still reads as a scratch across the label. The
+     first 58% is transparent, so the line only exists in the clear space
+     between the core and the cards. */
+  background:linear-gradient(90deg,
+    transparent 0 58%,
+    color-mix(in srgb, var(--tone) 52%, transparent) 66%,
+    color-mix(in srgb, var(--tone) 12%, transparent) 92%,
+    transparent);
+  border-radius:2px;
+}
+/* The arrowhead sits at the agent's end, because that is the direction the
+   work travels: the night's events report in to it. */
+.dial-ray::before{
+  content:""; position:absolute; left:63%; top:50%;
+  width:6px; height:6px; border-radius:1px;
+  border-left:2px solid color-mix(in srgb, var(--tone) 70%, transparent);
+  border-bottom:2px solid color-mix(in srgb, var(--tone) 70%, transparent);
+  transform:translateY(-50%) rotate(45deg);
+}
+
+/* ---------- a centre with some weight ---------- */
+.dial-core-sub{
+  font-family:'JetBrains Mono',monospace; font-size:7.6px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--muted); white-space:nowrap;
+}
+
+/* ---------- the totals, as a panel ---------- */
+.sleep-stats{
+  border-top:0; padding:12px 10px; margin-top:18px;
+  border:1px solid var(--line); border-radius:var(--r-lg);
+  background:rgba(255,255,255,.62);
+}
+.sleep-stats > div{
+  display:grid; grid-template-columns:auto minmax(0,1fr); gap:9px; align-items:center;
+}
+.stat-mark{
+  display:grid; place-items:center; width:26px; height:26px; border-radius:9px;
+  color:var(--tone, var(--brand));
+  background:color-mix(in srgb, var(--tone, var(--brand)) 12%, #fff);
+  border:1px solid color-mix(in srgb, var(--tone, var(--brand)) 22%, transparent);
+}
+.stat-mark svg{ width:14px; height:14px; }
+.sleep-stats dt{ font-size:10.5px; line-height:1.25; }
+.sleep-stats dd{ font-size:19px; }
+
+@media (min-width:640px){
+  /* Out to the inner edge of a card: the ring radius less half a card, which
+     works out at about 19% of the dial at every size above this. */
+  .dial-rays{ display:block; --reach:19%; }
+  .dial-core-sub{ font-size:8.4px; }
+  .sleep-stats dt{ font-size:11.5px; }
+  .sleep-stats dd{ font-size:22px; }
+  .stat-mark{ width:30px; height:30px; border-radius:10px; }
+  .stat-mark svg{ width:16px; height:16px; }
+}
+@media (min-width:900px){
+  .dial-item{ border-left-width:3px; }
+  .dial-core-sub{ font-size:9px; }
+  .sleep-stats{ padding:16px 18px; }
+}
+
+/* Two across on a phone, not four. Four was right while a cell held a label and
+   a number; with a mark beside them a 71px cell leaves about 36px for the words
+   and "Messages answered" runs straight out of it. Two columns give 149px, the
+   mark keeps its place, and the labels go back to a readable size instead of
+   the 8.6px they had been squeezed to. */
+@media (max-width:639px){
+  .sleep-stats{ grid-template-columns:repeat(2,1fr); gap:9px 10px; }
+  .sleep-stats dt{ font-size:10px; line-height:1.25; }
+  .sleep-stats dd{ font-size:17px; margin-top:1px; }
+}

@@ -128,6 +128,22 @@ export function Solutions({ solutions }: { solutions: Entry[] }) {
  * whenever one changes. Anything unrecognised falls through to the agent's own
  * mark, which is true of every line here — the agent did all of them.
  */
+/* One colour per event, in the order the reference uses them: the order is
+   amber, the question violet, the recovered cart pink, the ad spend blue, the
+   post green. Taken from the tones this site already uses rather than the
+   reference's neon, which would have been a different brand wearing the same
+   layout. */
+const NIGHT_TONES = ['#F59E0B', '#7C6CFF', '#F472B6', '#3B82F6', '#34D399'];
+
+/** The totals along the bottom, matched to the event they came from. */
+function statIcon(label: string) {
+  const t = label.toLowerCase();
+  if (/message|repl|answer|chat/.test(t)) return 'whatsapp';
+  if (/ad|spend|budget|roas/.test(t)) return 'chart';
+  if (/post|publish|social/.test(t)) return 'play';
+  return 'package';
+}
+
 function nightIcon(title: string) {
   const t = title.toLowerCase();
   /* Conversation before commerce, deliberately. "Customer asked about an
@@ -234,10 +250,28 @@ export function Process({ steps, log, stats, bare = false }: {
             <span className="dial-orbit" aria-hidden="true" />
             <span className="dial-orbit dial-orbit-2" aria-hidden="true" />
 
+            {/* The rays the reference draws converging on the agent. One per
+                event, anchored at the centre and turned to its angle, so they
+                point at the cards without needing to know where the cards
+                ended up. */}
+            <div className="dial-rays" aria-hidden="true">
+              {log.map((l, i) => (
+                <span
+                  key={l.time}
+                  className="dial-ray"
+                  style={{
+                    ['--deg' as string]: `${(i / log.length) * 360}deg`,
+                    ['--tone' as string]: NIGHT_TONES[i % NIGHT_TONES.length],
+                  }}
+                />
+              ))}
+            </div>
+
             <div className="dial-core">
               <span className="dial-pulse" aria-hidden="true" />
               <span className="dial-orb" aria-hidden="true"><Icon name="bot" /></span>
               <span className="dial-core-label">AI agent</span>
+              <span className="dial-core-sub">Think · Process · Act</span>
             </div>
 
             <ol className="dial-items">
@@ -258,6 +292,7 @@ export function Process({ steps, log, stats, bare = false }: {
                     style={{
                       ['--sx' as string]: Math.sin(a).toFixed(4),
                       ['--cy' as string]: (-Math.cos(a)).toFixed(4),
+                      ['--tone' as string]: NIGHT_TONES[i % NIGHT_TONES.length],
                     }}
                   >
                     <span className="dial-icon"><Icon name={nightIcon(l.title)} /></span>
@@ -271,8 +306,19 @@ export function Process({ steps, log, stats, bare = false }: {
               })}
             </ol>
           </div>
+          {/* The totals as a panel with a mark against each, the way the
+              reference closes: four numbers in a row read as a footnote, four
+              with their own icon read as a tally of the night above them. */}
           <dl className="sleep-stats">
-            {stats.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}
+            {stats.map(([k, v], i) => (
+              <div key={k} style={{ ['--tone' as string]: NIGHT_TONES[i % NIGHT_TONES.length] }}>
+                <span className="stat-mark" aria-hidden="true"><Icon name={statIcon(k)} /></span>
+                <div>
+                  <dt>{k}</dt>
+                  <dd>{v}</dd>
+                </div>
+              </div>
+            ))}
           </dl>
         </Reveal>
       </div>
