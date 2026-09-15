@@ -20,3 +20,4 @@ p3*.png
 .vercel
 .env*
 r*.png
+gs-*.png

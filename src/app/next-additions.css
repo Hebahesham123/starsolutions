@@ -1994,3 +1994,166 @@
     padding-inline: 2px;
   }
 }
+
+/* =========================================================
+   Goals — one card, scrolled through
+   ---------------------------------------------------------
+   The 2x2 grid asked the reader to compare four small tiles. This pins one
+   card and swaps the picture and the copy as each goal comes up, so each gets
+   the whole card. --n is the number of goals, set on the element, so the
+   travel scales if a goal is added or hidden in the admin.
+   ========================================================= */
+.gs-stage{
+  position: relative;
+  /* One viewport to hold the card, plus a band of travel per extra goal. */
+  height: calc(100vh + (var(--n) - 1) * var(--gs-step, 62vh));
+}
+.gs-sticky{
+  position: sticky; top: 0;
+  height: 100vh;
+  display: grid; align-items: center;
+}
+
+.gs-card{
+  display: grid; gap: 0;
+  border-radius: var(--r-xl);
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-lg), var(--hi);
+  overflow: hidden;
+  /* A tint of the active goal, so the whole card answers to it. */
+  outline: 1px solid color-mix(in srgb, var(--tone, var(--brand)) 22%, transparent);
+  outline-offset: -1px;
+  transition: outline-color .5s var(--ease);
+}
+@media (min-width:900px){
+  .gs-card{ grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
+}
+
+/* ---------- the picture ---------- */
+.gs-visual{
+  position: relative;
+  min-height: 210px;
+  background: var(--soft);
+}
+@media (min-width:900px){ .gs-visual{ min-height: 420px; } }
+
+/* Every goal is mounted and stacked; only the active one is painted, so the
+   swap is a cross-fade with nothing reflowing underneath it. */
+.gs-shot{
+  position: absolute; inset: 0;
+  opacity: 0; visibility: hidden;
+  transition: opacity .55s var(--ease), visibility .55s;
+}
+.gs-shot.is-on{ opacity: 1; visibility: visible; }
+
+.gs-figure{
+  position: relative; height: 100%; margin: 0;
+  display: grid; place-items: center;
+  background:
+    radial-gradient(70% 60% at 50% 34%, color-mix(in srgb, var(--tone) 18%, transparent), transparent 72%),
+    linear-gradient(160deg, #FDFEFF, var(--soft));
+}
+.gs-figure img{ width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* The stand-in until a real picture is supplied: the goal's own motif, large. */
+.gs-motif{ position: relative; display: grid; place-items: center; width: 100%; height: 100%; }
+.gs-motif .goal-motif{
+  width: min(74%, 320px); height: auto;
+  color: var(--tone, var(--brand)); opacity: .2;
+}
+.gs-motif-icon{
+  position: absolute; display: grid; place-items: center;
+  width: 62px; height: 62px; border-radius: 20px;
+  color: #fff;
+  background: linear-gradient(150deg, var(--tone), color-mix(in srgb, var(--tone) 55%, var(--accent)));
+  box-shadow: 0 14px 30px -14px color-mix(in srgb, var(--tone) 90%, transparent);
+}
+.gs-motif-icon svg{ width: 28px; height: 28px; }
+
+.gs-stat{
+  position: absolute; left: 16px; bottom: 14px;
+  display: grid; gap: 1px;
+}
+.gs-stat strong{
+  font-family: 'General Sans', sans-serif; font-size: clamp(26px, 5vw, 38px);
+  font-weight: 600; letter-spacing: -.04em; color: var(--tone, var(--ink));
+  line-height: 1;
+}
+.gs-stat span{ font-size: 12.5px; color: var(--muted); }
+@media (min-width:900px){ .gs-stat{ left: 24px; bottom: 22px; } }
+
+/* ---------- the copy ---------- */
+.gs-copy{
+  position: relative;
+  padding: 18px 16px 16px;
+  /* Two rows: the stacked goal texts share the first, the dots own the second.
+     Putting the dots in the text's cell and pushing them down with a transform
+     dropped them through the card's bottom edge, where overflow:hidden ate
+     them. */
+  display: grid; grid-template-rows: 1fr auto; align-content: center;
+}
+@media (min-width:900px){ .gs-copy{ padding: 34px 34px 30px; } }
+
+/* Stacked like the pictures: the tallest goal sets the height once, and the
+   card never jumps as the text changes. */
+.gs-text{
+  grid-area: 1 / 1 / 2 / 2;
+  opacity: 0; visibility: hidden; transform: translateY(8px);
+  transition: opacity .45s var(--ease), transform .45s var(--ease), visibility .45s;
+}
+.gs-text.is-on{ opacity: 1; visibility: visible; transform: none; }
+
+.gs-eyebrow{
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--tone, var(--brand-deep));
+}
+.gs-dot{
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--tone, var(--brand));
+}
+.gs-text h3{
+  margin-top: 8px;
+  font-size: clamp(22px, 5.4vw, 34px); font-weight: 600;
+  letter-spacing: -.035em; line-height: 1.08; color: var(--ink);
+}
+.gs-sub{
+  margin-top: 9px; font-size: 14px; line-height: 1.58; color: var(--muted);
+  max-width: 46ch;
+}
+@media (min-width:900px){ .gs-sub{ font-size: 15px; } }
+
+.gs-points{ display: grid; gap: 7px; margin-top: 13px; }
+.gs-points li{
+  display: flex; gap: 8px; align-items: flex-start;
+  font-size: 13.2px; line-height: 1.5; color: var(--ink-2);
+}
+.gs-points svg{ width: 15px; height: 15px; margin-top: 3px; flex: none; color: var(--tone, var(--brand)); }
+
+.gs-cta{ margin-top: 16px; justify-self: start; }
+
+/* ---------- progress ---------- */
+.gs-dots{
+  grid-row: 2; justify-self: start;
+  display: flex; gap: 7px; margin-top: 18px;
+}
+.gs-dots button{
+  display: block; width: 22px; height: 4px; border-radius: 999px;
+  background: var(--line); border: 0; padding: 0; cursor: pointer;
+  transition: background .3s var(--ease), width .3s var(--ease);
+}
+.gs-dots button:hover{ background: #C7D2E4; }
+.gs-dots button.is-on{ width: 34px; background: var(--tone, var(--brand)); }
+
+/* ---------- reduced motion: no pinning, no swapping ---------- */
+.gs-plain{ display: grid; gap: 14px; }
+.gs-plain-card{
+  display: grid; border-radius: var(--r-xl); overflow: hidden;
+  background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+}
+@media (min-width:900px){
+  .gs-plain-card{ grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
+.gs-plain-card .gs-figure{ min-height: 190px; }

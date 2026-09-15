@@ -11,6 +11,12 @@ export interface Entry {
   points?: string[];
   video?: { src?: string; poster?: string; youtube?: string } | null;
   /**
+   * Optional picture for the entry, served from /public. The goals showcase
+   * shows it in place of the drawn motif, so supplying one is a single field
+   * and no code change.
+   */
+  image?: string;
+  /**
    * Unpublished. The entry stays in the data but is filtered out of every listing
    * and of `generateStaticParams`, so its detail route is not built either.
    * Flip it back to publish; nothing else needs touching.

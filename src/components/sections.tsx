@@ -8,6 +8,7 @@ import { ProjectCard } from './ProjectCard';
 import { GoalMotif } from './ui/GoalMotif';
 import { SystemCard } from './ui/SystemCard';
 import type { Entry, Project, Testimonial } from '@/lib/types';
+import { GoalsShowcase } from './GoalsShowcase';
 
 /* Every automation carries its own icon and tone, in site.json and — since the
    schema gained the columns — in Supabase too. These remain as a fallback for a
@@ -44,21 +45,7 @@ export function Goals({ goals }: { goals: Entry[] }) {
     <section className="section section-soft" aria-labelledby="goalsTitle">
       <div className="mx-auto max-w-shell px-5 lg:px-8">
         <SectionHead id="goalsTitle" eyebrow="Choose your business goal" title="What do you want to achieve?" sub="Pick one. We build it." />
-        <ul className="goal-grid">
-          {goals.map((g, i) => (
-            <Reveal as="li" key={g.id} delay={i * 0.06}>
-              <Link href={`/goals/${g.slug}`} className="goal-card block" style={{ ['--tone' as string]: g.tone }}>
-                {/* First child so it paints under everything after it — see
-                    the stacking note in the CSS. */}
-                <GoalMotif icon={g.icon} />
-                <span className="goal-icon" style={{ ['--g1' as string]: g.tone }}><Icon name={g.icon ?? 'star'} /></span>
-                <h3>{g.title}</h3>
-                <p className="goal-metric"><span>{g.metric}</span> {g.metricLabel}</p>
-                <span className="link-arrow">Explore <Icon name="arrow" /></span>
-              </Link>
-            </Reveal>
-          ))}
-        </ul>
+        <GoalsShowcase goals={goals} />
       </div>
     </section>
   );
