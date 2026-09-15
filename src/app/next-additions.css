@@ -3083,14 +3083,14 @@
    ========================================================= */
 
 /* ---------- the head, in its own panel ---------- */
-.stats-head-card{
+.section-head-card{
   padding:18px 18px 19px; border-radius:18px;
   background:linear-gradient(160deg,#fff, #FBFCFF 60%, var(--lav-100));
   border:1px solid var(--line);
   box-shadow:0 18px 40px -34px rgba(11,18,32,.4);
 }
-@media (min-width:900px){ .stats-head-card{ padding:24px 26px 25px; border-radius:22px; } }
-.stats-head-card .section-head{ margin:0; }
+@media (min-width:900px){ .section-head-card{ padding:24px 26px 25px; border-radius:22px; } }
+.section-head-card .section-head{ margin:0; }
 
 /* ---------- the ribbon over the headline ---------- */
 .rp-chart{ isolation:isolate; }
@@ -3205,7 +3205,7 @@
    in the other two — the emptiness the reference does not have, because the
    reference is a phone where the text fills it. Held to the text's own measure
    it reads as deliberate at any width, and still fills the screen on a phone. */
-.stats-head-card{ max-width:760px; }
+.section-head-card{ max-width:760px; }
 
 /* Phones: the drawing keeps to the top corner, beside the icon chip.
    The reference is a tall mock roughly a thousand pixels wide, where a figure
@@ -3222,3 +3222,59 @@
   .rt-tag{ display:none; }
   .rt[data-metric="adspend"] .rt-art{ top:8px; }
 }
+
+/* =========================================================
+   Goals: the rail in a frame.
+
+   Every other rail on the site runs edge to edge — Rail sets --rail-pad to
+   half the leftover viewport above 1024 so the cards line up with the shell
+   while the scroll area itself reaches the screen edge. A frame cannot do
+   that: it has two edges, and off-screen is not where they go. So this rail,
+   and only this one, sits inside the shell, and --rail-pad becomes the frame's
+   own inset instead of a full-bleed offset. The scoped selector beats the
+   1024px rule on specificity, so the media query does not need unpicking.
+   ========================================================= */
+.goal-stage{
+  /* The frame's inset, named once: the rail uses it as its scroll padding and
+     the card's width is derived from it, so the two cannot disagree. */
+  --gp:clamp(9px, 2vw, 14px);
+  display:grid; grid-template-rows:auto auto;
+}
+
+.goal-stage .rail{
+  --rail-pad:var(--gp);
+  grid-row:1;
+  padding-block:var(--gp);
+  border-radius:clamp(20px, 4vw, 30px);
+  background:linear-gradient(180deg,#FBFCFF,#F2F6FD);
+  border:1px solid var(--line);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9), 0 22px 48px -40px rgba(11,18,32,.55);
+}
+
+/* One card fills the frame on a phone, as in the reference. The frame's inner
+   width is the viewport less the page gutter and the frame's own inset, and
+   the card is that — so a swipe moves by exactly one. */
+/* The viewport, less the page gutter (20px a side) and the frame's inset.
+   Anything narrower leaves a slice of the next card showing inside the frame,
+   which is the one thing a frame is there to prevent. */
+.goal-stage .goal-banner{
+  width:calc(100vw - 40px - 2 * var(--gp)); max-width:none;
+}
+@media (min-width:640px){ .goal-stage .goal-banner{ width:340px; } }
+@media (min-width:1024px){ .goal-stage .goal-banner{ width:300px; } }
+
+/* Arrows at the ends, dots between them.
+   Rail renders nav, rail, dots as three siblings in that order, so the two
+   cannot be interleaved by source. Putting both in the same grid cell does it
+   instead: the nav spans the row with its two buttons pushed apart, the dots
+   sit in the middle of it, and the middle of the nav is empty. */
+.goal-stage .slider-nav,
+.goal-stage .rail-dots{ grid-row:2; grid-column:1; margin-top:clamp(10px, 2.4vw, 16px); }
+.goal-stage .slider-nav{
+  display:flex; justify-content:space-between; width:100%; padding-inline:0;
+}
+/* Dots at every width here, against the site-wide rule that drops them above
+   1024 because the arrows take over. In this row the arrows are pinned to the
+   two ends, so dropping the dots leaves a bar with a control at each end and a
+   long gap between — and the dots are what that gap is for. */
+.goal-stage .rail-dots{ display:flex; justify-self:center; align-self:center; }

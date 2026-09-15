@@ -47,8 +47,9 @@ export function Goals({ goals }: { goals: Entry[] }) {
       <div className="mx-auto max-w-shell px-5 lg:px-8">
         <SectionHead id="goalsTitle" eyebrow="Choose your business goal" title="What do you want to achieve?" sub="Pick one. We build it." />
       </div>
-      {/* Outside the shell, like the other rails: Rail carries its own
-          full-bleed padding, and nesting it inside applied that twice. */}
+      {/* Inside the shell, unlike the other rails. GoalsShowcase draws a frame
+          around this one, and a frame has to end somewhere — full bleed would
+          put its left and right edges off the screen. */}
       <GoalsShowcase goals={goals} />
     </section>
   );

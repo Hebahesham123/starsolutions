@@ -55,7 +55,8 @@ function goalImage(goal: Entry): string | null {
 
 export function GoalsShowcase({ goals }: { goals: Entry[] }) {
   return (
-    <Rail id="goals" label="Business goals" className="goal-rail">
+    <div className="goal-stage mx-auto max-w-shell px-5 lg:px-8">
+      <Rail id="goals" label="Business goals" className="goal-rail">
       {goals.map((g) => (
         <Link
           key={g.id}
@@ -88,6 +89,7 @@ export function GoalsShowcase({ goals }: { goals: Entry[] }) {
           </span>
         </Link>
       ))}
-    </Rail>
+      </Rail>
+    </div>
   );
 }
