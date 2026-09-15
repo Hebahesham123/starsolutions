@@ -123,11 +123,11 @@ export function Solutions({ solutions }: { solutions: Entry[] }) {
 /* ---------------- Process ---------------- */
 /* Deterministic so the markup matches on the server and in the browser; a
    random field would differ between the two and React would replace it. */
-const PROCESS_STARS = Array.from({ length: 26 }, (_, i) => ({
+const PROCESS_STARS = Array.from({ length: 52 }, (_, i) => ({
   left: `${((i * 41.7) % 100).toFixed(2)}%`,
   top: `${((i * 67.3) % 100).toFixed(2)}%`,
-  size: `${(1 + ((i * 17) % 18) / 10).toFixed(2)}px`,
-  o: (0.16 + ((i * 11) % 34) / 100).toFixed(2),
+  size: `${(1 + ((i * 17) % 26) / 10).toFixed(2)}px`,
+  o: (0.3 + ((i * 11) % 60) / 100).toFixed(2),
   tw: `${(4 + ((i * 7) % 40) / 10).toFixed(1)}s`,
   delay: `-${((i * 13) % 55) / 10}s`,
 }));
@@ -148,7 +148,31 @@ export function Process({ steps, log, stats, bare = false }: {
     <section id="how" className="section process-section" aria-labelledby={bare ? undefined : 'howTitle'}>
       {/* Same starfield the results and page heads use, at its dim setting —
           the section is a pipeline diagram now, and it wants depth behind it. */}
-      <div className="starfield starfield-dim" aria-hidden="true">
+      {/* Orbits sweeping behind the whole scene. preserveAspectRatio is none
+          so they stretch to whatever width the section takes rather than
+          letterboxing, which is fine for decoration and keeps one SVG. */}
+      <svg className="orbit-field" viewBox="0 0 1200 460" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="orbA" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stopColor="#3B82F6" stopOpacity="0" />
+            <stop offset=".45" stopColor="#3B82F6" />
+            <stop offset="1" stopColor="#7C6CFF" stopOpacity="0" />
+          </linearGradient>
+          <linearGradient id="orbB" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stopColor="#7C6CFF" stopOpacity="0" />
+            <stop offset=".5" stopColor="#34D399" />
+            <stop offset="1" stopColor="#34D399" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        <g className="orbit-base">
+          <ellipse cx="600" cy="230" rx="540" ry="150" />
+          <ellipse cx="600" cy="230" rx="400" ry="215" />
+        </g>
+        <path className="orbit-arc arc-a" d="M 60 300 C 280 120 640 96 1140 190" />
+        <path className="orbit-arc arc-b" d="M 70 200 C 340 380 820 400 1150 260" />
+      </svg>
+
+      <div className="starfield" aria-hidden="true">
         {PROCESS_STARS.map((st, i) => (
           <span
             key={i}
