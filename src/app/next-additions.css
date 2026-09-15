@@ -2455,3 +2455,38 @@
 @media (prefers-reduced-motion:reduce){
   .po-orb-ring, .po-spark{ animation: none; }
 }
+
+/* =========================================================
+   The process scene, on a phone as well
+   ---------------------------------------------------------
+   The steps were already three across at every width — the whole composition
+   scales off --orb, which was the right call. What did not come down was the
+   scene around them: the rings, the sparkles and the floor glow were all
+   display:none below 900px, and the stagger that arranges the three like a
+   path was a desktop-only margin. What a phone got was three small cards in a
+   row: a different picture, not a smaller one.
+
+   Nothing new is drawn here. The same rings, the same sparks, the same floor,
+   the same stagger — in the proportions they already had.
+   ========================================================= */
+@media (max-width:899px){
+  /* The rings are drawn into whatever box .po gives them, so the box has to be
+     the shape of the thing they are meant to wrap. A fixed min-height was the
+     first try and it was wrong in the other direction: the scene stood 328px
+     tall with the steps in the top 280 of it, and the rings arced through empty
+     space underneath. Sized to its content, with just enough below for the
+     floor glow to sit under the cards rather than beyond them. */
+  .po{ margin-top:14px; padding-bottom:30px; }
+
+  .po-rings{ display:block; }
+  .po-spark{ display:block; opacity:.7; }
+  .po-floor{ display:block; width:92%; height:58px; bottom:-8px; }
+
+  /* The stagger, in the proportions the desktop already uses: 78px and 34px
+     against a 132px orb are .59 and .26 of it, so the shape holds at any orb
+     size rather than needing a second set of numbers. */
+  .po-steps{ align-items:start; }
+  .po-step{ grid-template-rows:auto auto; }
+  .po-step:nth-child(2){ margin-top:calc(var(--orb) * .59); }
+  .po-step:nth-child(3){ margin-top:calc(var(--orb) * .26); }
+}
