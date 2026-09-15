@@ -121,6 +121,17 @@ export function Solutions({ solutions }: { solutions: Entry[] }) {
 }
 
 /* ---------------- Process ---------------- */
+/* Deterministic so the markup matches on the server and in the browser; a
+   random field would differ between the two and React would replace it. */
+const PROCESS_STARS = Array.from({ length: 26 }, (_, i) => ({
+  left: `${((i * 41.7) % 100).toFixed(2)}%`,
+  top: `${((i * 67.3) % 100).toFixed(2)}%`,
+  size: `${(1 + ((i * 17) % 18) / 10).toFixed(2)}px`,
+  o: (0.16 + ((i * 11) % 34) / 100).toFixed(2),
+  tw: `${(4 + ((i * 7) % 40) / 10).toFixed(1)}s`,
+  delay: `-${((i * 13) % 55) / 10}s`,
+}));
+
 export function Process({ steps, log, stats, bare = false }: {
   steps: { num: string; icon: string; title: string; text: string }[];
   log: { time: string; title: string; text: string }[];
@@ -134,7 +145,21 @@ export function Process({ steps, log, stats, bare = false }: {
   bare?: boolean;
 }) {
   return (
-    <section id="how" className="section" aria-labelledby={bare ? undefined : 'howTitle'}>
+    <section id="how" className="section process-section" aria-labelledby={bare ? undefined : 'howTitle'}>
+      {/* Same starfield the results and page heads use, at its dim setting —
+          the section is a pipeline diagram now, and it wants depth behind it. */}
+      <div className="starfield starfield-dim" aria-hidden="true">
+        {PROCESS_STARS.map((st, i) => (
+          <span
+            key={i}
+            className="star"
+            style={{
+              left: st.left, top: st.top, width: st.size, height: st.size,
+              ['--o' as string]: st.o, ['--tw' as string]: st.tw, animationDelay: st.delay,
+            }}
+          />
+        ))}
+      </div>
       <div className="mx-auto max-w-shell px-5 lg:px-8">
         {!bare && (
           <SectionHead id="howTitle" eyebrow="Simple process" title="Three steps to automated growth" sub="Most clients are live in under 14 days." />
@@ -153,8 +178,13 @@ export function Process({ steps, log, stats, bare = false }: {
                  identical pale-blue chips saying nothing about order. */
               style={{ ['--tone' as string]: STEP_TONES[i % STEP_TONES.length] }}
             >
-              <p className="step-num">{s.num}</p>
-              <span className="step-icon"><Icon name={s.icon} /></span>
+              {/* The wire on to the next node. Last step has none — the
+                  pipeline ends there. */}
+              {i < steps.length - 1 && <span className="step-wire" aria-hidden="true" />}
+              <span className="step-node">
+                <span className="step-orb"><Icon name={s.icon} /></span>
+                <span className="step-num">{s.num}</span>
+              </span>
               {bare ? <h2>{s.title}</h2> : <h3>{s.title}</h3>}
               <p>{s.text}</p>
             </Reveal>
