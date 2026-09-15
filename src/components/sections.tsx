@@ -45,8 +45,10 @@ export function Goals({ goals }: { goals: Entry[] }) {
     <section className="section section-soft" aria-labelledby="goalsTitle">
       <div className="mx-auto max-w-shell px-5 lg:px-8">
         <SectionHead id="goalsTitle" eyebrow="Choose your business goal" title="What do you want to achieve?" sub="Pick one. We build it." />
-        <GoalsShowcase goals={goals} />
       </div>
+      {/* Outside the shell, like the other rails: Rail carries its own
+          full-bleed padding, and nesting it inside applied that twice. */}
+      <GoalsShowcase goals={goals} />
     </section>
   );
 }
