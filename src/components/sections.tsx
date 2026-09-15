@@ -55,7 +55,12 @@ export function Goals({ goals }: { goals: Entry[] }) {
 
 /* ---------------- Systems ---------------- */
 /**
- * Custom systems and dashboards.
+ * The systems, led by the promise rather than the category.
+ *
+ * "Custom systems and dashboards" described the cards; it did not say why
+ * anyone should care. The claim underneath them — that the client keeps the
+ * software outright instead of renting it — is the thing that separates this
+ * from every SaaS the reader already pays for, so it leads.
  *
  * Promoted out of the Work section, where it was a `group-label` and a row of
  * plain cards between the portfolio and the automations, and given the slot the
@@ -69,9 +74,9 @@ export function Systems({ systems }: { systems: Entry[] }) {
       <div className="mx-auto max-w-shell px-5 lg:px-8">
         <SectionHead
           id="sysTitle"
-          eyebrow="Built for you"
-          title="Custom systems and dashboards"
-          sub="Software of your own, not another subscription."
+          eyebrow="Our promise"
+          title="You own everything we build"
+          sub="Custom systems and dashboards, handed over in full — source, data and all. No monthly rent, no lock-in."
         />
         <ul className="system-list">
           {systems.map((s, i) => (
