@@ -224,8 +224,7 @@
         "We build upsell and recovery flows around your catalog",
         "You keep the system whether or not you continue with us"
       ],
-      "video": {},
-      "image": "/goals/increase-revenue.jpg"
+      "video": {}
     },
     {
       "id": "goal-ops",
@@ -257,8 +256,7 @@
         "Automations plug into the tools you already use",
         "Everything is monitored, with alerts when something needs a human"
       ],
-      "video": {},
-      "image": "/goals/automate-operations.jpg"
+      "video": {}
     },
     {
       "id": "goal-support",
@@ -290,8 +288,7 @@
         "Escalates anything sensitive to your team",
         "Learns from every conversation your team resolves"
       ],
-      "video": {},
-      "image": "/goals/improve-customer-support.jpg"
+      "video": {}
     },
     {
       "id": "goal-decisions",
@@ -323,8 +320,7 @@
         "Channel level ROAS across Meta, Google and TikTok",
         "Weekly summary delivered to WhatsApp or email"
       ],
-      "video": {},
-      "image": "/goals/make-better-decisions.jpg"
+      "video": {}
     }
   ],
   "caseStudies": [

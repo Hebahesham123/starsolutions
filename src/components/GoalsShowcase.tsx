@@ -24,8 +24,34 @@ import type { Entry } from '@/lib/types';
  * filesystem, not a request-time one. Drop a file into public/goals and it
  * appears; nothing else to edit.
  */
-const onDisk = (src?: string) =>
-  Boolean(src && existsSync(path.join(process.cwd(), 'public', src.replace(/^\//, ''))));
+const EXTS = ['jpg', 'jpeg', 'webp', 'png'];
+
+/**
+ * The picture for a goal, or nothing.
+ *
+ * Resolved from the slug rather than from a field on the row, because the
+ * goals come from Supabase and that table has no image column — a path in
+ * site.json is only ever read when the database is unreachable, so wiring it
+ * that way meant the pictures never appeared. Convention needs no column and
+ * no admin field: drop public/goals/<slug>.jpg in and it shows.
+ *
+ * `image` still wins when set, for anything that does not follow the naming.
+ * Several extensions are tried so a .webp or .png works without an edit.
+ *
+ * This is a server component, so the filesystem look happens when the page is
+ * rendered, not per request in the browser.
+ */
+function goalImage(goal: Entry): string | null {
+  const here = (src: string) =>
+    existsSync(path.join(process.cwd(), 'public', src.replace(/^\//, ''))) ? src : null;
+
+  if (goal.image) return here(goal.image);
+  for (const ext of EXTS) {
+    const found = here(`/goals/${goal.slug}.${ext}`);
+    if (found) return found;
+  }
+  return null;
+}
 
 export function GoalsShowcase({ goals }: { goals: Entry[] }) {
   return (
@@ -37,10 +63,10 @@ export function GoalsShowcase({ goals }: { goals: Entry[] }) {
           className="goal-banner"
           style={{ ['--tone' as string]: g.tone }}
         >
-          <span className={`gb-shot${onDisk(g.image) ? ' is-photo' : ''}`}>
-            {onDisk(g.image) ? (
+          <span className={`gb-shot${goalImage(g) ? ' is-photo' : ''}`}>
+            {goalImage(g) ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={g.image} alt="" loading="lazy" decoding="async" />
+              <img src={goalImage(g)!} alt="" loading="lazy" decoding="async" />
             ) : (
               <span className="gb-motif" aria-hidden="true">
                 <GoalMotif icon={g.icon} />
