@@ -121,16 +121,11 @@ export function Solutions({ solutions }: { solutions: Entry[] }) {
 }
 
 /* ---------------- Process ---------------- */
-/* Deterministic so the markup matches on the server and in the browser; a
-   random field would differ between the two and React would replace it. */
-const PROCESS_STARS = Array.from({ length: 52 }, (_, i) => ({
-  left: `${((i * 41.7) % 100).toFixed(2)}%`,
-  top: `${((i * 67.3) % 100).toFixed(2)}%`,
-  size: `${(1 + ((i * 17) % 26) / 10).toFixed(2)}px`,
-  o: (0.3 + ((i * 11) % 60) / 100).toFixed(2),
-  tw: `${(4 + ((i * 7) % 40) / 10).toFixed(1)}s`,
-  delay: `-${((i * 13) % 55) / 10}s`,
-}));
+const PROCESS_SPARKS = [
+  { left: '9%',  top: '62%', size: '26px' },
+  { left: '92%', top: '26%', size: '30px' },
+  { left: '61%', top: '10%', size: '18px' },
+];
 
 export function Process({ steps, log, stats, bare = false }: {
   steps: { num: string; icon: string; title: string; text: string }[];
@@ -146,74 +141,57 @@ export function Process({ steps, log, stats, bare = false }: {
 }) {
   return (
     <section id="how" className="section process-section" aria-labelledby={bare ? undefined : 'howTitle'}>
-      {/* Same starfield the results and page heads use, at its dim setting —
-          the section is a pipeline diagram now, and it wants depth behind it. */}
-      {/* Orbits sweeping behind the whole scene. preserveAspectRatio is none
-          so they stretch to whatever width the section takes rather than
-          letterboxing, which is fine for decoration and keeps one SVG. */}
-      <svg className="orbit-field" viewBox="0 0 1200 460" preserveAspectRatio="none" aria-hidden="true">
-        <defs>
-          <linearGradient id="orbA" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0" stopColor="#3B82F6" stopOpacity="0" />
-            <stop offset=".45" stopColor="#3B82F6" />
-            <stop offset="1" stopColor="#7C6CFF" stopOpacity="0" />
-          </linearGradient>
-          <linearGradient id="orbB" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0" stopColor="#7C6CFF" stopOpacity="0" />
-            <stop offset=".5" stopColor="#34D399" />
-            <stop offset="1" stopColor="#34D399" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        <g className="orbit-base">
-          <ellipse cx="600" cy="230" rx="540" ry="150" />
-          <ellipse cx="600" cy="230" rx="400" ry="215" />
-        </g>
-        <path className="orbit-arc arc-a" d="M 60 300 C 280 120 640 96 1140 190" />
-        <path className="orbit-arc arc-b" d="M 70 200 C 340 380 820 400 1150 260" />
-      </svg>
-
-      <div className="starfield" aria-hidden="true">
-        {PROCESS_STARS.map((st, i) => (
-          <span
-            key={i}
-            className="star"
-            style={{
-              left: st.left, top: st.top, width: st.size, height: st.size,
-              ['--o' as string]: st.o, ['--tw' as string]: st.tw, animationDelay: st.delay,
-            }}
-          />
-        ))}
-      </div>
       <div className="mx-auto max-w-shell px-5 lg:px-8">
         {!bare && (
           <SectionHead id="howTitle" eyebrow="Simple process" title="Three steps to automated growth" sub="Most clients are live in under 14 days." />
         )}
-        {/* With the section head suppressed there is no h2 between the page's
-            h1 and these, so they step up to keep the outline contiguous. */}
-        <ol className="steps">
-          {steps.map((s, i) => (
-            <Reveal
-              as="li"
-              key={s.num}
-              className="step"
-              delay={i * 0.08}
-              /* Examine, build, grow — blue, violet, green. The steps are a
-                 sequence, so the colour moves with them rather than three
-                 identical pale-blue chips saying nothing about order. */
-              style={{ ['--tone' as string]: STEP_TONES[i % STEP_TONES.length] }}
-            >
-              {/* The wire on to the next node. Last step has none — the
-                  pipeline ends there. */}
-              {i < steps.length - 1 && <span className="step-wire" aria-hidden="true" />}
-              <span className="step-node">
-                <span className="step-orb"><Icon name={s.icon} /></span>
-                <span className="step-num">{s.num}</span>
-              </span>
-              {bare ? <h2>{s.title}</h2> : <h3>{s.title}</h3>}
-              <p>{s.text}</p>
-            </Reveal>
+
+        {/* The scene. Rings, sparkles and the floor glow are decoration and
+            carry aria-hidden; the steps themselves stay an ordered list, so
+            the order survives with the styles switched off. */}
+        <div className="po">
+          <svg className="po-rings" viewBox="0 0 1200 420" preserveAspectRatio="none" aria-hidden="true">
+            <ellipse className="po-ring-a" cx="600" cy="196" rx="560" ry="150" />
+            <ellipse className="po-ring-b" cx="600" cy="214" rx="430" ry="188" />
+            <g className="po-dots">
+              <circle cx="176" cy="132" r="5" /><circle cx="1026" cy="118" r="5" />
+              <circle cx="470" cy="330" r="4.5" /><circle cx="880" cy="66" r="4" />
+              <circle cx="1140" cy="268" r="4.5" />
+            </g>
+          </svg>
+
+          {PROCESS_SPARKS.map((sp, i) => (
+            <span key={i} className="po-spark" style={{ left: sp.left, top: sp.top, ['--s' as string]: sp.size }} aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 0c.9 5.4 5.7 10.2 12 12-6.3 1.8-11.1 6.6-12 12-.9-5.4-5.7-10.2-12-12C6.3 10.2 11.1 5.4 12 0Z" /></svg>
+            </span>
           ))}
-        </ol>
+
+          <ol className="po-steps">
+            {steps.map((st, i) => (
+              <Reveal
+                as="li"
+                key={st.num}
+                className="po-step"
+                delay={i * 0.1}
+                style={{ ['--tone' as string]: STEP_TONES[i % STEP_TONES.length] }}
+              >
+                <span className="po-orb">
+                  <span className="po-orb-ring" aria-hidden="true" />
+                  <span className="po-orb-glass" aria-hidden="true" />
+                  <Icon name={st.icon} />
+                  <span className="po-badge">{st.num}</span>
+                </span>
+                <div className="po-card">
+                  <span className="po-dash" aria-hidden="true" />
+                  {bare ? <h2>{st.title}</h2> : <h3>{st.title}</h3>}
+                  <p>{st.text}</p>
+                </div>
+              </Reveal>
+            ))}
+          </ol>
+
+          <span className="po-floor" aria-hidden="true" />
+        </div>
 
         <Reveal className="sleep-panel">
           <div className="sleep-head">
