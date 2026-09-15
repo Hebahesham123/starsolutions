@@ -246,19 +246,18 @@ export function Process({ steps, log, stats, bare = false }: {
                    degrees apart whatever the list holds, and a sixth would
                    re-space the ring on its own. */
                 const a = (i / log.length) * 2 * Math.PI;
-                /* Wider than tall. Five points starting at the top reach the
-                   full radius upward but only 0.81 of it downward, so a true
-                   circle leaves a band of nothing along the bottom. Stretching
-                   the vertical radius pushes the lower pair down into it. */
-                const rx = 33;
-                const ry = 37;
+                /* Direction only — how far along each axis is the stylesheet's
+                   business. A phone needs a tighter ring than a desktop and the
+                   radius belongs in the media query that knows that; handing
+                   down a finished percentage would have pinned both to one
+                   number. CSS multiplies these by --rx and --ry. */
                 return (
                   <li
                     key={l.time}
                     className="dial-item"
                     style={{
-                      ['--x' as string]: `${(50 + rx * Math.sin(a)).toFixed(3)}%`,
-                      ['--y' as string]: `${(50 - ry * Math.cos(a)).toFixed(3)}%`,
+                      ['--sx' as string]: Math.sin(a).toFixed(4),
+                      ['--cy' as string]: (-Math.cos(a)).toFixed(4),
                     }}
                   >
                     <span className="dial-icon"><Icon name={nightIcon(l.title)} /></span>
