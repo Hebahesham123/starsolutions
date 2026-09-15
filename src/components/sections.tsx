@@ -7,6 +7,7 @@ import { Rail } from './Rail';
 import { ProjectCard } from './ProjectCard';
 import { GoalMotif } from './ui/GoalMotif';
 import { SystemCard } from './ui/SystemCard';
+import { LogoStatic } from './ui/LogoStatic';
 import type { Entry, Project, Testimonial } from '@/lib/types';
 import { GoalsShowcase } from './GoalsShowcase';
 
@@ -120,14 +121,6 @@ export function Solutions({ solutions }: { solutions: Entry[] }) {
   );
 }
 
-/**
- * An icon for a line of the night log, read off what the line says.
- *
- * Matched on the words rather than kept in a column beside them: these entries
- * are edited as prose, and an icon field would be a second thing to remember
- * whenever one changes. Anything unrecognised falls through to the agent's own
- * mark, which is true of every line here — the agent did all of them.
- */
 /* One colour per event, in the order the reference uses them: the order is
    amber, the question violet, the recovered cart pink, the ad spend blue, the
    post green. Taken from the tones this site already uses rather than the
@@ -144,6 +137,14 @@ function statIcon(label: string) {
   return 'package';
 }
 
+/**
+ * An icon for a line of the night log, read off what the line says.
+ *
+ * Matched on the words rather than kept in a column beside them: these entries
+ * are edited as prose, and an icon field would be a second thing to remember
+ * whenever one changes. Anything unrecognised falls through to the agent's own
+ * mark, which is true of every line here — the agent did all of them.
+ */
 function nightIcon(title: string) {
   const t = title.toLowerCase();
   /* Conversation before commerce, deliberately. "Customer asked about an
@@ -446,36 +447,143 @@ export function Work({ projects }: { projects: Project[] }) {
  * of its own is what it always was, and it gets the spacing every other one
  * has for free.
  */
+/**
+ * The web behind the automations: twelve threads out from the middle, and five
+ * rings crossing them.
+ *
+ * The rings sag. Each span between two threads is a quadratic curve pulled in
+ * toward the centre rather than a straight chord — a polygon reads as a radar
+ * chart, and the sag is the whole difference between a net and a diagram.
+ *
+ * Drawn once at render from numbers rather than kept as a pasted path, so the
+ * density is two constants to change rather than a file to redraw.
+ */
+function webPaths(spokes = 12, rings = 5, max = 96) {
+  const at = (r: number, i: number) => {
+    const a = (i / spokes) * 2 * Math.PI - Math.PI / 2;
+    return [100 + r * Math.cos(a), 100 + r * Math.sin(a)] as const;
+  };
+  const spokeLines = Array.from({ length: spokes }, (_, i) => {
+    const [x, y] = at(max, i);
+    return `M100 100L${x.toFixed(1)} ${y.toFixed(1)}`;
+  });
+  const ringPaths = Array.from({ length: rings }, (_, k) => {
+    const r = max * ((k + 1) / rings) * 0.94;
+    let d = '';
+    for (let i = 0; i < spokes; i++) {
+      const [x1, y1] = at(r, i);
+      const [x2, y2] = at(r, i + 1);
+      // Control point between the two, pulled in — this is the sag.
+      const a = ((i + 0.5) / spokes) * 2 * Math.PI - Math.PI / 2;
+      const cx = 100 + r * 0.87 * Math.cos(a);
+      const cy = 100 + r * 0.87 * Math.sin(a);
+      d += `${i === 0 ? `M${x1.toFixed(1)} ${y1.toFixed(1)}` : ''}Q${cx.toFixed(1)} ${cy.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`;
+    }
+    return d;
+  });
+  return { spokeLines, ringPaths };
+}
+
+/**
+ * Everything works together.
+ *
+ * Three automations around one mark, joined by a web — the same shape as the
+ * reference, in this site's light palette rather than its neon, and with the
+ * Star Solution mark where the reference put a chip labelled "AI". The mark is
+ * the better object anyway: the claim is that these three things are connected
+ * by us, and a generic chip says that about anyone.
+ */
 export function Automations({ automations }: { automations: Entry[] }) {
+  const { spokeLines, ringPaths } = webPaths();
   return (
-    <section id="automations" className="section" aria-labelledby="autoTitle">
+    <section id="automations" className="section web-section" aria-labelledby="autoTitle">
       <div className="mx-auto max-w-shell px-5 lg:px-8">
         <SectionHead
           id="autoTitle"
-          eyebrow="Automations"
-          title="AI automations and integrations"
-          sub="The work that runs after the site is live."
-          action={<Link href="/automations" className="link-arrow">View all <Icon name="arrow" /></Link>}
-          row
+          eyebrow="AI automations & integrations"
+          title="Everything works together"
+          sub="Our AI connects your WhatsApp inbox, your chatbot and your automations — so you can talk, support and grow without touching any of it."
         />
-        <Reveal as="ul" className="auto-grid automations-grid">
+
+        <div className="web">
+          <svg className="web-net" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+            <g className="web-spokes">
+              {spokeLines.map((d, i) => <path key={i} d={d} />)}
+            </g>
+            <g className="web-rings">
+              {ringPaths.map((d, i) => <path key={i} d={d} />)}
+            </g>
+          </svg>
+
+          {/* One lit thread per automation, from the mark out to its node. The
+              net already has a spoke at each of those angles, but a spoke the
+              same weight as the other eleven says nothing about which three
+              are connected to anything. */}
+          <div className="web-leads" aria-hidden="true">
+            {automations.map((a, i) => (
+              <span
+                key={a.id}
+                className="web-lead"
+                style={{
+                  ['--deg' as string]: `${(i / automations.length) * 360}deg`,
+                  ['--tone' as string]: a.tone ?? autoTone(i),
+                }}
+              />
+            ))}
+          </div>
+
+          <div className="web-core">
+            <span className="web-core-glow" aria-hidden="true" />
+            <LogoStatic layout="mark" size={96} className="web-core-mark" label="Star Solution" />
+          </div>
+
+          {/* Only the lit marks ride the ring. The words sit under the web,
+              which is where the reference puts them too — and it is the only
+              arrangement the geometry allows: the two lower nodes sit at half
+              the vertical radius, so a card big enough to read would have to
+              clear the tile sideways, and the radius that buys puts it outside
+              the box. A 54px mark clears it at any width. */}
+          <ul className="web-ring">
+            {automations.map((a, i) => {
+              const angle = (i / automations.length) * 2 * Math.PI;
+              return (
+                <li
+                  key={a.id}
+                  className="web-pin"
+                  style={{
+                    ['--sx' as string]: Math.sin(angle).toFixed(4),
+                    ['--cy' as string]: (-Math.cos(angle)).toFixed(4),
+                    ['--tone' as string]: a.tone ?? autoTone(i),
+                  }}
+                >
+                  <Link href={`/automations/${a.slug}`} className="web-dot" aria-label={a.title}>
+                    <Icon name={a.icon ?? autoIcon(i)} />
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+
+        <ul className="web-legend">
           {automations.map((a, i) => (
-            <li key={a.id}>
-              <Link
-                href={`/automations/${a.slug}`}
-                className="auto-card block"
-                style={{ ['--g1' as string]: a.tone ?? autoTone(i) }}
-              >
-                <span className="auto-icon"><Icon name={a.icon ?? autoIcon(i)} /></span>
-                <div className="auto-text">
-                  <h4>{a.title}</h4>
-                  <p>{a.summary}</p>
-                </div>
-                <span className="auto-go" aria-hidden="true"><Icon name="arrow" /></span>
+            <li key={a.id} style={{ ['--tone' as string]: a.tone ?? autoTone(i) }}>
+              <Link href={`/automations/${a.slug}`}>
+                <span className="web-legend-key" aria-hidden="true">
+                  <Icon name={a.icon ?? autoIcon(i)} />
+                </span>
+                <span>
+                  <strong>{a.title}</strong>
+                  <span>{a.summary}</span>
+                </span>
               </Link>
             </li>
           ))}
-        </Reveal>
+        </ul>
+
+        <p className="web-more">
+          <Link href="/automations" className="link-arrow">See every automation <Icon name="arrow" /></Link>
+        </p>
       </div>
     </section>
   );
