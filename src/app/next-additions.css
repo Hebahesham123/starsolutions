@@ -2106,3 +2106,19 @@
   .goal-banner:hover{ transform: none; }
   .goal-banner:hover .gb-shot img{ transform: none; }
 }
+
+
+/* =========================================================
+   Rail arrows — line them up with the cards
+   ---------------------------------------------------------
+   Rail renders the nav as a sibling of the scroller, and the scroller carries
+   its own full-bleed padding while the nav carried none. Every rail on the
+   site therefore put its buttons hard against the viewport edge — measured at
+   left:0 on goals, case studies and testimonials alike, while their first card
+   started at 152px. Same formula as --rail-pad, so the buttons sit over the
+   card they page through.
+   ========================================================= */
+.slider-nav{ padding-inline: 18px; }
+@media (min-width:1024px){
+  .slider-nav{ padding-inline: max(32px, calc((100vw - 1200px) / 2 + 32px)); }
+}
