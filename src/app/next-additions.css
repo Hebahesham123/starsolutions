@@ -2490,3 +2490,146 @@
   .po-step:nth-child(2){ margin-top:calc(var(--orb) * .59); }
   .po-step:nth-child(3){ margin-top:calc(var(--orb) * .26); }
 }
+
+/* =========================================================
+   While you sleep: the night as a dial
+   ---------------------------------------------------------
+   The section listed what happened overnight but never showed what did it — a
+   log, with the agent nowhere in the picture. The events now sit on a ring
+   around the agent itself, clockwise from the top so the order reads as a clock
+   rather than as an arbitrary arrangement.
+
+   In this section's own colours. The reference this came from was neon on
+   black, and a single section in a different palette reads as borrowed from
+   another site; the same composition in the pale blue the panel already uses
+   makes the point without the costume.
+
+   Text stays out of the circles. In the reference every caption is clipped by
+   the circle drawn around it — the icon and the time go in the round part, the
+   sentence gets a card with straight edges to live in.
+   ========================================================= */
+.dial{ position:relative; margin-top:16px; }
+
+/* ---------- the agent at the centre ---------- */
+.dial-core{
+  display:grid; justify-items:center; gap:7px;
+  position:relative; z-index:2;
+}
+.dial-orb{
+  position:relative; display:grid; place-items:center;
+  width:clamp(58px, 15vw, 96px); aspect-ratio:1; border-radius:50%;
+  color:var(--brand-deep);
+  background:radial-gradient(circle at 34% 24%, #fff 0%, #E9F0FF 40%, #CFDDFF 78%, #C2D3FF 100%);
+  border:1px solid rgba(255,255,255,.92);
+  box-shadow:
+    0 22px 46px -18px rgba(59,130,246,.7),
+    0 0 34px -6px rgba(124,108,255,.4),
+    0 0 0 8px rgba(255,255,255,.5);
+}
+.dial-orb svg{ width:44%; height:44%; }
+.dial-pulse{
+  position:absolute; top:calc(clamp(58px, 15vw, 96px) / 2); left:50%;
+  width:clamp(120px, 30vw, 190px); aspect-ratio:1;
+  transform:translate(-50%,-50%); border-radius:50%; pointer-events:none;
+  background:radial-gradient(circle, rgba(124,108,255,.22), transparent 68%);
+  animation:agentPulse 5.5s var(--ease) infinite;
+}
+.dial-core-label{
+  font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--brand-deep);
+}
+
+/* The two orbit rings. Hidden until the ring layout exists — on a phone the
+   events are a list, and a circle drawn behind a list is just a circle. */
+.dial-orbit{ display:none; }
+
+/* ---------- phones: the same five, stacked ---------- */
+.dial-items{ margin-top:16px; display:grid; gap:6px; }
+.dial-item{
+  display:grid; grid-template-columns:auto minmax(0,1fr); gap:11px; align-items:start;
+  padding:10px 12px; border-radius:13px;
+  background:rgba(255,255,255,.74); border:1px solid rgba(255,255,255,.9);
+  box-shadow:0 10px 26px -20px rgba(11,18,32,.4);
+  transition:background .25s var(--ease), transform .25s var(--ease), box-shadow .25s var(--ease);
+}
+.dial-item:hover{ background:#fff; box-shadow:0 16px 34px -22px rgba(11,18,32,.45); }
+.dial-icon{
+  display:grid; place-items:center; width:30px; height:30px; border-radius:10px;
+  color:var(--brand-deep); background:var(--blue-100);
+  border:1px solid rgba(255,255,255,.9);
+}
+.dial-icon svg{ width:15px; height:15px; }
+.dial-text{ display:grid; min-width:0; }
+.dial-text .log-time{ padding-top:0; }
+.dial-text strong{ margin-top:1px; font-size:13.5px; font-weight:600; color:var(--ink); line-height:1.25; }
+.dial-text > span:last-child{ margin-top:2px; font-size:12.3px; line-height:1.42; color:var(--muted); }
+
+/* ---------- from 900px: the ring ---------- */
+@media (min-width:900px){
+  .dial{
+    width:min(100%, 720px); margin:18px auto 0; aspect-ratio:1 / .82;
+  }
+  /* An ellipse, not a circle: the cards sit on one (33% across, 37% down —
+     see the component), and a true circle drawn behind them passed above the
+     top card and below the bottom pair instead of through any of them. */
+  .dial-orbit{
+    display:block; position:absolute; left:50%; top:50%;
+    width:66%; height:74%; transform:translate(-50%,-50%);
+    border-radius:50%; border:1px dashed rgba(124,140,200,.34);
+    pointer-events:none;
+  }
+  /* A second, inner ring, so the middle reads as depth rather than as one line
+     round the agent. Neither ring spins any more: they are ellipses now, and a
+     rotating ellipse wobbles — it stops looking like an orbit seen at an angle
+     and starts looking like a mistake. The agent's own pulse carries the
+     movement instead. */
+  .dial-orbit-2{
+    width:42%; height:47%; border-style:solid; border-color:rgba(124,140,200,.2);
+  }
+
+  .dial-core{
+    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  }
+
+  .dial-items{ position:absolute; inset:0; margin:0; display:block; }
+  /* Placed from the angle the component worked out. The card is centred on its
+     point of the ring, so the ring passes through the middle of each one. */
+  .dial-item{
+    position:absolute; left:var(--x); top:var(--y);
+    transform:translate(-50%,-50%);
+    width:208px; padding:11px 13px;
+    background:rgba(255,255,255,.86);
+    backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  }
+  .dial-item:hover{ transform:translate(-50%,-50%) translateY(-3px); }
+}
+
+@media (min-width:1100px){
+  .dial{ width:min(100%, 780px); }
+  .dial-item{ width:224px; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .dial-orbit, .dial-pulse{ animation:none; }
+}
+
+/* The panel was two columns with the log down the right. The dial is one wide
+   thing, not a column, so the panel becomes a single stack: the heading, the
+   night, then the totals across the bottom — which is also the order the
+   reference reads in. */
+@media (min-width:768px){
+  .sleep-panel{
+    display:block; padding:34px 28px 28px;
+  }
+  .sleep-head{ text-align:center; max-width:46ch; margin-inline:auto; }
+  .sleep-head .eyebrow{ justify-content:center; }
+  .sleep-stats{
+    grid-template-columns:repeat(4,1fr); margin-top:24px;
+    padding-top:18px; align-self:auto;
+  }
+}
+@media (min-width:1024px){ .sleep-panel{ padding:40px 36px 32px; } }
+
+/* "Your automations don't clock out" was breaking after "clock", leaving "out"
+   alone on a line under a centred heading. */
+.sleep-head h2, .sleep-head h3{ text-wrap:balance; }

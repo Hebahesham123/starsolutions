@@ -120,6 +120,28 @@ export function Solutions({ solutions }: { solutions: Entry[] }) {
   );
 }
 
+/**
+ * An icon for a line of the night log, read off what the line says.
+ *
+ * Matched on the words rather than kept in a column beside them: these entries
+ * are edited as prose, and an icon field would be a second thing to remember
+ * whenever one changes. Anything unrecognised falls through to the agent's own
+ * mark, which is true of every line here — the agent did all of them.
+ */
+function nightIcon(title: string) {
+  const t = title.toLowerCase();
+  /* Conversation before commerce, deliberately. "Customer asked about an
+     order" is a message, not an order, and testing for "order" first gave it a
+     parcel — the more specific phrasing has to win or the general word
+     swallows it. */
+  if (/ask|question|message|repl|chat|support/.test(t)) return 'whatsapp';
+  if (/cart|abandon|recover|refund/.test(t)) return 'revenue';
+  if (/budget|spend|roas|campaign|\bads?\b/.test(t)) return 'chart';
+  if (/post|publish|tiktok|social|caption/.test(t)) return 'play';
+  if (/order|delivery|supplier|shipment/.test(t)) return 'package';
+  return 'bot';
+}
+
 /* ---------------- Process ---------------- */
 const PROCESS_SPARKS = [
   { left: '9%',  top: '62%', size: '26px' },
@@ -201,14 +223,55 @@ export function Process({ steps, log, stats, bare = false }: {
               : <h3>Your automations don&apos;t clock out</h3>}
             <p>One night, one account.</p>
           </div>
-          <ol className="sleep-log">
-            {log.map((l) => (
-              <li key={l.time}>
-                <span className="log-time">{l.time}</span>
-                <span className="log-body"><strong>{l.title}</strong> {l.text}</span>
-              </li>
-            ))}
-          </ol>
+          {/* The night as a dial: the agent in the middle, the things it did
+              around it, clockwise from the top so the ring reads as a clock and
+              the order is not arbitrary.
+
+              Same list on a phone, stacked — five labelled cards around a
+              centre cannot be read at 390px, and pretending otherwise would
+              cost the legibility the ring is there to add. */}
+          <div className="dial">
+            <span className="dial-orbit" aria-hidden="true" />
+            <span className="dial-orbit dial-orbit-2" aria-hidden="true" />
+
+            <div className="dial-core">
+              <span className="dial-pulse" aria-hidden="true" />
+              <span className="dial-orb" aria-hidden="true"><Icon name="bot" /></span>
+              <span className="dial-core-label">AI agent</span>
+            </div>
+
+            <ol className="dial-items">
+              {log.map((l, i) => {
+                /* Placed by angle rather than by hand: five events land 72
+                   degrees apart whatever the list holds, and a sixth would
+                   re-space the ring on its own. */
+                const a = (i / log.length) * 2 * Math.PI;
+                /* Wider than tall. Five points starting at the top reach the
+                   full radius upward but only 0.81 of it downward, so a true
+                   circle leaves a band of nothing along the bottom. Stretching
+                   the vertical radius pushes the lower pair down into it. */
+                const rx = 33;
+                const ry = 37;
+                return (
+                  <li
+                    key={l.time}
+                    className="dial-item"
+                    style={{
+                      ['--x' as string]: `${(50 + rx * Math.sin(a)).toFixed(3)}%`,
+                      ['--y' as string]: `${(50 - ry * Math.cos(a)).toFixed(3)}%`,
+                    }}
+                  >
+                    <span className="dial-icon"><Icon name={nightIcon(l.title)} /></span>
+                    <span className="dial-text">
+                      <span className="log-time">{l.time}</span>
+                      <strong>{l.title}</strong>
+                      <span>{l.text}</span>
+                    </span>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
           <dl className="sleep-stats">
             {stats.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}
           </dl>
