@@ -3028,3 +3028,12 @@
 .web-legend strong + span{
   display:block; margin-top:4px; font-size:12.4px; line-height:1.45; color:var(--muted);
 }
+
+/* Two lines, not six. These cards were printing the whole summary — the field
+   written for the top of a detail page, where it has a column to itself — and
+   at 340px that is five or six lines each, three times over. The reference
+   gives each node a sentence; this gives it two, the three cards come out the
+   same height, and the rest is a tap away on the automation's own page. */
+.web-legend strong + span{
+  display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden;
+}
