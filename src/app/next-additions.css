@@ -2813,15 +2813,35 @@
    the lower pair sit at half the vertical radius, which has to clear half a
    mark plus half the tile. */
 .web{
-  position:relative; width:100%; aspect-ratio:1 / 1; min-height:0;
-  margin:14px auto 4px; max-width:420px;
+  /* Every distance in this section comes off --net, the diameter of the drawn
+     web, so one number moves the whole arrangement and the parts cannot drift
+     apart at a width nobody tested. */
+  /* The ceiling is the box: it comes out at 1.95 diameters wide, which has to
+     fit the phone. 45vw is the largest --net that still does at 320px. */
+  --net:clamp(143px, 45vw, 236px);
+  /* Against the tile, not against the phone. At 11.5vw the marks came out
+     within a few pixels of the centre tile on a 390px screen — 1.27 to 1,
+     where the wide layout reads 1.95 — and three things of one size in a
+     picture about one thing at the centre says the wrong thing. */
+  --node:clamp(38px, 10.5vw, 56px);
+  /* Hanging under its node, a label is bounded twice: it must not reach the
+     edge of the box, and the two lower ones must not run into each other. The
+     nodes are 0.9698 of the diameter apart, so the second is the tighter of
+     the two and 0.88 leaves a real gap between them. */
+  --lab:calc(var(--net) * .88);
+  --labh:112px;
+  --rx:calc(var(--net) * .56);
+  --ry:calc(var(--net) * .56);
+  position:relative; width:100%;
+  max-width:calc(var(--net) * 1.95);
+  height:calc(2 * (var(--ry) + var(--node) / 2 + var(--labh)));
+  margin:8px auto 0;
 }
 
 /* ---------- the net ---------- */
 .web-net{
   position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
-  width:76%; height:auto; aspect-ratio:1; pointer-events:none;
-  overflow:visible;
+  width:var(--net); height:var(--net); pointer-events:none; overflow:visible;
 }
 .web-spokes path{
   fill:none; stroke:rgba(124,140,200,.26); stroke-width:.5;
@@ -2841,8 +2861,8 @@
 .web-core{
   position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
   display:grid; place-items:center; z-index:2;
-  width:clamp(84px, 23vw, 132px); aspect-ratio:1;
-  border-radius:clamp(22px, 6vw, 34px);
+  width:calc(var(--net) * .33); aspect-ratio:1;
+  border-radius:calc(var(--net) * .085);
   background:linear-gradient(160deg,#fff, #F4F8FF 62%, #ECF2FF);
   border:1px solid rgba(255,255,255,.95);
   box-shadow:
@@ -2860,76 +2880,126 @@
   width:62%; height:auto;
   filter:drop-shadow(0 8px 18px rgba(59,130,246,.35));
 }
+/* LogoStatic writes the mark's pixel size as an inline style on the <svg>
+   itself, from its `size` prop — a class on the wrapper cannot reach past it,
+   which is why the constellation kept its 96px and spilled out of a 52px tile
+   on a phone. An inline style can only be beaten by !important. */
+.web-core-mark > svg{ width:100% !important; height:auto !important; }
 
-/* ---------- the three ---------- */
+/* ---------- the three, each with its own words ---------- */
 /* The radius is bounded by arithmetic, not taste. The two lower nodes sit at
    plus and minus 0.866 of the radius horizontally, so the widest point of the
-   group is 0.866r + half a node — and that has to stay inside half the box or
-   the section clips them. At 350px with 156px nodes that caps r at about 30%.
-   The same sum sets the floor: the two lower nodes are 1.732r apart and must
-   not touch, so r has to clear 0.577 of a node width. */
-.web-ring{
-  position:absolute; inset:0; margin:0; display:block;
-  --rx:40%; --ry:42%;
-}
+   group is 0.866rx + half a node — and that has to stay inside half the box,
+   with the label still clear of it. */
+.web-ring{ position:absolute; inset:0; margin:0; display:block; }
 .web-pin{
   position:absolute;
   left:calc(50% + var(--rx) * var(--sx));
   top:calc(50% + var(--ry) * var(--cy));
-  transform:translate(-50%, -50%);
-  width:clamp(128px, 40vw, 216px);
+  z-index:3;
 }
+
+/* No card. That was the note: the reference has a lit node with plain words
+   beside it, and a white panel with a border and a shadow around the words is
+   a different object — it competes with the node instead of labelling it. */
 .web-node-link{
-  display:grid; justify-items:center; gap:8px; text-align:center;
-  padding:12px 12px 13px; border-radius:16px;
-  background:rgba(255,255,255,.82); border:1px solid rgba(255,255,255,.92);
-  box-shadow:0 16px 38px -26px rgba(11,18,32,.45);
-  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
-  transition:transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s;
+  display:grid; gap:7px; justify-items:center; text-align:center;
+  width:var(--lab);
+  transition:transform .3s var(--ease);
 }
-.web-node-link:hover{
-  transform:translateY(-3px);
-  border-color:color-mix(in srgb, var(--tone) 40%, #fff);
-  box-shadow:0 22px 46px -26px color-mix(in srgb, var(--tone) 70%, rgba(11,18,32,.4));
-}
-/* The node's own halo, so each of the three reads as lit from within like the
-   reference's rings — without the reference's black behind it to glow against. */
-.web-dot{
-  position:relative; display:grid; place-items:center;
-  width:clamp(40px, 11vw, 54px); aspect-ratio:1; border-radius:50%;
-  color:#fff;
-  background:linear-gradient(150deg, var(--tone), color-mix(in srgb, var(--tone) 58%, var(--accent)));
-  box-shadow:
-    0 0 0 5px color-mix(in srgb, var(--tone) 12%, transparent),
-    0 0 0 10px color-mix(in srgb, var(--tone) 6%, transparent),
-    0 14px 26px -12px color-mix(in srgb, var(--tone) 85%, transparent);
-}
-.web-dot svg{ width:46%; height:46%; }
+.web-node-link:hover{ transform:translateY(-2px); }
+.web-node-link:hover .web-dot{ transform:scale(1.06); }
+
+/* Which way the words run.
+
+   Outward, always — away from the middle, on the side the node already sits
+   on. Centring them on the node instead is what broke the earlier attempt: the
+   label straddled its own spoke, and at the two lower nodes that put it back
+   across the middle tile. Running outward, the text leaves the web behind it
+   and never crosses anything. */
+.web-pin[data-side="top"]{ transform:translate(-50%, calc(-100% + var(--node) / 2)); }
+/* Nothing sits beside the top label, so it gets the width the box has rather
+   than the width of a column that has to share. */
+.web-pin[data-side="top"] .web-node-link{ grid-auto-flow:row; width:calc(var(--net) * 1.55); }
+.web-pin[data-side="top"] .web-dot{ order:2; }
+.web-pin[data-side="top"] .web-label{ order:1; }
+
+.web-pin[data-side="bottom"]{ transform:translate(-50%, -50%); }
+
+/* The lower pair: the node stays on the ring, the words hang below it. Pinned
+   by the node rather than by the block's middle, so the ring geometry above
+   still holds however many lines the copy runs to. */
+.web-pin[data-side="left"],
+.web-pin[data-side="right"]{ transform:translate(-50%, calc(-1 * var(--node) / 2)); }
+
 .web-label{ display:grid; gap:3px; }
 .web-label strong{
-  font-size:13.4px; font-weight:600; letter-spacing:-.022em; line-height:1.2; color:var(--ink);
+  display:block; font-size:13.2px; font-weight:650; letter-spacing:-.022em;
+  line-height:1.25; color:var(--ink);
 }
 .web-label > span{
-  font-size:11.4px; line-height:1.4; color:var(--muted);
-  display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden;
+  display:block; font-size:11.6px; line-height:1.45; color:var(--muted);
+  text-wrap:pretty;
+}
+
+/* The labels stop getting taller once --net reaches its cap: the column is
+   208px wide from 520px up, so the longest blurb settles at four lines and the
+   allowance written for a 320px screen leaves a strip of air under the web. */
+@media (min-width:520px) and (max-width:719px){
+  .web{ --labh:88px; }
+}
+
+/* ---------- wide enough for the words to sit beside the node ---------- */
+/* Where this line falls is arithmetic, not a round number. Beside its node, a
+   label reaches 0.4849 of the web out to the node, half a node further, the
+   gap, then its own column — twice over. Solve that against the shell at its
+   narrowest usable sizes and it comes out at just under 720px, which is a
+   tablet held upright. Below that the labels hang under their nodes instead;
+   above it they sit alongside, which is the reference's arrangement. */
+@media (min-width:720px){
+  .web{
+    --net:clamp(232px, 30vw, 392px);
+    --node:clamp(50px, 4.6vw, 66px);
+    --lab:clamp(168px, 20vw, 272px);
+    --labh:108px;
+    /* 0.4849 out to the node, half a node more to its edge, the gap, then the
+       column itself — doubled, because the same reach happens on both sides. */
+    max-width:calc(2 * (var(--net) * .4849 + var(--node) / 2 + 14px + var(--lab)));
+    /* The box is symmetrical about the middle because everything in it is
+       placed from the centre, but the content is not: the top label stands a
+       full radius above, while the lower two only hang half a radius below.
+       That leaves a strip of nothing at the bottom, and this reclaims it. */
+    margin-bottom:calc(-1 * (var(--ry) * .5 + var(--labh) - 62px));
+  }
+  .web-node-link{
+    grid-auto-flow:column; align-items:center; gap:14px;
+    width:calc(var(--node) + 14px + var(--lab));
+  }
+  .web-label{ gap:4px; }
+  .web-label strong{ font-size:16px; }
+  .web-label > span{ font-size:13.2px; line-height:1.5; }
+
+  /* Pinned at the node, not at the block's middle, so the words grow outward
+     and the node itself stays exactly on the ring. */
+  .web-pin[data-side="right"]{ transform:translate(calc(-1 * var(--node) / 2), -50%); }
+  .web-pin[data-side="right"] .web-node-link{ justify-items:start; text-align:left; }
+
+  .web-pin[data-side="left"]{
+    transform:translate(calc(-100% + var(--node) / 2), -50%);
+  }
+  .web-pin[data-side="left"] .web-node-link{ justify-items:end; text-align:right; }
+  .web-pin[data-side="left"] .web-dot{ order:2; }
+  .web-pin[data-side="left"] .web-label{ order:1; }
+
+  /* The top node has nothing outward but up, so its words stay above it and
+     centred — the one place the outward direction is vertical. */
+  .web-pin[data-side="top"] .web-node-link{
+    grid-auto-flow:row; justify-items:center; text-align:center;
+    width:clamp(320px, calc(var(--net) * 1.15), 440px);
+  }
 }
 
 .web-more{ margin-top:18px; text-align:center; }
-
-@media (min-width:640px){
-  .web{ max-width:470px; }
-  .web-ring{ --rx:40%; --ry:41%; }
-  .web-node-link{ padding:15px 15px 16px; border-radius:18px; gap:10px; }
-  .web-label strong{ font-size:15px; }
-  .web-label > span{ font-size:12.6px; -webkit-line-clamp:3; }
-}
-
-@media (min-width:900px){
-  .web{ max-width:540px; margin-top:16px; }
-  .web-ring{ --rx:40%; --ry:40%; }
-  .web-label strong{ font-size:16px; }
-  .web-label > span{ font-size:13.2px; -webkit-line-clamp:4; }
-}
 
 @media (prefers-reduced-motion:reduce){
   .web-core-glow{ animation:none; }
@@ -2943,7 +3013,7 @@
 .web-leads{ position:absolute; inset:0; pointer-events:none; z-index:1; }
 .web-lead{
   position:absolute; left:50%; top:50%;
-  width:26%; height:2px; transform-origin:0 50%;
+  width:calc(var(--rx) - var(--node) / 2 - 7px); height:2px; transform-origin:0 50%;
   transform:rotate(calc(var(--deg) - 90deg));
   border-radius:2px;
   background:linear-gradient(90deg,
@@ -2978,11 +3048,10 @@
   .web-lead::after{ animation:none; opacity:.9; }
 }
 
-/* ---------- the ring now carries marks, not cards ---------- */
-.web-pin{ width:auto; }
+/* ---------- the lit marks ---------- */
 .web-dot{
   position:relative; display:grid; place-items:center;
-  width:clamp(46px, 13vw, 66px); aspect-ratio:1; border-radius:50%;
+  width:var(--node); aspect-ratio:1; border-radius:50%;
   color:#fff;
   background:linear-gradient(150deg, var(--tone), color-mix(in srgb, var(--tone) 58%, var(--accent)));
   box-shadow:
@@ -3000,59 +3069,4 @@
 }
 .web-dot svg{ width:44%; height:44%; }
 
-/* ---------- the words, under the web ---------- */
-.web-legend{ display:grid; gap:10px; margin-top:6px; }
 
-/* Three across only once three will actually fit.
-   The longest blurb is three lines in a text column of 250px; add the key, its
-   gap and the card padding and that is a 317px card, so three of them plus the
-   gaps and the shell gutter need about 1020px. Going to three at 700px — which
-   is what this did — left 220px cards and cropped two of the three blurbs.
-   Between 700px and there, two columns with the last card spanning the row: the
-   odd one out is the longest of the three, so the full width is where it wants
-   to be anyway. */
-@media (min-width:700px){
-  .web-legend{ grid-template-columns:repeat(2,1fr); gap:14px; }
-  .web-legend li:last-child:nth-child(odd){ grid-column:1 / -1; }
-}
-@media (min-width:1020px){
-  .web-legend{ grid-template-columns:repeat(3,1fr); }
-  .web-legend li:last-child:nth-child(odd){ grid-column:auto; }
-}
-.web-legend li a{
-  display:grid; grid-template-columns:auto minmax(0,1fr); gap:11px; align-items:start;
-  height:100%; padding:13px 14px; border-radius:15px;
-  background:rgba(255,255,255,.76); border:1px solid rgba(255,255,255,.9);
-  border-top:3px solid color-mix(in srgb, var(--tone) 55%, transparent);
-  box-shadow:0 14px 32px -24px rgba(11,18,32,.42);
-  transition:transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s;
-}
-.web-legend li a:hover{
-  transform:translateY(-3px); border-top-color:var(--tone);
-  box-shadow:0 20px 40px -24px color-mix(in srgb, var(--tone) 65%, rgba(11,18,32,.4));
-}
-.web-legend-key{
-  display:grid; place-items:center; width:28px; height:28px; border-radius:9px;
-  color:var(--tone);
-  background:color-mix(in srgb, var(--tone) 12%, #fff);
-  border:1px solid color-mix(in srgb, var(--tone) 22%, transparent);
-}
-.web-legend-key svg{ width:15px; height:15px; }
-.web-legend strong{
-  display:block; font-size:14px; font-weight:600; letter-spacing:-.022em; line-height:1.2; color:var(--ink);
-}
-/* The blurb, not the lede. These cards read from `short` — one line written
-   for a card — and fall back to `summary`, which is written for the top of a
-   detail page where it has a column to itself. The clamp is there for that
-   fallback, and for anything over-long typed into /admin: three lines holds
-   the longest of the three sentences whole at every width, so it crops only
-   the copy that was never meant to sit here. */
-.web-legend strong + span{
-  margin-top:4px; font-size:12.4px; line-height:1.45; color:var(--muted);
-  display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:3; overflow:hidden;
-}
-/* One more line on the narrowest phones, where a 213px text column turns the
-   same sentence into four. The clamp is a guard against an over-long summary,
-   not a length the copy is written to — cropping authored copy to hit a number
-   is the thing it is meant to prevent. */
-@media (max-width:399px){ .web-legend strong + span{ -webkit-line-clamp:4; } }

@@ -537,49 +537,48 @@ export function Automations({ automations }: { automations: Entry[] }) {
             <LogoStatic layout="mark" size={96} className="web-core-mark" label="Star Solution" />
           </div>
 
-          {/* Only the lit marks ride the ring. The words sit under the web,
-              which is where the reference puts them too — and it is the only
-              arrangement the geometry allows: the two lower nodes sit at half
-              the vertical radius, so a card big enough to read would have to
-              clear the tile sideways, and the radius that buys puts it outside
-              the box. A 54px mark clears it at any width. */}
+          {/* Each node carries its own words, like the reference — no row of
+              cards underneath.
+
+              Which side they go on is the whole trick. An earlier pass centred
+              the text under its node, so every label straddled the node's own
+              spoke and the two lower ones ran back across the middle tile; the
+              only way out was a radius that put them outside the box. Running
+              each label outward instead — away from the centre, on the side its
+              node already sits on — is what the reference does, and it means
+              the text never crosses the web at all. `side` is read off the
+              node's own angle, so it stays right however many automations
+              there are. */}
           <ul className="web-ring">
             {automations.map((a, i) => {
               const angle = (i / automations.length) * 2 * Math.PI;
+              const sx = Math.sin(angle);
+              const side = Math.abs(sx) < 0.15 ? (Math.cos(angle) > 0 ? 'top' : 'bottom') : sx > 0 ? 'right' : 'left';
               return (
                 <li
                   key={a.id}
                   className="web-pin"
+                  data-side={side}
                   style={{
-                    ['--sx' as string]: Math.sin(angle).toFixed(4),
+                    ['--sx' as string]: sx.toFixed(4),
                     ['--cy' as string]: (-Math.cos(angle)).toFixed(4),
                     ['--tone' as string]: a.tone ?? autoTone(i),
                   }}
                 >
-                  <Link href={`/automations/${a.slug}`} className="web-dot" aria-label={a.title}>
-                    <Icon name={a.icon ?? autoIcon(i)} />
+                  <Link href={`/automations/${a.slug}`} className="web-node-link">
+                    <span className="web-dot" aria-hidden="true">
+                      <Icon name={a.icon ?? autoIcon(i)} />
+                    </span>
+                    <span className="web-label">
+                      <strong>{a.title}</strong>
+                      <span>{a.short ?? a.summary}</span>
+                    </span>
                   </Link>
                 </li>
               );
             })}
           </ul>
         </div>
-
-        <ul className="web-legend">
-          {automations.map((a, i) => (
-            <li key={a.id} style={{ ['--tone' as string]: a.tone ?? autoTone(i) }}>
-              <Link href={`/automations/${a.slug}`}>
-                <span className="web-legend-key" aria-hidden="true">
-                  <Icon name={a.icon ?? autoIcon(i)} />
-                </span>
-                <span>
-                  <strong>{a.title}</strong>
-                  <span>{a.short ?? a.summary}</span>
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
 
         <p className="web-more">
           <Link href="/automations" className="link-arrow">See every automation <Icon name="arrow" /></Link>
