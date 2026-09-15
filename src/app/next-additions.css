@@ -2278,7 +2278,7 @@
   text-align: center; max-width: 760px; margin-inline: auto;
 }
 .process-section .section-head > div{ width: 100%; }
-.process-section .eyebrow{
+.process-section .section-head .eyebrow{
   padding: 7px 16px 7px 10px; border-radius: 999px;
   background: rgba(255,255,255,.8);
   border: 1px solid var(--line);
@@ -2331,10 +2331,24 @@
 /* ---------- the steps ---------- */
 .po-steps{
   position: relative; z-index: 1;
-  display: grid; gap: 22px;
+  display: grid; gap: clamp(5px, 1.7vw, 14px);
+  /* Three across at every width. Below 900px the whole composition scales off
+     --orb rather than being re-laid-out, so the shape — sphere, ring, badge,
+     card tucked under it — is the same thing smaller, not a second design. */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
 }
+/* Stretched below the breakpoint so three short cards in a row end level;
+   above it the stagger is the point, so they go back to their own heights. */
+.po-steps{ align-items: stretch; }
+/* The card takes the leftover row, which is what makes three of unequal
+   length finish level. align-content:start packed the rows instead, so
+   height:100% on the card only ever measured its own row. */
+.po-step{ grid-template-rows: auto 1fr; }
+
 @media (min-width:900px){
-  .po-steps{ grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; align-items: start; }
+  .po-steps{ gap: 26px; align-items: start; }
+  .po-step{ grid-template-rows: auto auto; }
   /* Staggered: first high, second low, third between — the path the
      reference draws, rather than three items on one line. */
   .po-step:nth-child(1){ margin-top: 0; }
@@ -2342,15 +2356,18 @@
   .po-step:nth-child(3){ margin-top: 34px; }
 }
 
-.po-step{ position: relative; display: grid; }
-@media (min-width:900px){ .po-step{ justify-items: start; } }
+.po-step{
+  position: relative; display: grid; justify-items: start;
+  --orb: clamp(44px, 13.2vw, 96px);
+}
+@media (min-width:900px){ .po-step{ --orb: 132px; } }
 
 /* ---------- the sphere ---------- */
 .po-orb{
   position: relative; z-index: 2;
   display: grid; place-items: center;
-  width: 92px; height: 92px; border-radius: 50%;
-  margin-left: 10px;
+  width: var(--orb); height: var(--orb); border-radius: 50%;
+  margin-left: calc(var(--orb) * .12);
   color: var(--tone, var(--brand));
   background:
     radial-gradient(circle at 34% 26%, #fff 0%, rgba(255,255,255,.86) 26%,
@@ -2362,10 +2379,11 @@
     inset 0 -10px 22px -10px color-mix(in srgb, var(--tone) 55%, transparent),
     inset 0 8px 18px -8px #fff;
 }
-@media (min-width:900px){ .po-orb{ width: 132px; height: 132px; margin-left: 22px; } }
 
-.po-orb > svg{ width: 34px; height: 34px; position: relative; z-index: 2; }
-@media (min-width:900px){ .po-orb > svg{ width: 46px; height: 46px; } }
+.po-orb > svg{
+  width: calc(var(--orb) * .36); height: calc(var(--orb) * .36);
+  position: relative; z-index: 2;
+}
 
 /* The tilted band around the sphere — a planet's ring, and what makes the
    scene read as orbital rather than as three buttons. */
@@ -2393,39 +2411,46 @@
 }
 
 .po-badge{
-  position: absolute; top: -4px; left: -10px; z-index: 3;
+  position: absolute; z-index: 3;
+  top: calc(var(--orb) * -.03); left: calc(var(--orb) * -.09);
   display: grid; place-items: center;
-  width: 34px; height: 34px; border-radius: 50%;
-  font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500;
+  width: calc(var(--orb) * .32); height: calc(var(--orb) * .32); border-radius: 50%;
+  font-family: 'JetBrains Mono', monospace; font-weight: 500;
+  font-size: calc(var(--orb) * .105);
   color: #fff;
   background: linear-gradient(150deg, var(--tone), color-mix(in srgb, var(--tone) 55%, var(--accent)));
   box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--tone) 90%, transparent);
 }
-@media (min-width:900px){ .po-badge{ width: 42px; height: 42px; font-size: 13.5px; top: -2px; left: -12px; } }
 
 /* ---------- the card ---------- */
 .po-card{
   position: relative; z-index: 1;
-  margin-top: -26px; padding: 34px 18px 18px;
-  border-radius: var(--r-lg);
+  margin-top: calc(var(--orb) * -.28);
+  padding: calc(var(--orb) * .36) clamp(8px, 2.2vw, 22px) clamp(9px, 1.8vw, 22px);
+  border-radius: clamp(12px, 1.6vw, 20px);
   background: rgba(255,255,255,.82);
   border: 1px solid rgba(255,255,255,.9);
   box-shadow: 0 18px 44px -26px rgba(11,18,32,.3), inset 0 1px 0 #fff;
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
 }
-@media (min-width:900px){
-  .po-card{ margin-top: -34px; margin-left: 34px; padding: 44px 22px 22px; }
-}
+@media (min-width:900px){ .po-card{ margin-left: 34px; } }
 
 .po-dash{
-  display: block; width: 26px; height: 3px; border-radius: 999px;
+  display: block; height: 3px; border-radius: 999px;
+  width: clamp(14px, 2vw, 26px);
   background: var(--tone, var(--brand));
 }
 .po-card h3, .po-card h2{
-  margin-top: 11px; font-size: 17.5px; font-weight: 600; letter-spacing: -.028em;
-  color: var(--ink);
+  margin-top: clamp(5px, 1vw, 11px);
+  font-size: clamp(11.5px, 1.45vw, 17.5px);
+  font-weight: 600; letter-spacing: -.028em; line-height: 1.22; color: var(--ink);
 }
-.po-card p{ margin-top: 6px; font-size: 13.8px; line-height: 1.58; color: var(--muted); }
+.po-card p{
+  margin-top: clamp(3px, .5vw, 6px);
+  font-size: clamp(9.6px, 1.12vw, 13.8px);
+  line-height: 1.4; color: var(--muted);
+}
+@media (min-width:900px){ .po-card p{ line-height: 1.58; } }
 
 @media (prefers-reduced-motion:reduce){
   .po-orb-ring, .po-spark{ animation: none; }
