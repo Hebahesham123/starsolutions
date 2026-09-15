@@ -1965,3 +1965,32 @@
 @media (min-width:1024px){
   .footer-grid{ grid-template-columns:1.5fr .8fr .9fr .7fr 1.1fr; gap:32px; }
 }
+
+/* =========================================================
+   Platform row — distribution
+   ---------------------------------------------------------
+   Centred with a fixed gap, the row left the slack at the two ends: at 768px
+   the five items spanned 486px inside a 733px box, so 124px sat empty either
+   side while the middle stayed cramped. space-between puts the slack between
+   the items instead, and the gap becomes a floor rather than a fixed value —
+   flexbox honours it as the minimum and distributes whatever is left over.
+
+   The max-width stops that turning into the opposite problem: without a cap,
+   a wide container would fling five small logos to the far corners.
+   ========================================================= */
+.platform-row{
+  justify-content: space-between;
+  gap: 12px 16px;
+  max-width: 620px;
+  margin-inline: auto;
+  padding-inline: 4px;
+}
+
+@media (max-width:767px){
+  .platform-row{
+    justify-content: space-between;
+    /* the clamp from the scale above stays the floor; space-between adds the rest */
+    gap: clamp(6px, 2vw, 16px);
+    padding-inline: 2px;
+  }
+}

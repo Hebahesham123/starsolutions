@@ -27,7 +27,7 @@ export function PlatformRow({ platforms }: { platforms: string[] }) {
                 <Icon name="bot" />
               )}
             </span>
-            <span className="platform-name">{name}</span>
+            <span className="platform-name">{brand?.label ?? name}</span>
           </li>
         );
       })}
