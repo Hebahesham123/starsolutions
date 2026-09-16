@@ -4103,3 +4103,33 @@
 @media (min-width:640px){
   .rp-more{ display:none; }
 }
+
+/* =========================================================
+   The goal banners: a little taller, and the type with it.
+
+   At 4:3 the picture was the shortest thing on the rail, and a 27px number
+   sitting on it read as a caption rather than as the headline it is. 7:6 adds
+   about 14% of height — enough to notice, not enough to turn the rail into a
+   column of posters — and the three lines come up to match.
+   ========================================================= */
+.gb-shot{ aspect-ratio: 7 / 6; }
+
+.gb-metric strong{ font-size: 31px; }
+.gb-metric span{ font-size: 12.5px; }
+.gb-title{ font-size: 16.5px; }
+.gb-go{ width: 30px; height: 30px; }
+.gb-go svg{ width: 16px; height: 16px; }
+
+/* Clearer over a photograph, which is the hard case: the number was leaning on
+   a single soft shadow and the label was 90% white over whatever the bottom of
+   the shot happened to be. A deeper floor under both, and the label opaque. */
+.gb-shot.is-photo .gb-veil{
+  background: linear-gradient(to top, rgba(8,15,32,.84) 0%, rgba(8,15,32,.4) 40%, transparent 70%);
+}
+.is-photo .gb-metric strong{ text-shadow: 0 2px 14px rgba(8,15,32,.65); }
+.is-photo .gb-metric span{ color: #fff; text-shadow: 0 1px 8px rgba(8,15,32,.6); }
+
+@media (min-width:1024px){
+  .gb-metric strong{ font-size: 33px; }
+  .gb-title{ font-size: 17px; }
+}
