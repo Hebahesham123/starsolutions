@@ -4003,3 +4003,58 @@
   /* the heading level varies by page — h4 on the homepage, h3 on /work */
   .live-card :is(h2, h3, h4) a{ display:inline-block; padding-block:3px; }
 }
+
+/* =========================================================
+   One ring: platforms take their place on the perimeter.
+
+   They were half-size marks on an inner ring; they are now the same mark at
+   the same size and the same spacing as the services, each with its own lit
+   thread back to the centre. The only thing that still separates them is that
+   a service carries a name and is a link, and a platform is neither.
+   ========================================================= */
+
+/* The marks carry names now, so they take the same outward [data-side]
+   transforms as the services and no longer want a centring rule of their own.
+   What still separates them is that a platform is not a link. */
+.web-pin[data-kind="mark"] .web-node-link{ cursor:default; }
+.web-pin[data-kind="mark"] .web-node-link:hover{ transform:none; }
+.web-pin[data-kind="mark"] .web-node-link:hover .web-dot{ transform:none; }
+.web-pin[data-kind="mark"] .web-label strong{ font-weight:600; }
+
+/* The satellites' own ring is gone; nothing renders .web-sat any more. */
+.web-sats, .web-sat{ display:none; }
+
+/* The bead delays were written for three threads by nth-child. With seven the
+   index comes down from the component, so the stagger holds whatever the count
+   is — and the leads no longer have to be the first children to be picked up. */
+.web-lead::after{ animation-delay:calc(var(--i, 0) * -0.42s); }
+.web-lead:nth-child(2)::after,
+.web-lead:nth-child(3)::after{ animation-delay:calc(var(--i, 0) * -0.42s); }
+
+/* The wide layout pulled the button up with a negative bottom margin, to
+   reclaim "a strip of nothing at the bottom" left by a box that was symmetric
+   about its centre while the content was not. The box is no longer symmetric —
+   --cyc sizes it to what the ring actually occupies — so that reclaim is now
+   counted twice and lands the button inside the ring. Measured at 1280px it
+   was pulling 101px, putting the button 73px above the lowest node. */
+@media (min-width:720px){
+  .web{ margin-bottom:0; }
+}
+
+/* Seven labels reach further than three did, and not only because there are
+   more of them: the outermost slots — the ones at |sin| near 1, where a label
+   costs its full column of width — used to be unlabelled marks. The 720–1023
+   band had 12px of shell to spare before and ran 7px short after, so its label
+   column comes in. Above 1024px there is 121px of slack and nothing to do. */
+@media (min-width:720px) and (max-width:1023px){
+  .web{ --lab:clamp(128px, 16.5vw, 200px); }
+}
+
+/* At 320px the left side stacks two label blocks — "Custom automations" over
+   "n8n" — and they met by 5px. There is no radius left to give at that width,
+   so the blocks get shorter instead: the gap between a mark and its name is
+   what they are mostly made of. */
+@media (max-width:360px){
+  .web-node-link{ gap:4px; }
+  .web-label strong{ font-size:11.5px; line-height:1.15; }
+}

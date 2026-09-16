@@ -532,25 +532,55 @@ const PLATFORM_MARK: Record<string, { icon: string; tone: string }> = {
   google:   { icon: 'googleads', tone: '#FBBF24' },
   tiktok:   { icon: 'tiktok',   tone: '#38BDF8' },
 };
-const platformMark = (name: string) =>
-  PLATFORM_MARK[name.toLowerCase().replace(/\s*ads?$/, '').trim()];
+const platformMark = (name: string) => {
+  const m = PLATFORM_MARK[name.toLowerCase().replace(/\s*ads?$/, '').trim()];
+  return m ? { ...m, name } : undefined;
+};
 
 export function Automations({ automations, platforms = [] }: { automations: Entry[]; platforms?: string[] }) {
   const { spokeLines, ringPaths } = webPaths();
-  /* A platform already standing on the outer ring as an automation does not
-     need a second mark on the inner one. */
+  /* A platform a service already stands for does not need a second mark. */
   const taken = new Set(automations.map((a, i) => a.icon ?? autoIcon(i)));
   const marks = platforms
     .map(platformMark)
-    .filter((m): m is { icon: string; tone: string } => Boolean(m) && !taken.has(m!.icon));
+    .filter((m): m is { icon: string; tone: string; name: string } => Boolean(m) && !taken.has(m!.icon));
 
-  /* How far the ring actually reaches up and down. The box used to reserve a
-     full radius each way, but a node only sits at the top when an angle lands
-     there: with three, the lowest pair is at half a radius, and the difference
-     was 66px of empty box under the drawing. */
-  const cys = automations.map((_, i) => -Math.cos((i / automations.length) * 2 * Math.PI));
-  const up = Math.max(0, ...cys.map((c) => -c));
-  const down = Math.max(0, ...cys);
+  /* One ring, every node the same size and the same distance apart.
+   *
+   * Only the services carry labels, so they cannot simply be laid down in data
+   * order — three labels landing next to each other would collide, and the
+   * fourth quarter of the ring would be bare. Walking the slots and placing a
+   * service whenever `floor(slot * services / total)` ticks over spreads them
+   * as evenly as the slot count allows, and places every one of them exactly
+   * once however many platforms there are.
+   */
+  const total = automations.length + marks.length;
+  let placed = 0;
+  let nextMark = 0;
+  const nodes = Array.from({ length: total }, (_, slot) => {
+    const angle = (slot / total) * 2 * Math.PI;
+    const geo = { slot, deg: (slot / total) * 360, sx: Math.sin(angle), cy: -Math.cos(angle) };
+    const wantsService =
+      placed < automations.length &&
+      Math.floor((slot * automations.length) / total) === placed;
+
+    if (wantsService) {
+      const i = placed++;
+      const a = automations[i];
+      return {
+        ...geo, kind: 'service' as const, key: a.id, slug: a.slug, title: a.title,
+        icon: a.icon ?? autoIcon(i), tone: a.tone ?? autoTone(i),
+      };
+    }
+    const m = marks[nextMark++];
+    return { ...geo, kind: 'mark' as const, key: `mark-${m.icon}`, icon: m.icon, tone: m.tone, title: m.name };
+  });
+
+  /* How far the ring reaches up and down, read off the nodes that exist rather
+     than assuming one sits at the top and another at the bottom. */
+  const up = Math.max(0, ...nodes.map((n) => -n.cy));
+  const down = Math.max(0, ...nodes.map((n) => n.cy));
+
   return (
     <section id="automations" className="section web-section" aria-labelledby="autoTitle">
       <div className="mx-auto max-w-shell px-5 lg:px-8">
@@ -571,91 +601,70 @@ export function Automations({ automations, platforms = [] }: { automations: Entr
             </g>
           </svg>
 
-          {/* One lit thread per automation, from the mark out to its node. The
-              net already has a spoke at each of those angles, but a spoke the
-              same weight as the other eleven says nothing about which three
-              are connected to anything. */}
+          {/* A lit thread from the mark out to every node, in that node's own
+              colour. The net already has a spoke at each angle, but a spoke the
+              same weight as the other eleven says nothing about what is joined
+              to what. */}
           <div className="web-leads" aria-hidden="true">
-            {automations.map((a, i) => (
+            {nodes.map((n) => (
               <span
-                key={a.id}
+                key={n.key}
                 className="web-lead"
-                style={{
-                  ['--deg' as string]: `${(i / automations.length) * 360}deg`,
-                  ['--tone' as string]: a.tone ?? autoTone(i),
-                }}
+                style={{ ['--deg' as string]: `${n.deg}deg`, ['--tone' as string]: n.tone, ['--i' as string]: n.slot }}
               />
             ))}
           </div>
-
-          {/* Between the core and the outer ring, off the spokes, so they read as
-              caught in the web rather than as a second ring of services. */}
-          {marks.length > 0 && (
-            <ul className="web-sats" aria-hidden="true">
-              {marks.map((m, i) => (
-                <li
-                  key={m.icon}
-                  className="web-sat"
-                  style={{
-                    ['--sx' as string]: Math.sin(((i + 0.5) / marks.length) * 2 * Math.PI).toFixed(4),
-                    ['--cy' as string]: (-Math.cos(((i + 0.5) / marks.length) * 2 * Math.PI)).toFixed(4),
-                    ['--tone' as string]: m.tone,
-                  }}
-                >
-                  <Icon name={m.icon} />
-                </li>
-              ))}
-            </ul>
-          )}
 
           <div className="web-core">
             <span className="web-core-glow" aria-hidden="true" />
             <LogoStatic layout="mark" size={96} className="web-core-mark" label="Star Solution" />
           </div>
 
-          {/* Each node carries its own words, like the reference — no row of
-              cards underneath.
-
-              Which side they go on is the whole trick. An earlier pass centred
-              the text under its node, so every label straddled the node's own
-              spoke and the two lower ones ran back across the middle tile; the
-              only way out was a radius that put them outside the box. Running
-              each label outward instead — away from the centre, on the side its
-              node already sits on — is what the reference does, and it means
-              the text never crosses the web at all. `side` is read off the
-              node's own angle, so it stays right however many automations
-              there are. */}
+          {/* Which side a label goes on is the whole trick: outward, away from
+              the centre, on the side its node already sits on. Centred under
+              the node instead, it straddles its own spoke and the lower ones
+              run back across the middle tile. `side` is read off the node's own
+              angle, so it stays right however many nodes there are. */}
           <ul className="web-ring">
-            {automations.map((a, i) => {
-              const angle = (i / automations.length) * 2 * Math.PI;
-              const sx = Math.sin(angle);
-              const side = Math.abs(sx) < 0.15 ? (Math.cos(angle) > 0 ? 'top' : 'bottom') : sx > 0 ? 'right' : 'left';
-              return (
+            {nodes.map((n) =>
+              n.kind === 'service' ? (
                 <li
-                  key={a.id}
+                  key={n.key}
                   className="web-pin"
-                  data-side={side}
+                  data-side={Math.abs(n.sx) < 0.15 ? (n.cy < 0 ? 'top' : 'bottom') : n.sx > 0 ? 'right' : 'left'}
                   style={{
-                    ['--sx' as string]: sx.toFixed(4),
-                    ['--cy' as string]: (-Math.cos(angle)).toFixed(4),
-                    ['--tone' as string]: a.tone ?? autoTone(i),
+                    ['--sx' as string]: n.sx.toFixed(4),
+                    ['--cy' as string]: n.cy.toFixed(4),
+                    ['--tone' as string]: n.tone,
                   }}
                 >
-                  <Link href={`/automations/${a.slug}`} className="web-node-link">
-                    <span className="web-dot" aria-hidden="true">
-                      <Icon name={a.icon ?? autoIcon(i)} />
-                    </span>
-                    {/* Name only. The blurb under each node was what pinned the
-                        ring in: a label is centred on its node and reaches half
-                        its own width further out, so the paragraphs were setting
-                        how far the nodes could go. */}
-                    <span className="web-label">
-                      <strong>{a.title}</strong>
-                    </span>
+                  <Link href={`/automations/${n.slug}`} className="web-node-link">
+                    <span className="web-dot" aria-hidden="true"><Icon name={n.icon} /></span>
+                    <span className="web-label"><strong>{n.title}</strong></span>
                   </Link>
                 </li>
-              );
-            })}
+              ) : (
+                /* A platform, not a service: same mark, same ring, same label
+                   treatment — it just does not go anywhere, because there is no
+                   page behind a platform. */
+                <li
+                  key={n.key}
+                  className="web-pin"
+                  data-kind="mark"
+                  data-side={Math.abs(n.sx) < 0.15 ? (n.cy < 0 ? 'top' : 'bottom') : n.sx > 0 ? 'right' : 'left'}
+                  style={{
+                    ['--sx' as string]: n.sx.toFixed(4),
+                    ['--cy' as string]: n.cy.toFixed(4),
+                    ['--tone' as string]: n.tone,
+                  }}
+                >
+                  <span className="web-node-link">
+                    <span className="web-dot" aria-hidden="true"><Icon name={n.icon} /></span>
+                    <span className="web-label"><strong>{n.title}</strong></span>
+                  </span>
+                </li>
+              ),
+            )}
           </ul>
         </div>
 
