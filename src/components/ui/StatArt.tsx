@@ -10,6 +10,20 @@
  * Keyed by the figure's `metric`, which is the same key the chart switches on,
  * so a figure without a drawing here simply renders without one.
  */
+/**
+ * Two stops per drawing. The reference gives each figure its own run of colour
+ * rather than one tint across all six — violet through the body, and gold on
+ * anything that points up, so "more" and "less" read differently at a glance.
+ */
+const STOPS: Record<string, [string, string]> = {
+  businesses: ['#C4B5FD', '#8B7BFF'],
+  hours:      ['#A78BFA', '#F472B6'],
+  roas:       ['#7FB0FF', '#FBBF24'],
+  aov:        ['#A78BFA', '#FBBF24'],
+  support:    ['#60A5FA', '#A78BFA'],
+  adspend:    ['#B9A8FF', '#7FB0FF'],
+};
+
 const ART: Record<string, React.ReactNode> = {
   /* Scales — what "businesses scaled" is a count of. */
   businesses: (
@@ -51,14 +65,15 @@ const ART: Record<string, React.ReactNode> = {
     </>
   ),
 
-  /* The arm that answers while nobody is there. */
+  /* The arm that answers while nobody is there. Two segments off a base, with
+     a claw big enough to read at 40px — the previous one was a stick. */
   support: (
     <>
-      <path d="M10 41h18M19 41v-7" />
-      <path d="m19 34 12-12M31 22l14-4" />
-      <circle cx="19" cy="34" r="2.6" />
-      <circle cx="31" cy="22" r="2.6" />
-      <path d="m45 18 6-4M45 18l5 5" />
+      <path d="M8 42h19M17.5 42v-5" />
+      <path d="M17.5 37 31 21M31 21l13 2.5" />
+      <circle cx="17.5" cy="37" r="3.1" />
+      <circle cx="31" cy="21" r="3.1" />
+      <path d="M44 23.5 53 18M44 23.5 51 30" />
     </>
   ),
 
@@ -78,18 +93,35 @@ const ART: Record<string, React.ReactNode> = {
 export function StatArt({ name }: { name: string }) {
   const art = ART[name];
   if (!art) return null;
+  const stops = STOPS[name];
+  /* One figure per metric on a page, so the metric is already a unique id. */
+  const gid = `statArt-${name}`;
   return (
     <svg
       className="rt-art"
       viewBox="0 0 64 48"
       fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
+      stroke={stops ? `url(#${gid})` : 'currentColor'}
+      strokeWidth="2.1"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
       focusable="false"
     >
+      {stops && (
+        <defs>
+          {/* userSpaceOnUse, not the default objectBoundingBox: a bbox that is
+              gradient-mapped per element is degenerate for a pure horizontal
+              or vertical path — zero height — and the spec says such an
+              element is not rendered. It silently ate the scales' beam and the
+              ROAS baseline. Spanning the viewBox also runs one gradient across
+              the whole drawing rather than restarting it in every path. */}
+          <linearGradient id={gid} gradientUnits="userSpaceOnUse" x1="0" y1="48" x2="64" y2="0">
+            <stop offset="0%" stopColor={stops[0]} />
+            <stop offset="100%" stopColor={stops[1]} />
+          </linearGradient>
+        </defs>
+      )}
       {art}
     </svg>
   );

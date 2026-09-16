@@ -3278,3 +3278,323 @@
    two ends, so dropping the dots leaves a bar with a control at each end and a
    long gap between — and the dots are what that gap is for. */
 .goal-stage .rail-dots{ display:flex; justify-self:center; align-self:center; }
+
+/* =========================================================
+   Proven results, on the reference's ground.
+
+   The arrangement already matched; the colour did not. Everything above this
+   built the reference's detail — ribbon, trace, drawings, the chip with a tail
+   — in the light palette, on the note that the colours were to stay. This
+   block takes the ground too.
+
+   The navy is deliberately well above --ink (#0B1220). Dropped to the site's
+   near-black the panel and the tiles have nowhere left to sit: each one is a
+   translucent white lift off the ground, and off black they read as grey
+   boxes rather than as glass. Around #2A2359 there is room underneath them.
+
+   Scoped to .stats-section so it is one section that goes dark, not a theme.
+   ========================================================= */
+.stats-section{
+  --n-ground:#2A2359;      /* the navy itself */
+  --n-ground-2:#221C4A;    /* what it settles to at the foot */
+  --n-glass:rgba(255,255,255,.055);
+  --n-glass-2:rgba(255,255,255,.085);
+  --n-line:rgba(255,255,255,.14);
+  --n-line-soft:rgba(255,255,255,.09);
+  --n-ink:#FFFFFF;
+  --n-ink-2:#CFD1F0;
+  --n-muted:#9E9FCE;
+  --n-brand:#8FB4FF;       /* the blue, lifted until it reads on navy */
+
+  background:
+    radial-gradient(78% 52% at 82% 0%, rgba(124,108,255,.30), transparent 62%),
+    radial-gradient(64% 46% at 8% 12%, rgba(59,130,246,.20), transparent 66%),
+    linear-gradient(168deg, var(--n-ground) 0%, #2A2359 42%, var(--n-ground-2) 100%);
+  border-block:0;
+  color:var(--n-ink-2);
+}
+
+/* ---------- the head ---------- */
+.stats-section .section-head-card{
+  background:linear-gradient(160deg, var(--n-glass-2), var(--n-glass));
+  border-color:var(--n-line);
+  box-shadow:0 20px 44px -34px rgba(0,0,0,.8);
+  -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+}
+.stats-section .section-title{ color:var(--n-ink); }
+.stats-section .section-sub{ color:var(--n-muted); }
+.stats-section .eyebrow{ color:var(--n-brand); }
+.stats-section .eyebrow-dot{ background:var(--n-brand); }
+
+/* ---------- the panel ---------- */
+.stats-section .results-panel{
+  background:linear-gradient(168deg, var(--n-glass-2), var(--n-glass));
+  border-color:var(--n-line);
+  box-shadow:0 30px 70px -40px rgba(0,0,0,.85);
+  -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+}
+.stats-section .rp-chart{
+  background:transparent;
+  border-bottom-color:var(--n-line-soft);
+}
+@media (min-width:900px){
+  .stats-section .rp-chart{ border-right-color:var(--n-line-soft); }
+}
+.stats-section .rp-kicker{ color:var(--n-muted); }
+.stats-section .rp-head-label{ color:var(--n-ink-2); }
+.stats-section .rp-note{ color:var(--n-ink-2); }
+.stats-section .rp-note strong{ color:var(--n-ink); }
+.stats-section .rp-note-icon{ color:var(--n-brand); }
+/* the big number keeps its gradient — it just needs brighter stops on navy */
+.stats-section .rp-num{
+  background:linear-gradient(115deg,#7FB0FF 10%, #B9A8FF 95%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+
+/* ---------- the plot ---------- */
+.stats-section .rp-plot{
+  background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+  border-color:var(--n-line);
+}
+.stats-section .rp-line{
+  background:linear-gradient(90deg,transparent,var(--n-line-soft) 12%,var(--n-line-soft) 88%,transparent);
+}
+.stats-section .rp-trace{ color:rgba(143,180,255,.45); }
+.stats-section .rp-trace-dot{
+  background:#DCE6FF; border-color:rgba(143,180,255,.8);
+}
+.stats-section .rp-val{ color:var(--n-ink-2); }
+.stats-section .rp-cap{ color:var(--n-muted); }
+.stats-section .rp-col-after .rp-cap{ color:var(--n-ink); }
+/* "before" is a light block of glass; "after" is the one thing that glows */
+.stats-section .rp-bar{
+  background:linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.10));
+  border:1px solid var(--n-line-soft);
+}
+.stats-section .rp-col-after .rp-bar{
+  background:linear-gradient(180deg,#6FA8FF 0%, #7C6CFF 100%);
+  border-color:transparent;
+  box-shadow:0 18px 40px -14px rgba(124,108,255,.95), 0 0 30px -6px rgba(111,168,255,.5);
+}
+.stats-section .rp-col-ghost .rp-bar{
+  background:repeating-linear-gradient(135deg, rgba(255,255,255,.10) 0 6px, rgba(255,255,255,.04) 6px 12px);
+  border:1px dashed var(--n-line);
+}
+.stats-section .rp-col-ghost .rp-val{ color:var(--n-muted); }
+
+/* ---------- the figures ---------- */
+/* The 1px grid between tiles is the panel showing through, so it has to become
+   a light hairline rather than stay the light theme's --line. */
+.stats-section .rp-tiles{ background:var(--n-line-soft); }
+.stats-section .rt{ background:rgba(255,255,255,.04); }
+.stats-section .rt:hover{ background:rgba(255,255,255,.085); }
+.stats-section .rt.is-active{ background:rgba(124,108,255,.18); }
+.stats-section .rt-num{ color:var(--n-ink); }
+.stats-section .rt.is-active .rt-num{
+  background:linear-gradient(115deg,#7FB0FF 10%, #B9A8FF 95%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.stats-section .rt-label{ color:var(--n-ink-2); }
+.stats-section .rt-sub{ color:var(--n-muted); }
+.stats-section .rt-hint{ color:var(--n-brand); }
+.stats-section .rt-icon{
+  background:linear-gradient(150deg, rgba(143,180,255,.22), rgba(124,108,255,.22));
+  border-color:var(--n-line); color:#DCE6FF;
+}
+.stats-section .rt-art{ color:#AFC4FF; opacity:.34; }
+.stats-section .rt:hover .rt-art,
+.stats-section .rt.is-active .rt-art{ opacity:.6; color:#CFD9FF; }
+.stats-section .rt-tag{
+  color:#DCE6FF;
+  background:rgba(143,180,255,.16);
+  border-color:rgba(143,180,255,.34);
+}
+.stats-section .rt::after{
+  background:linear-gradient(90deg,#6FA8FF,#7C6CFF);
+}
+
+/* the starfield was drawn to sit on a light ground */
+.stats-section .starfield-dim{ opacity:.5; mix-blend-mode:screen; }
+
+/* ---------- the bars, in proportion ----------
+   `--h` is the bar's share of the plot, but the column is a flex box holding
+   the chip as well, so the tall bar was the one that shrank to make room:
+   100 against 232 rendered at 0.79 of each other instead of 0.43, which
+   understates the very thing the section is claiming.
+
+   flex:0 0 takes the bar out of shrinking, and the multiplier scales both bars
+   by the same factor, so the ratio between them survives while the chip keeps
+   the space above. */
+.rp-bar{ flex:0 0 calc(var(--h) * .76); }
+@media (max-width:639px){ .rp-plot{ height:132px; } }
+
+/* ---------- closing the gap to the reference ----------
+   Three things still read differently from the image this section is built to
+   match, and all three are consequences of it having been a light design. */
+
+/* 1. The ribbon. Its stops are var(--brand) and var(--accent), which on white
+      were the only two colours available; against navy a blue-violet wave has
+      nothing to separate it from the ground it sits on. The reference's is a
+      teal band under a gold hairline. Redefining the two custom properties on
+      the svg itself repoints every stop at once, and reaches nothing else. */
+.stats-section .rp-ribbon{
+  --accent:#1F8A86;   /* the band */
+  --brand:#E9C77E;    /* the hairline along its crest */
+  opacity:.82;
+}
+
+/* 2. The drawings. At .3 they were a watermark behind a white card; on navy
+      they are the only line work in the tile and the reference gives them
+      real presence. */
+.stats-section .rt-art{ opacity:.46; }
+.stats-section .rt:hover .rt-art,
+.stats-section .rt.is-active .rt-art{ opacity:.72; }
+
+/* 3. The winning bar. The reference's glow is what separates it from the
+      grey block beside it; on a light ground a soft shadow did that job. */
+.stats-section .rp-col-after .rp-bar{
+  box-shadow:
+    0 0 0 1px rgba(176,196,255,.22),
+    0 22px 46px -12px rgba(124,108,255,1),
+    0 0 46px -4px rgba(111,168,255,.72);
+}
+
+/* The `save` chip is in the reference at this width, so it stays. It and the
+   drawing share the corner: the chip takes it and the drawing starts below,
+   which the rule above already arranges. */
+@media (max-width:559px){
+  .stats-section .rt-tag{ display:block; right:7px; top:6px; font-size:8px; padding:1.5px 6px; }
+  .stats-section .rt[data-metric="adspend"] .rt-art{ top:22px; }
+}
+
+/* The drawings, at the reference's size.
+   In the image each one takes roughly a third of its tile; the phone rule
+   above holds them to 30–38px, which at 430px is closer to a quarter and is
+   why they read as thin marks rather than as drawings. */
+@media (max-width:559px){
+  .stats-section .rt-art{ width:clamp(40px, 13vw, 52px); }
+}
+
+/* =========================================================
+   The figure tiles, as the reference draws them.
+
+   Three departures from what was here, all visible in the image: the tiles are
+   separate rounded cards rather than cells of one grid, each drawing runs its
+   own gradient at full strength instead of a faint monochrome watermark, and
+   the icon chip carries a glow. The drawings then animate themselves in.
+   ========================================================= */
+
+/* ---------- separate cards, not a hairline grid ---------- */
+/* The 1px gap with a lit background was the grid showing through between
+   flush cells. Real gaps and a border per tile make them cards. */
+.stats-section .rp-tiles{
+  background:transparent;
+  gap:8px;
+  padding:8px;
+}
+.stats-section .rt{
+  border-radius:15px;
+  background:linear-gradient(165deg, rgba(255,255,255,.075), rgba(255,255,255,.035));
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 12px 26px -20px rgba(0,0,0,.9);
+}
+.stats-section .rt:hover{
+  background:linear-gradient(165deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
+  border-color:rgba(176,196,255,.34);
+}
+.stats-section .rt.is-active{
+  background:linear-gradient(165deg, rgba(124,108,255,.30), rgba(124,108,255,.14));
+  border-color:rgba(176,196,255,.5);
+}
+/* the accent bar was drawn along a cell edge; on a rounded card it needs to
+   sit inside the corner radius */
+.stats-section .rt::after{ left:12px; right:12px; bottom:0; border-radius:99px; }
+/* the rating row spans the full width and keeps the same card treatment */
+.stats-section .rt:last-child{ border-radius:15px; }
+
+/* ---------- the icon chip, lit ---------- */
+.stats-section .rt-icon{
+  background:linear-gradient(150deg, rgba(167,139,250,.38), rgba(111,168,255,.28));
+  border-color:rgba(196,181,253,.45);
+  color:#EDE9FE;
+  box-shadow:0 0 0 1px rgba(196,181,253,.14), 0 8px 20px -8px rgba(139,123,255,.9);
+}
+.stats-section .rt.is-active .rt-icon{
+  box-shadow:0 0 0 1px rgba(196,181,253,.3), 0 10px 26px -6px rgba(139,123,255,1);
+}
+
+/* ---------- the drawings, at full strength ---------- */
+/* They carry their own gradient now, so the opacity that made them a
+   watermark behind a white card is what was holding them back. */
+.stats-section .rt-art{ opacity:.92; }
+.stats-section .rt:hover .rt-art,
+.stats-section .rt.is-active .rt-art{ opacity:1; }
+/* .is-active recoloured them to brand-deep, which overrides the gradient
+   with a flat dark blue — invisible here. */
+.stats-section .rt.is-active .rt-art{ color:inherit; }
+
+/* ---------- the save chip ---------- */
+.stats-section .rt-tag{
+  color:#0B1220; font-weight:600;
+  background:linear-gradient(120deg,#8FE3C4,#7FB0FF);
+  border-color:transparent;
+  box-shadow:0 6px 16px -8px rgba(127,176,255,.9);
+}
+
+/* ---------- drawing themselves in ----------
+   One dash long enough to cover the longest path in the set, wound off as the
+   panel comes into view. Exact path lengths would need measuring each one in
+   JS; overshooting the dash costs nothing because the offset lands at 0. */
+@keyframes rt-draw{
+  from{ stroke-dashoffset:260; opacity:0; }
+  60% { opacity:1; }
+  to  { stroke-dashoffset:0; opacity:1; }
+}
+.stats-section .rt-art > path,
+.stats-section .rt-art > circle{
+  stroke-dasharray:260;
+  stroke-dashoffset:260;
+}
+.stats-section .is-drawn .rt-art > path,
+.stats-section .is-drawn .rt-art > circle,
+.stats-section .results-panel.is-drawn .rt-art > path,
+.stats-section .results-panel.is-drawn .rt-art > circle{
+  animation:rt-draw 1.1s var(--ease-out) forwards;
+}
+/* stagger by tile, so the six read as a sequence rather than a flash */
+.stats-section .rt:nth-child(1) .rt-art > *{ animation-delay:.05s; }
+.stats-section .rt:nth-child(2) .rt-art > *{ animation-delay:.14s; }
+.stats-section .rt:nth-child(3) .rt-art > *{ animation-delay:.23s; }
+.stats-section .rt:nth-child(4) .rt-art > *{ animation-delay:.32s; }
+.stats-section .rt:nth-child(5) .rt-art > *{ animation-delay:.41s; }
+.stats-section .rt:nth-child(6) .rt-art > *{ animation-delay:.50s; }
+
+/* a slow drift once drawn, so the tile is alive without asking to be read */
+@keyframes rt-float{
+  0%,100%{ transform:translateY(0); }
+  50%    { transform:translateY(-3px); }
+}
+.stats-section .is-drawn .rt-art{ animation:rt-float 5.5s ease-in-out 1.6s infinite; }
+
+@media (prefers-reduced-motion:reduce){
+  .stats-section .rt-art > path,
+  .stats-section .rt-art > circle{ stroke-dasharray:none; stroke-dashoffset:0; animation:none; }
+  .stats-section .is-drawn .rt-art{ animation:none; }
+}
+
+/* ---------- the head card, squared to the panel ----------
+   It was held to 760px on the reasoning that a full-width bordered box with a
+   heading in the left third is mostly emptiness. True on white, where it sat
+   alone. On navy it sits directly above a full-width panel, and two stacked
+   cards of different widths read as a mistake rather than as a measure — the
+   short edge leaves a strip of bare ground beside it. The reference has them
+   flush, so they are flush; the text keeps its own measure inside. */
+.stats-section .section-head-card{
+  max-width:none;
+  margin-bottom:12px;
+}
+@media (min-width:900px){
+  .stats-section .section-head-card{ margin-bottom:16px; }
+  /* the heading still stops at a readable line length inside the full box */
+  .stats-section .section-head-card .section-head > div{ max-width:720px; }
+}

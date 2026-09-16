@@ -22,7 +22,7 @@ export function ResultsPanel({ charts, figures }: { charts: Record<string, Chart
   const select = (key: string) => setMetric((cur) => (cur === key ? 'revenue' : key));
 
   return (
-    <div className="results-panel is-lit" id="resultsPanel" ref={ref}>
+    <div className={`results-panel is-lit${inView ? ' is-drawn' : ''}`} id="resultsPanel" ref={ref}>
       <figure className="rp-chart">
         {/* The sweep across the top corner. Purely decorative, and the one
             place in this panel with any weight to it — the panel is otherwise
