@@ -4133,3 +4133,40 @@
   .gb-metric strong{ font-size: 33px; }
   .gb-title{ font-size: 17px; }
 }
+
+/* =========================================================
+   The hero: a taller frame, and connections you can see.
+
+   The lines between the agent and the four cards are the picture's whole
+   claim — that one thing is joined to all of them — and at 1.6px in #C6D6F4,
+   under a net running at 42% opacity, they were close to invisible on a phone.
+   They carry weight and colour now. The frame grows with them, because a
+   drawing needs room around it before more ink helps.
+   ========================================================= */
+
+/* ---------- the connections ---------- */
+.link-base path{ stroke:#A8BFE6; stroke-width:2.2; }
+.flow{ stroke-width:3.2; }
+.link-nodes circle{ stroke-width:2; r:4; }
+
+/* The constellation behind them: one step up, and no further. It is the
+   backdrop, and a backdrop that competes with the links it sits behind would
+   cost more than the links gained. */
+.net-lines polyline{ stroke:#BFD1EF; stroke-width:1.3; }
+@media (max-width:639px){
+  .hero-net{ opacity:.58; }
+  .link-base path{ stroke-width:2; }
+  .flow{ stroke-width:2.9; }
+}
+
+/* ---------- the frame ---------- */
+/* On a phone the ratio hands back less height than the cards need, so the
+   floor is what actually sets this — raising the ratio alone would change
+   nothing. Both move, and the comment on the floor still holds: it is two
+   cards plus a gap, and it moves in step with the .node type. */
+@media (max-width:639px){
+  .agent-stage{ aspect-ratio: 640 / 300; min-height: 178px; }
+}
+@media (min-width:430px) and (max-width:639px){
+  .agent-stage{ min-height: 190px; }
+}
