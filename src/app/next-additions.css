@@ -4170,3 +4170,18 @@
 @media (min-width:430px) and (max-width:639px){
   .agent-stage{ min-height: 190px; }
 }
+
+/* Correction to the block above: it lifted the connectors and the
+   constellation together, which is self-defeating. A line is only clear
+   relative to what is behind it, and the backdrop's own polygon edges cut
+   across the stage at the same weight as the connectors, so raising both
+   bought contrast on the page and lost it inside the drawing.
+
+   The backdrop goes down — below where it started — and the connectors take
+   the rest. */
+@media (max-width:639px){
+  .hero-net{ opacity:.3; }
+  .link-base path{ stroke:#8DACDD; stroke-width:2.4; }
+  .flow{ stroke-width:3.2; }
+  .link-nodes circle{ stroke-width:2.2; }
+}
