@@ -286,12 +286,13 @@
   .agent-stage{
     max-width: none;
     aspect-ratio: 640 / 245;
-    /* A card is ~61px whatever the stage does — its height comes from the type
+    /* A card is ~71px whatever the stage does — its height comes from the type
        inside it, not from the frame. Two of them stack on each side, so below
        ~430px the ratio alone hands back less height than they need and the top
        and bottom cards run into each other. This is that floor: two cards plus
-       a gap. Move it in step with the .node type below, never on its own. */
-    min-height: 134px;
+       a gap. Move it in step with the .node type below, never on its own.
+       Raised from 134px when the cards were given their padding back. */
+    min-height: 152px;
   }
   .hero-visual{ gap: 0; }
   /* The ring is 172% of the orb; at the old size it reached into the cards
@@ -334,8 +335,8 @@
   .node header{ font-size: 9.2px; }
   .node-value{ font-size: 13px; }
   .node-label, .node-delta{ font-size: 8.4px; }
-  /* the larger type here makes a card ~66px, so the floor moves up with it */
-  .agent-stage{ min-height: 144px; }
+  /* the larger type here makes a card ~75px, so the floor moves up with it */
+  .agent-stage{ min-height: 164px; }
 }
 
 /* =========================================================
@@ -3597,4 +3598,408 @@
   .stats-section .section-head-card{ margin-bottom:16px; }
   /* the heading still stops at a readable line length inside the full box */
   .stats-section .section-head-card .section-head > div{ max-width:720px; }
+}
+
+/* =========================================================
+   The night dial on a phone, as the reference draws it.
+
+   Same colours — this changes shape, not palette. What differs from what was
+   here: the events are discs rather than cards, the rays are drawn, and the
+   totals run four across instead of two by two.
+
+   The geometry is what makes the discs possible. Five nodes on a ring need
+   2r + d across, and neighbours 72 degrees apart leave a chord of 1.176r, so
+   d must stay under that or they touch. At a 332px dial, r = 32% = 106px
+   gives a chord of 125px and a node of 117px: it fits, with 8px to spare.
+   ========================================================= */
+@media (max-width:639px){
+  /* square, because a ring of discs is not a tall arrangement */
+  .dial{ aspect-ratio:1 / 1; margin-top:10px; }
+  .dial-items{ --rx:32%; --ry:32%; }
+
+  .dial-item{
+    /* the disc */
+    width:clamp(104px, 30vw, 130px); height:clamp(104px, 30vw, 130px);
+    border-radius:50%;
+    grid-template-columns:1fr;
+    justify-items:center; align-content:center; text-align:center;
+    gap:2px; padding:10px 9px;
+    /* the tone was a hairline down the leading edge; on a disc it is the ring */
+    border:1.5px solid color-mix(in srgb, var(--tone, var(--brand)) 55%, transparent);
+    box-shadow:
+      0 0 0 4px color-mix(in srgb, var(--tone, var(--brand)) 7%, transparent),
+      0 14px 30px -18px color-mix(in srgb, var(--tone, var(--brand)) 80%, transparent);
+  }
+  .dial-item:hover{ border-color:var(--tone, var(--brand)); }
+  .dial-text{ justify-items:center; text-align:center; }
+  .dial-icon{ width:22px; height:22px; border-radius:50%; margin-bottom:1px; }
+  .dial-icon svg{ width:12px; height:12px; }
+  .dial-text .log-time{ font-size:8.4px; }
+  .dial-text strong{ font-size:9.6px; line-height:1.14; }
+  .dial-text > span:last-child{ font-size:8.4px; line-height:1.22; }
+
+  /* The rays were hidden here because the cards left about 18px of clear
+     space between the agent and the nearest edge — a ray across that is a
+     smudge. A disc on this ring leaves ~48px, which is room for a line. */
+  .dial-rays{ display:block; --reach:19%; }
+  .dial-orbit{ display:block; width:74%; height:74%; }
+  .dial-orbit-2{ width:46%; height:46%; }
+
+  /* ---------- the totals, four across ---------- */
+  /* The reference runs them as one row divided into four, which is also what
+     stops the panel reading as a second grid of cards under the first. */
+  .sleep-stats{
+    grid-template-columns:repeat(4,1fr);
+    gap:0; padding:11px 4px;
+  }
+  .sleep-stats > div{
+    grid-template-columns:1fr; gap:3px;
+    justify-items:center; text-align:center;
+    padding:0 5px;
+  }
+  .sleep-stats > div + div{ border-left:1px solid var(--line); }
+  .stat-mark{ width:20px; height:20px; border-radius:7px; }
+  .stat-mark svg{ width:11px; height:11px; }
+  .sleep-stats dt{ font-size:8.2px; line-height:1.2; }
+  .sleep-stats dd{ font-size:15px; margin-top:1px; }
+}
+
+/* The first pass sized the disc off the chord alone, which is the condition
+   for the ring not colliding — not for the disc holding text. A circle only
+   offers its inscribed square to a paragraph, d/√2, so a 117px disc gives the
+   text 83px and the lines ran out across the curve. Smaller disc, wider ring,
+   and the type set to the square rather than to the diameter. */
+@media (max-width:639px){
+  .dial-items{ --rx:34%; --ry:34%; }
+  .dial-item{
+    width:clamp(94px, 27vw, 112px); height:clamp(94px, 27vw, 112px);
+    padding:14px 13px; gap:1px;
+  }
+  .dial-icon{ width:19px; height:19px; }
+  .dial-icon svg{ width:10px; height:10px; }
+  .dial-text .log-time{ font-size:7.6px; }
+  .dial-text strong{ font-size:8.8px; line-height:1.12; }
+  .dial-text > span:last-child{ font-size:7.6px; line-height:1.18; }
+
+  /* The core has to clear the inner edge of the ring, which the label and its
+     strapline were crossing. */
+  .dial-core{ gap:4px; }
+  .dial-orb{ width:clamp(46px, 12vw, 58px); }
+  .dial-core-label{ font-size:8.4px; letter-spacing:.11em; }
+  .dial-core-sub{ font-size:6.6px; letter-spacing:.12em; }
+}
+
+/* The core sits in the clear band between the top disc's lower edge and the
+   top edge of the bottom pair — at r = 34% and a 105px disc that band is 75px
+   tall. The orb, label and strapline came to about 85px, so the strapline was
+   being crossed by the two discs below it. Sized to the band instead. */
+@media (max-width:639px){
+  .dial-core{ gap:3px; }
+  .dial-orb{ width:clamp(42px, 11.5vw, 52px); }
+  .dial-core-label{ font-size:7.8px; letter-spacing:.1em; }
+  .dial-core-sub{ font-size:6px; letter-spacing:.09em; }
+  /* the pulse was scaled off the old orb */
+  .dial-pulse{ top:calc(clamp(42px, 11.5vw, 52px) / 2); width:clamp(104px, 26vw, 150px); }
+  /* one notch smaller again, so the lines stop grazing the curve */
+  .dial-text > span:last-child{ font-size:7.2px; }
+}
+
+/* At 320px the 94px floor was wider than 27vw, which pushed the discs to 8px
+   apart — inside their own glow. Let the floor fall to what the ring allows. */
+@media (max-width:639px){
+  .dial-item{ width:clamp(86px, 27vw, 112px); height:clamp(86px, 27vw, 112px); }
+}
+
+/* =========================================================
+   The night, running.
+
+   The picture said what the agent had done; it did not show it doing it. What
+   moves now is the thing the diagram is actually claiming: an event fires, a
+   signal travels down its ray, and the agent takes it. One at a time, in the
+   clock order the ring is already drawn in, so the movement carries the same
+   meaning as the layout instead of decorating it.
+   ========================================================= */
+
+/* ---------- the signal, travelling in ---------- */
+/* The ray runs from the centre outward, so 100% is the node end and 58% is
+   where the line clears the core — the same 58% the ray's own gradient starts
+   at, so the dot appears exactly where the line does. */
+@keyframes dialSignal{
+  0%        { left:100%; opacity:0; transform:translateY(-50%) scale(.5); }
+  8%        { opacity:1; transform:translateY(-50%) scale(1); }
+  70%       { opacity:1; }
+  86%, 100% { left:58%;  opacity:0; transform:translateY(-50%) scale(.5); }
+}
+.dial-ray::after{
+  content:""; position:absolute; top:50%; left:100%;
+  width:5px; height:5px; border-radius:50%;
+  background:var(--tone, var(--brand));
+  box-shadow:0 0 9px 1.5px color-mix(in srgb, var(--tone, var(--brand)) 65%, transparent);
+  transform:translateY(-50%);
+  animation:dialSignal 3s var(--ease) infinite;
+  animation-delay:calc(var(--i, 0) * .6s);
+}
+
+/* ---------- the node that just fired ---------- */
+/* Same period and same offset as its own signal, so the disc lights a beat
+   before the dot leaves it. */
+@keyframes dialFire{
+  0%, 6%   { box-shadow:0 0 0 4px color-mix(in srgb, var(--tone) 7%, transparent),
+                        0 14px 30px -18px color-mix(in srgb, var(--tone) 80%, transparent); }
+  16%      { box-shadow:0 0 0 7px color-mix(in srgb, var(--tone) 16%, transparent),
+                        0 16px 34px -16px color-mix(in srgb, var(--tone) 95%, transparent); }
+  38%, 100%{ box-shadow:0 0 0 4px color-mix(in srgb, var(--tone) 7%, transparent),
+                        0 14px 30px -18px color-mix(in srgb, var(--tone) 80%, transparent); }
+}
+
+/* ---------- the rings ---------- */
+/* The note above these says neither spins, because a rotating ellipse wobbles.
+   True where they are ellipses. On a phone the dial is square and both rings
+   are circles, and a circle can turn without giving itself away — so the rule
+   is kept where it applies and lifted where it does not. */
+@keyframes dialTurn{ to{ transform:translate(-50%,-50%) rotate(360deg); } }
+
+@media (max-width:639px){
+  .dial-item{ animation:dialFire 3s var(--ease) infinite; animation-delay:calc(var(--i, 0) * .6s); }
+
+  .dial-orbit{ animation:dialTurn 34s linear infinite; }
+  .dial-orbit-2{ animation:dialTurn 22s linear infinite reverse; }
+  /* a mote riding each ring, which is what turning the rings is for — a
+     dashed circle rotating on its own is indistinguishable from a still one */
+  .dial-orbit::after{
+    content:""; position:absolute; top:-3px; left:50%; margin-left:-3px;
+    width:6px; height:6px; border-radius:50%;
+    background:var(--brand);
+    box-shadow:0 0 10px 2px rgba(59,130,246,.45);
+  }
+  .dial-orbit-2::after{
+    content:""; position:absolute; bottom:-2.5px; left:50%; margin-left:-2.5px;
+    width:5px; height:5px; border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 9px 2px rgba(124,108,255,.42);
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .dial-ray::after,
+  .dial-item,
+  .dial-orbit,
+  .dial-orbit-2{ animation:none !important; }
+  .dial-ray::after{ opacity:0; }
+}
+
+/* =========================================================
+   The web, larger — and the marks as the reference draws them.
+   ========================================================= */
+
+/* ---------- bigger ----------
+   Everything here comes off --net, so this is the one number. What caps it is
+   not the web but the words: a side label is centred on its node and reaches
+   half its own width further out, so the box runs out before the drawing does.
+   Measured at 390px, 45vw left 9px of slack and 50vw overflowed — until the
+   label came in with it. 50vw against a 0.78 label holds 4px and buys the
+   drawing 11%.
+
+   Above 720px the labels move beside the nodes and that ceiling disappears:
+   the box was 1.95 x 236px = 460px inside a 1136px shell, which is half the
+   room it had. */
+.web{ --net:clamp(150px, 48vw, 236px); }  /* 50vw left 320px with no margin at all */
+@media (max-width:719px){
+  .web{ --lab:calc(var(--net) * .78); }
+}
+@media (min-width:720px){
+  .web{ --net:clamp(200px, 40vw, 340px); }
+}
+
+/* ---------- the marks ----------
+   The reference sets each service on a white tile and lets the mark itself
+   carry the colour; this had it the other way round, a filled disc with a
+   white glyph, which turns six different services into six of the same badge.
+   The tone stays — it moves from the fill to the mark and the glow under it. */
+.web-dot{
+  border-radius:28%;
+  background:linear-gradient(165deg, #FFFFFF, #F6F9FF);
+  color:var(--tone);
+  border:1px solid rgba(255,255,255,.95);
+  box-shadow:
+    0 0 0 5px color-mix(in srgb, var(--tone) 9%, transparent),
+    0 0 0 11px color-mix(in srgb, var(--tone) 4%, transparent),
+    0 14px 30px -12px color-mix(in srgb, var(--tone) 55%, transparent),
+    inset 0 1px 0 #fff;
+}
+.web-dot:hover{
+  box-shadow:
+    0 0 0 6px color-mix(in srgb, var(--tone) 14%, transparent),
+    0 0 0 14px color-mix(in srgb, var(--tone) 6%, transparent),
+    0 20px 38px -12px color-mix(in srgb, var(--tone) 65%, transparent),
+    inset 0 1px 0 #fff;
+}
+/* a mark on a tile needs more of it than a glyph on a disc */
+.web-dot svg{ width:54%; height:54%; }
+
+/* ---------- the web reaches past the nodes ----------
+   It was drawn at --net across, which puts its rim at 0.5 of the diameter
+   while the nodes sit at 0.56 plus half a node — measured, a 94px web against
+   nodes reaching 125px, so every mark floated outside the thing it is meant to
+   be caught in. Sized off the same two numbers the nodes are placed with, plus
+   a margin, so the rim clears them however the section is scaled.
+
+   Layout is unaffected: .web-net is absolutely positioned and overflow:visible,
+   and 1.12 diameters is still well inside the 1.95 the box already allows. */
+.web-net{
+  width:calc(var(--net) * 1.12 + var(--node) * 2.1);
+  height:calc(var(--net) * 1.12 + var(--node) * 2.1);
+}
+
+/* Reaching past the nodes also put the web under the labels, which the pin
+   geometry had been arranged specifically to avoid — the note on .web-pin says
+   the text "never crosses the web at all", and that stopped being true the
+   moment the rim moved out. A radial fade keeps the mesh solid behind the
+   marks, which is what it is for, and lets it dissolve before the words. */
+.web-net{
+  -webkit-mask-image:radial-gradient(circle at 50% 50%, #000 72%, transparent 97%);
+  mask-image:radial-gradient(circle at 50% 50%, #000 72%, transparent 97%);
+}
+
+/* ---------- the platform marks on the inner ring ----------
+   Smaller than the automation nodes and unlabelled, because they are not the
+   subject: the three services are, and these are what the services reach. Set
+   between the spokes and inside the outer ring, so they sit in the mesh rather
+   than beside the marks that carry the words. */
+.web-sats{ position:absolute; inset:0; margin:0; padding:0; list-style:none; pointer-events:none; }
+.web-sat{
+  position:absolute;
+  left:calc(50% + var(--net) * .34 * var(--sx));
+  top:calc(50% + var(--net) * .34 * var(--cy));
+  transform:translate(-50%,-50%);
+  display:grid; place-items:center;
+  width:calc(var(--node) * .56); aspect-ratio:1;
+  border-radius:30%;
+  color:var(--tone);
+  background:linear-gradient(165deg,#FFFFFF,#F6F9FF);
+  border:1px solid rgba(255,255,255,.95);
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--tone) 8%, transparent),
+    0 8px 18px -8px color-mix(in srgb, var(--tone) 50%, transparent),
+    inset 0 1px 0 #fff;
+}
+.web-sat svg{ width:56%; height:56%; }
+
+/* =========================================================
+   Wider ring, names only, and a button out to the services.
+   ========================================================= */
+
+/* ---------- one number for how far out the ring sits ----------
+   It was 0.56 of the web, written into --rx, --ry and again into the drawn
+   net's own width. Three copies of the same decision is how they drift, so it
+   becomes --ring and everything reads it. */
+.web{
+  --ring:.70;
+  --rx:calc(var(--net) * var(--ring));
+  --ry:calc(var(--net) * var(--ring));
+  /* Names rather than paragraphs, so the column can be much narrower — which
+     is what pays for the wider ring. */
+  --lab:calc(var(--net) * .60);
+  --labh:44px;
+}
+@media (max-width:719px){
+  .web{ --lab:calc(var(--net) * .58); --labh:40px; }
+}
+
+/* the mesh follows the ring out, still clearing the marks on it */
+.web-net{
+  width:calc(var(--net) * var(--ring) * 2 + var(--node) * 2.1);
+  height:calc(var(--net) * var(--ring) * 2 + var(--node) * 2.1);
+}
+
+/* the platform marks keep their proportion of the ring rather than a figure
+   of their own, so they spread with it */
+.web-sat{
+  left:calc(50% + var(--net) * var(--ring) * .58 * var(--sx));
+  top:calc(50% + var(--net) * var(--ring) * .58 * var(--cy));
+}
+
+/* ---------- the button ---------- */
+.web-more{ margin-top:18px; text-align:center; }
+.web-more .btn{ display:inline-flex; }
+.web-more .btn svg{ width:17px; height:17px; }
+
+/* How far out the ring can sit is not one answer, because the labels move.
+   Below 720px they hang under their nodes and cost the ring almost nothing, so
+   it goes wide. From 720px they swing out beside the nodes and each one costs
+   a full column: measured at 768px, the shell has 12px to spare at the old
+   0.56 and runs 4px short at 0.62, so that band keeps what it had. By 1024px
+   there is 60px+ of slack again and the ring opens back up. */
+@media (min-width:720px){
+  .web{ --ring:.56; }
+}
+@media (min-width:1024px){
+  .web{ --ring:.70; max-width:calc(var(--net) * 2.7); }
+}
+
+/* ---------- the stat cards, with room to breathe ----------
+   These were squeezed deliberately — the note above says the tight setting is
+   "what buys the shorter frame above" — so giving the text back its space has
+   to give the stage back its height too, or the cards grow into the agent.
+   The four lines stay; only the space between them changes. */
+@media (max-width:639px){
+  .node{ padding:7px 9px 8px; border-radius:11px; line-height:1.28; }
+  .node-label{ margin-top:3px; }
+  .node-delta{ margin-top:2px; }
+  .node header{ gap:5px; }
+}
+@media (min-width:430px) and (max-width:639px){
+  .node{ padding:8px 10px 9px; }
+}
+
+/* The box follows the ring's real extent rather than assuming a node at the
+   top and bottom of it. --up and --down come from the component, which knows
+   the angles; both default to 1 so the old full-radius reservation still
+   applies if they are ever missing. */
+.web{
+  height:calc(
+    (var(--up, 1) + var(--down, 1)) * var(--ry)
+    + var(--node)
+    + var(--labh) * 2
+  );
+}
+
+/* ---------- the box, sized to what the ring actually occupies ----------
+   Measured, the drawing is nowhere near symmetric about its centre: at 1280px
+   it reaches 301px above and 148px below, because the top node carries its
+   label above it while the lower pair sits at half a radius. A box centred on
+   50% therefore cannot fit both — it either clips the top label or reserves
+   the same space again underneath, which is where the empty band came from.
+
+   So the centre becomes a value rather than a half. --cyc is how far down the
+   ring's middle sits, and the height is that plus what hangs below it. Every
+   part of the drawing is placed from --cyc instead of 50%. */
+.web{
+  --lab-bot:var(--labh);
+  --cyc:calc(var(--up, 1) * var(--ry) + var(--node) / 2 + var(--labh));
+  height:calc(
+    var(--cyc)
+    + var(--down, 1) * var(--ry)
+    + var(--node) / 2
+    + var(--lab-bot)
+  );
+}
+/* Beside their nodes the labels hang nothing below the ring, so the bottom
+   allowance drops to a margin. */
+@media (min-width:720px){
+  .web{ --lab-bot:10px; }
+}
+
+.web-net{ top:var(--cyc); }
+.web-core{ top:var(--cyc); }
+.web-lead{ top:var(--cyc); }
+.web-pin{ top:calc(var(--cyc) + var(--ry) * var(--cy)); }
+.web-sat{ top:calc(var(--cyc) + var(--net) * var(--ring) * .58 * var(--cy)); }
+
+/* The project name is the card's only link on a phone and rendered 20px tall,
+   under the 24px minimum a touch target has to clear. Three pixels either side
+   settles it without moving anything else. */
+@media (max-width:639px){
+  /* the heading level varies by page — h4 on the homepage, h3 on /work */
+  .live-card :is(h2, h3, h4) a{ display:inline-block; padding-block:3px; }
 }

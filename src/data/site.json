@@ -1244,7 +1244,7 @@
       "tone": "#7AB55C",
       "source": "Shopify store",
       "label": "Orders today",
-      "value": "342",
+      "value": "399",
       "delta": "+32% vs last week",
       "spark": "0,20 15,18 30,14 45,15 60,9 75,6 90,2"
     },
@@ -1253,7 +1253,7 @@
       "tone": "#0467DF",
       "source": "Store traffic",
       "label": "Visitors today",
-      "value": "1,892",
+      "value": "9,500",
       "delta": "4.2x ROAS on ads",
       "spark": "0,19 15,15 30,16 45,11 60,10 75,5 90,3"
     },
@@ -1262,7 +1262,7 @@
       "tone": "#25D366",
       "source": "WhatsApp",
       "label": "Messages answered",
-      "value": "786",
+      "value": "1,240",
       "delta": "80% fully automated",
       "spark": "0,21 15,17 30,17 45,12 60,8 75,7 90,3"
     },
@@ -1271,8 +1271,8 @@
       "tone": "#7C6CFF",
       "source": "Analytics",
       "label": "Revenue today",
-      "value": "$12,847.50",
-      "delta": "+32% vs last week",
+      "value": "$14,999.00",
+      "delta": "+48% vs last week",
       "spark": "0,22 15,19 30,13 45,12 60,7 75,5 90,1"
     }
   ],

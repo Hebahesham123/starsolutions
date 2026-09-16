@@ -39,7 +39,7 @@ export default async function HomePage() {
       <NightPanel log={site.nightLog} stats={site.nightStats} />
       <CaseStudies cases={cases} />
       <Work projects={projects} />
-      <Automations automations={automations} />
+      <Automations automations={automations} platforms={site.platforms} />
       <Testimonials items={testimonials} />
       <Team team={team} />
       <CTA />

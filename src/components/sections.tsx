@@ -286,6 +286,8 @@ export function NightPanel({ log, stats, heading = 'h3' }: {
                   style={{
                     ['--deg' as string]: `${(i / log.length) * 360}deg`,
                     ['--tone' as string]: NIGHT_TONES[i % NIGHT_TONES.length],
+                    /* stagger: the signals arrive one at a time, not together */
+                    ['--i' as string]: i,
                   }}
                 />
               ))}
@@ -317,6 +319,7 @@ export function NightPanel({ log, stats, heading = 'h3' }: {
                       ['--sx' as string]: Math.sin(a).toFixed(4),
                       ['--cy' as string]: (-Math.cos(a)).toFixed(4),
                       ['--tone' as string]: NIGHT_TONES[i % NIGHT_TONES.length],
+                      ['--i' as string]: i,
                     }}
                   >
                     <span className="dial-icon"><Icon name={nightIcon(l.title)} /></span>
@@ -516,8 +519,38 @@ function webPaths(spokes = 12, rings = 5, max = 96) {
  * the better object anyway: the claim is that these three things are connected
  * by us, and a generic chip says that about anyone.
  */
-export function Automations({ automations }: { automations: Entry[] }) {
+/* The platforms the web actually connects to, as marks on the inner ring.
+   Keyed off site.platforms, which is the same list the hero names, so this
+   cannot claim an integration the rest of the site does not. Anything without
+   a mark here is skipped rather than given a generic one. */
+const PLATFORM_MARK: Record<string, { icon: string; tone: string }> = {
+  shopify:  { icon: 'shopify',  tone: '#34D399' },
+  meta:     { icon: 'meta',     tone: '#3B82F6' },
+  whatsapp: { icon: 'whatsapp', tone: '#25D366' },
+  n8n:      { icon: 'social',   tone: '#F472B6' },  /* not 'build' — the outer ring already has it */
+  openai:   { icon: 'bolt',     tone: '#7C6CFF' },  /* not 'bot' — likewise */
+  google:   { icon: 'googleads', tone: '#FBBF24' },
+  tiktok:   { icon: 'tiktok',   tone: '#38BDF8' },
+};
+const platformMark = (name: string) =>
+  PLATFORM_MARK[name.toLowerCase().replace(/\s*ads?$/, '').trim()];
+
+export function Automations({ automations, platforms = [] }: { automations: Entry[]; platforms?: string[] }) {
   const { spokeLines, ringPaths } = webPaths();
+  /* A platform already standing on the outer ring as an automation does not
+     need a second mark on the inner one. */
+  const taken = new Set(automations.map((a, i) => a.icon ?? autoIcon(i)));
+  const marks = platforms
+    .map(platformMark)
+    .filter((m): m is { icon: string; tone: string } => Boolean(m) && !taken.has(m!.icon));
+
+  /* How far the ring actually reaches up and down. The box used to reserve a
+     full radius each way, but a node only sits at the top when an angle lands
+     there: with three, the lowest pair is at half a radius, and the difference
+     was 66px of empty box under the drawing. */
+  const cys = automations.map((_, i) => -Math.cos((i / automations.length) * 2 * Math.PI));
+  const up = Math.max(0, ...cys.map((c) => -c));
+  const down = Math.max(0, ...cys);
   return (
     <section id="automations" className="section web-section" aria-labelledby="autoTitle">
       <div className="mx-auto max-w-shell px-5 lg:px-8">
@@ -528,7 +561,7 @@ export function Automations({ automations }: { automations: Entry[] }) {
           sub="Our AI connects your WhatsApp inbox, your chatbot and your automations — so you can talk, support and grow without touching any of it."
         />
 
-        <div className="web">
+        <div className="web" style={{ ['--up' as string]: up, ['--down' as string]: down }}>
           <svg className="web-net" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
             <g className="web-spokes">
               {spokeLines.map((d, i) => <path key={i} d={d} />)}
@@ -554,6 +587,26 @@ export function Automations({ automations }: { automations: Entry[] }) {
               />
             ))}
           </div>
+
+          {/* Between the core and the outer ring, off the spokes, so they read as
+              caught in the web rather than as a second ring of services. */}
+          {marks.length > 0 && (
+            <ul className="web-sats" aria-hidden="true">
+              {marks.map((m, i) => (
+                <li
+                  key={m.icon}
+                  className="web-sat"
+                  style={{
+                    ['--sx' as string]: Math.sin(((i + 0.5) / marks.length) * 2 * Math.PI).toFixed(4),
+                    ['--cy' as string]: (-Math.cos(((i + 0.5) / marks.length) * 2 * Math.PI)).toFixed(4),
+                    ['--tone' as string]: m.tone,
+                  }}
+                >
+                  <Icon name={m.icon} />
+                </li>
+              ))}
+            </ul>
+          )}
 
           <div className="web-core">
             <span className="web-core-glow" aria-hidden="true" />
@@ -592,9 +645,12 @@ export function Automations({ automations }: { automations: Entry[] }) {
                     <span className="web-dot" aria-hidden="true">
                       <Icon name={a.icon ?? autoIcon(i)} />
                     </span>
+                    {/* Name only. The blurb under each node was what pinned the
+                        ring in: a label is centred on its node and reaches half
+                        its own width further out, so the paragraphs were setting
+                        how far the nodes could go. */}
                     <span className="web-label">
                       <strong>{a.title}</strong>
-                      <span>{a.short ?? a.summary}</span>
                     </span>
                   </Link>
                 </li>
@@ -603,8 +659,13 @@ export function Automations({ automations }: { automations: Entry[] }) {
           </ul>
         </div>
 
+        {/* /work is the page that lists all of it — the sites, the systems and
+            the automations — so the button goes there rather than to
+            /automations, which is only this section again. */}
         <p className="web-more">
-          <Link href="/automations" className="link-arrow">See every automation <Icon name="arrow" /></Link>
+          <Link href="/work" className="btn btn-primary btn-lg">
+            Our services <Icon name="arrow" />
+          </Link>
         </p>
       </div>
     </section>
@@ -638,9 +699,11 @@ export function Testimonials({ items }: { items: Testimonial[] }) {
 }
 
 /* ---------------- Team ---------------- */
+/* Plain, not section-soft: the reviews directly above are already tinted, and
+   two tinted bands running together read as one long one. */
 export function Team({ team }: { team: Entry[] }) {
   return (
-    <section className="section section-soft" aria-labelledby="teamTitle">
+    <section className="section" aria-labelledby="teamTitle">
       <div className="mx-auto max-w-shell px-5 lg:px-8">
         <SectionHead id="teamTitle" eyebrow="Our team" title="The people behind your growth" sub="Automation, AI and e-commerce." />
         <ul className="team-grid" id="teamRail">
