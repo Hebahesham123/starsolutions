@@ -21,6 +21,15 @@ export function ResultsPanel({ charts, figures }: { charts: Record<string, Chart
   const max = Math.max(...chart.bars.map((b) => b.val)) || 1;
   const select = (key: string) => setMetric((cur) => (cur === key ? 'revenue' : key));
 
+  /* Seven figures is a tall block on a phone — three rows of tiles under a
+     chart that is already most of a screen. Three are shown and the rest wait
+     behind a button. Collapsing is a phone-width concern only: the CSS hides
+     the overflow below 640px and the button with it, so a desktop renders the
+     full grid whatever this says. */
+  const [showAll, setShowAll] = React.useState(false);
+  const SHOWN = 3;
+  const hidden = Math.max(0, figures.length - SHOWN);
+
   return (
     <div className={`results-panel is-lit${inView ? ' is-drawn' : ''}`} id="resultsPanel" ref={ref}>
       <figure className="rp-chart">
@@ -121,16 +130,19 @@ export function ResultsPanel({ charts, figures }: { charts: Record<string, Chart
         </div>
       </figure>
 
-      <div className="rp-tiles">
-        {figures.map((f) => {
+      <div className={`rp-tiles${showAll ? ' is-open' : ''}`}>
+        {figures.map((f, i) => {
           const on = metric === f.metric;
+          /* Hidden tiles are hidden from the keyboard too, or tabbing walks
+             through six things nobody can see. */
+          const folded = !showAll && i >= SHOWN;
           return (
             <article
               key={f.metric}
-              className={`rt${on ? ' is-active' : ''}`}
+              className={`rt${on ? ' is-active' : ''}${folded ? ' is-folded' : ''}`}
               data-metric={f.metric}
               role="button"
-              tabIndex={0}
+              tabIndex={folded ? -1 : 0}
               aria-pressed={on}
               onClick={() => select(f.metric)}
               onKeyDown={(e) => {
@@ -150,6 +162,13 @@ export function ResultsPanel({ charts, figures }: { charts: Record<string, Chart
           );
         })}
       </div>
+
+      {hidden > 0 && (
+        <button type="button" className="rp-more" onClick={() => setShowAll((v) => !v)} aria-expanded={showAll}>
+          {showAll ? 'Show less' : `Show ${hidden} more`}
+          <Icon name="arrow" />
+        </button>
+      )}
     </div>
   );
 }

@@ -4058,3 +4058,48 @@
   .web-node-link{ gap:4px; }
   .web-label strong{ font-size:11.5px; line-height:1.15; }
 }
+
+/* =========================================================
+   Proven results: three figures, then a button.
+
+   Seven tiles under a chart that already fills most of a phone made the
+   section the tallest on the page. Three are shown; the rest wait. Everything
+   here is inside max-width:639px, so a desktop — where the same seven are two
+   rows of three and cost nothing — renders the whole grid and never sees the
+   button, whatever the component's state says.
+   ========================================================= */
+@media (max-width:639px){
+  /* Tighter to begin with: the fold is not an excuse to leave the visible
+     three as loose as they were. */
+  .stats-section .rp-tiles{ gap:6px; padding:6px; }
+  .stats-section .rt{ padding:8px 8px 9px; border-radius:13px; }
+  .stats-section .rt-icon{ width:26px; height:26px; }
+  .stats-section .rt-icon svg{ width:13px; height:13px; }
+  .stats-section .rt-num{ font-size:clamp(16px,4.4vw,20px); }
+  .stats-section .rt-label{ margin-top:2px; font-size:9px; }
+  .stats-section .rt-art{ width:clamp(34px,11vw,44px); }
+
+  .rt.is-folded{ display:none; }
+
+  .rp-more{
+    display:flex; align-items:center; justify-content:center; gap:7px;
+    width:calc(100% - 12px); margin:0 6px 6px; padding:9px 12px;
+    border-radius:12px; cursor:pointer;
+    font-family:inherit; font-size:11.5px; font-weight:600; letter-spacing:-.01em;
+    color:var(--n-ink, #fff);
+    background:rgba(255,255,255,.06);
+    border:1px solid var(--n-line, rgba(255,255,255,.14));
+    transition:background .25s var(--ease), border-color .25s var(--ease);
+  }
+  .rp-more:hover{ background:rgba(255,255,255,.12); border-color:rgba(176,196,255,.34); }
+  .rp-more:focus-visible{ outline:2px solid var(--n-brand, #8FB4FF); outline-offset:2px; }
+  .rp-more svg{ width:13px; height:13px; transition:transform .3s var(--ease); }
+  /* the arrow points the way the button goes */
+  .rp-more[aria-expanded="true"] svg{ transform:rotate(-90deg); }
+  .rp-more[aria-expanded="false"] svg{ transform:rotate(90deg); }
+}
+
+/* A phone-only control. Above 639px every tile is on screen already. */
+@media (min-width:640px){
+  .rp-more{ display:none; }
+}
