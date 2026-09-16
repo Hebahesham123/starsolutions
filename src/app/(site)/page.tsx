@@ -1,7 +1,7 @@
 import { Hero } from '@/components/Hero';
 import { ResultsPanel } from '@/components/ResultsPanel';
 import { CTA } from '@/components/CTA';
-import { SectionHead, Goals, Systems, Process, CaseStudies, Work, Automations, Testimonials, Team } from '@/components/sections';
+import { SectionHead, Goals, Systems, Process, NightPanel, CaseStudies, Work, Automations, Testimonials, Team } from '@/components/sections';
 import {
   site, getGoals, getCaseStudies, getSystems, getAutomations, getTeam,
   getTestimonials, getProjects,
@@ -20,7 +20,7 @@ export default async function HomePage() {
     <>
       <Hero nodes={site.heroNodes} stats={site.heroStats} platforms={site.platforms} />
       <Goals goals={goals} />
-      <Systems systems={systems} />
+      <Process steps={site.process} />
 
       <section id="results" className="section section-soft stats-section" aria-labelledby="statsTitle">
         <div className="starfield starfield-dim" aria-hidden="true" />
@@ -35,7 +35,8 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <Process steps={site.process} log={site.nightLog} stats={site.nightStats} />
+      <Systems systems={systems} />
+      <NightPanel log={site.nightLog} stats={site.nightStats} />
       <CaseStudies cases={cases} />
       <Work projects={projects} />
       <Automations automations={automations} />

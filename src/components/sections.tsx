@@ -76,9 +76,9 @@ export function Systems({ systems }: { systems: Entry[] }) {
       <div className="mx-auto max-w-shell px-5 lg:px-8">
         <SectionHead
           id="sysTitle"
-          eyebrow="Our promise"
-          title="You own everything we build"
-          sub="Custom systems and dashboards, handed over in full — source, data and all. No monthly rent, no lock-in."
+          eyebrow="Built for you"
+          title="Custom systems and dashboards"
+          sub="Software of your own, not another subscription."
         />
         <ul className="system-list">
           {systems.map((s, i) => (
@@ -167,10 +167,8 @@ const PROCESS_SPARKS = [
   { left: '61%', top: '10%', size: '18px' },
 ];
 
-export function Process({ steps, log, stats, bare = false }: {
+export function Process({ steps, bare = false }: {
   steps: { num: string; icon: string; title: string; text: string }[];
-  log: { time: string; title: string; text: string }[];
-  stats: [string, string][];
   /**
    * Drop the section head. /process already states "Simple process — Three
    * steps to automated growth" in its PageHead, so rendering it again here put
@@ -183,7 +181,7 @@ export function Process({ steps, log, stats, bare = false }: {
     <section id="how" className="section process-section" aria-labelledby={bare ? undefined : 'howTitle'}>
       <div className="mx-auto max-w-shell px-5 lg:px-8">
         {!bare && (
-          <SectionHead id="howTitle" eyebrow="Simple process" title="Three steps to automated growth" sub="Most clients are live in under 14 days." />
+          <SectionHead id="howTitle" eyebrow="Our promise" title="Three steps to automated growth" sub="Most clients are live in under 14 days." />
         )}
 
         {/* The scene. Rings, sparkles and the floor glow are decoration and
@@ -233,12 +231,36 @@ export function Process({ steps, log, stats, bare = false }: {
           <span className="po-floor" aria-hidden="true" />
         </div>
 
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- The night shift ---------------- */
+/**
+ * "Your automations don't clock out" — the night as a dial, with the totals
+ * underneath.
+ *
+ * Its own component rather than part of Process: it belongs under the systems
+ * on the homepage and under the steps on /process, and a section that renders
+ * in two different places should be placed by whoever is composing the page,
+ * not hidden behind a flag inside another section.
+ */
+export function NightPanel({ log, stats, heading = 'h3' }: {
+  log: { time: string; title: string; text: string }[];
+  stats: [string, string][];
+  /** h2 where nothing above it already claims that level. */
+  heading?: 'h2' | 'h3';
+}) {
+  return (
+    <section className="section" aria-labelledby="nightTitle">
+      <div className="mx-auto max-w-shell px-5 lg:px-8">
         <Reveal className="sleep-panel">
           <div className="sleep-head">
             <p className="eyebrow eyebrow-invert"><span className="eyebrow-dot" aria-hidden="true" /> While you sleep</p>
-            {bare
-              ? <h2>Your automations don&apos;t clock out</h2>
-              : <h3>Your automations don&apos;t clock out</h3>}
+            {heading === 'h2'
+              ? <h2 id="nightTitle">Your automations don&apos;t clock out</h2>
+              : <h3 id="nightTitle">Your automations don&apos;t clock out</h3>}
             <p>One night, one account.</p>
           </div>
           {/* The night as a dial: the agent in the middle, the things it did
