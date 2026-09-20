@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { EntryPage } from '@/components/EntryPage';
 import { getContent, getDict, localeHref } from '@/lib/i18n';
 import { alternates } from '@/lib/seo';
+import { autoIcon, autoTone } from '@/components/sections';
 
 const locale = 'ar' as const;
 const t = getDict(locale);
@@ -37,6 +38,8 @@ export default function AutomationsDetailPage({ params }: { params: { slug: stri
       sectionHref={localeHref(locale, '/automations')}
       prev={list[index - 1] ?? null}
       next={list[index + 1] ?? null}
+      icon={list[index].icon ?? autoIcon(index)}
+      tone={list[index].tone ?? autoTone(index)}
     />
   );
 }

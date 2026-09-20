@@ -37,6 +37,8 @@ export default function TeamDetailPage({ params }: { params: { slug: string } })
       sectionHref={localeHref(locale, '/team')}
       prev={list[index - 1] ?? null}
       next={list[index + 1] ?? null}
+      pointsTitle={t('team.skills')}
+      pointsAs="chips"
     />
   );
 }

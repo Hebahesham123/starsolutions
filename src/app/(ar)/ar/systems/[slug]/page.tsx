@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { EntryPage } from '@/components/EntryPage';
 import { getContent, getDict, localeHref } from '@/lib/i18n';
 import { alternates } from '@/lib/seo';
+import { systemLook } from '@/components/ui/SystemCard';
 
 const locale = 'ar' as const;
 const t = getDict(locale);
@@ -28,6 +29,7 @@ export default function SystemsDetailPage({ params }: { params: { slug: string }
   const list = items();
   const index = list.findIndex((entry) => entry.slug === params.slug);
   if (index === -1) notFound();
+  const look = systemLook(list[index], index);
 
   return (
     <EntryPage
@@ -37,6 +39,8 @@ export default function SystemsDetailPage({ params }: { params: { slug: string }
       sectionHref={localeHref(locale, '/systems')}
       prev={list[index - 1] ?? null}
       next={list[index + 1] ?? null}
+      icon={look.icon}
+      tone={look.tone}
     />
   );
 }
