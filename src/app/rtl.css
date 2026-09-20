@@ -1,0 +1,144 @@
+/* =========================================================
+   Arabic / RTL overrides
+   Loaded only when <html dir="rtl">. The base stylesheet keeps
+   its physical properties untouched; everything directional is
+   mirrored here, so the English build is byte-for-byte unchanged.
+   ========================================================= */
+
+/* ---------- typography ----------
+   Satoshi and General Sans have no Arabic glyphs, so Arabic needs its
+   own family. IBM Plex Sans Arabic pairs well: same geometric feel,
+   real weight range, and it renders Egyptian text cleanly.            */
+[dir='rtl'] body,
+[dir='rtl'] .font-sans{
+  font-family:'IBM Plex Sans Arabic', 'Noto Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
+}
+[dir='rtl'] h1, [dir='rtl'] h2, [dir='rtl'] h3, [dir='rtl'] h4,
+[dir='rtl'] .hero-title, [dir='rtl'] .section-title, [dir='rtl'] .page-title,
+[dir='rtl'] .cta-title, [dir='rtl'] .goalx-outcome, [dir='rtl'] .rp-num,
+[dir='rtl'] .kpi-num, [dir='rtl'] .rt-num, [dir='rtl'] .stat-num,
+[dir='rtl'] .case-kpi, [dir='rtl'] .goal-metric span, [dir='rtl'] .hero-proof dd{
+  font-family:'IBM Plex Sans Arabic', 'Noto Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
+}
+
+/* Arabic has no case, so uppercase/letter-spacing tricks just add noise
+   and break ligatures. Reset them on the eyebrow/label styles.        */
+[dir='rtl'] .eyebrow, [dir='rtl'] .logo-label, [dir='rtl'] .orbit-hint,
+[dir='rtl'] .sys-tag, [dir='rtl'] .case-type, [dir='rtl'] .live-badge,
+[dir='rtl'] .rp-kicker, [dir='rtl'] .rt-sub, [dir='rtl'] .goalx-kicker,
+[dir='rtl'] .goalx-label, [dir='rtl'] .footer-h, [dir='rtl'] .group-label,
+[dir='rtl'] .post-meta, [dir='rtl'] .crumbs, [dir='rtl'] .sheet-eyebrow,
+[dir='rtl'] .node header, [dir='rtl'] .agent-name, [dir='rtl'] .ba-tag,
+[dir='rtl'] .step-num, [dir='rtl'] .log-time, [dir='rtl'] .goalx-build-text > span{
+  text-transform:none; letter-spacing:0;
+  font-family:'IBM Plex Sans Arabic', 'Noto Sans Arabic', sans-serif;
+}
+
+/* Arabic runs taller than Latin at the same size; a touch more leading
+   stops descenders colliding in tight cards.                          */
+[dir='rtl'] .sol-desc, [dir='rtl'] .goal-card > p, [dir='rtl'] .section-sub,
+[dir='rtl'] .hero-sub, [dir='rtl'] .review blockquote, [dir='rtl'] .page-lede{
+  line-height:1.75;
+}
+[dir='rtl'] .hero-title, [dir='rtl'] .section-title, [dir='rtl'] .page-title{
+  line-height:1.25; letter-spacing:0;
+}
+[dir='rtl'] .cta-title, [dir='rtl'] .goalx-outcome{ line-height:1.3; letter-spacing:0; }
+
+/* Latin brand names inside Arabic prose must stay LTR */
+[dir='rtl'] .brand-word, [dir='rtl'] .logo-row li, [dir='rtl'] .tech-cell,
+[dir='rtl'] .af-logo, [dir='rtl'] .live-card h4, [dir='rtl'] .live-card h3{
+  direction:ltr; unicode-bidi:isolate;
+}
+/* Numbers and metrics read left-to-right even in RTL */
+[dir='rtl'] .rp-num, [dir='rtl'] .rt-num, [dir='rtl'] .kpi-num,
+[dir='rtl'] .case-kpi, [dir='rtl'] .case-delta, [dir='rtl'] .hero-proof dd,
+[dir='rtl'] .node-value, [dir='rtl'] .sleep-stats dd, [dir='rtl'] .goalx-metric b,
+[dir='rtl'] .rp-val, [dir='rtl'] .detail-stats dd, [dir='rtl'] .sheet-stats dd{
+  direction:ltr; unicode-bidi:isolate; display:inline-block;
+}
+
+/* ---------- header / nav ---------- */
+[dir='rtl'] .desktop-nav{ margin-left:0; margin-right:22px; }
+[dir='rtl'] .mobile-nav-panel{
+  inset:0 auto 0 0; border-left:0; border-right:1px solid var(--line);
+  animation-name:slideInRtl;
+}
+@keyframes slideInRtl{ from{ transform:translateX(-100%); } }
+[dir='rtl'] .mobile-links a svg{ transform:scaleX(-1); }
+
+/* ---------- arrows ----------
+   Every forward-pointing arrow has to mirror, or "next" points backwards. */
+[dir='rtl'] .link-arrow svg, [dir='rtl'] .live-link svg, [dir='rtl'] .index-more svg,
+[dir='rtl'] .cta-arrow, [dir='rtl'] .case-arrow, [dir='rtl'] .goalx-build-arrow,
+[dir='rtl'] .admin-link svg, [dir='rtl'] .btn svg.h-\[18px\],
+[dir='rtl'] .sys-demo svg{ transform:scaleX(-1); }
+[dir='rtl'] .link-arrow:hover svg, [dir='rtl'] .index-card:hover .index-more svg{
+  transform:scaleX(-1) translateX(4px);
+}
+[dir='rtl'] .live-card:hover .live-link svg{ transform:scaleX(-1) translate(2px,-2px); }
+[dir='rtl'] .goalx-builds a:hover{ transform:translateX(-3px); }
+[dir='rtl'] .sleep-log li:hover{ transform:translateX(-3px); }
+
+/* ---------- hero ---------- */
+[dir='rtl'] .hero-proof dd span{ margin-right:2px; }
+[dir='rtl'] .agent-links{ transform:scaleX(-1); }
+[dir='rtl'] .node header{ flex-direction:row-reverse; justify-content:flex-end; }
+[dir='rtl'] .node-1{ left:auto; right:0; }
+[dir='rtl'] .node-2{ left:auto; right:0; }
+[dir='rtl'] .node-3{ right:auto; left:0; }
+[dir='rtl'] .node-4{ right:auto; left:0; }
+
+/* ---------- goals picker ---------- */
+[dir='rtl'] .goalx-item{ text-align:right; }
+[dir='rtl'] .goalx-item::before{ left:auto; right:0; border-radius:3px 0 0 3px; }
+[dir='rtl'] .goalx-metric{ justify-items:start; text-align:left; }
+@media (max-width:479px){
+  [dir='rtl'] .goalx-metric{ justify-items:end; text-align:right; }
+}
+
+/* ---------- cards, rails, sections ---------- */
+[dir='rtl'] .goal-card::after, [dir='rtl'] .bento-card::after,
+[dir='rtl'] .system-card::after{ right:auto; left:12px; transform:translate(3px,3px); }
+[dir='rtl'] .goal-card:hover::after, [dir='rtl'] .bento-card:hover::after,
+[dir='rtl'] .system-card:hover::after{ transform:none; }
+[dir='rtl'] .quote, [dir='rtl'] .admin-quote{
+  border-left:0; border-right:3px solid var(--brand);
+}
+[dir='rtl'] .rail{ direction:rtl; }
+[dir='rtl'] .rail-inner{ direction:rtl; }
+[dir='rtl'] .stat::after, [dir='rtl'] .rt::after{ transform-origin:right; }
+[dir='rtl'] .sleep-log li{ grid-template-columns:66px 1fr; }
+[dir='rtl'] .case-spark{ right:auto; left:-4px; transform:scaleX(-1); }
+
+/* ---------- before / after slider ----------
+   The clip is anchored to the inline start, so in RTL it must anchor
+   right and the handle track has to invert with it.                  */
+[dir='rtl'] .ba-clip{
+  left:auto; right:0; border-right:0; border-left:2px solid rgba(255,255,255,.92);
+}
+[dir='rtl'] .ba-handle{ left:auto; right:var(--pos); transform:translate(50%,-50%); }
+[dir='rtl'] .ba-tag-before{ left:auto; right:2.4cqw; }
+[dir='rtl'] .ba-tag-after{ right:auto; left:2.4cqw; }
+[dir='rtl'] .ba-range{ transform:scaleX(-1); }
+/* the mock browser frames stay LTR: they show English storefronts */
+[dir='rtl'] .ba-frame{ direction:ltr; }
+
+/* ---------- CTA, forms, footer ---------- */
+[dir='rtl'] .cta-lines{ transform:scaleX(-1); }
+[dir='rtl'] .field input, [dir='rtl'] .field textarea{ text-align:right; }
+[dir='rtl'] .field input[type='email'],
+[dir='rtl'] .field input[type='tel']{ direction:ltr; text-align:right; }
+[dir='rtl'] .footer-contact li{ flex-direction:row; }
+[dir='rtl'] .footer-contact a[href^='mailto'],
+[dir='rtl'] .footer-contact a[href^='tel']{ direction:ltr; unicode-bidi:isolate; }
+[dir='rtl'] .sheet-close{ right:auto; left:14px; }
+[dir='rtl'] .sheet-eyebrow, [dir='rtl'] .sheet-title{ padding-right:0; padding-left:44px; }
+[dir='rtl'] .pager .pager-next{ text-align:left; align-items:flex-start; }
+
+/* ---------- sticky bar / misc ---------- */
+[dir='rtl'] .skip-link{ left:auto; right:8px; }
+[dir='rtl'] .admin-search svg{ left:auto; right:12px; }
+[dir='rtl'] .admin-search input{ padding:0 34px 0 12px; }
+[dir='rtl'] .admin-table th, [dir='rtl'] .admin-table td{ text-align:right; }
+[dir='rtl'] .admin-table-end{ text-align:left; }

@@ -2,38 +2,41 @@ import Link from 'next/link';
 import { Icon } from './Icon';
 import { LogoStatic } from './ui/LogoStatic';
 import { site } from '@/lib/content';
+import { getContent, getDict, localeHref, type Locale } from '@/lib/i18n';
 
-export function SiteFooter() {
-  const { contact } = site;
+export function SiteFooter({ locale = 'en' }: { locale?: Locale }) {
+  const t = getDict(locale);
+  const href = (path: string) => localeHref(locale, path);
+  const { contact } = locale === 'ar' ? getContent('ar') : site;
   return (
     <footer className="site-footer">
       <div className="footer-shell">
         <div className="footer-grid">
           <div className="footer-brand">
-            <Link href="/" className="brand" aria-label="Star Solution — home">
+            <Link href={href('/')} className="brand" aria-label={t('a11y.home')}>
               <LogoStatic size={34} showTagline={false} variant="dark" />
             </Link>
-            <p>Automate your business, grow your revenue.</p>
-            <Link href="/contact" className="btn btn-primary btn-sm mt-5">Get free audit</Link>
+            <p>{t('footer.tagline')}</p>
+            <Link href={href('/contact')} className="btn btn-primary btn-sm mt-5">{t('cta.audit')}</Link>
           </div>
 
           <nav aria-labelledby="fProduct">
-            <h2 id="fProduct" className="footer-h">Product</h2>
+            <h2 id="fProduct" className="footer-h">{t('footer.product')}</h2>
             <ul>
-              <li><Link href="/solutions">Solutions</Link></li>
-              <li><Link href="/results">Results</Link></li>
-              <li><Link href="/work">Our work</Link></li>
-              <li><Link href="/blog">Blog</Link></li>
+              <li><Link href={href('/solutions')}>{t('nav.solutions')}</Link></li>
+              <li><Link href={href('/results')}>{t('nav.results')}</Link></li>
+              <li><Link href={href('/work')}>{t('nav.work')}</Link></li>
+              <li><Link href={href('/blog')}>{t('nav.blog')}</Link></li>
             </ul>
           </nav>
 
           <nav aria-labelledby="fCompany">
-            <h2 id="fCompany" className="footer-h">Company</h2>
+            <h2 id="fCompany" className="footer-h">{t('footer.company')}</h2>
             <ul>
-              <li><Link href="/about">About</Link></li>
-              <li><Link href="/team">Team</Link></li>
-              <li><Link href="/case-studies">Case studies</Link></li>
-              <li><Link href="/contact">Contact</Link></li>
+              <li><Link href={href('/about')}>{t('nav.about')}</Link></li>
+              <li><Link href={href('/team')}>{t('nav.team')}</Link></li>
+              <li><Link href={href('/case-studies')}>{t('nav.caseStudies')}</Link></li>
+              <li><Link href={href('/contact')}>{t('nav.contact')}</Link></li>
             </ul>
           </nav>
 
@@ -41,16 +44,16 @@ export function SiteFooter() {
               Nothing linked to them here, and a page nothing links to is a page
               nobody finds — the footer is where these belong anyway. */}
           <nav aria-labelledby="fMore">
-            <h2 id="fMore" className="footer-h">More</h2>
+            <h2 id="fMore" className="footer-h">{t('footer.more')}</h2>
             <ul>
-              <li><Link href="/docs">Docs</Link></li>
-              <li><Link href="/privacy">Privacy</Link></li>
-              <li><Link href="/terms">Terms</Link></li>
+              <li><Link href={href('/docs')}>{t('footer.docs')}</Link></li>
+              <li><Link href={href('/privacy')}>{t('footer.privacy')}</Link></li>
+              <li><Link href={href('/terms')}>{t('footer.terms')}</Link></li>
             </ul>
           </nav>
 
           <div>
-            <h2 className="footer-h">Contact</h2>
+            <h2 className="footer-h">{t('footer.contact')}</h2>
             <ul className="footer-contact">
               <li><Icon name="mail" /><a href={`mailto:${contact.email}`}>{contact.email}</a></li>
               <li><Icon name="phone" /><a href={`tel:${contact.phone.replace(/\s/g, '')}`}>{contact.phone}</a></li>
@@ -60,8 +63,8 @@ export function SiteFooter() {
         </div>
 
         <div className="footer-bottom">
-          <p>© 2026 StarSolution.ai — All rights reserved.</p>
-          <p className="footer-code"><strong className="font-mono">{contact.offer}</strong> — 15% off first service</p>
+          <p>© 2026 StarSolution.ai — {t('footer.rights')}</p>
+          <p className="footer-code"><strong className="font-mono">{contact.offer}</strong> — {t('footer.offer')}</p>
         </div>
       </div>
     </footer>
