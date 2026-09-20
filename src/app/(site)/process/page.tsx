@@ -3,8 +3,10 @@ import { PageHead } from '@/components/PageHead';
 import { Process, NightPanel } from '@/components/sections';
 import { CTA } from '@/components/CTA';
 import { site } from '@/lib/content';
+import { alternates } from '@/lib/seo';
 
-export const metadata: Metadata = { title: 'How it works' };
+export const metadata: Metadata = {
+  alternates: alternates('en', '/process'), title: 'How it works' };
 
 export default function ProcessPage() {
   return (

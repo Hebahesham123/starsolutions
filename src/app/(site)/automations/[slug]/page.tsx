@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import { EntryPage } from '@/components/EntryPage';
 import { autoIcon, autoTone } from '@/components/sections';
 import { getAutomations } from '@/lib/content';
+import { alternates } from '@/lib/seo';
+import { getContent } from '@/lib/i18n';
 
 export async function generateStaticParams() {
   const items = await getAutomations();
@@ -12,7 +14,8 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const items = await getAutomations();
   const item = items.find((entry) => entry.slug === params.slug);
-  return { title: item?.title ?? 'Automations', description: item?.summary };
+  const inAr = getContent('ar').automations.some((entry) => entry.slug === params.slug);
+  return { alternates: alternates('en', `/automations/${params.slug}`, { ar: inAr }), title: item?.title ??  'Automations', description: item?.summary };
 }
 
 export default async function AutomationsDetailPage({ params }: { params: { slug: string } }) {

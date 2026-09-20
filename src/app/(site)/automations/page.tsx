@@ -4,8 +4,10 @@ import { PageHead } from '@/components/PageHead';
 import { Reveal } from '@/components/Reveal';
 import { Icon } from '@/components/Icon';
 import { getAutomations } from '@/lib/content';
+import { alternates } from '@/lib/seo';
 
-export const metadata: Metadata = { title: 'AI automations and integrations' };
+export const metadata: Metadata = {
+  alternates: alternates('en', '/automations'), title: 'AI automations and integrations' };
 
 export default async function AutomationsIndexPage() {
   const items = await getAutomations();

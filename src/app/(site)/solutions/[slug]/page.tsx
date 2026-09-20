@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { EntryPage } from '@/components/EntryPage';
 import { getSolutions } from '@/lib/content';
+import { alternates } from '@/lib/seo';
+import { getContent } from '@/lib/i18n';
 
 export async function generateStaticParams() {
   const items = await getSolutions();
@@ -11,7 +13,8 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const items = await getSolutions();
   const item = items.find((entry) => entry.slug === params.slug);
-  return { title: item?.title ?? 'Solutions', description: item?.summary };
+  const inAr = getContent('ar').solutions.some((entry) => entry.slug === params.slug);
+  return { alternates: alternates('en', `/solutions/${params.slug}`, { ar: inAr }), title: item?.title ??  'Solutions', description: item?.summary };
 }
 
 export default async function SolutionsDetailPage({ params }: { params: { slug: string } }) {

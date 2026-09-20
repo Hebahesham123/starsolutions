@@ -2,8 +2,10 @@ import type { Metadata } from 'next';
 import { PageHead } from '@/components/PageHead';
 import { Reveal } from '@/components/Reveal';
 import { site } from '@/lib/content';
+import { alternates } from '@/lib/seo';
 
 export const metadata: Metadata = {
+  alternates: alternates('en', '/privacy', { ar: false }),
   title: 'Privacy policy',
   description: 'What Star Solution collects, why, and how to reach us about it.',
 };

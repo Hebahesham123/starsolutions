@@ -46,9 +46,9 @@ export function SiteFooter({ locale = 'en' }: { locale?: Locale }) {
           <nav aria-labelledby="fMore">
             <h2 id="fMore" className="footer-h">{t('footer.more')}</h2>
             <ul>
-              <li><Link href={href('/docs')}>{t('footer.docs')}</Link></li>
-              <li><Link href={href('/privacy')}>{t('footer.privacy')}</Link></li>
-              <li><Link href={href('/terms')}>{t('footer.terms')}</Link></li>
+              <li><Link href="/docs" lang="en" hrefLang="en">{t('footer.docs')}</Link></li>
+              <li><Link href="/privacy" lang="en" hrefLang="en">{t('footer.privacy')}</Link></li>
+              <li><Link href="/terms" lang="en" hrefLang="en">{t('footer.terms')}</Link></li>
             </ul>
           </nav>
 

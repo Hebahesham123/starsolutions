@@ -54,7 +54,8 @@
 [dir='rtl'] .rp-num, [dir='rtl'] .rt-num, [dir='rtl'] .kpi-num,
 [dir='rtl'] .case-kpi, [dir='rtl'] .case-delta, [dir='rtl'] .hero-proof dd,
 [dir='rtl'] .node-value, [dir='rtl'] .sleep-stats dd, [dir='rtl'] .goalx-metric b,
-[dir='rtl'] .rp-val, [dir='rtl'] .detail-stats dd, [dir='rtl'] .sheet-stats dd{
+[dir='rtl'] .rp-val, [dir='rtl'] .detail-stats dd, [dir='rtl'] .sheet-stats dd,
+[dir='rtl'] .gb-metric strong{
   direction:ltr; unicode-bidi:isolate; display:inline-block;
 }
 

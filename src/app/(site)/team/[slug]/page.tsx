@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { EntryPage } from '@/components/EntryPage';
 import { getTeam } from '@/lib/content';
+import { alternates } from '@/lib/seo';
+import { getContent } from '@/lib/i18n';
 
 export async function generateStaticParams() {
   const items = await getTeam();
@@ -11,7 +13,8 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const items = await getTeam();
   const item = items.find((entry) => entry.slug === params.slug);
-  return { title: item?.title ?? 'Team', description: item?.summary };
+  const inAr = getContent('ar').team.some((entry) => entry.slug === params.slug);
+  return { alternates: alternates('en', `/team/${params.slug}`, { ar: inAr }), title: item?.title ??  'Team', description: item?.summary };
 }
 
 export default async function TeamDetailPage({ params }: { params: { slug: string } }) {

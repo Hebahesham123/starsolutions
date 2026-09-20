@@ -7,6 +7,7 @@ import { Icon } from './Icon';
 import { Reveal } from './Reveal';
 import { Comparison } from './RealResults';
 import type { Project } from '@/lib/types';
+import { getDict, localeHref, type Locale } from '@/lib/i18n';
 
 /**
  * A project card that can be read where it stands.
@@ -31,12 +32,15 @@ export function ProjectCard({
   project,
   delay = 0,
   heading = 'h4',
+  locale = 'en',
 }: {
+  locale?: Locale;
   project: Project;
   delay?: number;
   /** Heading tag for the project title, matching the surrounding outline. */
   heading?: 'h3' | 'h4';
 }) {
+  const t = getDict(locale);
   const [open, setOpen] = React.useState(false);
   const reduce = useReducedMotion();
   const H = heading;
@@ -46,7 +50,7 @@ export function ProjectCard({
     <Reveal as="article" className={`live-card${open ? ' is-open' : ''}`} delay={delay}>
       <Comparison project={project} />
       <span className="live-badge">{project.badge}</span>
-      <H><Link href={`/work/${project.slug}`}>{project.title}</Link></H>
+      <H><Link href={localeHref(locale, `/work/${project.slug}`)}>{project.title}</Link></H>
       <p>{project.short}</p>
 
       <button
@@ -75,7 +79,7 @@ export function ProjectCard({
               <p className="live-summary">{project.summary}</p>
               {project.tagline && <p className="live-tagline">{project.tagline}</p>}
 
-              <p className="live-sub">What we did</p>
+              <p className="live-sub">{t('work.whatWeDid')}</p>
               <ul className="detail-points">
                 {project.points.map((point) => (
                   <li key={point}><Icon name="check" /> {point}</li>
@@ -89,7 +93,7 @@ export function ProjectCard({
                 <a href={project.url} target="_blank" rel="noopener noreferrer" className="live-link">
                   Visit the live site <Icon name="link" />
                 </a>
-                <Link className="live-link live-link-muted" href={`/work/${project.slug}`}>
+                <Link className="live-link live-link-muted" href={localeHref(locale, `/work/${project.slug}`)}>
                   Full project page <Icon name="arrow" />
                 </Link>
               </div>

@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import { EntryPage } from '@/components/EntryPage';
 import { systemLook } from '@/components/ui/SystemCard';
 import { getSystems } from '@/lib/content';
+import { alternates } from '@/lib/seo';
+import { getContent } from '@/lib/i18n';
 
 export async function generateStaticParams() {
   const items = await getSystems();
@@ -12,7 +14,8 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const items = await getSystems();
   const item = items.find((entry) => entry.slug === params.slug);
-  return { title: item?.title ?? 'Systems', description: item?.summary };
+  const inAr = getContent('ar').systems.some((entry) => entry.slug === params.slug);
+  return { alternates: alternates('en', `/systems/${params.slug}`, { ar: inAr }), title: item?.title ??  'Systems', description: item?.summary };
 }
 
 export default async function SystemsDetailPage({ params }: { params: { slug: string } }) {

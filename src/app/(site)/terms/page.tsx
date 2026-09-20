@@ -2,8 +2,10 @@ import type { Metadata } from 'next';
 import { PageHead } from '@/components/PageHead';
 import { Reveal } from '@/components/Reveal';
 import { site } from '@/lib/content';
+import { alternates } from '@/lib/seo';
 
 export const metadata: Metadata = {
+  alternates: alternates('en', '/terms', { ar: false }),
   title: 'Terms of service',
   description: 'The terms that apply to using the Star Solution website.',
 };

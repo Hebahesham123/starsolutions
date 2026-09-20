@@ -2,10 +2,14 @@ import { Hero } from '@/components/Hero';
 import { ResultsPanel } from '@/components/ResultsPanel';
 import { CTA } from '@/components/CTA';
 import { SectionHead, Goals, Systems, Process, NightPanel, CaseStudies, Work, Automations, Testimonials, Team } from '@/components/sections';
+import type { Metadata } from 'next';
 import {
   site, getGoals, getCaseStudies, getSystems, getAutomations, getTeam,
   getTestimonials, getProjects,
 } from '@/lib/content';
+import { alternates } from '@/lib/seo';
+
+export const metadata: Metadata = { alternates: alternates('en', '/') };
 
 export default async function HomePage() {
   // getSolutions() is gone with the bento it fed: it was still a Supabase

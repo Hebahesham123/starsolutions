@@ -58,6 +58,9 @@ export interface Project {
   beforeUrl?: string;
   /** One line in the client's words, shown under the comparison. */
   tagline?: string;
+  /** Unpublished. getProjects() filters on this; the field was in the data
+   *  and read by visible() long before the type admitted it. */
+  hidden?: boolean;
 }
 
 /** Drives the mock "after" frame used when no capture exists yet. */

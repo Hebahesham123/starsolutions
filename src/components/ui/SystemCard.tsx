@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Icon } from '../Icon';
 import type { Entry } from '@/lib/types';
+import { localeHref, type Locale } from '@/lib/i18n';
 
 /**
  * Look and colour for a system, derived from its tag.
@@ -48,10 +49,11 @@ export function systemLook(system: Entry, index = 0) {
  * decides.
  */
 export function SystemCard({
-  system, index = 0, heading = 'h3',
+  system, index = 0, heading = 'h3', locale = 'en',
 }: {
   system: Entry;
   index?: number;
+  locale?: Locale;
   /** Matches the surrounding outline: h3 under a section h2, h4 under an h3. */
   heading?: 'h3' | 'h4';
 }) {
@@ -60,7 +62,7 @@ export function SystemCard({
 
   return (
     <Link
-      href={`/systems/${system.slug}`}
+      href={localeHref(locale, `/systems/${system.slug}`)}
       className="system-row"
       style={{ ['--tone' as string]: tone }}
     >

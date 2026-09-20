@@ -10,6 +10,11 @@ import { SystemCard } from './ui/SystemCard';
 import { LogoStatic } from './ui/LogoStatic';
 import type { Entry, Project, Testimonial } from '@/lib/types';
 import { GoalsShowcase } from './GoalsShowcase';
+import { getDict, localeHref, type Locale } from '@/lib/i18n';
+
+/** Every section takes one of these and nothing else changes at the call
+ *  site: the default keeps existing English usage exactly as it was. */
+type Localised = { locale?: Locale };
 
 /* Every automation carries its own icon and tone, in site.json and — since the
    schema gained the columns — in Supabase too. These remain as a fallback for a
@@ -41,16 +46,17 @@ export function SectionHead({
 }
 
 /* ---------------- Goals ---------------- */
-export function Goals({ goals }: { goals: Entry[] }) {
+export function Goals({ goals, locale = 'en' }: { goals: Entry[] } & Localised) {
+  const t = getDict(locale);
   return (
     <section className="section section-soft" aria-labelledby="goalsTitle">
       <div className="mx-auto max-w-shell px-5 lg:px-8">
-        <SectionHead id="goalsTitle" eyebrow="Choose your business goal" title="What do you want to achieve?" sub="Pick one. We build it." />
+        <SectionHead id="goalsTitle" eyebrow={t('goals.eyebrow')} title={t('goals.title')} sub={t('goals.sub')} />
       </div>
       {/* Inside the shell, unlike the other rails. GoalsShowcase draws a frame
           around this one, and a frame has to end somewhere — full bleed would
           put its left and right edges off the screen. */}
-      <GoalsShowcase goals={goals} />
+      <GoalsShowcase goals={goals} locale={locale} />
     </section>
   );
 }
@@ -69,21 +75,22 @@ export function Goals({ goals }: { goals: Entry[] }) {
  * solutions bento used to hold. It is the thing the business actually builds,
  * so it gets a section head and cards with the same weight as the goals above.
  */
-export function Systems({ systems }: { systems: Entry[] }) {
+export function Systems({ systems, locale = 'en' }: { systems: Entry[] } & Localised) {
+  const t = getDict(locale);
   if (!systems.length) return null;
   return (
     <section id="systems" className="section" aria-labelledby="sysTitle">
       <div className="mx-auto max-w-shell px-5 lg:px-8">
         <SectionHead
           id="sysTitle"
-          eyebrow="Built for you"
-          title="Custom systems and dashboards"
-          sub="Software of your own, not another subscription."
+          eyebrow={t('systems.eyebrow')}
+          title={t('systems.title')}
+          sub={t('systems.sub')}
         />
         <ul className="system-list">
           {systems.map((s, i) => (
             <Reveal as="li" key={s.id} delay={i * 0.06}>
-              <SystemCard system={s} index={i} heading="h3" />
+              <SystemCard system={s} index={i} heading="h3" locale={locale} />
             </Reveal>
           ))}
         </ul>
@@ -93,16 +100,17 @@ export function Systems({ systems }: { systems: Entry[] }) {
 }
 
 /* ---------------- Solutions ---------------- */
-export function Solutions({ solutions }: { solutions: Entry[] }) {
+export function Solutions({ solutions, locale = 'en' }: { solutions: Entry[] } & Localised) {
+  const t = getDict(locale);
   return (
     <section id="solutions" className="section" aria-labelledby="solTitle">
       <div className="mx-auto max-w-shell px-5 lg:px-8">
-        <SectionHead id="solTitle" eyebrow="What we do" title="The complete AI automation suite" sub="Six systems. Your existing tools." />
+        <SectionHead id="solTitle" eyebrow={t('solutions.eyebrow')} title={t('solutions.title')} sub={t('solutions.sub')} />
         <div className="bento">
           {solutions.map((s, i) => {
             const cls = i === 0 ? 'bento-lead' : i === 5 ? 'bento-wide' : '';
             const card = (
-              <Link href={`/solutions/${s.slug}`} className="bento-card block h-full">
+              <Link href={localeHref(locale, `/solutions/${s.slug}`)} className="bento-card block h-full">
                 <span className="sol-icon" style={{ ['--g1' as string]: s.tone }}><Icon name={s.icon ?? 'star'} /></span>
                 <p className="sol-badge">{s.badge}</p>
                 <h3>{s.title}</h3>
@@ -167,7 +175,7 @@ const PROCESS_SPARKS = [
   { left: '61%', top: '10%', size: '18px' },
 ];
 
-export function Process({ steps, bare = false }: {
+export function Process({ steps, bare = false, locale = 'en' }: Localised & {
   steps: { num: string; icon: string; title: string; text: string }[];
   /**
    * Drop the section head. /process already states "Simple process — Three
@@ -177,11 +185,12 @@ export function Process({ steps, bare = false }: {
    */
   bare?: boolean;
 }) {
+  const t = getDict(locale);
   return (
     <section id="how" className="section process-section" aria-labelledby={bare ? undefined : 'howTitle'}>
       <div className="mx-auto max-w-shell px-5 lg:px-8">
         {!bare && (
-          <SectionHead id="howTitle" eyebrow="Our promise" title="Three steps to automated growth" sub="Most clients are live in under 14 days." />
+          <SectionHead id="howTitle" eyebrow={t('process.eyebrow')} title={t('process.title')} sub={t('process.sub')} />
         )}
 
         {/* The scene. Rings, sparkles and the floor glow are decoration and
@@ -246,22 +255,23 @@ export function Process({ steps, bare = false }: {
  * in two different places should be placed by whoever is composing the page,
  * not hidden behind a flag inside another section.
  */
-export function NightPanel({ log, stats, heading = 'h3' }: {
+export function NightPanel({ log, stats, heading = 'h3', locale = 'en' }: Localised & {
   log: { time: string; title: string; text: string }[];
   stats: [string, string][];
   /** h2 where nothing above it already claims that level. */
   heading?: 'h2' | 'h3';
 }) {
+  const t = getDict(locale);
   return (
     <section className="section" aria-labelledby="nightTitle">
       <div className="mx-auto max-w-shell px-5 lg:px-8">
         <Reveal className="sleep-panel">
           <div className="sleep-head">
-            <p className="eyebrow eyebrow-invert"><span className="eyebrow-dot" aria-hidden="true" /> While you sleep</p>
+            <p className="eyebrow eyebrow-invert"><span className="eyebrow-dot" aria-hidden="true" /> {t('process.sleepEyebrow')}</p>
             {heading === 'h2'
-              ? <h2 id="nightTitle">Your automations don&apos;t clock out</h2>
-              : <h3 id="nightTitle">Your automations don&apos;t clock out</h3>}
-            <p>One night, one account.</p>
+              ? <h2 id="nightTitle">{t('process.sleepTitle')}</h2>
+              : <h3 id="nightTitle">{t('process.sleepTitle')}</h3>}
+            <p>{t('process.sleepSub')}</p>
           </div>
           {/* The night as a dial: the agent in the middle, the things it did
               around it, clockwise from the top so the ring reads as a clock and
@@ -296,8 +306,8 @@ export function NightPanel({ log, stats, heading = 'h3' }: {
             <div className="dial-core">
               <span className="dial-pulse" aria-hidden="true" />
               <span className="dial-orb" aria-hidden="true"><Icon name="bot" /></span>
-              <span className="dial-core-label">AI agent</span>
-              <span className="dial-core-sub">Think · Process · Act</span>
+              <span className="dial-core-label">{t('night.agent')}</span>
+              <span className="dial-core-sub">{t('night.agentSub')}</span>
             </div>
 
             <ol className="dial-items">
@@ -386,10 +396,11 @@ function CaseKpi({ kpi }: { kpi?: string }) {
 }
 
 
-export function CaseCard({ c }: { c: Entry }) {
+export function CaseCard({ c, locale = 'en' }: { c: Entry } & Localised) {
+  const t = getDict(locale);
   return (
     <article className="case-card">
-      <Link href={`/case-studies/${c.slug}`} className="block h-full">
+      <Link href={localeHref(locale, `/case-studies/${c.slug}`)} className="block h-full">
         <div className="case-visual" style={{ ['--c1' as string]: c.c1, ['--c2' as string]: c.c2 }}>
           {/* The unit needs its own class: .case-kpi span would otherwise also
               match the span Counter renders, and shrink the number to unit size. */}
@@ -401,33 +412,34 @@ export function CaseCard({ c }: { c: Entry }) {
         <div className="case-body">
           <p className="case-type">{c.type}</p>
           <div className="case-compare">
-            <div><span>Before</span><strong>{c.before}</strong></div>
+            <div><span>{t('cases.before')}</span><strong>{c.before}</strong></div>
             {/* A rising zigzag, not a flat one: the row is a before/after, so
                 the arrow between them should say the number went up rather
                 than merely pointing at the next box. `revenue` is already that
                 shape — a new glyph here would be a near-duplicate. */}
             <Icon name="revenue" className="case-arrow" />
-            <div><span>After</span><strong>{c.after}</strong></div>
+            <div><span>{t('cases.after')}</span><strong>{c.after}</strong></div>
           </div>
           <p className="case-delta">{c.delta} <em>{c.period}</em></p>
-          <span className="link-arrow">Read the case study <Icon name="arrow" /></span>
+          <span className="link-arrow">{t('cases.read')} <Icon name="arrow" /></span>
         </div>
       </Link>
     </article>
   );
 }
 
-export function CaseStudies({ cases }: { cases: Entry[] }) {
+export function CaseStudies({ cases, locale = 'en' }: { cases: Entry[] } & Localised) {
+  const t = getDict(locale);
   return (
     <section className="section section-soft" aria-labelledby="caseTitle">
       <div className="mx-auto max-w-shell px-5 lg:px-8">
         <SectionHead
-          id="caseTitle" row eyebrow="Case studies" title="Real businesses. Real growth."
-          action={<Link href="/case-studies" className="link-arrow">View all <Icon name="arrow" /></Link>}
+          id="caseTitle" row eyebrow={t('cases.eyebrow')} title={t('cases.title')}
+          action={<Link href={localeHref(locale, '/case-studies')} className="link-arrow">{t('cta.viewAll')} <Icon name="arrow" /></Link>}
         />
       </div>
-      <Rail id="cases" label="Case studies">
-        {cases.map((c) => <CaseCard key={c.id} c={c} />)}
+      <Rail id="cases" label={t('rail.cases')}>
+        {cases.map((c) => <CaseCard key={c.id} c={c} locale={locale} />)}
       </Rail>
     </section>
   );
@@ -435,7 +447,8 @@ export function CaseStudies({ cases }: { cases: Entry[] }) {
 
 /* ---------------- Work ---------------- */
 /* `systems` is gone from here: it has its own section further up the page now. */
-export function Work({ projects }: { projects: Project[] }) {
+export function Work({ projects, locale = 'en' }: { projects: Project[] } & Localised) {
+  const t = getDict(locale);
   return (
     <section id="work" className="section" aria-labelledby="workTitle">
       <div className="mx-auto max-w-shell px-5 lg:px-8">
@@ -445,7 +458,7 @@ export function Work({ projects }: { projects: Project[] }) {
             The "Live websites" label went with them — with only the rail left
             under it, it was a second heading for the same thing, and 52px of
             gap plus its own line to say it. */}
-        <SectionHead id="workTitle" eyebrow="Portfolio" title="Our work and projects" sub="Real stores we designed, built and still run." />
+        <SectionHead id="workTitle" eyebrow={t('work.eyebrow')} title={t('work.title')} sub={t('work.sub')} />
       </div>
       {/* A rail rather than a stack. Each card is a tall thing — a before/after
           frame, a title, a paragraph and an expandable write-up — so stacked
@@ -453,9 +466,9 @@ export function Work({ projects }: { projects: Project[] }) {
           project. Side by side, the set reads as a set. Rail is the same
           component the case studies use, so the arrows, dots, keyboard and
           snapping are the ones already on the page. */}
-      <Rail id="live" label="Live websites" className="live-rail">
+      <Rail id="live" label={t('rail.live')} className="live-rail">
         {projects.map((p, i) => (
-          <ProjectCard key={p.id} project={p} delay={i * 0.08} heading="h4" />
+          <ProjectCard key={p.id} project={p} delay={i * 0.08} heading="h4" locale={locale} />
         ))}
       </Rail>
     </section>
@@ -537,7 +550,8 @@ const platformMark = (name: string) => {
   return m ? { ...m, name } : undefined;
 };
 
-export function Automations({ automations, platforms = [] }: { automations: Entry[]; platforms?: string[] }) {
+export function Automations({ automations, platforms = [], locale = 'en' }: { automations: Entry[]; platforms?: string[] } & Localised) {
+  const t = getDict(locale);
   const { spokeLines, ringPaths } = webPaths();
   /* A platform a service already stands for does not need a second mark. */
   const taken = new Set(automations.map((a, i) => a.icon ?? autoIcon(i)));
@@ -586,8 +600,8 @@ export function Automations({ automations, platforms = [] }: { automations: Entr
       <div className="mx-auto max-w-shell px-5 lg:px-8">
         <SectionHead
           id="autoTitle"
-          eyebrow="AI automations & integrations"
-          title="Everything works together"
+          eyebrow={t('automations.eyebrow')}
+          title={t('automations.title')}
           sub="Our AI connects your WhatsApp inbox, your chatbot and your automations — so you can talk, support and grow without touching any of it."
         />
 
@@ -638,7 +652,7 @@ export function Automations({ automations, platforms = [] }: { automations: Entr
                     ['--tone' as string]: n.tone,
                   }}
                 >
-                  <Link href={`/automations/${n.slug}`} className="web-node-link">
+                  <Link href={localeHref(locale, `/automations/${n.slug}`)} className="web-node-link">
                     <span className="web-dot" aria-hidden="true"><Icon name={n.icon} /></span>
                     <span className="web-label"><strong>{n.title}</strong></span>
                   </Link>
@@ -672,7 +686,7 @@ export function Automations({ automations, platforms = [] }: { automations: Entr
             the automations — so the button goes there rather than to
             /automations, which is only this section again. */}
         <p className="web-more">
-          <Link href="/work" className="btn btn-primary btn-lg">
+          <Link href={localeHref(locale, '/work')} className="btn btn-primary btn-lg">
             Our services <Icon name="arrow" />
           </Link>
         </p>
@@ -682,16 +696,17 @@ export function Automations({ automations, platforms = [] }: { automations: Entr
 }
 
 /* ---------------- Testimonials ---------------- */
-export function Testimonials({ items }: { items: Testimonial[] }) {
+export function Testimonials({ items, locale = 'en' }: { items: Testimonial[] } & Localised) {
+  const t = getDict(locale);
   return (
     <section className="section section-soft" aria-labelledby="revTitle">
       <div className="mx-auto max-w-shell px-5 lg:px-8">
         <SectionHead
-          id="revTitle" row eyebrow="Client reviews" title="What our clients say"
+          id="revTitle" row eyebrow={t('reviews.eyebrow')} title={t('reviews.title')}
           action={<p className="rating-line"><strong>4.9/5</strong> from 150+ clients</p>}
         />
       </div>
-      <Rail id="reviews" label="Testimonials">
+      <Rail id="reviews" label={t('rail.reviews')}>
         {items.map((t) => (
           <figure className="review" key={t.id}>
             <Icon name="quote" className="rq" />
@@ -710,15 +725,16 @@ export function Testimonials({ items }: { items: Testimonial[] }) {
 /* ---------------- Team ---------------- */
 /* Plain, not section-soft: the reviews directly above are already tinted, and
    two tinted bands running together read as one long one. */
-export function Team({ team }: { team: Entry[] }) {
+export function Team({ team, locale = 'en' }: { team: Entry[] } & Localised) {
+  const t = getDict(locale);
   return (
     <section className="section" aria-labelledby="teamTitle">
       <div className="mx-auto max-w-shell px-5 lg:px-8">
-        <SectionHead id="teamTitle" eyebrow="Our team" title="The people behind your growth" sub="Automation, AI and e-commerce." />
+        <SectionHead id="teamTitle" eyebrow={t('team.eyebrow')} title={t('team.title')} sub={t('team.sub')} />
         <ul className="team-grid" id="teamRail">
           {team.map((m) => (
             <li className="team-card" key={m.id}>
-              <Link href={`/team/${m.slug}`} className="flex flex-col items-center gap-1.5">
+              <Link href={localeHref(locale, `/team/${m.slug}`)} className="flex flex-col items-center gap-1.5">
                 <span className="avatar" style={{ ['--a1' as string]: m.tone }}>{m.initials}</span>
                 <strong>{m.title}</strong>
                 <span>{m.role}</span>

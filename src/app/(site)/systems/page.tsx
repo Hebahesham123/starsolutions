@@ -4,8 +4,10 @@ import { PageHead } from '@/components/PageHead';
 import { Reveal } from '@/components/Reveal';
 import { Icon } from '@/components/Icon';
 import { getSystems } from '@/lib/content';
+import { alternates } from '@/lib/seo';
 
-export const metadata: Metadata = { title: 'Systems and dashboards we build' };
+export const metadata: Metadata = {
+  alternates: alternates('en', '/systems'), title: 'Systems and dashboards we build' };
 
 export default async function SystemsIndexPage() {
   const items = await getSystems();

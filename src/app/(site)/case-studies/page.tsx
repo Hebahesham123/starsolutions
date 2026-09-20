@@ -4,8 +4,10 @@ import { PageHead } from '@/components/PageHead';
 import { Reveal } from '@/components/Reveal';
 import { Icon } from '@/components/Icon';
 import { getCaseStudies } from '@/lib/content';
+import { alternates } from '@/lib/seo';
 
-export const metadata: Metadata = { title: 'Real businesses. Real growth.' };
+export const metadata: Metadata = {
+  alternates: alternates('en', '/case-studies'), title: 'Real businesses. Real growth.' };
 
 export default async function CaseStudiesIndexPage() {
   const items = await getCaseStudies();

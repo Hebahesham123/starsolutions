@@ -4,8 +4,10 @@ import { PageHead } from '@/components/PageHead';
 import { Reveal } from '@/components/Reveal';
 import { Icon } from '@/components/Icon';
 import { getSolutions } from '@/lib/content';
+import { alternates } from '@/lib/seo';
 
-export const metadata: Metadata = { title: 'The complete AI automation suite' };
+export const metadata: Metadata = {
+  alternates: alternates('en', '/solutions'), title: 'The complete AI automation suite' };
 
 export default async function SolutionsIndexPage() {
   const items = await getSolutions();

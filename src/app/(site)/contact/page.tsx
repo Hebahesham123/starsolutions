@@ -5,8 +5,10 @@ import { Reveal } from '@/components/Reveal';
 import { Icon } from '@/components/Icon';
 import { site } from '@/lib/content';
 import { supabaseConfigured } from '@/lib/supabase';
+import { alternates } from '@/lib/seo';
 
-export const metadata: Metadata = { title: 'Contact' };
+export const metadata: Metadata = {
+  alternates: alternates('en', '/contact'), title: 'Contact' };
 
 export default function ContactPage() {
   const { contact } = site;

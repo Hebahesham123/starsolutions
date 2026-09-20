@@ -7,6 +7,7 @@ import { Icon } from './Icon';
 import { Reveal } from './Reveal';
 import { PlatformRow } from './PlatformRow';
 import type { HeroNode } from '@/lib/types';
+import { getDict, localeHref, type Locale } from '@/lib/i18n';
 
 /**
  * Keeps the H1 on exactly one line whatever font ends up loading.
@@ -63,7 +64,8 @@ const NET_DOTS: [number, number, number][] = [
   [470, 632, 2.6], [1080, 628, 2.4],
 ];
 
-export function Hero({ nodes, stats, platforms }: { nodes: HeroNode[]; stats: [string, string, string][]; platforms: string[] }) {
+export function Hero({ nodes, stats, platforms, locale = 'en' }: { nodes: HeroNode[]; stats: [string, string, string][]; platforms: string[]; locale?: Locale }) {
+  const t = getDict(locale);
   const titleRef = React.useRef<HTMLHeadingElement>(null);
   useHeadlineFit(titleRef);
   const reduce = useReducedMotion();
@@ -135,8 +137,8 @@ export function Hero({ nodes, stats, platforms }: { nodes: HeroNode[]; stats: [s
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.16, 0.84, 0.3, 1] }}
           >
-            <span className="hero-title-line">More orders. More revenue.</span>{' '}
-            <span className="grad-text">Less work.</span>
+            <span className="hero-title-line">{t('hero.title1')}</span>{' '}
+            <span className="grad-text">{t('hero.title2')}</span>
           </motion.h1>
           {/* The site's own description, which had never appeared on the page it
               describes. Shown from 1024px up, where the split hero has a column
@@ -180,7 +182,7 @@ export function Hero({ nodes, stats, platforms }: { nodes: HeroNode[]; stats: [s
               <span className="agent-pulse" aria-hidden="true" />
               <span className="agent-ring" aria-hidden="true" />
               <span className="agent-orb"><Icon name="bot" className="agent-orb-icon" /></span>
-              <span className="agent-name">AI Agent</span>
+              <span className="agent-name">{t('hero.agent')}</span>
             </div>
 
             <div className="agent-nodes">
@@ -198,14 +200,14 @@ export function Hero({ nodes, stats, platforms }: { nodes: HeroNode[]; stats: [s
             </div>
           </div>
 
-          <p className="orbit-hint">Live client dashboard</p>
+          <p className="orbit-hint">{t('hero.dashboard')}</p>
         </Reveal>
 
         <Reveal className="hero-actions" delay={0.1}>
-          <Link href="/contact" className="btn btn-primary btn-lg">
-            Get free growth plan <Icon name="arrow" className="h-[18px] w-[18px]" />
+          <Link href={localeHref(locale, '/contact')} className="btn btn-primary btn-lg">
+            {t('cta.growthPlan')} <Icon name="arrow" className="h-[18px] w-[18px]" />
           </Link>
-          <Link href="/results" className="btn btn-ghost btn-lg">See results</Link>
+          <Link href={localeHref(locale, '/results')} className="btn btn-ghost btn-lg">{t('cta.seeResults')}</Link>
         </Reveal>
 
         <Reveal as="dl" className="hero-proof" delay={0.16}>
@@ -221,7 +223,7 @@ export function Hero({ nodes, stats, platforms }: { nodes: HeroNode[]; stats: [s
             is its last child, so a taller lift-in starts the block below the
             clip — where its own reveal observer can never see it. */}
         <Reveal className="hero-logos" delay={0.22} y={10}>
-          <p className="logo-label">Platforms we automate</p>
+          <p className="logo-label">{t('hero.platforms')}</p>
           <PlatformRow platforms={platforms} />
         </Reveal>
       </div>

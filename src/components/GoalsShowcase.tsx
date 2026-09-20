@@ -5,6 +5,7 @@ import { Icon } from './Icon';
 import { Rail } from './Rail';
 import { GoalMotif } from './ui/GoalMotif';
 import type { Entry } from '@/lib/types';
+import { getDict, localeHref, type Locale } from '@/lib/i18n';
 
 /**
  * The goals, as a horizontal rail of banner cards.
@@ -53,14 +54,15 @@ function goalImage(goal: Entry): string | null {
   return null;
 }
 
-export function GoalsShowcase({ goals }: { goals: Entry[] }) {
+export function GoalsShowcase({ goals, locale = 'en' }: { goals: Entry[]; locale?: Locale }) {
+  const t = getDict(locale);
   return (
     <div className="goal-stage mx-auto max-w-shell px-5 lg:px-8">
-      <Rail id="goals" label="Business goals" className="goal-rail">
+      <Rail id="goals" label={t('rail.goals')} className="goal-rail">
       {goals.map((g) => (
         <Link
           key={g.id}
-          href={`/goals/${g.slug}`}
+          href={localeHref(locale, `/goals/${g.slug}`)}
           className="goal-banner"
           style={{ ['--tone' as string]: g.tone }}
         >

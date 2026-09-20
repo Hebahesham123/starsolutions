@@ -4,10 +4,12 @@ import { PageHead } from './PageHead';
 import { Reveal } from './Reveal';
 import { site } from '@/lib/content';
 import type { Entry } from '@/lib/types';
+import { getDict, localeHref, type Locale } from '@/lib/i18n';
 
 export function EntryPage({
   entry, section, sectionHref, prev, next,
-  pointsTitle = 'What you get',
+  pointsTitle,
+  locale = 'en',
   pointsAs = 'list',
   icon,
   tone,
@@ -17,8 +19,10 @@ export function EntryPage({
   sectionHref: string;
   prev?: Entry | null;
   next?: Entry | null;
-  /** Heading above `points`. "What you get" suits a service; a person needs its own word. */
+  /** Heading above `points`. Defaults to the locale's "What you get"; a
+   *  person needs its own word. */
   pointsTitle?: string;
+  locale?: Locale;
   /** Short labels read better as chips than as a checklist. */
   pointsAs?: 'list' | 'chips';
   /** Override the entry's own mark — the automations list colours its cards by
@@ -26,6 +30,8 @@ export function EntryPage({
   icon?: string;
   tone?: string;
 }) {
+  const t = getDict(locale);
+  const pointsHeading = pointsTitle ?? t('detail.whatYouGet');
   const mark = icon ?? entry.icon;
   const hue = tone ?? entry.tone;
   const stats = entry.stats ?? [];
@@ -79,7 +85,7 @@ export function EntryPage({
 
                 {entry.points && entry.points.length > 0 && (
                   <>
-                    <h2>{pointsTitle}</h2>
+                    <h2>{pointsHeading}</h2>
                     {pointsAs === 'chips' ? (
                       <ul className="chip-row chip-row-static">
                         {entry.points.map((p) => <li key={p}>{p}</li>)}
@@ -118,9 +124,9 @@ export function EntryPage({
 
             <div className="detail-rail">
               <aside className="detail-aside">
-                <h2>Start with a free audit</h2>
-                <p>We analyze your store, ads and workflows and send back a written growth plan. No commitment.</p>
-                <Link href="/contact" className="btn btn-primary btn-lg">Get free audit</Link>
+                <h2>{t('aside.title')}</h2>
+                <p>{t('aside.body')}</p>
+                <Link href={localeHref(locale, '/contact')} className="btn btn-primary btn-lg">{t('cta.audit')}</Link>
                 <a href={site.contact.whatsapp} className="btn btn-ghost btn-lg mt-2 w-full">
                   <Icon name="whatsapp" className="h-5 w-5 text-[#25D366]" /> WhatsApp
                 </a>

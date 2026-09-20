@@ -4,8 +4,10 @@ import { PageHead } from '@/components/PageHead';
 import { Reveal } from '@/components/Reveal';
 import { Icon } from '@/components/Icon';
 import { getTeam } from '@/lib/content';
+import { alternates } from '@/lib/seo';
 
-export const metadata: Metadata = { title: 'The people behind your growth' };
+export const metadata: Metadata = {
+  alternates: alternates('en', '/team'), title: 'The people behind your growth' };
 
 export default async function TeamIndexPage() {
   const items = await getTeam();

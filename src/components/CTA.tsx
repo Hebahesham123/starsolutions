@@ -2,8 +2,10 @@ import { Icon } from './Icon';
 import { Reveal } from './Reveal';
 import { ContactForm } from './ContactForm';
 import { site } from '@/lib/content';
+import { getDict, localeHref, type Locale } from '@/lib/i18n';
 
-export function CTA() {
+export function CTA({ locale = 'en' }: { locale?: Locale }) {
+  const t = getDict(locale);
   return (
     <section id="contact" className="cta" aria-labelledby="ctaTitle">
       <div className="cta-wash" aria-hidden="true" />
@@ -19,13 +21,13 @@ export function CTA() {
           where the grid places it explicitly. */}
       <div className="cta-shell">
         <Reveal className="cta-copy">
-          <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> Get started today</p>
-          <h2 id="ctaTitle" className="cta-title">Ready to grow?</h2>
-          <p className="cta-sub">Free audit. No commitment.</p>
+          <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> {t('contact.eyebrow')}</p>
+          <h2 id="ctaTitle" className="cta-title">{t('contact.title')}</h2>
+          <p className="cta-sub">{t('contact.sub')}</p>
           <ul className="cta-points">
-            <li><Icon name="check" /> Written growth report</li>
-            <li><Icon name="check" /> A build plan you keep</li>
-            <li><Icon name="check" /> Reply within a day</li>
+            <li><Icon name="check" /> {t('contact.point1')}</li>
+            <li><Icon name="check" /> {t('contact.point2')}</li>
+            <li><Icon name="check" /> {t('contact.point3')}</li>
           </ul>
         </Reveal>
 

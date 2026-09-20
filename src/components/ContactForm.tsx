@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Icon } from './Icon';
+import { getDict, type Locale } from '@/lib/i18n';
 
 type State = 'idle' | 'sending' | 'sent' | 'error';
 
@@ -24,7 +25,8 @@ const phoneDigits = (v: string) => v.replace(/\D/g, '');
  * survives a change of mind, and `inert` keeps them out of the tab order while
  * they are not on screen.
  */
-export function ContactForm() {
+export function ContactForm({ locale = 'en' }: { locale?: Locale }) {
+  const t = getDict(locale);
   const [state, setState] = React.useState<State>('idle');
   const [errors, setErrors] = React.useState<{ name?: string; email?: string; phone?: string }>({});
   const [message, setMessage] = React.useState('');
@@ -83,22 +85,22 @@ export function ContactForm() {
 
   return (
     <div className="form-card">
-      <h3>Get your free audit</h3>
+      <h3>{t('form.title')}</h3>
       <form onSubmit={onSubmit} noValidate>
         <div className={`field${errors.name ? ' has-error' : ''}`}>
-          <label htmlFor="fName">Full name <span aria-hidden="true">*</span></label>
+          <label htmlFor="fName">{t('form.name')} <span aria-hidden="true">*</span></label>
           <input id="fName" name="name" type="text" autoComplete="name" aria-invalid={!!errors.name} />
           {errors.name && <p className="err">{errors.name}</p>}
         </div>
 
         <div className={`field${errors.email ? ' has-error' : ''}`}>
-          <label htmlFor="fEmail">Email address <span aria-hidden="true">*</span></label>
+          <label htmlFor="fEmail">{t('form.email')} <span aria-hidden="true">*</span></label>
           <input id="fEmail" name="email" type="email" autoComplete="email" aria-invalid={!!errors.email} />
           {errors.email && <p className="err">{errors.email}</p>}
         </div>
 
         <div className={`field${errors.phone ? ' has-error' : ''}`}>
-          <label htmlFor="fPhone">Phone number <span aria-hidden="true">*</span></label>
+          <label htmlFor="fPhone">{t('form.phone')} <span aria-hidden="true">*</span></label>
           <input
             id="fPhone" name="phone" type="tel" autoComplete="tel" inputMode="tel"
             aria-invalid={!!errors.phone}
@@ -128,13 +130,13 @@ export function ContactForm() {
         >
           <div className="form-more-inner">
             <div className="field">
-              <label htmlFor="fBusiness">Business name</label>
+              <label htmlFor="fBusiness">{t('form.company')}</label>
               <input id="fBusiness" name="company" type="text" autoComplete="organization" />
             </div>
 
             <div className="field">
-              <label htmlFor="fMsg">Tell us about your business</label>
-              <textarea id="fMsg" name="message" rows={3} placeholder="Store link and what's slowing you down" />
+              <label htmlFor="fMsg">{t('form.message')}</label>
+              <textarea id="fMsg" name="message" rows={3} placeholder={t('form.messagePlaceholder')} />
             </div>
           </div>
         </motion.div>
@@ -144,7 +146,7 @@ export function ContactForm() {
           {state !== 'sending' && <Icon name="arrow" className="h-[18px] w-[18px]" />}
         </button>
 
-        <p className="form-note">No spam.</p>
+        <p className="form-note">{t('form.note')}</p>
 
         {(state === 'sent' || state === 'error') && (
           <motion.p

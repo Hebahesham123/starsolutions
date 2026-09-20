@@ -4,6 +4,7 @@ import * as React from 'react';
 import { Icon } from './Icon';
 import shots from '@/data/shots.json';
 import type { ProjectTheme } from '@/lib/types';
+import { getDict, type Locale } from '@/lib/i18n';
 
 /** One entry in `src/data/shots.json`, written by `npm run shots`. */
 type Shot = { width: number; height: number; lqip?: string };
@@ -183,13 +184,15 @@ export function AfterFrame({ theme }: { theme: ProjectTheme }) {
 export const hasShot = (slug?: string) => Boolean(slug && slug in shots);
 
 export function BeforeAfter({
-  theme, label, slug, title,
+  theme, label, slug, title, locale = 'en',
 }: {
   theme: ProjectTheme;
   label: string;
+  locale?: Locale;
   slug?: string;
   title?: string;
 }) {
+  const t = getDict(locale);
   const [pos, setPos] = React.useState(50);
   const boxRef = React.useRef<HTMLDivElement>(null);
   const [width, setWidth] = React.useState(0);
@@ -217,8 +220,8 @@ export function BeforeAfter({
           <BeforeFrame />
         </div>
       </div>
-      <span className="ba-tag ba-tag-before">Before</span>
-      <span className="ba-tag ba-tag-after">After · live now</span>
+      <span className="ba-tag ba-tag-before">{t('cases.before')}</span>
+      <span className="ba-tag ba-tag-after">{t('work.liveNow')}</span>
       <span className="ba-handle" aria-hidden="true"><Icon name="left" /><Icon name="right" /></span>
       <input
         type="range" className="ba-range" min={0} max={100} value={pos}

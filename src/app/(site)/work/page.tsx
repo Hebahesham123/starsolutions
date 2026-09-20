@@ -7,8 +7,10 @@ import { ProjectCard } from '@/components/ProjectCard';
 import { SystemCard } from '@/components/ui/SystemCard';
 import { autoIcon, autoTone } from '@/components/sections';
 import { getProjects, getSystems, getAutomations } from '@/lib/content';
+import { alternates } from '@/lib/seo';
 
-export const metadata: Metadata = { title: 'Our work' };
+export const metadata: Metadata = {
+  alternates: alternates('en', '/work'), title: 'Our work' };
 
 export default async function WorkIndexPage() {
   const [projects, systems, automations] = await Promise.all([getProjects(), getSystems(), getAutomations()]);

@@ -6,12 +6,14 @@ import { Icon } from './Icon';
 import { Counter } from './Counter';
 import { StatArt } from './ui/StatArt';
 import type { Chart, Figure } from '@/lib/types';
+import { getDict, localeHref, type Locale } from '@/lib/i18n';
 
 /**
  * Proven results. Each figure is a switch: clicking one repaints the chart with
  * that metric. Bar heights come from the values, never hand-set percentages.
  */
-export function ResultsPanel({ charts, figures }: { charts: Record<string, Chart>; figures: Figure[] }) {
+export function ResultsPanel({ charts, figures, locale = 'en' }: { charts: Record<string, Chart>; figures: Figure[]; locale?: Locale }) {
+  const t = getDict(locale);
   const [metric, setMetric] = React.useState('revenue');
   const chart = charts[metric] ?? charts.revenue;
   const ref = React.useRef<HTMLDivElement>(null);
@@ -157,7 +159,7 @@ export function ResultsPanel({ charts, figures }: { charts: Record<string, Chart
               </p>
               <p className="rt-label">{f.label}</p>
               <p className="rt-sub">{f.sub}</p>
-              <span className="rt-hint">View chart</span>
+              <span className="rt-hint">{t('results.viewChart')}</span>
             </article>
           );
         })}
