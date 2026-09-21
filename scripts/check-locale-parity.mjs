@@ -59,6 +59,11 @@ const TEXT = [
   'title', 'eyebrow', 'summary', 'short', 'tagline', 'badge', 'tag', 'type',
   'role', 'metric', 'metricLabel', 'before', 'after', 'kicker', 'note',
   'label', 'quote', 'name', 'company', 'result',
+  /* Every one of these renders on a case card — the unit beside the figure,
+     the caption under it, and the period after the delta. They were missing
+     from this list, so five cards shipped reading "Orders after automation"
+     and "in 6 weeks" in the middle of an Arabic page. */
+  'kpiLabel', 'kpiUnit', 'period', 'delta',
 ];
 const LISTS = ['points', 'stats'];
 
@@ -151,7 +156,12 @@ function compareCollection(name, en, ar) {
       if (typeof a !== 'string' || !a.trim()) {
         fail(`${name}/${keyOf(row)}: "${field}" has no Arabic (English reads "${v.slice(0, 48)}")`);
       } else if (a === v && /[A-Za-z]{4}/.test(v) && !PROPER_NOUNS.has(v.trim())) {
-        warn(`${name}/${keyOf(row)}: "${field}" is identical in both — "${v.slice(0, 48)}"`);
+        /* An error, not a warning. A prose field whose Arabic is the English
+           string, letter for letter, is one nobody translated — which is how
+           the case cards shipped with English captions. A name that is the
+           same in both languages belongs in PROPER_NOUNS, where saying so is
+           deliberate. */
+        fail(`${name}/${keyOf(row)}: "${field}" is still the English string — "${v.slice(0, 48)}"`);
       }
     }
     for (const field of LISTS) {
@@ -173,6 +183,26 @@ console.log(`\nLocale parity — English from ${en.source}, Arabic from src/data
 
 for (const name of [...Object.keys(TABLES), 'projects']) {
   compareCollection(name, en[name] ?? [], ar[name] ?? []);
+}
+
+/* The contact block is not a collection and was checked by nothing: the
+   Arabic said "USA and UAE" while the English said "Cairo, Egypt", in the
+   footer of every Arabic page. */
+for (const field of ['locations']) {
+  const a = en.contact?.[field];
+  const b = ar.contact?.[field];
+  if (typeof a === 'string' && a.trim() && a === b) {
+    fail(`contact: "${field}" is still the English string — "${a}"`);
+  }
+  if (typeof a === 'string' && a.trim() && !b) {
+    fail(`contact: "${field}" has no Arabic (English reads "${a}")`);
+  }
+}
+for (const key of ['email', 'phone', 'whatsapp', 'offer']) {
+  /* These are the same value in both by design — an address is an address. */
+  if (en.contact?.[key] !== ar.contact?.[key]) {
+    fail(`contact: "${key}" differs between locales — en "${en.contact?.[key]}", ar "${ar.contact?.[key]}"`);
+  }
 }
 
 for (const key of PARALLEL) {
