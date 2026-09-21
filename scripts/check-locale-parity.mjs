@@ -185,6 +185,50 @@ for (const name of [...Object.keys(TABLES), 'projects']) {
   compareCollection(name, en[name] ?? [], ar[name] ?? []);
 }
 
+/* The two halves of the dictionary must not swap.
+ *
+ * Editing src/lib/i18n.ts by script is easy to get wrong: LOCALE_META has an
+ * `ar: {` of its own twenty lines above the one inside STRINGS, and anchoring
+ * on the first match rewrites the English dictionary with Arabic text while
+ * leaving the Arabic one untouched. The site then serves Arabic to English
+ * readers, and every check that compares content rather than chrome still
+ * passes — which is exactly what happened, twice, before this existed.
+ */
+{
+  const src = readFileSync(new URL('../src/lib/i18n.ts', import.meta.url), 'utf8');
+  const lines = src.split(/\r?\n/);
+  const stringsAt = lines.findIndex((l) => /^const STRINGS/.test(l));
+  const arAt = lines.findIndex((l, i) => i > stringsAt && /^ {2}ar: \{/.test(l));
+  const endAt = lines.findIndex((l, i) => i > arAt && /^ {2}\},/.test(l));
+  const arabic = /[\u0600-\u06FF]/;
+  /* The language switch is written in the language it switches *to*, on both
+     sides — an English page offers "عربي" and an Arabic one offers "English".
+     Those two are the exception this looks for and must not report. */
+  const entryOf = (line) => {
+    const m = line.match(/^\s*'([^']+)':\s*(["'])([\s\S]*)\2,\s*$/);
+    return m ? { key: m[1], value: m[3] } : null;
+  };
+  const translatable = (e) => e && !e.key.startsWith('lang.');
+  if (stringsAt < 0 || arAt < 0 || endAt < 0) {
+    fail('i18n.ts: could not find the two dictionary blocks to check them');
+  } else {
+    const enHoldsArabic = lines.slice(stringsAt, arAt).map(entryOf)
+      .filter((e) => translatable(e) && arabic.test(e.value))
+      .map((e) => `${e.key} = ${e.value}`);
+    const arHoldsLatin = lines.slice(arAt, endAt).map(entryOf)
+      .filter((e) => translatable(e) && /[A-Za-z]{4}/.test(e.value) && !arabic.test(e.value))
+      .map((e) => `${e.key} = ${e.value}`);
+    if (enHoldsArabic.length) {
+      fail(`i18n.ts: ${enHoldsArabic.length} English entr(ies) hold Arabic text`
+        + ` — "${enHoldsArabic[0].slice(0, 40)}"`);
+    }
+    if (arHoldsLatin.length) {
+      fail(`i18n.ts: ${arHoldsLatin.length} Arabic entr(ies) hold Latin-only text`
+        + ` — "${arHoldsLatin[0].slice(0, 40)}"`);
+    }
+  }
+}
+
 /* The contact block is not a collection and was checked by nothing: the
    Arabic said "USA and UAE" while the English said "Cairo, Egypt", in the
    footer of every Arabic page. */
