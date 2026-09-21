@@ -32,12 +32,12 @@ export function CTA({ locale = 'en' }: { locale?: Locale }) {
         </Reveal>
 
         <Reveal delay={0.1} className="cta-form">
-          <ContactForm />
+          <ContactForm locale={locale} />
         </Reveal>
 
         <div className="cta-alt">
           <a href={site.contact.whatsapp} className="btn btn-ghost btn-lg">
-            <Icon name="whatsapp" className="h-5 w-5 text-[#25D366]" /> WhatsApp us instead
+            <Icon name="whatsapp" className="h-5 w-5 text-[#25D366]" /> {t('cta.whatsappInstead')}
           </a>
         </div>
       </div>

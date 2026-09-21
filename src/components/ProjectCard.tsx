@@ -48,7 +48,7 @@ export function ProjectCard({
 
   return (
     <Reveal as="article" className={`live-card${open ? ' is-open' : ''}`} delay={delay}>
-      <Comparison project={project} />
+      <Comparison project={project} locale={locale} />
       <span className="live-badge">{project.badge}</span>
       <H><Link href={localeHref(locale, `/work/${project.slug}`)}>{project.title}</Link></H>
       <p>{project.short}</p>
@@ -60,7 +60,7 @@ export function ProjectCard({
         aria-controls={panelId}
         onClick={() => setOpen((v) => !v)}
       >
-        {open ? 'Show less' : 'Read about this project'}
+        {t(open ? 'work.hideProject' : 'work.readProject')}
         <Icon name="arrow" className="live-chev" />
       </button>
 

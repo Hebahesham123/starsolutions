@@ -264,6 +264,17 @@ const STRINGS: Record<Locale, Dict> = {
     'team.skills': 'Skills',
     'results.whereFrom': 'Where the numbers come from',
     'results.inTheirWords': 'In their words',
+    /* --- found by the Latin-text scan of the Arabic pages ------------- */
+    'hero.lede': 'We automate your Shopify, social media and marketing — so your business grows while you sleep.',
+    'work.ourServices': 'Our services',
+    'work.readProject': 'Read about this project',
+    'work.hideProject': 'Show less',
+    'work.scroll': 'Scroll',
+    'results.save': 'save',
+    'form.more': 'Add business name and project details',
+    'form.less': 'Hide extra details',
+    'detail.moreIn': 'More in',
+    'detail.all': 'All',
   },
   ar: {
     'nav.solutions': 'الحلول',
@@ -487,6 +498,17 @@ const STRINGS: Record<Locale, Dict> = {
     'team.skills': 'المهارات',
     'results.whereFrom': 'الأرقام دي جاية منين',
     'results.inTheirWords': 'بكلامهم هم',
+    /* --- found by the Latin-text scan of the Arabic pages ------------- */
+    'hero.lede': 'بنأتمت متجرك على شوبيفاي والسوشيال ميديا والتسويق — عشان شغلك يكبر وإنت نايم.',
+    'work.ourServices': 'خدماتنا',
+    'work.readProject': 'اقرأ عن المشروع ده',
+    'work.hideProject': 'اعرض أقل',
+    'work.scroll': 'اسحب',
+    'results.save': 'توفير',
+    'form.more': 'ضيف اسم الشركة وتفاصيل المشروع',
+    'form.less': 'اخفي التفاصيل الزيادة',
+    'detail.moreIn': 'المزيد في',
+    'detail.all': 'كل',
   },
 };
 

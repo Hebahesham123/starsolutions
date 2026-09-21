@@ -7,6 +7,7 @@
     "prebuild": "node scripts/check-locale-parity.mjs",
     "build": "next build",
     "check:locales": "node scripts/check-locale-parity.mjs",
+    "check:ar-text": "node scripts/check-arabic-text.mjs",
     "start": "next start",
     "lint": "next lint",
     "shots": "node scripts/shots.mjs"

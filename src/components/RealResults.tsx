@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { BeforeFrame, AfterFrame, ShotFrame, hasShot } from './BeforeAfter';
 import type { Project } from '@/lib/types';
+import { getDict, type Locale } from '@/lib/i18n';
 
 /** Reference behaviour: the divider never reaches the very edge. */
 const MIN = 5;
@@ -25,7 +26,8 @@ const clamp = (n: number) => Math.max(MIN, Math.min(MAX, n));
  * swallows every wheel and swipe aimed at it. The handle is a 44px column, so
  * it is still an easy target, and everywhere else stays free to scroll.
  */
-export function Comparison({ project }: { project: Project }) {
+export function Comparison({ project, locale = 'en' }: { project: Project; locale?: Locale }) {
+  const t = getDict(locale);
   const [pos, setPos] = React.useState(50);
   const boxRef = React.useRef<HTMLDivElement>(null);
   const dragging = React.useRef(false);
@@ -151,9 +153,9 @@ export function Comparison({ project }: { project: Project }) {
               />
             : <BeforeFrame />}
         </div>
-        {shot && <span className="rr-hint" aria-hidden="true">Scroll ↕</span>}
-        <span className="rr-label rr-label-before">Before</span>
-        <span className="rr-label rr-label-after">After</span>
+        {shot && <span className="rr-hint" aria-hidden="true">{t('work.scroll')} ↕</span>}
+        <span className="rr-label rr-label-before">{t('cases.before')}</span>
+        <span className="rr-label rr-label-after">{t('cases.after')}</span>
         <button
           type="button"
           className="rr-handle"

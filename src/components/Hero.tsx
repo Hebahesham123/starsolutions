@@ -127,7 +127,7 @@ export function Hero({ nodes, stats, platforms, locale = 'en' }: { nodes: HeroNo
       <div className="hero-shell">
         <div className="hero-copy">
           <Reveal as="div">
-            <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> AI automation for e-commerce brands</p>
+            <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> {t('hero.eyebrow')}</p>
           </Reveal>
           <motion.h1
             id="heroTitle"
@@ -146,8 +146,7 @@ export function Hero({ nodes, stats, platforms, locale = 'en' }: { nodes: HeroNo
               paragraph would push the buttons off the screen. */}
           <Reveal as="div" delay={0.06}>
             <p className="hero-lede">
-              We automate your Shopify, social media and marketing — so your
-              business grows while you sleep.
+              {t('hero.lede')}
             </p>
           </Reveal>
         </div>

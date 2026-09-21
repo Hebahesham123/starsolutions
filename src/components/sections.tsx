@@ -602,7 +602,7 @@ export function Automations({ automations, platforms = [], locale = 'en' }: { au
           id="autoTitle"
           eyebrow={t('automations.eyebrow')}
           title={t('automations.title')}
-          sub="Our AI connects your WhatsApp inbox, your chatbot and your automations — so you can talk, support and grow without touching any of it."
+          sub={t('automations.sub')}
         />
 
         <div className="web" style={{ ['--up' as string]: up, ['--down' as string]: down }}>
@@ -687,7 +687,7 @@ export function Automations({ automations, platforms = [], locale = 'en' }: { au
             /automations, which is only this section again. */}
         <p className="web-more">
           <Link href={localeHref(locale, '/work')} className="btn btn-primary btn-lg">
-            Our services <Icon name="arrow" />
+            {t('work.ourServices')} <Icon name="arrow" />
           </Link>
         </p>
       </div>
@@ -703,7 +703,7 @@ export function Testimonials({ items, locale = 'en' }: { items: Testimonial[] } 
       <div className="mx-auto max-w-shell px-5 lg:px-8">
         <SectionHead
           id="revTitle" row eyebrow={t('reviews.eyebrow')} title={t('reviews.title')}
-          action={<p className="rating-line"><strong>4.9/5</strong> from 150+ clients</p>}
+          action={<p className="rating-line"><strong>4.9/5</strong> {t('reviews.rating')}</p>}
         />
       </div>
       <Rail id="reviews" label={t('rail.reviews')}>

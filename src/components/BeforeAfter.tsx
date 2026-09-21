@@ -18,7 +18,7 @@ const BEAUTY_TILES = [
 
 export function BeforeFrame() {
   return (
-    <div className="ba-frame bf">
+    <div className="ba-frame bf" lang="en" dir="ltr">
       <div className="bf-banner">★★★ WELCOME TO OUR WEBSITE ★★★</div>
       <div className="bf-nav">Home | Products | About | Contact | Sitemap</div>
       <div className="bf-body">
@@ -48,15 +48,17 @@ export function BeforeFrame() {
  * captures the pages instead — re-run it after a store redesign.
  */
 export function ShotFrame({
-  slug, title, scroll = true, scrollLabel = 'scroll the live site',
+  slug, title, scroll = true, scrollLabel = 'scroll the live site', locale = 'en',
 }: {
   slug: string; title: string;
+  locale?: Locale;
   /** Both sides of a comparison scroll, and Comparison keeps them at the same
    *  depth — two scrollers only read as a bug while they disagree. Still
    *  optional, for the places a capture is shown on its own. */
   scroll?: boolean;
   scrollLabel?: string;
 }) {
+  const t = getDict(locale);
   const shot = (shots as Record<string, Shot>)[slug];
   return (
     <div className={`ba-frame af-shot${scroll ? '' : ' af-shot-fixed'}`}>
@@ -79,7 +81,7 @@ export function ShotFrame({
           style={shot?.lqip ? { backgroundImage: `url(${shot.lqip})` } : undefined}
         />
       </div>
-      {scroll && <span className="af-shot-hint" aria-hidden="true">Scroll ↕</span>}
+      {scroll && <span className="af-shot-hint" aria-hidden="true">{t('work.scroll')} ↕</span>}
     </div>
   );
 }
@@ -213,7 +215,7 @@ export function BeforeAfter({
       style={{ ['--pos' as string]: `${pos}%` }}
     >
       {shotReady
-        ? <ShotFrame slug={slug as string} title={title ?? 'Live site'} />
+        ? <ShotFrame slug={slug as string} title={title ?? 'Live site'} locale={locale} />
         : <AfterFrame theme={theme} />}
       <div className="ba-clip">
         <div style={{ width: width ? `${width}px` : '100%', height: '100%' }}>

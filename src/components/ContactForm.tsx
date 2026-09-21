@@ -120,7 +120,7 @@ export function ContactForm({ locale = 'en' }: { locale?: Locale }) {
           aria-controls={panelId}
           onClick={() => setOpen((v) => !v)}
         >
-          {open ? 'Hide extra details' : 'Add business name and project details'}
+          {t(open ? 'form.less' : 'form.more')}
           <Icon name="arrow" className="form-more-chev" />
         </button>
 
@@ -147,7 +147,7 @@ export function ContactForm({ locale = 'en' }: { locale?: Locale }) {
         </motion.div>
 
         <button type="submit" className="btn btn-primary btn-lg w-full" disabled={state === 'sending'}>
-          {state === 'sending' ? 'Sending…' : 'Get free audit'}
+          {state === 'sending' ? t('form.sending') : t('cta.audit')}
           {state !== 'sending' && <Icon name="arrow" className="h-[18px] w-[18px]" />}
         </button>
 

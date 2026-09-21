@@ -153,7 +153,7 @@ export function ResultsPanel({ charts, figures, locale = 'en' }: { charts: Recor
             >
               <span className="rt-icon"><Icon name={f.icon} /></span>
               <StatArt name={f.metric} />
-              {f.metric === 'adspend' && <span className="rt-tag">save</span>}
+              {f.metric === 'adspend' && <span className="rt-tag">{t('results.save')}</span>}
               <p className="rt-num">
                 <Counter value={f.count} decimals={f.decimals ?? 0} prefix={f.prefix ?? ''} suffix={f.suffix ?? ''} />
               </p>

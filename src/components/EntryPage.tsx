@@ -51,7 +51,7 @@ export function EntryPage({
         title={entry.title}
         lede={entry.summary}
         tone={hue}
-        crumbs={[{ href: '/', label: 'Home' }, { href: sectionHref, label: section }, { label: entry.title }]}
+        crumbs={[{ href: localeHref(locale, '/'), label: t('crumbs.home') }, { href: sectionHref, label: section }, { label: entry.title }]}
         aside={hasPanel ? (
           <div className="entry-panel">
             {/* The entry's own glyph, blown up and faded into the corner. The
@@ -133,8 +133,8 @@ export function EntryPage({
               </aside>
 
               {more.length > 0 && (
-                <nav className="aside-more" aria-label={`More in ${section}`}>
-                  <p className="aside-more-h">More in {section.toLowerCase()}</p>
+                <nav className="aside-more" aria-label={`${t('detail.moreIn')} ${section}`}>
+                  <p className="aside-more-h">{t('detail.moreIn')} {section.toLowerCase()}</p>
                   <ul>
                     {more.map((e) => (
                       <li key={e.slug}>
@@ -146,7 +146,7 @@ export function EntryPage({
                     ))}
                   </ul>
                   <Link href={sectionHref} className="aside-more-all">
-                    All {section.toLowerCase()} <Icon name="arrow" />
+                    {t('detail.all')} {section.toLowerCase()} <Icon name="arrow" />
                   </Link>
                 </nav>
               )}
