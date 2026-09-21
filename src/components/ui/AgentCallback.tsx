@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { Icon } from '../Icon';
+import { newEventId, trackLead } from '@/lib/meta-pixel';
 
 type State = { status: 'idle' | 'sending' | 'done' | 'error'; message?: string };
 
@@ -49,17 +50,20 @@ export function AgentCallback() {
     e.preventDefault();
     if (!valid || state.status === 'sending') return;
     setState({ status: 'sending' });
+    // Same ID goes to the pixel and to the server's Conversions API call.
+    const eventId = newEventId();
     try {
       const res = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name.trim(), phone: phone.trim(), source: 'agent' }),
+        body: JSON.stringify({ name: name.trim(), phone: phone.trim(), source: 'agent', event_id: eventId }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
         setState({ status: 'error', message: data.error ?? 'Could not send that. Please try again.' });
         return;
       }
+      trackLead(eventId, 'AI agent callback');
       setState({ status: 'done', message: data.message });
     } catch {
       setState({ status: 'error', message: 'Network problem. Please try again.' });

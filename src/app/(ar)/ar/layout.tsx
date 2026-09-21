@@ -6,6 +6,7 @@ import { SiteFooter } from '@/components/SiteFooter';
 import { StickyBar } from '@/components/StickyBar';
 import { PageTransition } from '@/components/PageTransition';
 import { SiteSplash } from '@/components/ui/SiteSplash';
+import { MetaPixel } from '@/components/MetaPixel';
 import { buildSearchIndex } from '@/components/ui/search-index';
 import { getContent, getDict } from '@/lib/i18n';
 
@@ -43,6 +44,8 @@ export default async function ArabicLayout({ children }: { children: React.React
   return (
     <LocaleDocument locale="ar">
       <SiteSplash />
+      {/* Meta Pixel — public pages only, so /admin is never tracked. */}
+      <MetaPixel />
       <a href="#main" className="skip-link">{t('a11y.skip')}</a>
       <SiteHeader locale="ar" whatsapp={c.contact.whatsapp} searchDocs={searchDocs} />
       <main id="main">
