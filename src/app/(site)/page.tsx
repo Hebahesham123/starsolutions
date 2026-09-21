@@ -1,7 +1,7 @@
 import { Hero } from '@/components/Hero';
 import { ResultsPanel } from '@/components/ResultsPanel';
 import { CTA } from '@/components/CTA';
-import { SectionHead, Goals, Systems, Process, NightPanel, CaseStudies, Work, Automations, Testimonials, Team } from '@/components/sections';
+import { Goals, Systems, Process, NightPanel, CaseStudies, Work, Automations, Testimonials, Team } from '@/components/sections';
 import type { Metadata } from 'next';
 import {
   site, getGoals, getCaseStudies, getSystems, getAutomations, getTeam,
@@ -26,15 +26,13 @@ export default async function HomePage() {
       <Goals goals={goals} />
       <Process steps={site.process} />
 
-      <section id="results" className="section section-soft stats-section" aria-labelledby="statsTitle">
+      {/* No heading. The panel opens with its own kicker and a figure the
+          size of the screen, so a framed title above it repeated that and cost
+          a third of the section's height before anything was shown. The name
+          moves to aria-label, since the element that carried it is gone. */}
+      <section id="results" className="section section-soft stats-section" aria-label="Proven results">
         <div className="starfield starfield-dim" aria-hidden="true" />
         <div className="mx-auto max-w-shell px-5 lg:px-8">
-          {/* The reference frames the heading rather than letting it sit on the
-              page, which on a dark ground is how it separates from the panel
-              below. Scoped to this section — nothing else on the site does it. */}
-          <div className="section-head-card">
-            <SectionHead id="statsTitle" eyebrow="Proven results" title="Numbers that speak for themselves" sub="Real client data." />
-          </div>
           <ResultsPanel charts={site.charts} figures={site.figures} />
         </div>
       </section>

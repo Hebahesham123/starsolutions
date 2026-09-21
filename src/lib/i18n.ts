@@ -198,7 +198,7 @@ const STRINGS: Record<Locale, Dict> = {
     'rail.live': 'Live websites',
     'rail.goals': 'Business goals',
     'results.showMore': 'Show {n} more',
-    'results.showLess': 'Show fewer',
+    'results.showLess': 'Show less',
     /* --- index page heads ------------------------------------------- */
     'crumbs.home': "Home",
     'blog.englishOnly': 'The posts are in English for now.',

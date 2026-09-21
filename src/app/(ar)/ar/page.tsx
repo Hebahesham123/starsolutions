@@ -2,7 +2,7 @@ import { Hero } from '@/components/Hero';
 import { ResultsPanel } from '@/components/ResultsPanel';
 import { CTA } from '@/components/CTA';
 import {
-  SectionHead, Goals, Systems, Process, NightPanel, CaseStudies, Work, Automations,
+  Goals, Systems, Process, NightPanel, CaseStudies, Work, Automations,
   Testimonials, Team,
 } from '@/components/sections';
 import { getContent, getDict } from '@/lib/i18n';
@@ -34,17 +34,10 @@ export default function ArabicHomePage() {
       <Goals locale={locale} goals={visible(c.goals)} />
       <Process locale={locale} steps={c.process} />
 
-      <section id="results" className="section section-soft stats-section" aria-labelledby="statsTitle">
+      {/* See the English page: the heading came off this section. */}
+      <section id="results" className="section section-soft stats-section" aria-label={t('results.eyebrow')}>
         <div className="starfield starfield-dim" aria-hidden="true" />
         <div className="mx-auto max-w-shell px-5 lg:px-8">
-          <div className="section-head-card">
-            <SectionHead
-              id="statsTitle"
-              eyebrow={t('results.eyebrow')}
-              title={t('results.title')}
-              sub={t('results.sub')}
-            />
-          </div>
           <ResultsPanel locale={locale} charts={c.charts} figures={c.figures} />
         </div>
       </section>

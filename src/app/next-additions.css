@@ -4185,3 +4185,34 @@
   .flow{ stroke-width:3.2; }
   .link-nodes circle{ stroke-width:2.2; }
 }
+
+/* =========================================================
+   Proven results, compacted.
+
+   The framed heading is gone from this section, so the panel is the first
+   thing in it and the space above was sized for something that is no longer
+   there. What is left is the panel, and the panel had two kinds of slack: the
+   plot reserved 95px of nothing either side of two bars, and the section's own
+   padding was the site-wide figure for a section that opens with a heading.
+   ========================================================= */
+
+/* The panel is the section now. */
+.stats-section{ padding-block:clamp(22px, 5vw, 34px); }
+@media (min-width:768px){ .stats-section{ padding-block:52px; } }
+@media (min-width:1280px){ .stats-section{ padding-block:72px; } }
+
+/* Two bars centred in a flex row leave the rest of the width empty — 95px a
+   side on a phone, which is wider than the bars. Spreading them across the
+   row and letting each one grow spends that space on the chart instead of
+   reserving it. Capped, or on a desktop the pair becomes two slabs. */
+.rp-plot{ justify-content:space-evenly; }
+.rp-col{ flex:1 1 auto; max-width:clamp(84px, 26vw, 128px); }
+.rp-col-solo{ max-width:clamp(96px, 30vw, 150px); }
+
+/* Less air inside the panel, at the two places it was padding rather than
+   content: above the plot, and around each figure tile. */
+@media (max-width:639px){
+  .stats-section .rp-chart{ padding:11px 11px 9px; }
+  .stats-section .rp-plot{ margin-top:9px; }
+  .stats-section .rt{ padding:8px 8px 9px; }
+}

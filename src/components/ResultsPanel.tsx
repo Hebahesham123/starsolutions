@@ -167,7 +167,7 @@ export function ResultsPanel({ charts, figures, locale = 'en' }: { charts: Recor
 
       {hidden > 0 && (
         <button type="button" className="rp-more" onClick={() => setShowAll((v) => !v)} aria-expanded={showAll}>
-          {showAll ? 'Show less' : `Show ${hidden} more`}
+          {showAll ? t('results.showLess') : t('results.showMore').replace('{n}', String(hidden))}
           <Icon name="arrow" />
         </button>
       )}
