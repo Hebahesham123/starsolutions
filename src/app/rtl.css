@@ -143,3 +143,15 @@
 [dir='rtl'] .admin-search input{ padding:0 34px 0 12px; }
 [dir='rtl'] .admin-table th, [dir='rtl'] .admin-table td{ text-align:right; }
 [dir='rtl'] .admin-table-end{ text-align:left; }
+
+/* ---------- header, in the band where Arabic outgrows the shell ----------
+   Arabic runs longer than English here: at 1024 the brand, the nav and the
+   action cluster come to 981px inside a 960px shell, and the cluster ran off
+   the edge — a horizontal scrollbar on every Arabic page at that width. It
+   only bites between the desktop nav appearing and the shell reaching its
+   1200px maximum, so the nav gives up the space there rather than the call to
+   action giving up its words.                                            */
+@media (min-width:1024px) and (max-width:1199px){
+  [dir='rtl'] .desktop-nav{ margin-right:10px; gap:0; }
+  [dir='rtl'] .desktop-nav a{ padding-inline:9px; }
+}

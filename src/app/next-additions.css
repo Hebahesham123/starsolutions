@@ -4216,3 +4216,21 @@
   .stats-section .rp-plot{ margin-top:9px; }
   .stats-section .rt{ padding:8px 8px 9px; }
 }
+
+/* Four goals, all four visible, once the frame is wide enough for them.
+   At a fixed 300px the row needed 1200px and the frame's inside is 1108, so
+   the fourth card was always half off the edge — a rail you had to page even
+   though the whole set nearly fitted. Above 1024 the cards share the row
+   instead: auto-fit collapses the empty tracks, so four entries give four
+   columns and a fifth would give five rather than a scroll. Rail notices the
+   content no longer overflows and drops the arrows, the dots and the tab stop
+   on its own. */
+@media (min-width:1024px){
+  .goal-stage .rail{ scroll-snap-type:none; }
+  .goal-stage .rail-inner{
+    display:grid; width:auto;
+    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+    align-items:stretch;
+  }
+  .goal-stage .goal-banner{ width:auto; }
+}
