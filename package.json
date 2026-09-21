@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/check-locale-parity.mjs",
     "build": "next build",
+    "check:locales": "node scripts/check-locale-parity.mjs",
     "start": "next start",
     "lint": "next lint",
     "shots": "node scripts/shots.mjs"
