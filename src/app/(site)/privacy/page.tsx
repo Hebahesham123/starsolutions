@@ -62,7 +62,17 @@ export default function PrivacyPage() {
               method of transmission over the Internet is 100% secure.
             </p>
 
-            <h2>5. Contact us</h2>
+            <h2>5. Advertising and measurement</h2>
+            <p>
+              We use the Meta Pixel and Meta Conversions API to measure how our ads perform and to show
+              relevant ads on Facebook and Instagram. These tools may use cookies and receive information
+              such as pages you visit, your IP address and browser details. When you submit a form, your
+              email address and phone number are hashed (converted into an unreadable code) before being
+              shared with Meta for matching. You can control ad preferences in your Facebook or Instagram
+              settings.
+            </p>
+
+            <h2>6. Contact us</h2>
             <p>
               If you have questions about this privacy policy, please contact us at{' '}
               <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>.

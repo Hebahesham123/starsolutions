@@ -7,6 +7,7 @@ import { PageTransition } from '@/components/PageTransition';
 import { site } from '@/lib/content';
 import { buildSearchIndex } from '@/components/ui/search-index';
 import { SiteSplash } from '@/components/ui/SiteSplash';
+import { MetaPixel } from '@/components/MetaPixel';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.starsolution.ai'),
@@ -45,6 +46,8 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
       {/* First in the tree so it paints with the first frame. /admin is a
           different layout and never gets it. */}
       <SiteSplash />
+      {/* Meta Pixel — public pages only, so /admin is never tracked. */}
+      <MetaPixel />
       <a href="#main" className="skip-link">Skip to content</a>
       <SiteHeader locale="en" whatsapp={site.contact.whatsapp} searchDocs={searchDocs} />
       <main id="main">

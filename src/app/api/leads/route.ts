@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getServiceSupabase } from '@/lib/supabase';
+import { randomUUID } from 'crypto';
+import { requestContext, sendMetaEvent } from '@/lib/meta-capi';
 
 export const runtime = 'nodejs';
 
@@ -64,8 +66,24 @@ export async function POST(request: Request) {
       : note || null,
   };
 
+  // Meta Conversions API: the server-side copy of the pixel's Lead event. Same
+  // event_id as the browser sent, so Meta deduplicates the pair. Only called
+  // once the lead is accepted, and it never fails the request.
+  const eventId = String(payload.event_id ?? '').trim().slice(0, 100) || randomUUID();
+  const trackLead = () =>
+    sendMetaEvent({
+      eventName: 'Lead',
+      eventId,
+      email: lead.email,
+      phone: lead.phone,
+      name: lead.name,
+      customData: { content_name: fromAgent ? 'AI agent callback' : 'Free audit' },
+      ...requestContext(request),
+    });
+
   const db = getServiceSupabase();
   if (!db) {
+    await trackLead();
     console.info('[leads] Supabase not configured — submission logged only:', lead);
     return NextResponse.json({
       message: 'Thanks — your request is in. (Running without Supabase, so it was logged to the server console.)',
@@ -88,6 +106,8 @@ export async function POST(request: Request) {
     console.error('[leads] insert failed:', error.message);
     return NextResponse.json({ error: 'Could not save your request. Please try again.' }, { status: 500 });
   }
+
+  await trackLead();
 
   return NextResponse.json({
     message: fromAgent

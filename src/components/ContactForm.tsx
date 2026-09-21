@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Icon } from './Icon';
+import { newEventId, trackLead } from '@/lib/meta-pixel';
 import { getDict, type Locale } from '@/lib/i18n';
 
 type State = 'idle' | 'sending' | 'sent' | 'error';
@@ -66,14 +67,18 @@ export function ContactForm({ locale = 'en' }: { locale?: Locale }) {
     }
 
     setState('sending');
+    // Shared by the browser pixel and the server's Conversions API call, so
+    // Meta counts this lead once rather than twice.
+    const eventId = newEventId();
     try {
       const res = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, event_id: eventId }),
       });
       const body = await res.json();
       if (!res.ok) throw new Error(body.error ?? 'Request failed');
+      trackLead(eventId, 'Free audit');
       setMessage(body.message ?? 'Thanks — we will reply within one business day.');
       setState('sent');
       form.reset();
