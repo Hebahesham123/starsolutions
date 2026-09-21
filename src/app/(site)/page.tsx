@@ -24,7 +24,7 @@ export default async function HomePage() {
     <>
       <Hero nodes={site.heroNodes} stats={site.heroStats} platforms={site.platforms} />
       <Goals goals={goals} />
-      <Process steps={site.process} />
+      <Automations automations={automations} platforms={site.platforms} />
 
       {/* No heading. The panel opens with its own kicker and a figure the
           size of the screen, so a framed title above it repeated that and cost
@@ -41,7 +41,7 @@ export default async function HomePage() {
       <NightPanel log={site.nightLog} stats={site.nightStats} />
       <CaseStudies cases={cases} />
       <Work projects={projects} />
-      <Automations automations={automations} platforms={site.platforms} />
+      <Process steps={site.process} />
       <Testimonials items={testimonials} />
       <Team team={team} />
       <CTA />

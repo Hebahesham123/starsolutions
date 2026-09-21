@@ -32,7 +32,7 @@ export default function ArabicHomePage() {
     <>
       <Hero locale={locale} nodes={c.heroNodes} stats={c.heroStats} platforms={c.platforms} />
       <Goals locale={locale} goals={visible(c.goals)} />
-      <Process locale={locale} steps={c.process} />
+      <Automations locale={locale} automations={visible(c.automations)} platforms={c.platforms} />
 
       {/* See the English page: the heading came off this section. */}
       <section id="results" className="section section-soft stats-section" aria-label={t('results.eyebrow')}>
@@ -46,7 +46,7 @@ export default function ArabicHomePage() {
       <NightPanel locale={locale} log={c.nightLog} stats={c.nightStats} />
       <CaseStudies locale={locale} cases={visible(c.caseStudies)} />
       <Work locale={locale} projects={visible(c.projects)} />
-      <Automations locale={locale} automations={visible(c.automations)} platforms={c.platforms} />
+      <Process locale={locale} steps={c.process} />
       <Testimonials locale={locale} items={c.testimonials} />
       <Team locale={locale} team={visible(c.team)} />
       <CTA locale={locale} />
