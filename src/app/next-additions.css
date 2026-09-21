@@ -4234,3 +4234,24 @@
   }
   .goal-stage .goal-banner{ width:auto; }
 }
+
+/* The language switch, as a button rather than a word.
+   It sits between the search and the agent on one side and the call to action
+   on the other, and a bare word among icon buttons reads as a stray link. One
+   character in the same 40px square the others use — the aria-label still
+   carries the whole sentence, so nothing is lost to a screen reader. */
+.lang-switch{
+  display:grid; place-items:center;
+  width:40px; height:40px; border-radius:12px;
+  font-family:'General Sans',sans-serif; font-weight:600; font-size:15px; line-height:1;
+  color:var(--ink-2); border:1px solid var(--line); background:#fff;
+  transition:color .2s var(--ease-out), border-color .2s var(--ease-out),
+             transform .2s var(--ease-out), background .2s var(--ease-out);
+}
+.lang-switch:hover{ color:var(--brand-deep); border-color:#CFE0FA; transform:translateY(-1px); }
+.lang-switch:focus-visible{ outline:2px solid var(--brand); outline-offset:2px; }
+/* Arabic letterforms sit differently in a box this small. */
+[dir='rtl'] .lang-switch{ font-size:16px; }
+@media (max-width:420px){
+  .lang-switch{ width:36px; height:36px; border-radius:10px; font-size:14px; }
+}

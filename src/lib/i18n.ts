@@ -181,7 +181,7 @@ const STRINGS: Record<Locale, Dict> = {
     'search.group.platform': 'Platform',
     'search.platformSub': 'Automations we build on it',
     /* --- language switch ------------------------------------------- */
-    'lang.switch': 'عربي',
+    'lang.switch': 'ع',
     'lang.switchLabel': 'اقرأ الموقع بالعربية',
     /* --- sections with no entry in the original dictionary ---------- */
     'systems.eyebrow': 'Built for you',
@@ -415,7 +415,7 @@ const STRINGS: Record<Locale, Dict> = {
     'search.group.platform': 'منصة',
     'search.platformSub': 'أتمتة نبنيها على هذه المنصة',
     /* --- language switch ------------------------------------------- */
-    'lang.switch': 'English',
+    'lang.switch': 'E',
     'lang.switchLabel': 'Read this site in English',
     /* --- sections with no entry in the original dictionary ---------- */
     'systems.eyebrow': 'مصمم خصيصًا لك',
