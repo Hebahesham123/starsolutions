@@ -3109,7 +3109,7 @@
 .rp-chart > figcaption, .rp-chart > .rp-plot{ position:relative; z-index:1; }
 
 /* ---------- the supporting line, with its arrow ---------- */
-.rp-note{ display:flex; align-items:flex-start; gap:7px; }
+.rp-note{ display:flex; align-items:flex-start; gap:9px; }
 .rp-note-icon{
   flex:none; width:15px; height:15px; margin-top:2px; color:var(--brand);
 }
@@ -3151,12 +3151,12 @@
 /* ---------- the drawing on each figure ---------- */
 .rt{ overflow:hidden; }
 .rt-art{
-  position:absolute; right:8px; bottom:auto; top:8px;
+  position:absolute; inset-inline-end:8px; bottom:auto; top:8px;
   width:clamp(44px, 12.5vw, 70px); height:auto;
   color:var(--brand); opacity:.3; pointer-events:none;
   transition:opacity .35s var(--ease-out), transform .35s var(--ease-out);
 }
-@media (min-width:900px){ .rt-art{ right:12px; top:14px; width:74px; } }
+@media (min-width:900px){ .rt-art{ inset-inline-end:12px; top:14px; width:74px; } }
 .rt:hover .rt-art, .rt.is-active .rt-art{ opacity:.48; transform:translateY(-2px); }
 .rt.is-active .rt-art{ color:var(--brand-deep); }
 
@@ -3166,13 +3166,13 @@
 
 /* ---------- the tag on the one figure that carries one ---------- */
 .rt-tag{
-  position:absolute; right:10px; top:6px; z-index:2;
+  position:absolute; inset-inline-end:10px; top:6px; z-index:2;
   padding:2px 7px; border-radius:999px;
   font-family:'JetBrains Mono',monospace; font-size:8.5px; letter-spacing:.08em;
   color:var(--brand-deep);
   background:var(--blue-100); border:1px solid color-mix(in srgb, var(--brand) 22%, transparent);
 }
-@media (min-width:900px){ .rt-tag{ right:14px; top:10px; font-size:9px; } }
+@media (min-width:900px){ .rt-tag{ inset-inline-end:14px; top:10px; font-size:9px; } }
 /* It sits where the drawing starts, so the drawing starts lower on that tile. */
 .rt[data-metric="adspend"] .rt-art{ top:24px; }
 @media (min-width:900px){ .rt[data-metric="adspend"] .rt-art{ top:30px; } }
@@ -3223,7 +3223,7 @@
    below this it goes and the falling chart — which says the same thing and
    says it about this tile specifically — stays. */
 @media (max-width:559px){
-  .rt-art{ width:clamp(30px, 9.5vw, 38px); top:8px; right:7px; }
+  .rt-art{ width:clamp(30px, 9.5vw, 38px); top:8px; inset-inline-end:7px; }
   .rt-tag{ display:none; }
   .rt[data-metric="adspend"] .rt-art{ top:8px; }
 }
@@ -3468,7 +3468,7 @@
    drawing share the corner: the chip takes it and the drawing starts below,
    which the rule above already arranges. */
 @media (max-width:559px){
-  .stats-section .rt-tag{ display:block; right:7px; top:6px; font-size:8px; padding:1.5px 6px; }
+  .stats-section .rt-tag{ display:block; inset-inline-end:7px; top:6px; font-size:8px; padding:1.5px 6px; }
   .stats-section .rt[data-metric="adspend"] .rt-art{ top:22px; }
 }
 

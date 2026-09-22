@@ -155,3 +155,34 @@
   [dir='rtl'] .desktop-nav{ margin-right:10px; gap:0; }
   [dir='rtl'] .desktop-nav a{ padding-inline:9px; }
 }
+
+/* ---------- proven results ----------
+   Three things in this panel are built around the text starting on the left,
+   and only show up once it starts on the right.                          */
+
+/* The ribbon is anchored to the top corner opposite the headline. In English
+   the words run from the left and it sits top right; in Arabic the words run
+   from the right and the headline was printed straight through it — the
+   figure overlapped it by 104x50 against 21x42 in English. It moves to the
+   other corner and mirrors, so it meets the text the same way round.     */
+[dir='rtl'] .rp-ribbon{ right:auto; left:0; transform:scaleX(-1); }
+
+/* The kicker sets in a Latin mono face that Arabic does not have, so it falls
+   back to IBM Plex Sans Arabic, whose line box is taller. At the mono face's
+   line height the descenders reached into the figure below — a 3px collision
+   at every width.                                                        */
+[dir='rtl'] .rp-kicker{ line-height:1.7; margin-bottom:2px; }
+
+/* The figure is set at line-height:1, which only works because General Sans
+   sits tightly in its em box. The Arabic fallback does not: its ink reached
+   14px above the box and 13px below, so "+132%" touched the kicker above it
+   and crowded the sentence below. Quarter-leading gives the glyphs back the
+   room the Latin face never needed, and it scales with the clamped size.  */
+[dir='rtl'] .rp-num{ line-height:1.25; }
+
+/* The trace has to climb toward "بعد". It is drawn left to right, so in Arabic
+   it was climbing toward "قبل" — the chart said the opposite of the bars
+   underneath it. Mirroring the line and the dots together keeps them on the
+   same curve.                                                            */
+[dir='rtl'] .rp-trace{ transform:scaleX(-1); }
+[dir='rtl'] .rp-trace-dot{ left:auto; right:var(--x); margin-inline:-2.5px 0; }
