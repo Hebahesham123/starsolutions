@@ -624,6 +624,7 @@ export function Automations({ automations, platforms = [], locale = 'en' }: { au
               <span
                 key={n.key}
                 className="web-lead"
+                data-kind={n.kind}
                 style={{ ['--deg' as string]: `${n.deg}deg`, ['--tone' as string]: n.tone, ['--i' as string]: n.slot }}
               />
             ))}

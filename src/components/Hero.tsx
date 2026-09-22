@@ -115,7 +115,7 @@ export function Hero({ nodes, stats, platforms, locale = 'en' }: { nodes: HeroNo
       <div className="hero-wash" aria-hidden="true" ref={washRef} />
       <div className="starfield" aria-hidden="true">
         {stars.map((s, i) => (
-          <span key={i} className="star" style={{ left: s.left, top: s.top, width: s.size, height: s.size, ['--o' as string]: s.o, ['--tw' as string]: s.tw, animationDelay: s.delay }} />
+          <span key={i} className={`star${i % 4 === 0 ? ' is-tw' : ''}`} style={{ left: s.left, top: s.top, width: s.size, height: s.size, ['--o' as string]: s.o, ['--tw' as string]: s.tw, animationDelay: s.delay }} />
         ))}
       </div>
 

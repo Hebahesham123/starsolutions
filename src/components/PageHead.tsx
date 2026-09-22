@@ -28,7 +28,7 @@ export function PageHead({
         {Array.from({ length: 22 }, (_, i) => (
           <span
             key={i}
-            className="star"
+            className={`star${i % 4 === 0 ? ' is-tw' : ''}`}
             style={{
               left: `${((i * 43.3) % 100).toFixed(2)}%`,
               top: `${((i * 29.7) % 100).toFixed(2)}%`,

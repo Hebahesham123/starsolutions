@@ -303,10 +303,20 @@ h1,h2,h3,h4{ font-family:'General Sans', 'SF Pro Display', -apple-system, sans-s
 .net-lines polyline{ fill:none; stroke:#CFDCF4; stroke-width:1; }
 .net-dots circle{ fill:#B9CBEE; }
 @media (max-width:639px){ .hero-net{ opacity:.42; } }
+/* A field of stars, a quarter of them twinkling.
+   Every element with an infinite animation is a style recalculation on every
+   frame of every scroll, anywhere on the page — and with 46 here plus the 22
+   in the page head, that was over half of the ~85 the site was running at
+   once. Traced, it came to roughly 600ms of style recalc per scroll against
+   90ms with the animations off; the stars themselves are not expensive, their
+   number is. The field keeps its density and its opacities; three quarters of
+   it is now painted once and left alone, which at this size and opacity is
+   not a difference you can see. */
 .star{
   position:absolute; border-radius:50%; background:var(--brand);
-  animation:twinkle var(--tw,5s) ease-in-out infinite;
+  opacity:var(--o,.35);
 }
+.star.is-tw{ animation:twinkle var(--tw,5s) ease-in-out infinite; }
 .starfield-dim .star{ background:var(--accent); }
 @keyframes twinkle{
   0%,100%{ opacity:var(--o,.35); transform:scale(1); }

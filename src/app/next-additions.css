@@ -3024,7 +3024,11 @@
     transparent);
 }
 /* A bead travelling the thread — the one piece of motion in the section, and
-   the thing that says the connection is live rather than drawn. */
+   the thing that says the connection is live rather than drawn.
+   On the three services only. The platform threads keep the lit line: the
+   thread already says "connected", and four more elements animating forever
+   is paid on every frame of every scroll anywhere on the page. */
+.web-lead[data-kind='mark']::after{ content:none; animation:none; }
 .web-lead::after{
   content:''; position:absolute; top:50%; left:34%;
   width:5px; height:5px; margin-top:-2.5px; border-radius:50%;
