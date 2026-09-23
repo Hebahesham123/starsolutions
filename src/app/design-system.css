@@ -1098,7 +1098,7 @@ h1,h2,h3,h4{ font-family:'General Sans', 'SF Pro Display', -apple-system, sans-s
 
 /* eyebrow gets a hairline tail — a small constellation segment */
 .eyebrow::after{
-  content:""; width:18px; height:1px; margin-left:2px;
+  content:""; width:18px; height:1px; margin-inline-start:2px;
   background:linear-gradient(90deg,var(--line),transparent);
 }
 

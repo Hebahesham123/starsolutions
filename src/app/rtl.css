@@ -186,3 +186,24 @@
    same curve.                                                            */
 [dir='rtl'] .rp-trace{ transform:scaleX(-1); }
 [dir='rtl'] .rp-trace-dot{ left:auto; right:var(--x); margin-inline:-2.5px 0; }
+
+
+/* ---------- the eyebrow chip ----------
+   The hairline tail is drawn solid where it meets the word and fading away
+   from it, but the gradient angle was fixed at 90deg, so in Arabic it arrived
+   the other way round: faint against the word and solid out by the pill's
+   edge. It stopped reading as a tail on the line and started reading as a
+   stray dash sitting in the padding.                                     */
+[dir='rtl'] .eyebrow::after{ background:linear-gradient(270deg,var(--line),transparent); }
+
+/* 10.5px was chosen for uppercase mono, where the caps fill the size. Arabic
+   has no caps to fill it, and sets denser still once the letter-spacing this
+   file strips is gone, so the same number reads a size smaller than it is. */
+[dir='rtl'] .eyebrow{ font-size:11.5px; }
+@media (max-width:639px){ [dir='rtl'] .eyebrow{ font-size:10.5px; } }
+
+/* The chip is a little tighter around the taller Arabic line box than around
+   the Latin one, so it gets the millimetre back.                         */
+@media (min-width:1024px){
+  [dir='rtl'] .hero-copy .eyebrow{ padding:7px 15px; }
+}
