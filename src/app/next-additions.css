@@ -1666,7 +1666,7 @@
    ========================================================= */
 @media (min-width:1024px){
   .hero-shell{
-    display:grid; align-items:center; text-align:left;
+    display:grid; align-items:center; text-align:start;
     grid-template-columns:minmax(0,1fr) minmax(0,1.06fr);
     grid-template-areas:
       "copy    visual"
@@ -1713,7 +1713,7 @@
 
   .hero-proof{ justify-content:start; }
   .logo-row{ justify-content:flex-start; }
-  .hero-logos .logo-label{ text-align:left; }
+  .hero-logos .logo-label{ text-align:start; }
   .orbit-hint{ text-align:center; }
 }
 
