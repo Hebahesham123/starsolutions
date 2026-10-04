@@ -129,6 +129,10 @@
   left:auto; right:0; border-right:0; border-left:2px solid rgba(255,255,255,.92);
 }
 [dir='rtl'] .ba-handle{ left:auto; right:var(--pos); transform:translate(50%,-50%); }
+/* .ba-live drops the knob to the bottom edge and re-declares transform
+   while it is there, which quietly undid the mirrored half-step above and
+   left the knob a full width off the seam. */
+[dir='rtl'] .ba-live .ba-handle{ transform:translate(50%,0); }
 [dir='rtl'] .ba-tag-before{ left:auto; right:2.4cqw; }
 [dir='rtl'] .ba-tag-after{ right:auto; left:2.4cqw; }
 [dir='rtl'] .ba-range{ transform:scaleX(-1); }
