@@ -123,21 +123,19 @@
 [dir='rtl'] .case-spark{ right:auto; left:-4px; transform:scaleX(-1); }
 
 /* ---------- before / after slider ----------
-   The clip is anchored to the inline start, so in RTL it must anchor
-   right and the handle track has to invert with it.                  */
-[dir='rtl'] .ba-clip{
-  left:auto; right:0; border-right:0; border-left:2px solid rgba(255,255,255,.92);
-}
-[dir='rtl'] .ba-handle{ left:auto; right:var(--pos); transform:translate(50%,-50%); }
-/* .ba-live drops the knob to the bottom edge and re-declares transform
-   while it is there, which quietly undid the mirrored half-step above and
-   left the knob a full width off the seam. */
-[dir='rtl'] .ba-live .ba-handle{ transform:translate(50%,0); }
-[dir='rtl'] .ba-tag-before{ left:auto; right:2.4cqw; }
-[dir='rtl'] .ba-tag-after{ right:auto; left:2.4cqw; }
-[dir='rtl'] .ba-range{ transform:scaleX(-1); }
-/* the mock browser frames stay LTR: they show English storefronts */
-[dir='rtl'] .ba-frame{ direction:ltr; }
+   This one does not mirror, and mirroring it was the mistake.
+
+   Both halves are English storefronts, captured left to right, and the old
+   site puts everything it has -- banner, nav, the offer, the buy button --
+   in its left half. Anchoring the divider to the right handed the Arabic
+   reader the one half of that page with nothing on it: a column of empty
+   grey boxes where the evidence was supposed to be.
+
+   A comparison keeps the reading direction of the thing it compares. The
+   layout is identical in both languages, and only the two tags are Arabic,
+   so they keep their own direction. */
+[dir='rtl'] .ba{ direction:ltr; }
+[dir='rtl'] .ba-tag{ direction:rtl; }
 
 /* ---------- CTA, forms, footer ---------- */
 [dir='rtl'] .cta-lines{ transform:scaleX(-1); }
