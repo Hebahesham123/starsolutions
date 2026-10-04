@@ -29,7 +29,13 @@
 [dir='rtl'] .goalx-label, [dir='rtl'] .footer-h, [dir='rtl'] .group-label,
 [dir='rtl'] .post-meta, [dir='rtl'] .crumbs, [dir='rtl'] .sheet-eyebrow,
 [dir='rtl'] .node header, [dir='rtl'] .agent-name, [dir='rtl'] .ba-tag,
-[dir='rtl'] .step-num, [dir='rtl'] .log-time, [dir='rtl'] .goalx-build-text > span{
+[dir='rtl'] .step-num, [dir='rtl'] .log-time, [dir='rtl'] .goalx-build-text > span,
+/* Six more that were set in the mono face with tracking, which does to
+   Arabic what it cannot do to Latin: it pulls the joined letters of a
+   word apart. الـمـسـاعـد الـذكـي in the night dial, the chart hint and
+   save chip on the stat tiles, and the before/after slider's labels. */
+[dir='rtl'] .dial-core-label, [dir='rtl'] .dial-core-sub, [dir='rtl'] .rt-hint,
+[dir='rtl'] .rt-tag, [dir='rtl'] .rr-hint, [dir='rtl'] .rr-label{
   text-transform:none; letter-spacing:0;
   font-family:'IBM Plex Sans Arabic', 'Noto Sans Arabic', sans-serif;
 }
