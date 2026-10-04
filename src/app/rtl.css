@@ -35,7 +35,11 @@
    word apart. الـمـسـاعـد الـذكـي in the night dial, the chart hint and
    save chip on the stat tiles, and the before/after slider's labels. */
 [dir='rtl'] .dial-core-label, [dir='rtl'] .dial-core-sub, [dir='rtl'] .rt-hint,
-[dir='rtl'] .rt-tag, [dir='rtl'] .rr-hint, [dir='rtl'] .rr-label{
+[dir='rtl'] .rt-tag, [dir='rtl'] .rr-hint, [dir='rtl'] .rr-label,
+/* And two the first sweep missed because it only looked at the home page:
+   the badge on every index card, which is where a team member's role is
+   printed, and the heading above a detail page's see-also list. */
+[dir='rtl'] .index-badge, [dir='rtl'] .aside-more-h{
   text-transform:none; letter-spacing:0;
   font-family:'IBM Plex Sans Arabic', 'Noto Sans Arabic', sans-serif;
 }
