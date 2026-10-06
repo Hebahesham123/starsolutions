@@ -1612,6 +1612,9 @@ h1,h2,h3,h4{ font-family:'General Sans', 'SF Pro Display', -apple-system, sans-s
   overflow:hidden; border-right:2px solid rgba(255,255,255,.92);
 }
 .ba-clip .ba-frame{ width:var(--ba-w,100cqw); }
+/* the capture carries its own scroll hint; the clipped copy would be cut
+   down the middle by the divider, and one hint is enough anyway */
+.ba-clip .af-shot-hint{ display:none; }
 
 /* ---------- the "after" frame: the live theme ---------- */
 .af{ background:#fff; font-family:'Satoshi',sans-serif; }

@@ -200,6 +200,13 @@ export function BeforeAfter({
   const [width, setWidth] = React.useState(0);
 
   const shotReady = hasShot(slug);
+  /* `npm run shots` captures the site we replaced as `<slug>-before` whenever
+     it is still online. The rail on the home page has always used it; this
+     slider was still drawing the generic 2014 mock-up over a real project,
+     so the same page compared against two different things depending on
+     where you looked at it. */
+  const beforeSlug = `${slug}-before`;
+  const realBefore = hasShot(beforeSlug);
 
   React.useEffect(() => {
     const measure = () => setWidth(boxRef.current?.clientWidth ?? 0);
@@ -207,6 +214,37 @@ export function BeforeAfter({
     window.addEventListener('resize', measure);
     return () => window.removeEventListener('resize', measure);
   }, []);
+
+  /* Both captures scroll, so hold them at the same depth: the reader should be
+     comparing the middle of one page against the middle of the other, not the
+     old site's header against the new site's footer. Proportional rather than
+     pixel for pixel, because the two captures are different heights and both
+     should reach their end together. Same rule as the home-page rail. */
+  React.useEffect(() => {
+    const el = boxRef.current;
+    if (!el) return;
+    const panes = Array.from(el.querySelectorAll<HTMLElement>('.af-shot-scroll'));
+    if (panes.length < 2) return;
+
+    let echo = false;   // the sync writes scrollTop, which fires scroll again
+    const onScroll = (e: Event) => {
+      if (echo) return;
+      const src = e.currentTarget as HTMLElement;
+      const srcMax = src.scrollHeight - src.clientHeight;
+      if (srcMax <= 0) return;
+      const ratio = src.scrollTop / srcMax;
+      echo = true;
+      for (const other of panes) {
+        if (other === src) continue;
+        const max = other.scrollHeight - other.clientHeight;
+        if (max > 0) other.scrollTop = ratio * max;
+      }
+      requestAnimationFrame(() => { echo = false; });
+    };
+
+    panes.forEach((q) => q.addEventListener('scroll', onScroll, { passive: true }));
+    return () => panes.forEach((q) => q.removeEventListener('scroll', onScroll));
+  }, [realBefore, shotReady]);
 
   return (
     <div
@@ -218,9 +256,18 @@ export function BeforeAfter({
         ? <ShotFrame slug={slug as string} title={title ?? 'Live site'} locale={locale} />
         : <AfterFrame theme={theme} />}
       <div className="ba-clip">
-        <div style={{ width: width ? `${width}px` : '100%', height: '100%' }}>
-          <BeforeFrame />
-        </div>
+        {realBefore
+          ? <ShotFrame
+              slug={beforeSlug}
+              title={title ?? 'Previous site'}
+              scrollLabel="scroll the previous site"
+              locale={locale}
+            />
+          : (
+            <div style={{ width: width ? `${width}px` : '100%', height: '100%' }}>
+              <BeforeFrame />
+            </div>
+          )}
       </div>
       <span className="ba-tag ba-tag-before">{t('cases.before')}</span>
       <span className="ba-tag ba-tag-after">{t('work.liveNow')}</span>
