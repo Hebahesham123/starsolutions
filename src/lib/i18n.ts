@@ -263,7 +263,7 @@ const STRINGS: Record<Locale, Dict> = {
     'about.theTeam': 'The team',
     'team.skills': 'Skills',
     'results.whereFrom': 'Where the numbers come from',
-    'results.inTheirWords': 'In their words',
+    'results.inTheirWords': 'From the owners themselves',
     /* --- found by the Latin-text scan of the Arabic pages ------------- */
     'hero.lede': 'We automate your Shopify, social media and marketing — so your business grows while you sleep.',
     'work.ourServices': 'Our services',
@@ -497,7 +497,7 @@ const STRINGS: Record<Locale, Dict> = {
     'about.theTeam': 'الفريق',
     'team.skills': 'المهارات',
     'results.whereFrom': 'مصدر هذه الأرقام',
-    'results.inTheirWords': 'بكلماتهم',
+    'results.inTheirWords': 'من أصحاب المتاجر أنفسهم',
     /* --- found by the Latin-text scan of the Arabic pages ------------- */
     'hero.lede': 'نجعل متجرك على شوبيفاي وصفحاتك على السوشيال ميديا وإعلاناتك تعمل وحدها — لينمو عملك وأنت نائم.',
     'work.ourServices': 'خدماتنا',

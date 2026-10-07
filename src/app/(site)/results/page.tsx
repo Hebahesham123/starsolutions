@@ -6,11 +6,13 @@ import { Reveal } from '@/components/Reveal';
 import { site, getCaseStudies, getTestimonials } from '@/lib/content';
 import { Icon } from '@/components/Icon';
 import { alternates } from '@/lib/seo';
+import { getDict } from '@/lib/i18n';
 
 export const metadata: Metadata = {
   alternates: alternates('en', '/results'), title: 'Results' };
 
 export default async function ResultsPage() {
+  const t = getDict('en');
   const [cases, testimonials] = await Promise.all([getCaseStudies(), getTestimonials()]);
   return (
     <>
@@ -24,14 +26,14 @@ export default async function ResultsPage() {
         <div className="mx-auto max-w-shell px-5 lg:px-8">
           <ResultsPanel charts={site.charts} figures={site.figures} />
 
-          <h2 className="group-label mt-10">Where the numbers come from</h2>
+          <h2 className="group-label mt-10">{t('results.whereFrom')}</h2>
           <div className="index-grid">
             {cases.map((c, i) => (
               <Reveal key={c.id} delay={i * 0.05}><CaseCard c={c} /></Reveal>
             ))}
           </div>
 
-          <h2 className="group-label mt-10">In their words</h2>
+          <h2 className="group-label mt-10">{t('results.inTheirWords')}</h2>
           <div className="index-grid">
             {testimonials.map((t, i) => (
               <Reveal as="figure" key={t.id} className="review w-full" delay={i * 0.04}>
