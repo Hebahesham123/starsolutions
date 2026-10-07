@@ -22,6 +22,8 @@ const ROUTES = ['/ar', '/ar/solutions', '/ar/goals', '/ar/systems', '/ar/automat
   '/ar/process', '/ar/results',
   '/ar/solutions/revenue-automation', '/ar/goals/increase-revenue',
   '/ar/systems/seo-forge', '/ar/automations/ecommerce-chatbot',
+  '/ar/blog', '/ar/blog/automate-shopify-order-to-delivery',
+  '/ar/blog/what-ai-ad-management-actually-does', '/ar/blog/an-ai-agent-on-whatsapp',
   '/ar/case-studies/beauty-brand', '/ar/team/heba-hesham', '/ar/work/hollywood-clinics'];
 
 const b = await chromium.launch();

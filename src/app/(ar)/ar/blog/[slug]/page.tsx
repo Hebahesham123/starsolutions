@@ -3,10 +3,10 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageHead } from '@/components/PageHead';
 import { Reveal } from '@/components/Reveal';
-import { getDict, getPosts } from '@/lib/i18n';
+import { getDict, getPosts, localeHref } from '@/lib/i18n';
 import { alternates } from '@/lib/seo';
 
-const locale = 'en' as const;
+const locale = 'ar' as const;
 const t = getDict(locale);
 const posts = getPosts(locale);
 
@@ -18,12 +18,12 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   const post = posts.find((p) => p.slug === params.slug);
   return {
     alternates: alternates(locale, `/blog/${params.slug}`),
-    title: post?.title ?? 'Blog',
+    title: post?.title ?? t('page.blog.title'),
     description: post?.excerpt,
   };
 }
 
-export default function PostPage({ params }: { params: { slug: string } }) {
+export default function ArabicPostPage({ params }: { params: { slug: string } }) {
   const post = posts.find((p) => p.slug === params.slug);
   if (!post) notFound();
 
@@ -33,7 +33,11 @@ export default function PostPage({ params }: { params: { slug: string } }) {
         eyebrow={`${post.tag} · ${post.readingTime}`}
         title={post.title}
         lede={post.excerpt}
-        crumbs={[{ href: '/', label: 'Home' }, { href: '/blog', label: 'Blog' }, { label: post.tag }]}
+        crumbs={[
+          { href: localeHref(locale, '/'), label: t('crumbs.home') },
+          { href: localeHref(locale, '/blog'), label: t('page.blog.crumb') },
+          { label: post.tag },
+        ]}
       />
       <section className="section">
         <div className="mx-auto max-w-shell px-5 lg:px-8">
@@ -48,7 +52,7 @@ export default function PostPage({ params }: { params: { slug: string } }) {
             <aside className="detail-aside">
               <h2>{t('post.asideTitle')}</h2>
               <p>{t('post.asideBody')}</p>
-              <Link href="/contact" className="btn btn-primary btn-lg">{t('cta.audit')}</Link>
+              <Link href={localeHref(locale, '/contact')} className="btn btn-primary btn-lg">{t('cta.audit')}</Link>
             </aside>
           </div>
         </div>

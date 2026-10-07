@@ -185,6 +185,35 @@ for (const name of [...Object.keys(TABLES), 'projects']) {
   compareCollection(name, en[name] ?? [], ar[name] ?? []);
 }
 
+/* The blog, which lives in its own pair of files rather than in site.json.
+ *
+ * Same rules as everything else: the same slugs in the same order, prose on
+ * both sides, and a body with the same number of paragraphs — a translation
+ * that quietly drops the last one would otherwise ship unnoticed. */
+{
+  const postsEn = read('src/data/posts.json');
+  const postsAr = read('src/data/posts.ar.json');
+  if (postsEn.length !== postsAr.length) {
+    fail(`posts: ${postsEn.length} in English and ${postsAr.length} in Arabic`);
+  }
+  postsEn.forEach((post, i) => {
+    const mate = postsAr[i];
+    if (!mate) return;
+    if (mate.slug !== post.slug) {
+      fail(`posts[${i}]: slug "${post.slug}" in English and "${mate.slug}" in Arabic — the routes must match`);
+      return;
+    }
+    for (const field of ['title', 'excerpt', 'tag', 'readingTime']) {
+      if (!String(mate[field] ?? '').trim()) fail(`posts/${post.slug}: "${field}" has no Arabic`);
+      else if (mate[field] === post[field]) warn(`posts/${post.slug}: "${field}" is identical in both`);
+    }
+    if (mate.date !== post.date) fail(`posts/${post.slug}: the two dates differ`);
+    const n = Array.isArray(post.body) ? post.body.length : 0;
+    const m = Array.isArray(mate.body) ? mate.body.length : 0;
+    if (n !== m) fail(`posts/${post.slug}: ${n} paragraphs in English and ${m} in Arabic`);
+  });
+}
+
 /* The two halves of the dictionary must not swap.
  *
  * Editing src/lib/i18n.ts by script is easy to get wrong: LOCALE_META has an

@@ -1,5 +1,7 @@
 import en from '@/data/site.json';
 import ar from '@/data/site.ar.json';
+import postsEn from '@/data/posts.json';
+import postsAr from '@/data/posts.ar.json';
 import type { SiteContent } from './types';
 
 export const LOCALES = ['en', 'ar'] as const;
@@ -18,6 +20,22 @@ export function isLocale(value: string): value is Locale {
 /** Content for a locale. Arabic falls back to English for anything untranslated. */
 export function getContent(locale: Locale): SiteContent {
   return (locale === 'ar' ? ar : en) as unknown as SiteContent;
+}
+
+export type Post = {
+  slug: string; title: string; excerpt: string;
+  date: string; readingTime: string; tag: string; body: string[];
+};
+
+/**
+ * The posts for a locale, newest first in the file's own order.
+ *
+ * Both files carry the same slugs, so /blog/x and /ar/blog/x are the same
+ * article in two languages and the switcher round-trips on a post the way it
+ * does everywhere else.
+ */
+export function getPosts(locale: Locale): Post[] {
+  return (locale === 'ar' ? postsAr : postsEn) as Post[];
 }
 
 /**
@@ -201,7 +219,8 @@ const STRINGS: Record<Locale, Dict> = {
     'results.showLess': 'Show less',
     /* --- index page heads ------------------------------------------- */
     'crumbs.home': "Home",
-    'blog.englishOnly': 'The posts are in English for now.',
+    'post.asideTitle': 'Want this running on your store?',
+    'post.asideBody': 'Start with a free audit and we will map it out for you.',
     'page.solutions.eyebrow': "What we do",
     'page.solutions.title': "The complete AI automation suite",
     'page.solutions.lede': "Six systems that plug into the tools you already run. Take one, or let them work together.",
@@ -435,7 +454,8 @@ const STRINGS: Record<Locale, Dict> = {
     'results.showLess': 'اعرض أقل',
     /* --- index page heads ------------------------------------------- */
     'crumbs.home': "الرئيسية",
-    'blog.englishOnly': 'المقالات متاحة بالإنجليزية حاليًا.',
+    'post.asideTitle': 'تريد تشغيل هذا على متجرك؟',
+    'post.asideBody': 'ابدأ بتحليل مجاني ونرسم لك الخطة.',
     'page.solutions.eyebrow': 'ما نقدمه',
     'page.solutions.title': 'كل ما يحتاجه متجرك ليعمل وحده',
     'page.solutions.lede': 'ستة أنظمة تعمل مع أدواتك الحالية. اختر واحدًا، أو شغّلها كلها معًا.',
