@@ -137,7 +137,6 @@ export function AgentCallback() {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         autoComplete="name"
-                        placeholder="Heba Hesham"
                         required
                       />
                     </label>
