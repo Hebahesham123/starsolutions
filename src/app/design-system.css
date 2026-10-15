@@ -318,6 +318,14 @@ h1,h2,h3,h4{ font-family:'General Sans', 'SF Pro Display', -apple-system, sans-s
 }
 .star.is-tw{ animation:twinkle var(--tw,5s) ease-in-out infinite; }
 .starfield-dim .star{ background:var(--accent); }
+/* Decorative motion stops while the page is moving. See ScrollQuiet:
+   nobody watches a star blink during a scroll, and forty-odd infinite
+   animations ticking through one is what puts frames past their deadline on
+   a phone. Paused, not removed, so each one resumes where it was. */
+html.is-scrolling *,
+html.is-scrolling *::before,
+html.is-scrolling *::after{ animation-play-state:paused !important; }
+
 @keyframes twinkle{
   0%,100%{ opacity:var(--o,.35); transform:scale(1); }
   50%{ opacity:calc(var(--o,.35) * .25); transform:scale(.7); }

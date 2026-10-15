@@ -39,7 +39,11 @@
 /* And two the first sweep missed because it only looked at the home page:
    the badge on every index card, which is where a team member's role is
    printed, and the heading above a detail page's see-also list. */
-[dir='rtl'] .index-badge, [dir='rtl'] .aside-more-h{
+[dir='rtl'] .index-badge, [dir='rtl'] .aside-more-h,
+/* A sweep of all 48 Arabic routes found two more: the label beside every
+   figure on a detail page -- 45 of them, one per stat on every solution,
+   goal, system and automation -- and the scroll hint on a live capture. */
+[dir='rtl'] .entry-spec dt, [dir='rtl'] .af-shot-hint{
   text-transform:none; letter-spacing:0;
   font-family:'IBM Plex Sans Arabic', 'Noto Sans Arabic', sans-serif;
 }

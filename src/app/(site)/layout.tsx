@@ -4,6 +4,7 @@ import { SiteHeader } from '@/components/SiteHeader';
 import { SiteFooter } from '@/components/SiteFooter';
 import { StickyBar } from '@/components/StickyBar';
 import { PageTransition } from '@/components/PageTransition';
+import { ScrollQuiet } from '@/components/ScrollQuiet';
 import { site } from '@/lib/content';
 import { buildSearchIndex } from '@/components/ui/search-index';
 import { SiteSplash } from '@/components/ui/SiteSplash';
@@ -53,6 +54,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
       <main id="main">
         <PageTransition>{children}</PageTransition>
       </main>
+      <ScrollQuiet />
       <SiteFooter locale="en" />
       <StickyBar locale="en" whatsapp={site.contact.whatsapp} />
     </LocaleDocument>

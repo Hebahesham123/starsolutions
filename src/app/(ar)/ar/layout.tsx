@@ -5,6 +5,7 @@ import { SiteHeader } from '@/components/SiteHeader';
 import { SiteFooter } from '@/components/SiteFooter';
 import { StickyBar } from '@/components/StickyBar';
 import { PageTransition } from '@/components/PageTransition';
+import { ScrollQuiet } from '@/components/ScrollQuiet';
 import { SiteSplash } from '@/components/ui/SiteSplash';
 import { MetaPixel } from '@/components/MetaPixel';
 import { buildSearchIndex } from '@/components/ui/search-index';
@@ -15,13 +16,13 @@ const t = getDict('ar');
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.starsolution.ai'),
   title: {
-    default: 'ستار سوليوشن — طلبات أكتر. إيراد أكبر. شغل أقل.',
+    default: 'ستار سوليوشن — طلبات أكثر. إيرادات أكبر. جهد أقل.',
     template: '%s · ستار سوليوشن',
   },
   description:
-    'بنأتمت متجرك على شوبيفاي والسوشيال ميديا والتسويق — عشان شغلك يكبر وإنت نايم. أتمتة بالذكاء الاصطناعي للمتاجر الإلكترونية.',
+    'نجعل متجرك على شوبيفاي وصفحاتك على السوشيال ميديا وإعلاناتك تعمل وحدها — لينمو عملك وأنت نائم.',
   openGraph: {
-    title: 'ستار سوليوشن — طلبات أكتر. إيراد أكبر. شغل أقل.',
+    title: 'ستار سوليوشن — طلبات أكثر. إيرادات أكبر. جهد أقل.',
     description: 'أتمتة بالذكاء الاصطناعي للمتاجر الإلكترونية.',
     type: 'website',
     locale: 'ar_EG',
@@ -51,6 +52,7 @@ export default async function ArabicLayout({ children }: { children: React.React
       <main id="main">
         <PageTransition>{children}</PageTransition>
       </main>
+      <ScrollQuiet />
       <SiteFooter locale="ar" />
       <StickyBar locale="ar" whatsapp={c.contact.whatsapp} />
     </LocaleDocument>
