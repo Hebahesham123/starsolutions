@@ -372,7 +372,7 @@ const STRINGS: Record<Locale, Dict> = {
     'contact.point1': 'تقرير مكتوب عن فرص النمو',
     'contact.point2': 'خطة تنفيذية خاصة بمتجرك تقديراً لوقتك',
     'contact.point3': 'الرد خلال يوم عمل',
-    'form.title': 'احصل على تحليلك المجاني',
+    'form.title': 'تحليلك المجاني',
     'form.name': 'الاسم الكامل',
     'form.email': 'البريد الإلكتروني',
     'form.phone': 'رقم الهاتف',
@@ -506,7 +506,7 @@ const STRINGS: Record<Locale, Dict> = {
     'page.blog.crumb': "المدونة",
     /* --- about, results: sections that mirror the English pages -------- */
     'about.whatWeDo': 'ما نقدمه',
-    'about.do1': 'نشغّل متاجر شوبيفاي وحدها، من الطلب حتى التسليم',
+    'about.do1': 'نجعل متاجر شوبيفاي تعمل وحدها، من الطلب حتى التسليم',
     'about.do2': 'ندير إعلانات ميتا وجوجل، والذكاء الاصطناعي يوزّع الميزانية',
     'about.do3': 'نرد على العملاء عبر واتساب وعلى الموقع بمساعد ذكي',
     'about.do4': 'نبني أنظمة ولوحات تحكم خاصة بك حين لا تكفي الحلول الجاهزة',
