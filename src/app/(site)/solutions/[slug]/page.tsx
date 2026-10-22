@@ -4,6 +4,7 @@ import { EntryPage } from '@/components/EntryPage';
 import { getSolutions } from '@/lib/content';
 import { alternates } from '@/lib/seo';
 import { getContent } from '@/lib/i18n';
+import { JsonLd, service } from '@/lib/schema';
 
 export async function generateStaticParams() {
   const items = await getSolutions();
@@ -23,6 +24,7 @@ export default async function SolutionsDetailPage({ params }: { params: { slug: 
   if (index === -1) notFound();
 
   return (
+    <>
     <EntryPage
       entry={items[index]}
       section="Solutions"
@@ -30,5 +32,7 @@ export default async function SolutionsDetailPage({ params }: { params: { slug: 
       prev={items[index - 1] ?? null}
       next={items[index + 1] ?? null}
     />
+    <JsonLd data={service(items[index], 'en', `/solutions/${params.slug}`)} />
+    </>
   );
 }

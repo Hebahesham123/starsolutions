@@ -4,6 +4,7 @@ import { EntryPage } from '@/components/EntryPage';
 import { getContent, getDict, localeHref } from '@/lib/i18n';
 import { alternates } from '@/lib/seo';
 import { autoIcon, autoTone } from '@/components/sections';
+import { JsonLd, service } from '@/lib/schema';
 
 const locale = 'ar' as const;
 const t = getDict(locale);
@@ -31,6 +32,7 @@ export default function AutomationsDetailPage({ params }: { params: { slug: stri
   if (index === -1) notFound();
 
   return (
+    <>
     <EntryPage
       locale={locale}
       entry={list[index]}
@@ -41,5 +43,7 @@ export default function AutomationsDetailPage({ params }: { params: { slug: stri
       icon={list[index].icon ?? autoIcon(index)}
       tone={list[index].tone ?? autoTone(index)}
     />
+    <JsonLd data={service(list[index], 'ar', `/automations/${params.slug}`)} />
+    </>
   );
 }

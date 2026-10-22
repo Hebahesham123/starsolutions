@@ -4,6 +4,7 @@ import { EntryPage } from '@/components/EntryPage';
 import { getTeam } from '@/lib/content';
 import { alternates } from '@/lib/seo';
 import { getContent } from '@/lib/i18n';
+import { JsonLd, profilePage } from '@/lib/schema';
 
 export async function generateStaticParams() {
   const items = await getTeam();
@@ -23,6 +24,7 @@ export default async function TeamDetailPage({ params }: { params: { slug: strin
   if (index === -1) notFound();
 
   return (
+    <>
     <EntryPage
       entry={items[index]}
       section="Team"
@@ -32,5 +34,7 @@ export default async function TeamDetailPage({ params }: { params: { slug: strin
       pointsTitle="Skills"
       pointsAs="chips"
     />
+    <JsonLd data={profilePage(items[index], 'en', `/team/${params.slug}`)} />
+    </>
   );
 }

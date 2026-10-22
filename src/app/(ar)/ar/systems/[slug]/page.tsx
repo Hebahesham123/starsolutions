@@ -4,6 +4,7 @@ import { EntryPage } from '@/components/EntryPage';
 import { getContent, getDict, localeHref } from '@/lib/i18n';
 import { alternates } from '@/lib/seo';
 import { systemLook } from '@/components/ui/SystemCard';
+import { JsonLd, service } from '@/lib/schema';
 
 const locale = 'ar' as const;
 const t = getDict(locale);
@@ -32,6 +33,7 @@ export default function SystemsDetailPage({ params }: { params: { slug: string }
   const look = systemLook(list[index], index);
 
   return (
+    <>
     <EntryPage
       locale={locale}
       entry={list[index]}
@@ -42,5 +44,7 @@ export default function SystemsDetailPage({ params }: { params: { slug: string }
       icon={look.icon}
       tone={look.tone}
     />
+    <JsonLd data={service(list[index], 'ar', `/systems/${params.slug}`)} />
+    </>
   );
 }

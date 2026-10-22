@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { EntryPage } from '@/components/EntryPage';
 import { getContent, getDict, localeHref } from '@/lib/i18n';
 import { alternates } from '@/lib/seo';
+import { JsonLd, service } from '@/lib/schema';
 
 const locale = 'ar' as const;
 const t = getDict(locale);
@@ -30,6 +31,7 @@ export default function SolutionsDetailPage({ params }: { params: { slug: string
   if (index === -1) notFound();
 
   return (
+    <>
     <EntryPage
       locale={locale}
       entry={list[index]}
@@ -38,5 +40,7 @@ export default function SolutionsDetailPage({ params }: { params: { slug: string
       prev={list[index - 1] ?? null}
       next={list[index + 1] ?? null}
     />
+    <JsonLd data={service(list[index], 'ar', `/solutions/${params.slug}`)} />
+    </>
   );
 }

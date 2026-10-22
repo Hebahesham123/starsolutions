@@ -3,6 +3,7 @@ import '@/app/globals.css';
 import '@/app/design-system.css';
 import '@/app/next-additions.css';
 import { LOCALE_META, type Locale } from '@/lib/i18n';
+import { JsonLd } from '@/lib/schema';
 
 /** The logo face. Exposed as a CSS variable so Tailwind's `font-jakarta`
  *  can reach it from any component. */
@@ -33,9 +34,12 @@ const jakarta = Plus_Jakarta_Sans({
 export function LocaleDocument({
   locale,
   children,
+  jsonLd,
 }: {
   locale: Locale;
   children: React.ReactNode;
+  /** Site-wide structured data, rendered in <head>. Invisible on the page. */
+  jsonLd?: object[];
 }) {
   const meta = LOCALE_META[locale];
   return (
@@ -71,6 +75,7 @@ export function LocaleDocument({
         {/* Satoshi and General Sans have no Arabic glyphs. rtl.css names this
             family literally, so it is loaded by name rather than through
             next/font, which would give it a generated one. */}
+        {jsonLd?.map((data, i) => <JsonLd key={i} data={data} />)}
         {locale === 'ar' && (
           <>
             <link rel="preconnect" href="https://fonts.googleapis.com" />

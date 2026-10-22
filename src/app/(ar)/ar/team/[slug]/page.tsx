@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { EntryPage } from '@/components/EntryPage';
 import { getContent, getDict, localeHref } from '@/lib/i18n';
 import { alternates } from '@/lib/seo';
+import { JsonLd, profilePage } from '@/lib/schema';
 
 const locale = 'ar' as const;
 const t = getDict(locale);
@@ -30,6 +31,7 @@ export default function TeamDetailPage({ params }: { params: { slug: string } })
   if (index === -1) notFound();
 
   return (
+    <>
     <EntryPage
       locale={locale}
       entry={list[index]}
@@ -40,5 +42,7 @@ export default function TeamDetailPage({ params }: { params: { slug: string } })
       pointsTitle={t('team.skills')}
       pointsAs="chips"
     />
+    <JsonLd data={profilePage(list[index], 'ar', `/team/${params.slug}`)} />
+    </>
   );
 }

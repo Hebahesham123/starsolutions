@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Icon } from './Icon';
 import { Reveal } from './Reveal';
+import { JsonLd, breadcrumbs } from '@/lib/schema';
 
 export function PageHead({
   eyebrow, title, lede, crumbs, icon, tone, aside,
@@ -20,6 +21,7 @@ export function PageHead({
   aside?: React.ReactNode;
 }) {
   return (
+    <>
     <header
       className={`page-head${tone ? ' has-tone' : ''}`}
       style={tone ? ({ ['--tone' as string]: tone }) : undefined}
@@ -59,5 +61,9 @@ export function PageHead({
         {aside && <Reveal className="page-head-aside" delay={0.1}>{aside}</Reveal>}
       </div>
     </header>
+    {/* Breadcrumb structured data for Google, from the same crumbs drawn
+        above. A script renders nothing, so the page looks the same. */}
+    {crumbs && crumbs.length > 1 && <JsonLd data={breadcrumbs(crumbs)} />}
+    </>
   );
 }

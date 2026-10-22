@@ -5,6 +5,7 @@ import { PageHead } from '@/components/PageHead';
 import { Reveal } from '@/components/Reveal';
 import { getDict, getPosts } from '@/lib/i18n';
 import { alternates } from '@/lib/seo';
+import { JsonLd, blogPosting } from '@/lib/schema';
 
 const locale = 'en' as const;
 const t = getDict(locale);
@@ -53,6 +54,7 @@ export default function PostPage({ params }: { params: { slug: string } }) {
           </div>
         </div>
       </section>
+      <JsonLd data={blogPosting(post, locale, `/blog/${post.slug}`)} />
     </>
   );
 }

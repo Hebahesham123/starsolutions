@@ -5,6 +5,7 @@ import { autoIcon, autoTone } from '@/components/sections';
 import { getAutomations } from '@/lib/content';
 import { alternates } from '@/lib/seo';
 import { getContent } from '@/lib/i18n';
+import { JsonLd, service } from '@/lib/schema';
 
 export async function generateStaticParams() {
   const items = await getAutomations();
@@ -24,6 +25,7 @@ export default async function AutomationsDetailPage({ params }: { params: { slug
   if (index === -1) notFound();
 
   return (
+    <>
     <EntryPage
       entry={items[index]}
       section="Automations"
@@ -36,5 +38,7 @@ export default async function AutomationsDetailPage({ params }: { params: { slug
       icon={items[index].icon ?? autoIcon(index)}
       tone={items[index].tone ?? autoTone(index)}
     />
+    <JsonLd data={service(items[index], 'en', `/automations/${params.slug}`)} />
+    </>
   );
 }

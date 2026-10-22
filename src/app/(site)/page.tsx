@@ -8,6 +8,7 @@ import {
   getTestimonials, getProjects,
 } from '@/lib/content';
 import { alternates } from '@/lib/seo';
+import { JsonLd, professionalService } from '@/lib/schema';
 
 export const metadata: Metadata = { alternates: alternates('en', '/') };
 
@@ -45,6 +46,7 @@ export default async function HomePage() {
       <Testimonials items={testimonials} />
       <Team team={team} />
       <CTA />
+      <JsonLd data={professionalService('en')} />
     </>
   );
 }

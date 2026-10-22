@@ -5,6 +5,7 @@ import { systemLook } from '@/components/ui/SystemCard';
 import { getSystems } from '@/lib/content';
 import { alternates } from '@/lib/seo';
 import { getContent } from '@/lib/i18n';
+import { JsonLd, service } from '@/lib/schema';
 
 export async function generateStaticParams() {
   const items = await getSystems();
@@ -28,6 +29,7 @@ export default async function SystemsDetailPage({ params }: { params: { slug: st
   const look = systemLook(items[index], index);
 
   return (
+    <>
     <EntryPage
       entry={items[index]}
       section="Systems"
@@ -37,5 +39,7 @@ export default async function SystemsDetailPage({ params }: { params: { slug: st
       icon={look.icon}
       tone={look.tone}
     />
+    <JsonLd data={service(items[index], 'en', `/systems/${params.slug}`)} />
+    </>
   );
 }

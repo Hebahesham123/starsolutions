@@ -8,6 +8,7 @@ import {
 import { getContent, getDict } from '@/lib/i18n';
 import type { Metadata } from 'next';
 import { alternates } from '@/lib/seo';
+import { JsonLd, professionalService } from '@/lib/schema';
 
 const locale = 'ar' as const;
 const t = getDict(locale);
@@ -50,6 +51,7 @@ export default function ArabicHomePage() {
       <Testimonials locale={locale} items={c.testimonials} />
       <Team locale={locale} team={visible(c.team)} />
       <CTA locale={locale} />
+      <JsonLd data={professionalService('ar')} />
     </>
   );
 }

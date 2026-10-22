@@ -5,6 +5,7 @@ import { Reveal } from '@/components/Reveal';
 import { Icon } from '@/components/Icon';
 import { getContent, getDict, localeHref } from '@/lib/i18n';
 import { alternates } from '@/lib/seo';
+import { JsonLd, professionalService } from '@/lib/schema';
 
 const locale = 'ar' as const;
 const t = getDict(locale);
@@ -40,6 +41,7 @@ export default function ArabicContactPage() {
           </div>
         </div>
       </section>
+      <JsonLd data={professionalService('ar')} />
     </>
   );
 }
