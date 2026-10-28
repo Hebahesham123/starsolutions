@@ -15,7 +15,18 @@ const nextConfig = {
    * A 307 costs a redirect every time and keeps that door open.
    */
   async redirects() {
-    return [{ source: '/pricing', destination: '/contact', permanent: false }];
+    return [
+      { source: '/pricing', destination: '/contact', permanent: false },
+      /* The Vercel production alias served a full copy of the site, which
+         Google can index as a duplicate. Send it to the real domain (308).
+         Matches this one host only, so preview deployments still work. */
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'starsolutions-eight.vercel.app' }],
+        destination: 'https://www.starsolution.ai/:path*',
+        permanent: true,
+      },
+    ];
   },
 };
 export default nextConfig;

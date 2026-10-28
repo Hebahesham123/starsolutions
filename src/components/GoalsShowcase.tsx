@@ -59,7 +59,7 @@ export function GoalsShowcase({ goals, locale = 'en' }: { goals: Entry[]; locale
   return (
     <div className="goal-stage mx-auto max-w-shell px-5 lg:px-8">
       <Rail id="goals" label={t('rail.goals')} className="goal-rail">
-      {goals.map((g) => (
+      {goals.map((g, i) => (
         <Link
           key={g.id}
           href={localeHref(locale, `/goals/${g.slug}`)}
@@ -69,7 +69,15 @@ export function GoalsShowcase({ goals, locale = 'en' }: { goals: Entry[]; locale
           <span className={`gb-shot${goalImage(g) ? ' is-photo' : ''}`}>
             {goalImage(g) ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={goalImage(g)!} alt="" loading="lazy" decoding="async" />
+              <img
+                src={goalImage(g)!}
+                alt=""
+                // The first card is on the first screen on a phone and was the
+                // Arabic page's LCP element; lazy-loading it delayed it.
+                loading={i === 0 ? 'eager' : 'lazy'}
+                fetchPriority={i === 0 ? 'high' : undefined}
+                decoding="async"
+              />
             ) : (
               <span className="gb-motif" aria-hidden="true">
                 <GoalMotif icon={g.icon} />

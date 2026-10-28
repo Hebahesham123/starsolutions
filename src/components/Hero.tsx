@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { motion, useReducedMotion } from 'framer-motion';
+import { useReducedMotion } from 'framer-motion';
 import * as React from 'react';
 import { Icon } from './Icon';
 import { Reveal } from './Reveal';
@@ -126,32 +126,32 @@ export function Hero({ nodes, stats, platforms, locale = 'en' }: { nodes: HeroNo
 
       <div className="hero-shell">
         <div className="hero-copy">
-          <Reveal as="div">
+          <Reveal as="div" eager>
             <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> {t('hero.eyebrow')}</p>
           </Reveal>
-          <motion.h1
+          {/* Same 0.7s fade-up as before, run in CSS from the first paint
+              (.hero-title-in) rather than by Framer after hydration, so the
+              headline is not invisible while the JavaScript loads. */}
+          <h1
             id="heroTitle"
-            className="hero-title"
+            className="hero-title hero-title-in"
             ref={titleRef}
-            initial={reduce ? false : { opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.16, 0.84, 0.3, 1] }}
           >
             <span className="hero-title-line">{t('hero.title1')}</span>{' '}
             <span className="grad-text">{t('hero.title2')}</span>
-          </motion.h1>
+          </h1>
           {/* The site's own description, which had never appeared on the page it
               describes. Shown from 1024px up, where the split hero has a column
               to put it in; below that the hero is already tight enough that a
               paragraph would push the buttons off the screen. */}
-          <Reveal as="div" delay={0.06}>
+          <Reveal as="div" delay={0.06} eager>
             <p className="hero-lede">
               {t('hero.lede')}
             </p>
           </Reveal>
         </div>
 
-        <Reveal className="hero-visual">
+        <Reveal className="hero-visual" eager>
           <div className="agent-stage" id="agentStage" ref={stageRef}>
             <div className="agent-aura" aria-hidden="true" />
 
@@ -202,14 +202,14 @@ export function Hero({ nodes, stats, platforms, locale = 'en' }: { nodes: HeroNo
           <p className="orbit-hint">{t('hero.dashboard')}</p>
         </Reveal>
 
-        <Reveal className="hero-actions" delay={0.1}>
+        <Reveal className="hero-actions" delay={0.1} eager>
           <Link href={localeHref(locale, '/contact')} className="btn btn-primary btn-lg">
             {t('cta.growthPlan')} <Icon name="arrow" className="h-[18px] w-[18px]" />
           </Link>
           <Link href={localeHref(locale, '/results')} className="btn btn-ghost btn-lg">{t('cta.seeResults')}</Link>
         </Reveal>
 
-        <Reveal as="dl" className="hero-proof" delay={0.16}>
+        <Reveal as="dl" className="hero-proof" delay={0.16} eager>
           {stats.map(([label, value, unit]) => (
             <div key={label}>
               <dt>{label}</dt>
@@ -221,7 +221,7 @@ export function Hero({ nodes, stats, platforms, locale = 'en' }: { nodes: HeroNo
         {/* y is trimmed from the default 18: .hero is overflow:hidden and this
             is its last child, so a taller lift-in starts the block below the
             clip — where its own reveal observer can never see it. */}
-        <Reveal className="hero-logos" delay={0.22} y={10}>
+        <Reveal className="hero-logos" delay={0.22} y={10} eager>
           <p className="logo-label">{t('hero.platforms')}</p>
           <PlatformRow platforms={platforms} />
         </Reveal>

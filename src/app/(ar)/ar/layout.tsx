@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
+import { IBM_Plex_Sans_Arabic } from 'next/font/google';
 import '@/app/rtl.css';
 import { LocaleDocument } from '@/components/LocaleDocument';
+import { organization, website } from '@/lib/schema';
 import { SiteHeader } from '@/components/SiteHeader';
 import { SiteFooter } from '@/components/SiteFooter';
 import { StickyBar } from '@/components/StickyBar';
@@ -12,6 +14,15 @@ import { buildSearchIndex } from '@/components/ui/search-index';
 import { getContent, getDict } from '@/lib/i18n';
 
 const t = getDict('ar');
+
+/** Same family and weights as the Google Fonts link it replaces, now
+ *  self-hosted and preloaded. rtl.css uses it through --font-plex-ar. */
+const plexArabic = IBM_Plex_Sans_Arabic({
+  subsets: ['arabic', 'latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-plex-ar',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.starsolution.ai'),
@@ -43,7 +54,7 @@ export default async function ArabicLayout({ children }: { children: React.React
   const searchDocs = await buildSearchIndex('ar');
   const c = getContent('ar');
   return (
-    <LocaleDocument locale="ar">
+    <LocaleDocument locale="ar" fontClass={plexArabic.variable} jsonLd={[organization('ar'), website('ar')]}>
       <SiteSplash />
       {/* Meta Pixel — public pages only, so /admin is never tracked. */}
       <MetaPixel />

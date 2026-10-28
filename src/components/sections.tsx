@@ -29,12 +29,14 @@ export const autoTone = (i: number) => AUTO_TONES[i % AUTO_TONES.length];
 export const autoIcon = (i: number) => AUTO_ICONS[i % AUTO_ICONS.length];
 
 export function SectionHead({
-  eyebrow, title, sub, id, row, action,
+  eyebrow, title, sub, id, row, action, eager,
 }: {
   eyebrow: string; title: string; sub?: string; id?: string; row?: boolean; action?: React.ReactNode;
+  /** First-screen heading: animate in CSS from first paint (see Reveal). */
+  eager?: boolean;
 }) {
   return (
-    <Reveal as="header" className={`section-head${row ? ' section-head-row' : ''}`}>
+    <Reveal as="header" eager={eager} className={`section-head${row ? ' section-head-row' : ''}`}>
       <div>
         <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> {eyebrow}</p>
         <h2 id={id} className="section-title">{title}</h2>
@@ -51,7 +53,7 @@ export function Goals({ goals, locale = 'en' }: { goals: Entry[] } & Localised) 
   return (
     <section className="section section-soft" aria-labelledby="goalsTitle">
       <div className="mx-auto max-w-shell px-5 lg:px-8">
-        <SectionHead id="goalsTitle" eyebrow={t('goals.eyebrow')} title={t('goals.title')} sub={t('goals.sub')} />
+        <SectionHead id="goalsTitle" eyebrow={t('goals.eyebrow')} title={t('goals.title')} sub={t('goals.sub')} eager />
       </div>
       {/* Inside the shell, unlike the other rails. GoalsShowcase draws a frame
           around this one, and a frame has to end somewhere — full bleed would

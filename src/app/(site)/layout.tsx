@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { LocaleDocument } from '@/components/LocaleDocument';
+import { organization, website } from '@/lib/schema';
 import { SiteHeader } from '@/components/SiteHeader';
 import { SiteFooter } from '@/components/SiteFooter';
 import { StickyBar } from '@/components/StickyBar';
@@ -43,7 +44,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
   // component and the getters stay on the server.
   const searchDocs = await buildSearchIndex();
   return (
-    <LocaleDocument locale="en">
+    <LocaleDocument locale="en" jsonLd={[organization('en'), website('en')]}>
       {/* First in the tree so it paints with the first frame. /admin is a
           different layout and never gets it. */}
       <SiteSplash />

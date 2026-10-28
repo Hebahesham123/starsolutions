@@ -35,9 +35,12 @@ export function LocaleDocument({
   locale,
   children,
   jsonLd,
+  fontClass,
 }: {
   locale: Locale;
   children: React.ReactNode;
+  /** next/font variable classes for this locale's own faces (the Arabic one). */
+  fontClass?: string;
   /** Site-wide structured data, rendered in <head>. Invisible on the page. */
   jsonLd?: object[];
 }) {
@@ -50,7 +53,7 @@ export function LocaleDocument({
     <html
       lang={meta.htmlLang}
       dir={meta.dir}
-      className={`js ${jakarta.variable}`}
+      className={`js ${jakarta.variable}${fontClass ? ` ${fontClass}` : ''}`}
       suppressHydrationWarning
     >
       <head>
@@ -72,20 +75,12 @@ export function LocaleDocument({
           href="https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700&f[]=satoshi@400,500,700&f[]=jetbrains-mono@500&display=swap"
           rel="stylesheet"
         />
-        {/* Satoshi and General Sans have no Arabic glyphs. rtl.css names this
-            family literally, so it is loaded by name rather than through
-            next/font, which would give it a generated one. */}
+        {/* The Arabic face (IBM Plex Sans Arabic) is no longer a Google Fonts
+            stylesheet here: that blocked the first paint of every /ar page by
+            ~1.8s on a phone. The Arabic layout loads it through next/font —
+            self-hosted, preloaded, font-display: swap — and passes its
+            variable in as fontClass; rtl.css reads var(--font-plex-ar). */}
         {jsonLd?.map((data, i) => <JsonLd key={i} data={data} />)}
-        {locale === 'ar' && (
-          <>
-            <link rel="preconnect" href="https://fonts.googleapis.com" />
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-            <link
-              href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"
-              rel="stylesheet"
-            />
-          </>
-        )}
       </head>
       <body className="bg-white font-sans text-ink antialiased">{children}</body>
     </html>

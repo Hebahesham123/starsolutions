@@ -4259,3 +4259,38 @@
 @media (max-width:420px){
   .lang-switch{ width:36px; height:36px; border-radius:10px; font-size:14px; }
 }
+
+
+/* =========================================================
+   First-paint motion (SEO / Core Web Vitals)
+
+   The same fades the site always had, run by CSS from the first paint instead
+   of by Framer Motion after hydration. Framer renders its starting state into
+   the server HTML as opacity:0, which kept the first screen invisible until
+   the JavaScript loaded and pushed mobile LCP past 6s. Durations, offsets and
+   easing are copied from the Framer versions so nothing looks different.
+   ========================================================= */
+@keyframes reveal-in{
+  from{ opacity:0; transform: translateY(var(--reveal-y, 18px)) scale(.995); }
+}
+@keyframes hero-title-in{
+  from{ opacity:0; transform: translateY(14px); }
+}
+@keyframes route-first-in{
+  from{ opacity:0; transform: translateY(10px); }
+}
+@media (prefers-reduced-motion: no-preference){
+  .reveal-eager{
+    animation: reveal-in .62s cubic-bezier(.16,.84,.3,1) var(--reveal-delay, 0s) both;
+  }
+  .hero-title-in{
+    animation: hero-title-in .7s cubic-bezier(.16,.84,.3,1) both;
+    will-change: opacity, transform; /* as Framer left it */
+  }
+  .route-first{
+    animation: route-first-in .38s cubic-bezier(.16,.84,.3,1) both;
+    /* Framer leaves this on the wrapper after its fade; matching it keeps text
+       rendered on the same compositor layer, so it looks pixel-identical. */
+    will-change: opacity, transform;
+  }
+}

@@ -15,6 +15,7 @@ export function Reveal({
   style,
   as = 'div',
   repeat = false,
+  eager = false,
 }: {
   children: React.ReactNode;
   delay?: number;
@@ -25,8 +26,27 @@ export function Reveal({
   as?: 'div' | 'section' | 'article' | 'li' | 'header' | 'dl' | 'ul' | 'nav' | 'figure';
   /** Re-run the reveal on every pass, so scrolling back up hides it again. */
   repeat?: boolean;
+  /**
+   * For content on the first screen. Plays the same fade-up, but in CSS from
+   * the first paint instead of waiting for JavaScript to load and hydrate.
+   * Framer Motion's `initial` is rendered into the server HTML as
+   * `opacity: 0`, so first-screen text stayed invisible until the bundle ran —
+   * seconds on a phone, and Google measures LCP from when it becomes visible.
+   */
+  eager?: boolean;
 }) {
   const reduce = useReducedMotion();
+  if (eager) {
+    const Plain = as;
+    return (
+      <Plain
+        className={`reveal-eager${className ? ` ${className}` : ''}`}
+        style={{ ...style, ['--reveal-y' as string]: `${y}px`, ['--reveal-delay' as string]: `${delay}s` }}
+      >
+        {children}
+      </Plain>
+    );
+  }
   const Tag = motion[as] as typeof motion.div;
   return (
     <Tag
