@@ -2,13 +2,13 @@ import type { Metadata } from 'next';
 import { PageHead } from '@/components/PageHead';
 import { Reveal } from '@/components/Reveal';
 import { site } from '@/lib/content';
-import { alternates } from '@/lib/seo';
+import { alternates, withSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSeo({
   alternates: alternates('en', '/terms', { ar: false }),
   title: 'Terms of service',
   description: 'The terms that apply to using the Star Solution website.',
-};
+});
 
 /**
  * Carried over from the previous site so the URL keeps working. As with the

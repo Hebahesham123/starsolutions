@@ -1,0 +1,45 @@
+{
+  "_readme": "Search titles and descriptions, by page. Keys are the page path without the /ar prefix. 'title' is the full <title> shown in Google (30-60 characters, used as-is, no brand added). 'description' is the meta description (120-140 characters). Leave a field out to keep the page's default.",
+  "en": {
+    "/": {
+      "description": "AI automation agency in Egypt for e-commerce brands. We automate Shopify, WhatsApp, ads and social media so your store grows on its own."
+    },
+    "/about": {
+      "description": "StarSolution is an AI automation studio in Cairo. We build Shopify stores, WhatsApp AI agents and ad systems that run your business 24/7."
+    },
+    "/solutions": {
+      "description": "Six AI automation solutions for online stores: revenue, order fulfillment, Shopify optimization, smart ads, social media and support."
+    },
+    "/automations": {
+      "description": "WhatsApp AI agents, e-commerce chatbots and custom n8n automations that take repetitive work off your team. See what we can automate."
+    },
+    "/systems": {
+      "description": "Custom systems we build for e-commerce in Egypt: accounting, courier and shipping, SEO and Google Analytics dashboards that run themselves."
+    },
+    "/goals": {
+      "description": "Pick your goal: more revenue, automated operations, faster customer support or better decisions. We build the AI systems to get you there."
+    },
+    "/case-studies": {
+      "description": "Real results from stores we work with: 20 to 85 orders a day, 4.2% conversion, 4.5x ROAS. See the before-and-after numbers for each."
+    },
+    "/work": {
+      "description": "Shopify stores and websites we designed and built, including Beauty Bar Egypt and Hollywood Clinics. Compare each site before and after."
+    },
+    "/team": {
+      "description": "Meet the StarSolution team: developers, automation engineers and marketers in Cairo who build and run AI systems for e-commerce brands."
+    },
+    "/blog": {
+      "description": "Practical guides on Shopify automation, AI ad management and WhatsApp chatbots for e-commerce brands in Egypt and the region."
+    },
+    "/results": {
+      "description": "Proven results from AI automation: higher order values, recovered carts, faster replies and better ROAS. Real client numbers, live charts."
+    },
+    "/process": {
+      "description": "How our AI automation works in 3 steps: a free store audit, a system built around it, and growth you can track. Most start in 14 days."
+    },
+    "/contact": {
+      "description": "Get a free AI growth audit for your online store. Tell us about your business on WhatsApp or by email and we will reply within one day."
+    }
+  },
+  "ar": {}
+}

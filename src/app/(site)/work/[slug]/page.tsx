@@ -6,6 +6,8 @@ import { Reveal } from '@/components/Reveal';
 import { Icon } from '@/components/Icon';
 import { BeforeAfter } from '@/components/BeforeAfter';
 import { getProjects } from '@/lib/content';
+import { alternates, withSeo } from '@/lib/seo';
+import { getContent } from '@/lib/i18n';
 
 export async function generateStaticParams() {
   const projects = await getProjects();
@@ -14,7 +16,12 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const project = (await getProjects()).find((p) => p.slug === params.slug);
-  return { title: project?.title ?? 'Project', description: project?.summary };
+  const inAr = getContent('ar').projects.some((p) => p.slug === params.slug);
+  return withSeo({
+    alternates: alternates('en', `/work/${params.slug}`, { ar: inAr }),
+    title: project?.title ?? 'Project',
+    description: project?.summary,
+  });
 }
 
 export default async function ProjectPage({ params }: { params: { slug: string } }) {

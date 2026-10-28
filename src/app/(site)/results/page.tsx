@@ -5,11 +5,11 @@ import { CaseCard } from '@/components/sections';
 import { Reveal } from '@/components/Reveal';
 import { site, getCaseStudies, getTestimonials } from '@/lib/content';
 import { Icon } from '@/components/Icon';
-import { alternates } from '@/lib/seo';
+import { alternates, withSeo } from '@/lib/seo';
 import { getDict } from '@/lib/i18n';
 
-export const metadata: Metadata = {
-  alternates: alternates('en', '/results'), title: 'Results' };
+export const metadata: Metadata = withSeo({
+  alternates: alternates('en', '/results'), title: 'Results' });
 
 export default async function ResultsPage() {
   const t = getDict('en');

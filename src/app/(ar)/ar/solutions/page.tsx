@@ -4,16 +4,16 @@ import { PageHead } from '@/components/PageHead';
 import { Reveal } from '@/components/Reveal';
 import { Icon } from '@/components/Icon';
 import { getContent, getDict, localeHref } from '@/lib/i18n';
-import { alternates } from '@/lib/seo';
+import { alternates, withSeo } from '@/lib/seo';
 
 const locale = 'ar' as const;
 const t = getDict(locale);
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSeo({
   alternates: alternates('ar', '/solutions'),
   title: t('page.solutions.title'),
   description: t('page.solutions.lede'),
-};
+});
 
 export const revalidate = 60;
 

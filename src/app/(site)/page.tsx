@@ -7,10 +7,10 @@ import {
   site, getGoals, getCaseStudies, getSystems, getAutomations, getTeam,
   getTestimonials, getProjects,
 } from '@/lib/content';
-import { alternates } from '@/lib/seo';
+import { alternates, withSeo } from '@/lib/seo';
 import { JsonLd, professionalService } from '@/lib/schema';
 
-export const metadata: Metadata = { alternates: alternates('en', '/') };
+export const metadata: Metadata = withSeo({ alternates: alternates('en', '/') });
 
 export default async function HomePage() {
   // getSolutions() is gone with the bento it fed: it was still a Supabase

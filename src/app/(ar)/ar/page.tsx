@@ -7,13 +7,13 @@ import {
 } from '@/components/sections';
 import { getContent, getDict } from '@/lib/i18n';
 import type { Metadata } from 'next';
-import { alternates } from '@/lib/seo';
+import { alternates, withSeo } from '@/lib/seo';
 import { JsonLd, professionalService } from '@/lib/schema';
 
 const locale = 'ar' as const;
 const t = getDict(locale);
 
-export const metadata: Metadata = { alternates: alternates('ar', '/') };
+export const metadata: Metadata = withSeo({ alternates: alternates('ar', '/') });
 
 export const revalidate = 60;
 

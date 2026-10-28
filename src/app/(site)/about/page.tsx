@@ -4,10 +4,10 @@ import { PageHead } from '@/components/PageHead';
 import { Reveal } from '@/components/Reveal';
 import { Icon } from '@/components/Icon';
 import { getTeam, site } from '@/lib/content';
-import { alternates } from '@/lib/seo';
+import { alternates, withSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  alternates: alternates('en', '/about'), title: 'About' };
+export const metadata: Metadata = withSeo({
+  alternates: alternates('en', '/about'), title: 'About' });
 
 export default async function AboutPage() {
   const team = await getTeam();

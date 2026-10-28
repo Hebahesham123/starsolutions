@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { EntryPage } from '@/components/EntryPage';
 import { getTeam } from '@/lib/content';
-import { alternates } from '@/lib/seo';
+import { alternates, withSeo } from '@/lib/seo';
 import { getContent } from '@/lib/i18n';
 import { JsonLd, profilePage } from '@/lib/schema';
 
@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const items = await getTeam();
   const item = items.find((entry) => entry.slug === params.slug);
   const inAr = getContent('ar').team.some((entry) => entry.slug === params.slug);
-  return { alternates: alternates('en', `/team/${params.slug}`, { ar: inAr }), title: item?.title ??  'Team', description: item?.summary };
+  return withSeo({ alternates: alternates('en', `/team/${params.slug}`, { ar: inAr }), title: item?.title ??  'Team', description: item?.summary });
 }
 
 export default async function TeamDetailPage({ params }: { params: { slug: string } }) {

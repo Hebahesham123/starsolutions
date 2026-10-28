@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { EntryPage } from '@/components/EntryPage';
 import { getGoals } from '@/lib/content';
-import { alternates } from '@/lib/seo';
+import { alternates, withSeo } from '@/lib/seo';
 import { getContent } from '@/lib/i18n';
 
 export async function generateStaticParams() {
@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const items = await getGoals();
   const item = items.find((entry) => entry.slug === params.slug);
   const inAr = getContent('ar').goals.some((entry) => entry.slug === params.slug);
-  return { alternates: alternates('en', `/goals/${params.slug}`, { ar: inAr }), title: item?.title ??  'Business goals', description: item?.summary };
+  return withSeo({ alternates: alternates('en', `/goals/${params.slug}`, { ar: inAr }), title: item?.title ??  'Business goals', description: item?.summary });
 }
 
 export default async function GoalsDetailPage({ params }: { params: { slug: string } }) {

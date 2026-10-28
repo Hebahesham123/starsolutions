@@ -6,7 +6,7 @@ import { Reveal } from '@/components/Reveal';
 import { Icon } from '@/components/Icon';
 import { BeforeAfter } from '@/components/BeforeAfter';
 import { getContent, getDict, localeHref } from '@/lib/i18n';
-import { alternates } from '@/lib/seo';
+import { alternates, withSeo } from '@/lib/seo';
 
 const locale = 'ar' as const;
 const t = getDict(locale);
@@ -29,11 +29,11 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const project = projects().find((p) => p.slug === params.slug);
   const inEn = getContent('en').projects.some((p) => p.slug === params.slug);
-  return {
+  return withSeo({
     alternates: alternates(locale, `/work/${params.slug}`, { en: inEn }),
     title: project?.title ?? t('page.work.title'),
     description: project?.summary,
-  };
+  });
 }
 
 export default function ArabicProjectPage({ params }: { params: { slug: string } }) {

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { EntryPage } from '@/components/EntryPage';
 import { getContent, getDict, localeHref } from '@/lib/i18n';
-import { alternates } from '@/lib/seo';
+import { alternates, withSeo } from '@/lib/seo';
 
 const locale = 'ar' as const;
 const t = getDict(locale);
@@ -21,7 +21,7 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const item = items().find((entry) => entry.slug === params.slug);
   const inEn = getContent('en').goals.some((entry) => entry.slug === params.slug);
-  return { alternates: alternates('ar', `/goals/${params.slug}`, { en: inEn }), title: item?.title ??  t('page.goals.title'), description: item?.summary };
+  return withSeo({ alternates: alternates('ar', `/goals/${params.slug}`, { en: inEn }), title: item?.title ??  t('page.goals.title'), description: item?.summary });
 }
 
 export default function GoalsDetailPage({ params }: { params: { slug: string } }) {

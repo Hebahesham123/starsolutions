@@ -4,14 +4,14 @@ import { ContactForm } from '@/components/ContactForm';
 import { Reveal } from '@/components/Reveal';
 import { Icon } from '@/components/Icon';
 import { getContent, getDict, localeHref } from '@/lib/i18n';
-import { alternates } from '@/lib/seo';
+import { alternates, withSeo } from '@/lib/seo';
 import { JsonLd, professionalService } from '@/lib/schema';
 
 const locale = 'ar' as const;
 const t = getDict(locale);
 
-export const metadata: Metadata = {
-  alternates: alternates('ar', '/contact'), title: t('page.contact.title'), description: t('page.contact.lede') };
+export const metadata: Metadata = withSeo({
+  alternates: alternates('ar', '/contact'), title: t('page.contact.title'), description: t('page.contact.lede') });
 
 export const revalidate = 60;
 

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { EntryPage } from '@/components/EntryPage';
 import { getSolutions } from '@/lib/content';
-import { alternates } from '@/lib/seo';
+import { alternates, withSeo } from '@/lib/seo';
 import { getContent } from '@/lib/i18n';
 import { JsonLd, service } from '@/lib/schema';
 
@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const items = await getSolutions();
   const item = items.find((entry) => entry.slug === params.slug);
   const inAr = getContent('ar').solutions.some((entry) => entry.slug === params.slug);
-  return { alternates: alternates('en', `/solutions/${params.slug}`, { ar: inAr }), title: item?.title ??  'Solutions', description: item?.summary };
+  return withSeo({ alternates: alternates('en', `/solutions/${params.slug}`, { ar: inAr }), title: item?.title ??  'Solutions', description: item?.summary });
 }
 
 export default async function SolutionsDetailPage({ params }: { params: { slug: string } }) {

@@ -16,6 +16,8 @@ export interface Entry {
    * and no code change.
    */
   image?: string;
+  /** Alt text for `image`. Defaults to the entry title. */
+  imageAlt?: string;
   /**
    * Unpublished. The entry stays in the data but is filtered out of every listing
    * and of `generateStaticParams`, so its detail route is not built either.

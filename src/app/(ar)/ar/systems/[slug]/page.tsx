@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { EntryPage } from '@/components/EntryPage';
 import { getContent, getDict, localeHref } from '@/lib/i18n';
-import { alternates } from '@/lib/seo';
+import { alternates, withSeo } from '@/lib/seo';
 import { systemLook } from '@/components/ui/SystemCard';
 import { JsonLd, service } from '@/lib/schema';
 
@@ -23,7 +23,7 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const item = items().find((entry) => entry.slug === params.slug);
   const inEn = getContent('en').systems.some((entry) => entry.slug === params.slug);
-  return { alternates: alternates('ar', `/systems/${params.slug}`, { en: inEn }), title: item?.title ??  t('page.systems.title'), description: item?.summary };
+  return withSeo({ alternates: alternates('ar', `/systems/${params.slug}`, { en: inEn }), title: item?.title ??  t('page.systems.title'), description: item?.summary });
 }
 
 export default function SystemsDetailPage({ params }: { params: { slug: string } }) {

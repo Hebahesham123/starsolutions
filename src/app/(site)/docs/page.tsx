@@ -4,13 +4,13 @@ import { PageHead } from '@/components/PageHead';
 import { Reveal } from '@/components/Reveal';
 import { Icon } from '@/components/Icon';
 import { site } from '@/lib/content';
-import { alternates } from '@/lib/seo';
+import { alternates, withSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSeo({
   alternates: alternates('en', '/docs', { ar: false }),
   title: 'Documentation',
   description: 'How to get the most out of Star Solution — setup, integrations, the AI chatbot and the API.',
-};
+});
 
 /**
  * Carried over from the previous site so the URL keeps working.

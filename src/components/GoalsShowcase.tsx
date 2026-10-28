@@ -71,7 +71,9 @@ export function GoalsShowcase({ goals, locale = 'en' }: { goals: Entry[]; locale
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={goalImage(g)!}
-                alt=""
+                // Describes the photo for Google Images and screen readers.
+                // `imageAlt` in the data wins; the goal's title is the default.
+                alt={g.imageAlt ?? g.title}
                 // The first card is on the first screen on a phone and was the
                 // Arabic page's LCP element; lazy-loading it delayed it.
                 loading={i === 0 ? 'eager' : 'lazy'}

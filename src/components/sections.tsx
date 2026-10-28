@@ -470,7 +470,7 @@ export function Work({ projects, locale = 'en' }: { projects: Project[] } & Loca
           snapping are the ones already on the page. */}
       <Rail id="live" label={t('rail.live')} className="live-rail">
         {projects.map((p, i) => (
-          <ProjectCard key={p.id} project={p} delay={i * 0.08} heading="h4" locale={locale} />
+          <ProjectCard key={p.id} project={p} delay={i * 0.08} heading="h3" locale={locale} />
         ))}
       </Rail>
     </section>

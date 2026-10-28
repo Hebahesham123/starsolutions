@@ -46,8 +46,8 @@ export const BUSINESS = {
   openingHours: [] as string[],
   /** Public profile URLs: LinkedIn, Facebook, Instagram, Google Business Profile, Clutch… */
   sameAs: [] as string[],
-  /** Absolute URL of a square PNG/JPG logo, at least 112×112. Empty = left out. */
-  logo: '',
+  /** Absolute URL of a square PNG/JPG logo, at least 112×112. public/logo.png is the site's own mark. */
+  logo: `${SITE_URL}/logo.png`,
 };
 
 const PLACEHOLDER_PHONE = /123\s*456\s*7890/;

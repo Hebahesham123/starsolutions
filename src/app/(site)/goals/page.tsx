@@ -4,10 +4,10 @@ import { PageHead } from '@/components/PageHead';
 import { Reveal } from '@/components/Reveal';
 import { Icon } from '@/components/Icon';
 import { getGoals } from '@/lib/content';
-import { alternates } from '@/lib/seo';
+import { alternates, withSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  alternates: alternates('en', '/goals'), title: 'What do you want to achieve?' };
+export const metadata: Metadata = withSeo({
+  alternates: alternates('en', '/goals'), title: 'What do you want to achieve?' });
 
 export default async function GoalsIndexPage() {
   const items = await getGoals();

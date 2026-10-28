@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { EntryPage } from '@/components/EntryPage';
 import { systemLook } from '@/components/ui/SystemCard';
 import { getSystems } from '@/lib/content';
-import { alternates } from '@/lib/seo';
+import { alternates, withSeo } from '@/lib/seo';
 import { getContent } from '@/lib/i18n';
 import { JsonLd, service } from '@/lib/schema';
 
@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const items = await getSystems();
   const item = items.find((entry) => entry.slug === params.slug);
   const inAr = getContent('ar').systems.some((entry) => entry.slug === params.slug);
-  return { alternates: alternates('en', `/systems/${params.slug}`, { ar: inAr }), title: item?.title ??  'Systems', description: item?.summary };
+  return withSeo({ alternates: alternates('en', `/systems/${params.slug}`, { ar: inAr }), title: item?.title ??  'Systems', description: item?.summary });
 }
 
 export default async function SystemsDetailPage({ params }: { params: { slug: string } }) {

@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { PageHead } from '@/components/PageHead';
 import { Reveal } from '@/components/Reveal';
 import { getDict, getPosts, localeHref } from '@/lib/i18n';
-import { alternates } from '@/lib/seo';
+import { alternates, withSeo } from '@/lib/seo';
 import { JsonLd, blogPosting } from '@/lib/schema';
 
 const locale = 'ar' as const;
@@ -17,11 +17,11 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const post = posts.find((p) => p.slug === params.slug);
-  return {
+  return withSeo({
     alternates: alternates(locale, `/blog/${params.slug}`),
     title: post?.title ?? t('page.blog.title'),
     description: post?.excerpt,
-  };
+  });
 }
 
 export default function ArabicPostPage({ params }: { params: { slug: string } }) {

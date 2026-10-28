@@ -4,14 +4,14 @@ import { PageHead } from '@/components/PageHead';
 import { Reveal } from '@/components/Reveal';
 import { Icon } from '@/components/Icon';
 import { getDict, getPosts, localeHref } from '@/lib/i18n';
-import { alternates } from '@/lib/seo';
+import { alternates, withSeo } from '@/lib/seo';
 
 const locale = 'ar' as const;
 const t = getDict(locale);
 const posts = getPosts(locale);
 
-export const metadata: Metadata = {
-  alternates: alternates('ar', '/blog'), title: t('page.blog.title'), description: t('page.blog.lede') };
+export const metadata: Metadata = withSeo({
+  alternates: alternates('ar', '/blog'), title: t('page.blog.title'), description: t('page.blog.lede') });
 
 export const revalidate = 60;
 

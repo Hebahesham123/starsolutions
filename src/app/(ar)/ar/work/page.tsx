@@ -7,16 +7,16 @@ import { ProjectCard } from '@/components/ProjectCard';
 import { SystemCard } from '@/components/ui/SystemCard';
 import { autoIcon, autoTone } from '@/components/sections';
 import { getContent, getDict, localeHref } from '@/lib/i18n';
-import { alternates } from '@/lib/seo';
+import { alternates, withSeo } from '@/lib/seo';
 
 const locale = 'ar' as const;
 const t = getDict(locale);
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSeo({
   alternates: alternates(locale, '/work'),
   title: t('page.work.title'),
   description: t('page.work.lede'),
-};
+});
 
 export const revalidate = 60;
 

@@ -4,10 +4,10 @@ import { PageHead } from '@/components/PageHead';
 import { Reveal } from '@/components/Reveal';
 import { Icon } from '@/components/Icon';
 import posts from '@/data/posts.json';
-import { alternates } from '@/lib/seo';
+import { alternates, withSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  alternates: alternates('en', '/blog'), title: 'Blog' };
+export const metadata: Metadata = withSeo({
+  alternates: alternates('en', '/blog'), title: 'Blog' });
 
 export default function BlogIndexPage() {
   return (
