@@ -4294,3 +4294,21 @@
     will-change: opacity, transform;
   }
 }
+
+
+/* Internal links inside body copy (components/Linked.tsx). Same colour as the
+   sentence around them — only an underline marks them, so the copy reads as it
+   did; the accent shows on hover and keyboard focus. */
+.inline-link{
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .22em;
+  text-decoration-color: color-mix(in srgb, currentColor 38%, transparent);
+  transition: color .15s ease, text-decoration-color .15s ease;
+}
+.inline-link:hover,
+.inline-link:focus-visible{
+  color: var(--brand, #2563EB);
+  text-decoration-color: currentColor;
+}

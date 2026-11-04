@@ -2,44 +2,386 @@
   "_readme": "Search titles and descriptions, by page. Keys are the page path without the /ar prefix. 'title' is the full <title> shown in Google (30-60 characters, used as-is, no brand added). 'description' is the meta description (120-140 characters). Leave a field out to keep the page's default.",
   "en": {
     "/": {
-      "description": "AI automation agency in Egypt for e-commerce brands. We automate Shopify, WhatsApp, ads and social media so your store grows on its own."
+      "description": "AI automation agency in Egypt for e-commerce brands. We automate Shopify, WhatsApp, ads and social media so your store grows on its own.",
+      "title": "AI Automation Agency in Egypt for E-commerce · StarSolution"
     },
     "/about": {
-      "description": "StarSolution is an AI automation studio in Cairo. We build Shopify stores, WhatsApp AI agents and ad systems that run your business 24/7."
+      "description": "StarSolution is an AI automation studio in Cairo. We build Shopify stores, WhatsApp AI agents and ad systems that run your business 24/7.",
+      "title": "AI Automation Studio in Cairo — About Us · StarSolution"
     },
     "/solutions": {
-      "description": "Six AI automation solutions for online stores: revenue, order fulfillment, Shopify optimization, smart ads, social media and support."
+      "description": "Six AI automation solutions for online stores: revenue, order fulfillment, Shopify optimization, smart ads, social media and support.",
+      "title": "AI Automation Solutions for Online Stores · StarSolution"
     },
     "/automations": {
-      "description": "WhatsApp AI agents, e-commerce chatbots and custom n8n automations that take repetitive work off your team. See what we can automate."
+      "description": "WhatsApp AI agents, e-commerce chatbots and custom n8n automations that take repetitive work off your team. See what we can automate.",
+      "title": "WhatsApp AI, Chatbots & n8n Automations · StarSolution"
     },
     "/systems": {
-      "description": "Custom systems we build for e-commerce in Egypt: accounting, courier and shipping, SEO and Google Analytics dashboards that run themselves."
+      "description": "Custom systems we build for e-commerce in Egypt: accounting, courier and shipping, SEO and Google Analytics dashboards that run themselves.",
+      "title": "Custom Business Systems for E-commerce · StarSolution"
     },
     "/goals": {
-      "description": "Pick your goal: more revenue, automated operations, faster customer support or better decisions. We build the AI systems to get you there."
+      "description": "Pick your goal: more revenue, automated operations, faster customer support or better decisions. We build the AI systems to get you there.",
+      "title": "Grow Your Online Store: Pick Your Goal · StarSolution"
     },
     "/case-studies": {
-      "description": "Real results from stores we work with: 20 to 85 orders a day, 4.2% conversion, 4.5x ROAS. See the before-and-after numbers for each."
+      "description": "Real results from stores we work with: 20 to 85 orders a day, 4.2% conversion, 4.5x ROAS. See the before-and-after numbers for each.",
+      "title": "E-commerce Case Studies With Real Results · StarSolution"
     },
     "/work": {
-      "description": "Shopify stores and websites we designed and built, including Beauty Bar Egypt and Hollywood Clinics. Compare each site before and after."
+      "description": "Shopify stores and websites we designed and built, including Beauty Bar Egypt and Hollywood Clinics. Compare each site before and after.",
+      "title": "Shopify Store & Website Portfolio · StarSolution"
     },
     "/team": {
-      "description": "Meet the StarSolution team: developers, automation engineers and marketers in Cairo who build and run AI systems for e-commerce brands."
+      "description": "Meet the StarSolution team: developers, automation engineers and marketers in Cairo who build and run AI systems for e-commerce brands.",
+      "title": "Our Team: AI & E-commerce Experts in Cairo · StarSolution"
     },
     "/blog": {
-      "description": "Practical guides on Shopify automation, AI ad management and WhatsApp chatbots for e-commerce brands in Egypt and the region."
+      "description": "Practical guides on Shopify automation, AI ad management and WhatsApp chatbots for e-commerce brands in Egypt and the region.",
+      "title": "Shopify, WhatsApp & AI Ads Guides · StarSolution"
     },
     "/results": {
-      "description": "Proven results from AI automation: higher order values, recovered carts, faster replies and better ROAS. Real client numbers, live charts."
+      "description": "Proven results from AI automation: higher order values, recovered carts, faster replies and better ROAS. Real client numbers, live charts.",
+      "title": "AI Automation Results From Real Clients · StarSolution"
     },
     "/process": {
-      "description": "How our AI automation works in 3 steps: a free store audit, a system built around it, and growth you can track. Most start in 14 days."
+      "description": "How our AI automation works in 3 steps: a free store audit, a system built around it, and growth you can track. Most start in 14 days.",
+      "title": "How AI Automation Works in 3 Steps · StarSolution"
     },
     "/contact": {
-      "description": "Get a free AI growth audit for your online store. Tell us about your business on WhatsApp or by email and we will reply within one day."
+      "description": "Get a free AI growth audit for your online store. Tell us about your business on WhatsApp or by email and we will reply within one day.",
+      "title": "Free AI Growth Audit for Your Online Store · StarSolution"
+    },
+    "/automations/custom-automations": {
+      "title": "n8n Automation Agency: Custom Workflows · StarSolution",
+      "description": "n8n automation agency for e-commerce: we connect Shopify, WhatsApp, sheets and your tools so repetitive work runs itself. Book an audit."
+    },
+    "/automations/ecommerce-chatbot": {
+      "title": "E-commerce Chatbot for Your Online Store · StarSolution",
+      "description": "An e-commerce chatbot that replies in Egyptian Arabic 24/7 on WhatsApp, Messenger and Instagram and creates Shopify orders. Book now."
+    },
+    "/automations/whatsapp-ai-system": {
+      "title": "WhatsApp Chatbot Egypt: One Smart Inbox · StarSolution",
+      "description": "WhatsApp chatbot inbox for businesses in Egypt: all your numbers on one screen, with AI that tags and prioritizes every chat. Book an audit."
+    },
+    "/solutions/ai-customer-support": {
+      "title": "AI Customer Support on WhatsApp and Web · StarSolution",
+      "description": "AI customer support that answers your customers on WhatsApp and your website day and night, and passes hard cases to you. Book an audit."
+    },
+    "/solutions/ai-smart-ads": {
+      "title": "Facebook Ads Agency in Egypt, Powered by AI · StarSolution",
+      "description": "Facebook ads agency in Egypt that uses AI to move your Meta and Google budget to what performs, for better ROAS and less spend. Book now."
+    },
+    "/solutions/order-fulfillment": {
+      "title": "Shopify Automation Egypt: Order to Delivery · StarSolution",
+      "description": "Shopify automation in Egypt from order to delivery: fulfillment, supplier routing, tracking and customer updates. Book a free audit."
+    },
+    "/solutions/revenue-automation": {
+      "title": "E-commerce Automation That Grows Revenue · StarSolution",
+      "description": "E-commerce automation that grows revenue 24/7: smart upsells, better pricing and abandoned cart recovery on Shopify. Book a free audit."
+    },
+    "/solutions/shopify-optimization": {
+      "title": "Shopify Experts in Egypt — Stores That Sell · StarSolution",
+      "description": "Shopify experts in Egypt who make your store faster, easier to find on Google and better at turning visitors into buyers. Book an audit."
+    },
+    "/solutions/social-media-growth": {
+      "title": "Social Media Management in Egypt With AI · StarSolution",
+      "description": "Social media management in Egypt with AI: auto-posting, content scheduling and engagement on Instagram and TikTok. Book a free audit."
+    },
+    "/systems/accounting-system": {
+      "title": "Accounting System With ETA E-invoicing · StarSolution",
+      "description": "An accounting system built for businesses in Egypt: invoicing, receivables and ETA e-invoicing in one dashboard. Ask us for a live demo."
+    },
+    "/systems/courier-system": {
+      "title": "Courier Management System for Online Stores · StarSolution",
+      "description": "A courier management system for online stores: order dispatch, COD settlement and proof of delivery on one screen. Ask us for a live demo."
+    },
+    "/systems/google-analytics-system": {
+      "title": "Google Analytics Dashboard for E-commerce · StarSolution",
+      "description": "One analytics dashboard for your store: GA4, Clarity, Search Console and Google Ads in a single view, with clear reports. Ask for a demo."
+    },
+    "/systems/seo-forge": {
+      "title": "SEO Forge: AI SEO Tool for Online Stores · StarSolution",
+      "description": "SEO Forge is our AI SEO tool for online stores: keyword research, content writing and rank tracking in one place. Ask us for a live demo."
+    },
+    "/blog/an-ai-agent-on-whatsapp": {
+      "title": "WhatsApp AI Agent That Won't Annoy Customers · StarSolution",
+      "description": "How to put an AI agent on WhatsApp without annoying your customers: what to automate, what to leave to people, and how to get started."
+    },
+    "/blog/automate-shopify-order-to-delivery": {
+      "title": "Shopify Automation Guide: Order to Delivery · StarSolution",
+      "description": "A guide to Shopify automation, from a paid order to supplier notification, shipment and tracking, and where a person still needs to step in."
+    },
+    "/blog/what-ai-ad-management-actually-does": {
+      "title": "AI Ads Management: What It Does to ROAS · StarSolution",
+      "description": "What AI ads management actually does to your Meta and Google campaigns, and how it moves your ROAS. A plain-language guide for store owners."
+    },
+    "/case-studies/beauty-brand": {
+      "title": "Beauty Brand: 2K to 18K Instagram Followers · StarSolution",
+      "description": "How a beauty brand grew its Instagram from 2K to 18K followers in 3 months with AI content and post scheduling. Read the full case study."
+    },
+    "/case-studies/ecommerce-store-cairo": {
+      "title": "Cairo Store Case Study: 20 to 85 Orders a Day · StarSolution",
+      "description": "How a Cairo e-commerce store went from 20 to 85 orders a day in 6 weeks with order and WhatsApp automation. Read the full case study here."
+    },
+    "/case-studies/electronics-store": {
+      "title": "Electronics Store ROAS: From 1.8x to 4.5x · StarSolution",
+      "description": "How an electronics store took its Meta and Google ads from 1.8x to 4.5x ROAS with AI ad management, paid back in month one. Read the study."
+    },
+    "/case-studies/home-decor-brand": {
+      "title": "Home Decor Brand: +280% Revenue in 4 Months · StarSolution",
+      "description": "How a home decor brand grew revenue 280% in 4 months with a live sales dashboard and channel-level ROAS. Read the full case study."
+    },
+    "/case-studies/shopify-store": {
+      "title": "Shopify Store Conversion Rate: 1.8% to 4.2% · StarSolution",
+      "description": "How a Shopify store raised its conversion rate from 1.8% to 4.2% and spent 35% less on ads. See exactly what we changed in this case study."
+    },
+    "/docs": {
+      "title": "Documentation and How-To Guides · StarSolution",
+      "description": "Documentation for StarSolution systems and automations: how each one works, how to set it up, and how to get help from our team fast."
+    },
+    "/goals/automate-operations": {
+      "title": "Automate Your Online Store Operations · StarSolution",
+      "description": "Automate your store operations: orders, fulfillment, tracking and supplier updates run end to end, saving your team 20 hours a week."
+    },
+    "/goals/improve-customer-support": {
+      "title": "Improve Customer Support With AI · StarSolution",
+      "description": "Improve customer support with an AI agent that answers on WhatsApp and your site in seconds and passes complex cases to you. Book an audit."
+    },
+    "/goals/increase-revenue": {
+      "title": "Increase Your Online Store Revenue · StarSolution",
+      "description": "Increase your online store revenue with AI: upsells, abandoned cart recovery and smarter pricing that work around the clock. Book an audit."
+    },
+    "/goals/make-better-decisions": {
+      "title": "Make Better Business Decisions With Data · StarSolution",
+      "description": "Make better decisions with live dashboards for sales, ads and traffic, so you see what works in your store and what to fix. Book an audit."
+    },
+    "/privacy": {
+      "title": "Privacy Policy and Your Data · StarSolution",
+      "description": "How StarSolution collects, uses and protects your data when you use our website, contact form and WhatsApp. Questions? Email our team."
+    },
+    "/team/ebtsam": {
+      "title": "Ebtsam, Social Media Growth & Content · StarSolution",
+      "description": "Ebtsam leads social media growth and performance content at StarSolution, creating posts and videos that help brands grow their audience."
+    },
+    "/team/ganna": {
+      "title": "Ganna, E-commerce Content & Copywriting · StarSolution",
+      "description": "Ganna is the e-commerce content and copywriting specialist at StarSolution, writing product copy, website content and campaign scripts."
+    },
+    "/team/hams": {
+      "title": "Hams Assem, AI & Automation Engineer · StarSolution",
+      "description": "Hams Assem is an AI and automation engineer at StarSolution, building n8n workflows, AI chatbots and automated business systems for stores."
+    },
+    "/team/heba-hesham": {
+      "title": "Heba Hesham, Lead Full-Stack Developer · StarSolution",
+      "description": "Heba Hesham is the lead full-stack and app developer at StarSolution, building Shopify stores, web apps and accounting and courier systems."
+    },
+    "/team/martha-talaat": {
+      "title": "Martha Talaat, Web Developer & E-commerce · StarSolution",
+      "description": "Martha Talaat is a web developer and e-commerce specialist at StarSolution, building and improving online stores for our clients in Egypt."
+    },
+    "/team/mera": {
+      "title": "Mira Markus, E-commerce & Web Developer · StarSolution",
+      "description": "Mira Markus is an e-commerce and web developer at StarSolution, specializing in Shopify stores and custom service websites for brands."
+    },
+    "/terms": {
+      "title": "Terms of Service for Our Website · StarSolution",
+      "description": "The terms that apply when you use the StarSolution website and our AI automation services. Please read them before you book an audit."
+    },
+    "/work/beauty-bareg": {
+      "title": "Beauty Bar Egypt Shopify Store Redesign · StarSolution",
+      "description": "How we redesigned the Beauty Bar Egypt Shopify store: a new design, product catalog and mobile-first shopping. See it before and after."
+    },
+    "/work/hollywood-clinics": {
+      "title": "Hollywood Clinics Website and Online Booking · StarSolution",
+      "description": "The Hollywood Clinics website we redesigned: a modern clinic platform with online booking and a cleaner interface. See it before and after."
     }
   },
-  "ar": {}
+  "ar": {
+    "/systems/courier-system": {
+      "title": "نظام إدارة توصيل الطلبات للمتاجر · ستار سوليوشن",
+      "description": "نظام ادارة شركات توصيل ومتاجر: توزيع الطلبات، تحصيل الدفع عند الاستلام، وإثبات التسليم، كله من شاشة واحدة. احجز استشارة مجانية."
+    },
+    "/solutions/ai-smart-ads": {
+      "title": "إدارة إعلانات ذكية لفيسبوك وجوجل · ستار سوليوشن",
+      "description": "ادارة اعلانات ذكية على ميتا وجوجل بالذكاء الاصطناعي: الميزانية بتروح للي بيشتغل كل يوم، عائد أعلى وإنفاق أقل. احجز استشارة مجانية."
+    },
+    "/": {
+      "title": "شركة أتمتة بالذكاء الاصطناعي في مصر · ستار سوليوشن",
+      "description": "شركة اتمتة بالذكاء الاصطناعي في مصر للمتاجر الإلكترونية. بنأتمت شوبيفاي والواتس والإعلانات والسوشيال عشان متجرك يكبر. احجز استشارة مجانية."
+    },
+    "/automations": {
+      "title": "بوت واتساب وشات بوت وأتمتة n8n · ستار سوليوشن",
+      "description": "بوت واتساب بالذكاء الاصطناعي، وشات بوت لمتجرك، وأتمتة n8n مخصوصة بتشيل الشغل المتكرر من على فريقك. احجز استشارة مجانية دلوقتي."
+    },
+    "/automations/custom-automations": {
+      "title": "أتمتة الأعمال بـ n8n حسب احتياجك · ستار سوليوشن",
+      "description": "اتمتة الأعمال بـ n8n: بنربط شوبيفاي والواتس والشيتس وأدواتك ببعض، فالشغل المتكرر بيخلص لوحده من غير مجهود. احجز استشارة مجانية."
+    },
+    "/automations/ecommerce-chatbot": {
+      "title": "شات بوت ذكي لمتجرك الإلكتروني · ستار سوليوشن",
+      "description": "شات بوت لمتجرك بيرد بالعامية المصرية 24 ساعة على واتساب وماسنجر وإنستجرام، وبيحوّل المحادثة لطلب على متجرك. احجز استشارة مجانية."
+    },
+    "/automations/whatsapp-ai-system": {
+      "title": "شات بوت واتساب للمتاجر: صندوق رسائل ذكي · ستار سوليوشن",
+      "description": "صندوق واتساب موحّد لكل أرقامك: الذكاء الاصطناعي بيقرا كل محادثة، ويحدد موضوعها ومزاج العميل، ويرتّب الأهم أولًا. احجز استشارة مجانية."
+    },
+    "/solutions": {
+      "title": "حلول أتمتة بالذكاء الاصطناعي للمتاجر · ستار سوليوشن",
+      "description": "6 حلول أتمتة بالذكاء الاصطناعي للمتاجر: زيادة المبيعات، تجهيز الطلبات، شوبيفاي، الإعلانات، السوشيال وخدمة العملاء. احجز استشارة."
+    },
+    "/solutions/ai-customer-support": {
+      "title": "خدمة عملاء بالذكاء الاصطناعي على واتساب · ستار سوليوشن",
+      "description": "خدمة عملاء بالذكاء الاصطناعي بترد على عملائك فورًا على الواتس وموقعك ليل ونهار، وبتحوّل الحالات الصعبة لفريقك. احجز استشارة مجانية."
+    },
+    "/solutions/order-fulfillment": {
+      "title": "أتمتة متجر شوبيفاي من الطلب للتوصيل · ستار سوليوشن",
+      "description": "اتمتة متجر شوبيفاي من لحظة الطلب لحد التسليم: تجهيز، توجيه للمورّد، تتبّع، ورسايل للعميل من غير شيت إكسل. احجز استشارة مجانية."
+    },
+    "/solutions/revenue-automation": {
+      "title": "أتمتة المتاجر الإلكترونية لزيادة المبيعات · ستار سوليوشن",
+      "description": "اتمتة الاوردرات والمبيعات في متجرك 24 ساعة: عروض إضافية ذكية، تسعير أحسن، واسترجاع السلات المتروكة على شوبيفاي. احجز استشارة مجانية."
+    },
+    "/solutions/shopify-optimization": {
+      "title": "تصميم متجر شوبيفاي في مصر — مبيعات أكثر · ستار سوليوشن",
+      "description": "عمل متجر شوبيفاي أسرع، وأسهل في الظهور على جوجل، وبيحوّل الزوار لمشترين: سرعة وSEO وتحسين نسبة التحويل. احجز استشارة مجانية."
+    },
+    "/solutions/social-media-growth": {
+      "title": "إدارة السوشيال ميديا بالذكاء الاصطناعي · ستار سوليوشن",
+      "description": "إدارة صفحات السوشيال ميديا بالذكاء الاصطناعي: نشر أوتوماتيك، جدولة محتوى، وتفاعل على انستجرام وتيك توك. احجز استشارة مجانية دلوقتي."
+    },
+    "/systems": {
+      "title": "أنظمة مخصصة للمتاجر الإلكترونية · ستار سوليوشن",
+      "description": "أنظمة بنبنيها للمتاجر في مصر: برنامج حسابات، وإدارة شحن وتوصيل، وأداة SEO، ولوحة Google Analytics. اطلب عرض تجريبي مجاني النهارده."
+    },
+    "/systems/accounting-system": {
+      "title": "برنامج حسابات مع الفاتورة الإلكترونية · ستار سوليوشن",
+      "description": "برنامج حسابات معمول للشركات في مصر: فواتير، ومديونيات العملاء، وربط الفاتورة الإلكترونية مع الضرايب في شاشة واحدة. اطلب عرض تجريبي."
+    },
+    "/systems/google-analytics-system": {
+      "title": "لوحة Google Analytics للمتاجر الإلكترونية · ستار سوليوشن",
+      "description": "لوحة تحليلات واحدة لمتجرك: GA4 وClarity وSearch Console وإعلانات جوجل في شاشة واحدة، بتقارير واضحة وسهلة. اطلب عرض تجريبي مجاني."
+    },
+    "/systems/seo-forge": {
+      "title": "SEO Forge: أداة سيو بالذكاء الاصطناعي · ستار سوليوشن",
+      "description": "SEO Forge أداة سيو بالذكاء الاصطناعي للمتاجر: بحث كلمات مفتاحية، كتابة محتوى، ومتابعة ترتيبك في جوجل من مكان واحد. اطلب عرض تجريبي."
+    },
+    "/about": {
+      "title": "استوديو أتمتة في القاهرة — من نحن · ستار سوليوشن",
+      "description": "ستار سوليوشن استوديو أتمتة بالذكاء الاصطناعي في القاهرة. بنبني متاجر شوبيفاي وبوتات واتساب وأنظمة إعلانات بتشغّل شغلك 24 ساعة."
+    },
+    "/blog": {
+      "title": "مقالات عن أتمتة شوبيفاي والواتساب · ستار سوليوشن",
+      "description": "أدلة عملية عن اتمتة متاجر شوبيفاي، وإدارة الإعلانات بالذكاء الاصطناعي، وبوتات الواتساب للمتاجر الإلكترونية في مصر والمنطقة العربية."
+    },
+    "/blog/an-ai-agent-on-whatsapp": {
+      "title": "شات بوت واتساب لا يزعج عملاءك · ستار سوليوشن",
+      "description": "إزاي تحط مساعد ذكي على الواتساب من غير ما تزعج عملاءك: إيه اللي يتأتمت، وإيه اللي يفضل للفريق، وتبدأ منين. اقرا الدليل كامل هنا."
+    },
+    "/blog/automate-shopify-order-to-delivery": {
+      "title": "دليل أتمتة متجر شوبيفاي من الطلب للتسليم · ستار سوليوشن",
+      "description": "دليل اتمتة متجر شوبيفاي من الطلب للتسليم: إشعار المورّد، وفتح الشحنة، ورقم التتبّع للعميل، وإمتى الموظف لازم يتدخل. اقرا الدليل كامل."
+    },
+    "/blog/what-ai-ad-management-actually-does": {
+      "title": "إدارة الإعلانات الممولة بالذكاء الاصطناعي · ستار سوليوشن",
+      "description": "إيه اللي إدارة الإعلانات الممولة بالذكاء الاصطناعي بتعمله فعلًا لحملات فيسبوك وجوجل، وإزاي بتأثر على العائد. دليل بسيط لأصحاب المتاجر."
+    },
+    "/case-studies": {
+      "title": "دراسات حالة لمتاجر إلكترونية حقيقية · ستار سوليوشن",
+      "description": "نتايج حقيقية من متاجر بنشتغل معاها: من 20 لـ 85 طلب في اليوم، ونسبة تحويل 4.2%، وعائد إعلانات 4.5x. شوف الأرقام قبل وبعد لكل متجر."
+    },
+    "/case-studies/beauty-brand": {
+      "title": "براند تجميل: من 2K إلى 18K متابع · ستار سوليوشن",
+      "description": "إزاي براند تجميل كبّر حسابه على انستجرام من 2K لـ 18K متابع في 3 شهور بمحتوى وجدولة بالذكاء الاصطناعي. اقرا دراسة الحالة كاملة."
+    },
+    "/case-studies/ecommerce-store-cairo": {
+      "title": "متجر في القاهرة: من 20 إلى 85 طلبًا يوميًا · ستار سوليوشن",
+      "description": "إزاي متجر إلكتروني في القاهرة وصل من 20 لـ 85 طلب في اليوم خلال 6 أسابيع بأتمتة الطلبات والواتس. اقرا دراسة الحالة كاملة من هنا."
+    },
+    "/case-studies/electronics-store": {
+      "title": "متجر إلكترونيات: عائد الإعلانات 4.5x · ستار سوليوشن",
+      "description": "إزاي متجر إلكترونيات رفع عائد إعلانات فيسبوك وجوجل من 1.8x لـ 4.5x بإدارة إعلانات بالذكاء الاصطناعي، ورجّع تكلفته من أول شهر."
+    },
+    "/case-studies/home-decor-brand": {
+      "title": "براند ديكور: مبيعات +280% في 4 شهور · ستار سوليوشن",
+      "description": "إزاي براند ديكور منزلي زوّد مبيعاته 280% في 4 شهور بعد ما عملناله لوحة مبيعات مباشرة بتوضح عائد كل قناة إعلانية. اقرا دراسة الحالة."
+    },
+    "/case-studies/shopify-store": {
+      "title": "متجر شوبيفاي: التحويل من 1.8% إلى 4.2% · ستار سوليوشن",
+      "description": "إزاي متجر شوبيفاي رفع نسبة التحويل من 1.8% لـ 4.2% وقلل مصاريف الإعلانات 35%. شوف بالظبط إيه اللي غيرناه في دراسة الحالة دي."
+    },
+    "/contact": {
+      "title": "مراجعة مجانية لنمو متجرك الإلكتروني · ستار سوليوشن",
+      "description": "احجز مراجعة مجانية لمتجرك الإلكتروني. كلمنا على الواتس أو بالإيميل عن شغلك، وهنرد عليك في خلال يوم واحد بخطة واضحة. احجز استشارة."
+    },
+    "/goals": {
+      "title": "اختر هدفك لنمو متجرك الإلكتروني · ستار سوليوشن",
+      "description": "اختار هدفك: مبيعات أكتر، تشغيل أوتوماتيك، رد أسرع على العملاء أو قرارات أوضح، وإحنا نبني النظام اللي يوصلك له. احجز استشارة مجانية."
+    },
+    "/goals/automate-operations": {
+      "title": "أتمتة تشغيل متجرك الإلكتروني · ستار سوليوشن",
+      "description": "اتمتة تشغيل متجرك: الطلبات والتجهيز والتتبّع وتحديثات المورّدين بتمشي لوحدها، وفريقك بيوفر 20 ساعة كل أسبوع. احجز استشارة مجانية."
+    },
+    "/goals/improve-customer-support": {
+      "title": "تحسين خدمة العملاء بالذكاء الاصطناعي · ستار سوليوشن",
+      "description": "حسّن خدمة العملاء بمساعد ذكي بيرد على الواتس وموقعك في ثواني، وبيحوّلك الحالات المعقدة. رد أسرع وعملاء أسعد. احجز استشارة مجانية."
+    },
+    "/goals/increase-revenue": {
+      "title": "زيادة مبيعات متجرك الإلكتروني · ستار سوليوشن",
+      "description": "زوّد مبيعات متجرك بالذكاء الاصطناعي: عروض إضافية، استرجاع السلات المتروكة، وتسعير أذكى شغال طول اليوم والليل. احجز استشارة مجانية."
+    },
+    "/goals/make-better-decisions": {
+      "title": "قرارات أذكى ببيانات متجرك المباشرة · ستار سوليوشن",
+      "description": "خد قرارات أحسن بلوحات مباشرة للمبيعات والإعلانات والزيارات، عشان تعرف إيه اللي شغال في متجرك وإيه محتاج يتصلح. احجز استشارة مجانية."
+    },
+    "/process": {
+      "title": "كيف تعمل الأتمتة في 3 خطوات · ستار سوليوشن",
+      "description": "إزاي الأتمتة بتشتغل في 3 خطوات: مراجعة مجانية لمتجرك، نظام مبني على احتياجك، ونمو تقدر تتابعه بنفسك. أغلب العملاء بيبدأوا في 14 يوم."
+    },
+    "/results": {
+      "title": "نتائج الأتمتة بالذكاء الاصطناعي لعملائنا · ستار سوليوشن",
+      "description": "نتايج حقيقية من الأتمتة: متوسط طلب أعلى، سلات متروكة بترجع، رد أسرع على العملاء وعائد إعلانات أحسن. أرقام عملاء حقيقية ورسوم مباشرة."
+    },
+    "/team": {
+      "title": "فريقنا: خبراء أتمتة وتجارة إلكترونية · ستار سوليوشن",
+      "description": "فريق ستار سوليوشن في القاهرة: مطورين ومهندسين أتمتة ومسوقين بيبنوا ويشغّلوا أنظمة ذكاء اصطناعي للمتاجر الإلكترونية. اتعرف علينا."
+    },
+    "/team/ebtsam": {
+      "title": "ابتسام، صانعة محتوى لنمو السوشيال ميديا · ستار سوليوشن",
+      "description": "ابتسام بتقود حضور البراندات على السوشيال ميديا ونموها على تيك توك وإنستجرام في ستار سوليوشن، بنشر تلقائي وتحليل للترندات."
+    },
+    "/team/ganna": {
+      "title": "جنة، كاتبة محتوى للتجارة الإلكترونية · ستار سوليوشن",
+      "description": "جنة بتكتب وصف المنتجات ومحتوى المواقع ونصوص الحملات في ستار سوليوشن، وكلها مكتوبة عشان تبيع أكتر لمتاجر التجارة الإلكترونية."
+    },
+    "/team/hams": {
+      "title": "همس عاصم، مهندسة ذكاء اصطناعي وأتمتة · ستار سوليوشن",
+      "description": "همس عاصم متخصصة في أتمتة سير العمل بـ n8n وتكاملات الذكاء الاصطناعي في ستار سوليوشن، وبنت شات بوتات وأنظمة شغالة لوحدها."
+    },
+    "/team/heba-hesham": {
+      "title": "هبة هشام، مطوّرة Full-Stack وتطبيقات · ستار سوليوشن",
+      "description": "هبة هشام المطوّرة الأولى للأنظمة الأساسية في ستار سوليوشن، بتبني متاجر شوبيفاي مخصصة وتطبيقات ويب وأنظمة الحسابات والشحن."
+    },
+    "/team/martha-talaat": {
+      "title": "مرثا طلعت، مطورة ويب وتجارة إلكترونية · ستار سوليوشن",
+      "description": "مرثا طلعت بتبني واجهات متاجر شوبيفاي ومواقع خدمات على المقاس في ستار سوليوشن، وخبرتها في منصات التجارة الإلكترونية والأدوات الرقمية."
+    },
+    "/team/mera": {
+      "title": "ميرا مرقس، مطورة مواقع وتجارة إلكترونية · ستار سوليوشن",
+      "description": "ميرا مرقس متخصصة في متاجر شوبيفاي ومواقع الخدمات المخصصة في ستار سوليوشن، وطوّرت حلول لبراندات التجارة الإلكترونية ومنصات الويب."
+    },
+    "/work": {
+      "title": "أعمالنا في متاجر شوبيفاي والمواقع · ستار سوليوشن",
+      "description": "متاجر شوبيفاي ومواقع صممناها وبنيناها، منها Beauty Bar Egypt وHollywood Clinics. قارن كل موقع قبل وبعد التعديل. احجز استشارة مجانية."
+    },
+    "/work/beauty-bareg": {
+      "title": "إعادة تصميم متجر Beauty Bar Egypt · ستار سوليوشن",
+      "description": "إزاي عدنا تصميم متجر شوبيفاي لـ Beauty Bar Egypt: تصميم جديد، كتالوج منتجات، وتجربة شرا مناسبة للموبايل. شوف الموقع قبل وبعد."
+    },
+    "/work/hollywood-clinics": {
+      "title": "موقع Hollywood Clinics والحجز أونلاين · ستار سوليوشن",
+      "description": "موقع Hollywood Clinics اللي عدنا تصميمه: منصة حديثة للعيادة مع حجز مواعيد أونلاين وتصميم أوضح وأسهل. شوف الموقع قبل وبعد التعديل."
+    }
+  }
 }

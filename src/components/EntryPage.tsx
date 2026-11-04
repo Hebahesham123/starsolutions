@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Icon } from './Icon';
 import { PageHead } from './PageHead';
 import { Reveal } from './Reveal';
+import { Linked } from './Linked';
 import { site } from '@/lib/content';
 import type { Entry } from '@/lib/types';
 import { getDict, localeHref, type Locale } from '@/lib/i18n';
@@ -43,13 +44,16 @@ export function EntryPage({
      card left most of a screen of empty column beside the body; somewhere to go
      next is more use there than white space, and it links the section together. */
   const more = [next, prev].filter((e): e is Entry => !!e);
+  /* This page's path without the locale, for its internal links. */
+  const basePath = locale === 'ar' ? sectionHref.replace(/^\/ar(?=\/|$)/, '') : sectionHref;
+  const path = `${basePath}/${entry.slug}`;
 
   return (
     <>
       <PageHead
         eyebrow={entry.eyebrow}
         title={entry.title}
-        lede={entry.summary}
+        lede={entry.summary ? <Linked text={entry.summary} locale={locale} path={path} /> : undefined}
         tone={hue}
         crumbs={[{ href: localeHref(locale, '/'), label: t('crumbs.home') }, { href: sectionHref, label: section }, { label: entry.title }]}
         aside={hasPanel ? (
@@ -106,7 +110,7 @@ export function EntryPage({
                       <ul className="detail-points">
                         {entry.points.map((p) => (
                           <Reveal as="li" key={p} repeat y={10}>
-                            <Icon name="check" /> {p}
+                            <Icon name="check" /> <Linked text={p} locale={locale} path={path} />
                           </Reveal>
                         ))}
                       </ul>

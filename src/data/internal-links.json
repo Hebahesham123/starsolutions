@@ -1,0 +1,287 @@
+{
+  "_readme": "Internal links inside existing page text. Per language, per page (path without /ar): the exact words that become a link and the page they link to (also without /ar). Words that are not found in the page's text are skipped, so editing a sentence never breaks the page.",
+  "en": {
+    "/blog/an-ai-agent-on-whatsapp": [
+      {
+        "text": "answers the questions it can answer instantly",
+        "href": "/solutions/ai-customer-support"
+      },
+      {
+        "text": "order status, shipping and product questions",
+        "href": "/automations/ecommerce-chatbot"
+      }
+    ],
+    "/blog/automate-shopify-order-to-delivery": [
+      {
+        "text": "the gap between a paid order and a shipped parcel",
+        "href": "/solutions/order-fulfillment"
+      },
+      {
+        "text": "creates a shipment",
+        "href": "/systems/courier-system"
+      }
+    ],
+    "/blog/what-ai-ad-management-actually-does": [
+      {
+        "text": "move budget toward them",
+        "href": "/solutions/ai-smart-ads"
+      },
+      {
+        "text": "the accounts we manage",
+        "href": "/case-studies/electronics-store"
+      }
+    ],
+    "/case-studies/beauty-brand": [
+      {
+        "text": "Content scheduling and engagement automation",
+        "href": "/solutions/social-media-growth"
+      },
+      {
+        "text": "AI captions and hashtags",
+        "href": "/team/ebtsam"
+      }
+    ],
+    "/case-studies/ecommerce-store-cairo": [
+      {
+        "text": "fully automated pipeline",
+        "href": "/solutions/order-fulfillment"
+      },
+      {
+        "text": "Abandoned cart recovery",
+        "href": "/solutions/revenue-automation"
+      }
+    ],
+    "/case-studies/electronics-store": [
+      {
+        "text": "AI managed budget allocation",
+        "href": "/solutions/ai-smart-ads"
+      },
+      {
+        "text": "creative testing",
+        "href": "/blog/what-ai-ad-management-actually-does"
+      }
+    ],
+    "/case-studies/home-decor-brand": [
+      {
+        "text": "A live dashboard",
+        "href": "/systems/google-analytics-system"
+      },
+      {
+        "text": "unified in one view",
+        "href": "/goals/make-better-decisions"
+      }
+    ],
+    "/case-studies/shopify-store": [
+      {
+        "text": "Store speed, SEO and checkout work",
+        "href": "/solutions/shopify-optimization"
+      },
+      {
+        "text": "ad spend came down",
+        "href": "/solutions/ai-smart-ads"
+      }
+    ],
+    "/solutions/ai-customer-support": [
+      {
+        "text": "A chatbot",
+        "href": "/automations/ecommerce-chatbot"
+      },
+      {
+        "text": "on WhatsApp",
+        "href": "/blog/an-ai-agent-on-whatsapp"
+      }
+    ],
+    "/solutions/ai-smart-ads": [
+      {
+        "text": "Meta and Google campaigns",
+        "href": "/case-studies/electronics-store"
+      },
+      {
+        "text": "budget moves to what performs",
+        "href": "/blog/what-ai-ad-management-actually-does"
+      }
+    ],
+    "/solutions/order-fulfillment": [
+      {
+        "text": "From order to delivery",
+        "href": "/blog/automate-shopify-order-to-delivery"
+      },
+      {
+        "text": "Tracking numbers",
+        "href": "/systems/courier-system"
+      }
+    ],
+    "/solutions/revenue-automation": [
+      {
+        "text": "abandoned cart recovery",
+        "href": "/case-studies/ecommerce-store-cairo"
+      },
+      {
+        "text": "what actually converts",
+        "href": "/solutions/shopify-optimization"
+      }
+    ],
+    "/solutions/shopify-optimization": [
+      {
+        "text": "conversion work",
+        "href": "/case-studies/shopify-store"
+      },
+      {
+        "text": "traffic you already pay for",
+        "href": "/solutions/ai-smart-ads"
+      }
+    ],
+    "/solutions/social-media-growth": [
+      {
+        "text": "content scheduling for Instagram and TikTok",
+        "href": "/case-studies/beauty-brand"
+      },
+      {
+        "text": "DM replies",
+        "href": "/solutions/ai-customer-support"
+      }
+    ]
+  },
+  "ar": {
+    "/blog/an-ai-agent-on-whatsapp": [
+      {
+        "text": "يرد فورًا على ما يعرفه",
+        "href": "/solutions/ai-customer-support"
+      },
+      {
+        "text": "حالة الطلب أو الشحن",
+        "href": "/automations/ecommerce-chatbot"
+      }
+    ],
+    "/blog/automate-shopify-order-to-delivery": [
+      {
+        "text": "تخرج فيها الشحنة",
+        "href": "/solutions/order-fulfillment"
+      },
+      {
+        "text": "ورد المورّد يفتح شحنة",
+        "href": "/systems/courier-system"
+      }
+    ],
+    "/blog/what-ai-ad-management-actually-does": [
+      {
+        "text": "وتنقل الميزانية إليه",
+        "href": "/solutions/ai-smart-ads"
+      },
+      {
+        "text": "الحسابات التي ندير إعلاناتها",
+        "href": "/case-studies/electronics-store"
+      }
+    ],
+    "/case-studies/beauty-brand": [
+      {
+        "text": "جدولة المحتوى والرد التلقائي على التفاعل",
+        "href": "/solutions/social-media-growth"
+      },
+      {
+        "text": "نص كل منشور وكلماته بالذكاء الاصطناعي",
+        "href": "/team/ebtsam"
+      }
+    ],
+    "/case-studies/ecommerce-store-cairo": [
+      {
+        "text": "وأصبح كل شيء يتم وحده",
+        "href": "/solutions/order-fulfillment"
+      },
+      {
+        "text": "متابعة السلات المتروكة",
+        "href": "/solutions/revenue-automation"
+      }
+    ],
+    "/case-studies/electronics-store": [
+      {
+        "text": "توزيع الميزانية بالذكاء الاصطناعي",
+        "href": "/solutions/ai-smart-ads"
+      },
+      {
+        "text": "اختبار تصميمات",
+        "href": "/blog/what-ai-ad-management-actually-does"
+      }
+    ],
+    "/case-studies/home-decor-brand": [
+      {
+        "text": "لوحة واحدة مباشرة",
+        "href": "/systems/google-analytics-system"
+      },
+      {
+        "text": "في شاشة واحدة",
+        "href": "/goals/make-better-decisions"
+      }
+    ],
+    "/case-studies/shopify-store": [
+      {
+        "text": "سرعة المتجر وظهوره في البحث وصفحة الدفع",
+        "href": "/solutions/shopify-optimization"
+      },
+      {
+        "text": "والإنفاق الإعلاني نزل",
+        "href": "/solutions/ai-smart-ads"
+      }
+    ],
+    "/solutions/ai-customer-support": [
+      {
+        "text": "المساعد الذكي",
+        "href": "/automations/ecommerce-chatbot"
+      },
+      {
+        "text": "على واتساب وموقعك",
+        "href": "/blog/an-ai-agent-on-whatsapp"
+      }
+    ],
+    "/solutions/ai-smart-ads": [
+      {
+        "text": "حملات ميتا وجوجل",
+        "href": "/case-studies/electronics-store"
+      },
+      {
+        "text": "فتنتقل الميزانية كل يوم إلى الإعلان الذي يبيع",
+        "href": "/blog/what-ai-ad-management-actually-does"
+      }
+    ],
+    "/solutions/order-fulfillment": [
+      {
+        "text": "حتى التسليم",
+        "href": "/systems/courier-system"
+      },
+      {
+        "text": "أي مشكلة تصل إلى فريقك",
+        "href": "/blog/automate-shopify-order-to-delivery"
+      }
+    ],
+    "/solutions/revenue-automation": [
+      {
+        "text": "كل سلة متروكة تصلها متابعة",
+        "href": "/case-studies/ecommerce-store-cairo"
+      },
+      {
+        "text": "السعر الذي يبيع أكثر",
+        "href": "/solutions/shopify-optimization"
+      }
+    ],
+    "/solutions/shopify-optimization": [
+      {
+        "text": "ونحسّن صفحاته حتى يشتري عدد أكبر",
+        "href": "/case-studies/shopify-store"
+      },
+      {
+        "text": "الزيارات التي تدفع مقابلها",
+        "href": "/solutions/ai-smart-ads"
+      }
+    ],
+    "/solutions/social-media-growth": [
+      {
+        "text": "ننشر لك على إنستجرام وتيك توك",
+        "href": "/case-studies/beauty-brand"
+      },
+      {
+        "text": "ونرد على التعليقات والرسائل",
+        "href": "/solutions/ai-customer-support"
+      }
+    ]
+  }
+}

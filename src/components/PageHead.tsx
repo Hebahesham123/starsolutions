@@ -1,3 +1,4 @@
+import type * as React from 'react';
 import Link from 'next/link';
 import { Icon } from './Icon';
 import { Reveal } from './Reveal';
@@ -8,7 +9,7 @@ export function PageHead({
 }: {
   eyebrow?: string;
   title: string;
-  lede?: string;
+  lede?: React.ReactNode;
   crumbs?: { href?: string; label: string }[];
   /** Draws the entry's own mark above the title, so a detail page opens with the
    *  same icon and colour as the card that was clicked to reach it. */
