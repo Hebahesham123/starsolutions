@@ -5,6 +5,7 @@ import { Icon } from './Icon';
 import shots from '@/data/shots.json';
 import type { ProjectTheme } from '@/lib/types';
 import { getDict, type Locale } from '@/lib/i18n';
+import { imageAlt } from '@/lib/image-alt';
 
 /** One entry in `src/data/shots.json`, written by `npm run shots`. */
 type Shot = { width: number; height: number; lqip?: string };
@@ -73,7 +74,7 @@ export function ShotFrame({
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={`/shots/${slug}.webp`}
-          alt={`${title} storefront`}
+          alt={imageAlt(`shots/${slug}`, locale, `${title} storefront`)}
           width={shot?.width}
           height={shot?.height}
           loading="lazy"

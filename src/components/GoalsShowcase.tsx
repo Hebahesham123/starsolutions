@@ -6,6 +6,7 @@ import { Rail } from './Rail';
 import { GoalMotif } from './ui/GoalMotif';
 import type { Entry } from '@/lib/types';
 import { getDict, localeHref, type Locale } from '@/lib/i18n';
+import { imageAlt } from '@/lib/image-alt';
 
 /**
  * The goals, as a horizontal rail of banner cards.
@@ -73,7 +74,7 @@ export function GoalsShowcase({ goals, locale = 'en' }: { goals: Entry[]; locale
                 src={goalImage(g)!}
                 // Describes the photo for Google Images and screen readers.
                 // `imageAlt` in the data wins; the goal's title is the default.
-                alt={g.imageAlt ?? g.title}
+                alt={g.imageAlt ?? imageAlt(`goals/${g.slug}`, locale, g.title)}
                 // The first card is on the first screen on a phone and was the
                 // Arabic page's LCP element; lazy-loading it delayed it.
                 loading={i === 0 ? 'eager' : 'lazy'}

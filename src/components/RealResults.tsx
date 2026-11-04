@@ -141,7 +141,7 @@ export function Comparison({ project, locale = 'en' }: { project: Project; local
     >
         <div className="rr-layer rr-after">
           {shot
-            ? <ShotFrame slug={project.slug} title={project.title} />
+            ? <ShotFrame slug={project.slug} title={project.title} locale={locale} />
             : <AfterFrame theme={project.theme} />}
         </div>
         <div className="rr-layer rr-before">
@@ -150,6 +150,7 @@ export function Comparison({ project, locale = 'en' }: { project: Project; local
                 slug={beforeSlug}
                 title={`${project.title} — previous site`}
                 scrollLabel="scroll the previous site"
+                locale={locale}
               />
             : <BeforeFrame />}
         </div>
