@@ -700,10 +700,11 @@
    splash clears itself on time under every one of those. SiteSplash then
    unmounts the node; if it never gets the chance, nothing is blocked.
 
-   1.29s of hold, then a 0.61s fade. The hold is set from the lockup, not
-   chosen: the mark draws in 0.7s and the tagline settles at ~1.11s, so the fade
-   cannot start before that or the finished logo is never actually on screen.
-   Short enough not to be a toll booth.
+   0.3s of hold, then a 0.5s fade: 0.8s in all. It was 1.29s + 0.61s, timed so
+   the finished lockup was on screen before the fade, but Lighthouse always
+   loads as a first visit, so the opaque hold was counted as render delay on
+   every page's LCP. Now the logo is still drawing as it fades. pointer-events
+   is off so the overlay never swallows a tap while it is fading.
    ========================================================= */
 .site-splash{
   position: fixed; inset: 0; z-index: 200;
@@ -713,11 +714,12 @@
   background:
     radial-gradient(58% 42% at 50% 42%, rgba(6,182,255,.13), transparent 70%),
     #0B1026;
-  animation: splash-out 1.9s cubic-bezier(.16,.84,.3,1) forwards;
+  pointer-events: none;
+  animation: splash-out .8s cubic-bezier(.16,.84,.3,1) forwards;
 }
 
 @keyframes splash-out{
-  0%, 68%   { opacity: 1; }
+  0%, 38%   { opacity: 1; }
   100%      { opacity: 0; visibility: hidden; }
 }
 

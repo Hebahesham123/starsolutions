@@ -42,7 +42,7 @@ export function SiteSplash() {
 
     // Matches the CSS animation. Slightly longer, so the node is removed after
     // the paint that hides it rather than during it.
-    const done = window.setTimeout(() => setGone(true), 2100);
+    const done = window.setTimeout(() => setGone(true), 1000);
 
     const skip = () => setGone(true);
     window.addEventListener('pointerdown', skip, { once: true });
