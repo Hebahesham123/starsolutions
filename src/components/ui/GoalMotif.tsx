@@ -21,7 +21,7 @@ const MOTIFS: Record<string, React.ReactNode> = {
   revenue: (
     <g
       fill="currentColor"
-      fontFamily="'General Sans', 'Satoshi', system-ui, sans-serif"
+      style={{ fontFamily: 'var(--font-general-sans), var(--font-satoshi), system-ui, sans-serif' }}
       fontWeight="700"
     >
       <text x="2" y="88" fontSize="58">$</text>

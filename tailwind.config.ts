@@ -12,11 +12,11 @@ const config: Config = {
         hairline: '#E7ECF8',
       },
       fontFamily: {
-        display: ['General Sans', 'SF Pro Display', '-apple-system', 'Segoe UI', 'sans-serif'],
-        sans: ['Satoshi', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
-        mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+        display: ['var(--font-general-sans)', 'SF Pro Display', '-apple-system', 'Segoe UI', 'sans-serif'],
+        sans: ['var(--font-satoshi)', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+        mono: ['var(--font-jetbrains-mono)', 'ui-monospace', 'SFMono-Regular', 'monospace'],
         // the logo face; var() is set by next/font in the root layout
-        jakarta: ['var(--font-jakarta)', 'Plus Jakarta Sans', 'Satoshi', 'sans-serif'],
+        jakarta: ['var(--font-jakarta)', 'Plus Jakarta Sans', 'var(--font-satoshi)', 'sans-serif'],
       },
       maxWidth: { shell: '1200px' },
     },

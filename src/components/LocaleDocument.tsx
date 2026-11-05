@@ -1,4 +1,5 @@
 import { Plus_Jakarta_Sans } from 'next/font/google';
+import localFont from 'next/font/local';
 import '@/app/globals.css';
 import '@/app/design-system.css';
 import '@/app/next-additions.css';
@@ -13,6 +14,58 @@ const jakarta = Plus_Jakarta_Sans({
   variable: '--font-jakarta',
   display: 'swap',
 });
+
+/*
+ * The Fontshare faces, self-hosted from src/fonts (free to self-host under the
+ * ITF Free Font License; JetBrains Mono is SIL OFL). They were a render-blocking
+ * stylesheet from api.fontshare.com, and that URL only ever returned its first
+ * family: Satoshi and JetBrains Mono never loaded and fell back to the system
+ * font. Weights are the ones the pages actually render (measured, not guessed).
+ * next/font names the families itself, so the CSS reaches them through these
+ * variables rather than by 'General Sans' / 'Satoshi' / 'JetBrains Mono'.
+ *
+ * Only General Sans is preloaded: it sets the headings, which are the LCP
+ * element on most pages. The other two swap in when the page asks for them.
+ */
+const generalSans = localFont({
+  src: [
+    { path: '../fonts/GeneralSans-500.woff2', weight: '500', style: 'normal' },
+    { path: '../fonts/GeneralSans-600.woff2', weight: '600', style: 'normal' },
+    { path: '../fonts/GeneralSans-700.woff2', weight: '700', style: 'normal' },
+  ],
+  variable: '--font-general-sans',
+  display: 'swap',
+  preload: true,
+});
+
+/** No 600 exists for Satoshi; semibold text uses 700, as it would have from Fontshare. */
+const satoshi = localFont({
+  src: [
+    { path: '../fonts/Satoshi-400.woff2', weight: '400', style: 'normal' },
+    { path: '../fonts/Satoshi-500.woff2', weight: '500', style: 'normal' },
+    { path: '../fonts/Satoshi-700.woff2', weight: '700', style: 'normal' },
+  ],
+  variable: '--font-satoshi',
+  display: 'swap',
+  preload: false,
+});
+
+const jetbrainsMono = localFont({
+  src: [
+    { path: '../fonts/JetBrainsMono-400.woff2', weight: '400', style: 'normal' },
+    { path: '../fonts/JetBrainsMono-500.woff2', weight: '500', style: 'normal' },
+    { path: '../fonts/JetBrainsMono-600.woff2', weight: '600', style: 'normal' },
+    { path: '../fonts/JetBrainsMono-700.woff2', weight: '700', style: 'normal' },
+  ],
+  variable: '--font-jetbrains-mono',
+  display: 'swap',
+  preload: false,
+  // A monospace face measured against Arial would give the wrong fallback.
+  adjustFontFallback: false,
+  fallback: ['ui-monospace', 'SFMono-Regular', 'monospace'],
+});
+
+const fontVars = `${jakarta.variable} ${generalSans.variable} ${satoshi.variable} ${jetbrainsMono.variable}`;
 
 /**
  * The document — `<html>`, `<head>`, `<body>` — for whichever locale owns it.
@@ -53,7 +106,7 @@ export function LocaleDocument({
     <html
       lang={meta.htmlLang}
       dir={meta.dir}
-      className={`js ${jakarta.variable}${fontClass ? ` ${fontClass}` : ''}`}
+      className={`js ${fontVars}${fontClass ? ` ${fontClass}` : ''}`}
       suppressHydrationWarning
     >
       <head>
@@ -69,11 +122,6 @@ export function LocaleDocument({
           dangerouslySetInnerHTML={{
             __html: "try{if(sessionStorage.getItem('ss-splash-seen'))document.documentElement.style.setProperty('--splash','none')}catch(e){}",
           }}
-        />
-        <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="" />
-        <link
-          href="https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700&f[]=satoshi@400,500,700&f[]=jetbrains-mono@500&display=swap"
-          rel="stylesheet"
         />
         {/* The Arabic face (IBM Plex Sans Arabic) is no longer a Google Fonts
             stylesheet here: that blocked the first paint of every /ar page by

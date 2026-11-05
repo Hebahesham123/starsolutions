@@ -74,7 +74,7 @@ const paths: Record<string, React.ReactNode> = {
     <text
       x="8" y="18.6" textAnchor="middle"
       fontSize="19" fontWeight="700"
-      fontFamily="'General Sans', 'Satoshi', system-ui, sans-serif"
+      style={{ fontFamily: 'var(--font-general-sans), var(--font-satoshi), system-ui, sans-serif' }}
       fill="currentColor" stroke="none"
     >
       $

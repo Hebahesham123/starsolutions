@@ -75,6 +75,10 @@ export function GoalsShowcase({ goals, locale = 'en' }: { goals: Entry[]; locale
                 // Describes the photo for Google Images and screen readers.
                 // `imageAlt` in the data wins; the goal's title is the default.
                 alt={g.imageAlt ?? imageAlt(`goals/${g.slug}`, locale, g.title)}
+                // The card's 4:3 box. CSS sizes the picture to fill it either
+                // way; these reserve the shape before the stylesheet applies.
+                width={1200}
+                height={900}
                 // The first card is on the first screen on a phone and was the
                 // Arabic page's LCP element; lazy-loading it delayed it.
                 loading={i === 0 ? 'eager' : 'lazy'}
