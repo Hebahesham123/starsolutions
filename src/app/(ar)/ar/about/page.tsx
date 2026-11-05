@@ -32,7 +32,7 @@ export default function ArabicAboutPage() {
         <div className="mx-auto max-w-shell px-5 lg:px-8">
           <div className="detail-layout">
             <div className="detail-body">
-              <Reveal>
+              <Reveal eager fade={false}>
                 <h2>{t('about.whatWeDo')}</h2>
                 <ul className="detail-points">
                   <li><Icon name="check" /> {t('about.do1')}</li>

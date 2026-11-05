@@ -23,7 +23,7 @@ export default async function AboutPage() {
         <div className="mx-auto max-w-shell px-5 lg:px-8">
           <div className="detail-layout">
             <div className="detail-body">
-              <Reveal>
+              <Reveal eager fade={false}>
                 <h2>What we do</h2>
                 <ul className="detail-points">
                   <li><Icon name="check" /> Automate Shopify stores end to end, from order to delivery</li>

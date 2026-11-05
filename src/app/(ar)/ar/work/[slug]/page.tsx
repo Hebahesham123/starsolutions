@@ -56,7 +56,7 @@ export default function ArabicProjectPage({ params }: { params: { slug: string }
         <div className="mx-auto max-w-shell px-5 lg:px-8">
           <div className="detail-layout">
             <div className="detail-body">
-              <Reveal>
+              <Reveal eager fade={false}>
                 <BeforeAfter
                   locale={locale}
                   theme={project.theme}

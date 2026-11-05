@@ -81,7 +81,10 @@ export function EntryPage({
         <div className="mx-auto max-w-shell px-5 lg:px-8">
           <div className="detail-layout">
             <div className="detail-body">
-              <Reveal>
+              {/* First screen on a phone, right under the head: eager and
+                  without the fade, like PageHead, so it paints with the HTML
+                  instead of after hydration. */}
+              <Reveal eager fade={false}>
                 {/* The stats used to sit here. They are the shortest, most
                     concrete thing an entry has, so they earn a place in the
                     head rather than a third of the body's height. */}
@@ -95,21 +98,16 @@ export function EntryPage({
                         {entry.points.map((p) => <li key={p}>{p}</li>)}
                       </ul>
                     ) : (
-                      /* One at a time, on the way down and on the way back up.
-                         `repeat` is the same reversible reveal the systems cards
-                         use, so a point fades in as it crosses the line near the
-                         bottom of the screen and fades out again if you scroll
-                         back past it, leaving whatever is above still showing.
-
-                         Hidden points keep their space rather than collapsing.
-                         Reflowing the list under a scroll that is in progress
-                         moves the ground under the reader's thumb — and on the
-                         way up, removing height below the viewport is what makes
-                         a page jump. Only the ink changes here, never the
-                         layout. */
+                      /* Each point slides up in CSS from the first paint,
+                         staggered. It used to be a reversible Framer fade
+                         (`repeat`), which shipped every point at opacity 0 in
+                         the server HTML; on a phone the first point is in the
+                         first screen and was the page's LCP element, invisible
+                         until hydration. Transform only, so nothing moves in
+                         the layout and the text is readable from frame one. */
                       <ul className="detail-points">
-                        {entry.points.map((p) => (
-                          <Reveal as="li" key={p} repeat y={10}>
+                        {entry.points.map((p, i) => (
+                          <Reveal as="li" key={p} y={10} delay={0.05 + i * 0.05} eager fade={false}>
                             <Icon name="check" /> <Linked text={p} locale={locale} path={path} />
                           </Reveal>
                         ))}

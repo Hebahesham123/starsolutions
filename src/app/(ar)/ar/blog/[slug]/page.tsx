@@ -45,7 +45,7 @@ export default function ArabicPostPage({ params }: { params: { slug: string } })
         <div className="mx-auto max-w-shell px-5 lg:px-8">
           <div className="detail-layout">
             <div className="detail-body">
-              <Reveal>
+              <Reveal eager fade={false}>
                 {post.body.map((para) => (
                   <p key={para.slice(0, 24)} className="section-sub" style={{ fontSize: '15.5px', marginTop: '14px' }}><Linked text={para} locale={locale} path={`/blog/${post.slug}`} /></p>
                 ))}
