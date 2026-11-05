@@ -718,6 +718,16 @@
   animation: splash-out .8s cubic-bezier(.16,.84,.3,1) forwards;
 }
 
+/* The logo settles into place while the overlay holds. Transform only, so it
+   is opaque from the first frame. Inside the reduced-motion rule below, the
+   whole splash is display:none, so this never runs there. */
+.site-splash .splash-logo{
+  animation: splash-logo-in .5s cubic-bezier(.16,.84,.3,1) both;
+}
+@keyframes splash-logo-in{
+  from{ transform: translateY(8px) scale(.94); }
+}
+
 @keyframes splash-out{
   0%, 38%   { opacity: 1; }
   100%      { opacity: 0; visibility: hidden; }

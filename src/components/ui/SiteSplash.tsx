@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { LogoAnimated } from './LogoAnimated';
+import { LogoStatic } from './LogoStatic';
 
 /** Session key. Shared with the inline pre-paint script in the root layout. */
 const SEEN = 'ss-splash-seen';
@@ -63,17 +63,14 @@ export function SiteSplash() {
 
   return (
     <div className="site-splash" aria-hidden="true">
-      <LogoAnimated
-        size={72}
-        layout="stacked"
-        variant="dark"
-        // 0.7, not 0.95: the wordmark starts at 40% of this and the tagline at
-        // 58%, each taking 0.7s of their own, so the lockup is not actually
-        // complete until draw*0.58 + 0.7. At 0.95 that landed at 1.25s — after
-        // the CSS fade had already begun, so the finished logo was never seen.
-        duration={0.7}
-        replayOnHover={false}
-      />
+      {/* The still logo, not LogoAnimated. Every part of the animated one is a
+          Framer animation whose starting opacity:0 is written into the server
+          HTML, so the splash showed an empty screen until hydration, and the
+          wordmark became the page's LCP element once it finally appeared. The
+          splash is gone in 0.8s, before the bundle has run on a phone, so the
+          draw-in was rarely seen anyway. The entrance is CSS (.splash-logo),
+          transform only: visible from the first paint. */}
+      <LogoStatic size={72} layout="stacked" variant="dark" className="splash-logo" />
     </div>
   );
 }
