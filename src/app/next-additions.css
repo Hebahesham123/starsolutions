@@ -4273,6 +4273,12 @@
 @keyframes reveal-in{
   from{ opacity:0; transform: translateY(var(--reveal-y, 18px)) scale(.995); }
 }
+/* .reveal-eager.reveal-rise: the same slide-up without the fade, for first-
+   screen text that is the page's LCP element (PageHead). Ends where reveal-in
+   ends, so the loaded page looks the same. */
+@keyframes reveal-rise{
+  from{ transform: translateY(var(--reveal-y, 18px)) scale(.995); }
+}
 @keyframes hero-title-in{
   from{ opacity:0; transform: translateY(14px); }
 }
@@ -4283,6 +4289,7 @@
   .reveal-eager{
     animation: reveal-in .62s cubic-bezier(.16,.84,.3,1) var(--reveal-delay, 0s) both;
   }
+  .reveal-eager.reveal-rise{ animation-name: reveal-rise; }
   .hero-title-in{
     animation: hero-title-in .7s cubic-bezier(.16,.84,.3,1) both;
     will-change: opacity, transform; /* as Framer left it */

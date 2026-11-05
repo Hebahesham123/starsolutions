@@ -53,13 +53,16 @@ export function PageHead({
             ))}
           </nav>
         )}
-        <Reveal className="page-head-copy">
+        {/* First screen of every inner page, and the lede is usually its LCP
+            element: eager so it does not wait for JavaScript, no fade so it is
+            visible from the first paint. */}
+        <Reveal className="page-head-copy" eager fade={false}>
           {icon && <span className="head-mark" aria-hidden="true"><Icon name={icon} /></span>}
           {eyebrow && <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> {eyebrow}</p>}
           <h1 className="page-title">{title}</h1>
           {lede && <p className="page-lede">{lede}</p>}
         </Reveal>
-        {aside && <Reveal className="page-head-aside" delay={0.1}>{aside}</Reveal>}
+        {aside && <Reveal className="page-head-aside" delay={0.1} eager fade={false}>{aside}</Reveal>}
       </div>
     </header>
     {/* Breadcrumb structured data for Google, from the same crumbs drawn

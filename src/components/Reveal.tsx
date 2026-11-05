@@ -16,6 +16,7 @@ export function Reveal({
   as = 'div',
   repeat = false,
   eager = false,
+  fade = true,
 }: {
   children: React.ReactNode;
   delay?: number;
@@ -34,13 +35,19 @@ export function Reveal({
    * seconds on a phone, and Google measures LCP from when it becomes visible.
    */
   eager?: boolean;
+  /**
+   * With `eager`, false slides the content up without the fade: it is opaque
+   * from the first frame, so the browser can count it as painted (LCP) right
+   * away instead of after the fade starts. For a page's main heading and lede.
+   */
+  fade?: boolean;
 }) {
   const reduce = useReducedMotion();
   if (eager) {
     const Plain = as;
     return (
       <Plain
-        className={`reveal-eager${className ? ` ${className}` : ''}`}
+        className={`reveal-eager${fade ? '' : ' reveal-rise'}${className ? ` ${className}` : ''}`}
         style={{ ...style, ['--reveal-y' as string]: `${y}px`, ['--reveal-delay' as string]: `${delay}s` }}
       >
         {children}
