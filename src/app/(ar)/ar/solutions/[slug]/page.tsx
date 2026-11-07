@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { EntryPage } from '@/components/EntryPage';
+import { Faq } from '@/components/Faq';
+import { solutionFaq } from '@/lib/faq';
 import { getContent, getDict, localeHref } from '@/lib/i18n';
 import { alternates, withSeo } from '@/lib/seo';
 import { JsonLd, service } from '@/lib/schema';
@@ -40,6 +42,7 @@ export default function SolutionsDetailPage({ params }: { params: { slug: string
       prev={list[index - 1] ?? null}
       next={list[index + 1] ?? null}
     />
+    <Faq items={solutionFaq(params.slug, locale)} locale={locale} path={`/solutions/${params.slug}`} />
     <JsonLd data={service(list[index], 'ar', `/solutions/${params.slug}`)} />
     </>
   );

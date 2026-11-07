@@ -1,0 +1,86 @@
+{
+  "revenue-automation": {
+    "en": [
+      { "q": "What is e-commerce automation and how does it grow revenue?", "a": "E-commerce automation runs the sales tasks your team would otherwise do by hand: showing the right upsell, following up on abandoned carts and sending post-purchase offers. Because it works 24/7, you sell more from the same visitors without adding staff." },
+      { "q": "How do you recover abandoned carts?", "a": "When a customer leaves items in the cart, they get a follow-up within minutes by email, SMS or WhatsApp. The message reminds them what they left and can include an offer, so more of those carts turn into orders." },
+      { "q": "Does it work with my Shopify store?", "a": "Yes. We build the automation on top of your existing Shopify store, so you keep your products, theme and payment setup. Nothing changes for your customers except better offers at the right time." },
+      { "q": "Do I need to manage anything after setup?", "a": "No. Once the offers and follow-ups are set, they run on their own. You can see what each one earns and ask us to adjust prices or offers at any time." }
+    ],
+    "ar": [
+      { "q": "يعني إيه أتمتة المتاجر الإلكترونية، وإزاي بتزود المبيعات؟", "a": "أتمتة المتاجر الإلكترونية بتعمل شغل البيع اللي فريقك كان بيعمله بإيده: تعرض العرض الإضافي المناسب، وتتابع السلات المتروكة، وتبعت عروض بعد الشراء. ولأنها شغالة 24 ساعة، بتبيع أكتر من نفس الزوار من غير ما تزود موظفين." },
+      { "q": "إزاي بترجّعوا السلات المتروكة؟", "a": "لما العميل يسيب منتجات في السلة، بتوصله رسالة متابعة خلال دقايق على الإيميل أو الرسائل أو واتساب. الرسالة بتفكّره باللي ساب ويمكن يكون فيها عرض، فعدد أكبر من السلات دي بيتحول لطلبات." },
+      { "q": "هل ده بيشتغل مع متجري على شوبيفاي؟", "a": "أيوه. بنبني الأتمتة على متجرك الحالي على شوبيفاي، فمنتجاتك والثيم وطرق الدفع بيفضلوا زي ما هم. الفرق الوحيد عند عميلك إنه بيشوف العرض المناسب في الوقت المناسب." },
+      { "q": "هل محتاج أتابع حاجة بعد ما نشغّلها؟", "a": "لأ. بعد ما العروض والمتابعات تتظبط بتشتغل لوحدها. تقدر تشوف كل عرض جاب كام، وتطلب مننا نعدّل الأسعار أو العروض في أي وقت." }
+    ]
+  },
+  "order-fulfillment": {
+    "en": [
+      { "q": "What does Shopify automation from order to delivery include?", "a": "Every paid order is routed to the right supplier, prepared, handed to shipping and tracked automatically. The customer gets their tracking number as soon as the parcel leaves, without anyone copying data into a spreadsheet." },
+      { "q": "Can it work with my suppliers and courier in Egypt?", "a": "Yes. We connect your Shopify store to the suppliers and shipping companies you already work with, so each order goes to the right place on its own. If a step needs a person, your team gets an alert with all the order details." },
+      { "q": "Will my stock stay correct on all sales channels?", "a": "Yes. Stock updates in one place and is synced across every channel you sell on. This stops you selling products you no longer have." },
+      { "q": "What happens when something goes wrong with an order?", "a": "Any problem, like a missing item or a failed delivery, is flagged to your team with the full order history. You only deal with the exceptions; the normal orders run by themselves." }
+    ],
+    "ar": [
+      { "q": "اتمتة متجر شوبيفاي من الطلب للتوصيل بتشمل إيه؟", "a": "كل طلب مدفوع بيروح للمورّد الصح، ويتجهز، ويتسلم للشحن، ويتتبّع أوتوماتيك. والعميل بيوصله رقم الشحنة أول ما تخرج، من غير ما حد ينقل بيانات في شيت إكسل." },
+      { "q": "هل بتشتغل مع الموردين وشركة الشحن اللي بتعامل معاها في مصر؟", "a": "أيوه. بنربط متجرك على شوبيفاي بالموردين وشركات الشحن اللي إنت شغال معاهم أصلًا، فكل طلب بيروح مكانه لوحده. ولو خطوة محتاجة تدخل، فريقك بيوصله تنبيه فيه كل تفاصيل الطلب." },
+      { "q": "هل المخزون هيفضل مظبوط على كل قنوات البيع؟", "a": "أيوه. المخزون بيتحدّث في مكان واحد ويتزامن على كل القنوات اللي بتبيع عليها. وده بيمنع إنك تبيع منتج خلص عندك." },
+      { "q": "إيه اللي بيحصل لو فيه مشكلة في طلب؟", "a": "أي مشكلة، زي منتج ناقص أو شحنة متسلمتش، بتوصل لفريقك ومعاها تاريخ الطلب كامل. إنت بتتعامل مع الحالات الاستثنائية بس، والطلبات العادية بتمشي لوحدها." }
+    ]
+  },
+  "social-media-growth": {
+    "en": [
+      { "q": "What does social media management in Egypt with AI include?", "a": "We plan and schedule your posts on Instagram and TikTok, publish them when your audience is most active, and reply to comments and messages for you. AI helps write captions and spot what content performs best." },
+      { "q": "Which platforms do you manage?", "a": "We focus on Instagram and TikTok, where most Egyptian shoppers discover brands. Posting, scheduling and replies are handled from one place." },
+      { "q": "Do you reply to comments and messages too?", "a": "Yes. Common questions get a fast reply automatically, and anything that needs a person is passed to your team. Your followers never wait hours for an answer." },
+      { "q": "What results can I expect?", "a": "Results depend on your brand and starting point. In one case study, a beauty brand grew its Instagram audience nine times in three months with consistent scheduling and automatic engagement." }
+    ],
+    "ar": [
+      { "q": "إدارة صفحات السوشيال ميديا بالذكاء الاصطناعي بتشمل إيه؟", "a": "بنخطط وبنجدول منشوراتك على إنستجرام وتيك توك، وبننشرها في الأوقات اللي جمهورك بيكون موجود فيها، وبنرد على التعليقات والرسائل بدالك. والذكاء الاصطناعي بيساعد في كتابة الكابشن ومعرفة أنهي محتوى بيجيب نتيجة أحسن." },
+      { "q": "بتديروا أنهي منصات؟", "a": "بنركّز على إنستجرام وتيك توك، لأن دول المكان اللي أغلب المشترين في مصر بيكتشفوا فيه البراندات. النشر والجدولة والردود كلها بتتدار من مكان واحد." },
+      { "q": "هل بتردوا على التعليقات والرسائل كمان؟", "a": "أيوه. الأسئلة المتكررة بيتردّ عليها بسرعة أوتوماتيك، وأي حاجة محتاجة شخص بتتحوّل لفريقك. متابعينك عمرهم ما هيستنوا ساعات عشان ياخدوا رد." },
+      { "q": "أتوقع نتايج إيه؟", "a": "النتايج بتختلف حسب البراند ونقطة البداية. في واحدة من دراسات الحالة، براند بيوتي كبّر جمهوره على إنستجرام 9 أضعاف في 3 شهور بجدولة ثابتة وتفاعل أوتوماتيك." }
+    ]
+  },
+  "shopify-optimization": {
+    "en": [
+      { "q": "What do Shopify experts in Egypt actually improve in my store?", "a": "We work on three things: speed, visibility on Google and conversion. A faster store that ranks better and has clearer product and checkout pages turns more of the same visitors into buyers." },
+      { "q": "Why does store speed matter for sales?", "a": "Shoppers leave slow pages, especially on mobile data. Speed is also a Google ranking factor, so a faster store gets more visitors and keeps more of them." },
+      { "q": "Do you redesign the whole store or improve what I have?", "a": "Usually we improve your current store: theme performance, product pages, technical SEO and checkout. If a full redesign makes more sense, we tell you after the free audit." },
+      { "q": "Do you support Arabic and English stores?", "a": "Yes. We build and optimize bilingual Arabic and English Shopify stores, including right-to-left layouts and SEO in both languages." }
+    ],
+    "ar": [
+      { "q": "تصميم متجر شوبيفاي معاكم بيحسّن إيه في متجري؟", "a": "بنشتغل على 3 حاجات: السرعة، والظهور على جوجل، ونسبة التحويل. المتجر الأسرع اللي بيظهر أحسن في البحث وصفحات منتجاته والدفع فيه أوضح، بيحوّل عدد أكبر من نفس الزوار لمشترين." },
+      { "q": "ليه سرعة المتجر مهمة للمبيعات؟", "a": "الزوار بيقفلوا الصفحات البطيئة، خصوصًا على باقة الموبايل. والسرعة كمان من عوامل الترتيب في جوجل، فالمتجر الأسرع بيجيب زوار أكتر وبيحافظ عليهم." },
+      { "q": "هل بتعملوا تصميم متجر الكتروني من الأول ولا بتحسّنوا الموجود؟", "a": "غالبًا بنحسّن متجرك الحالي: أداء الثيم، وصفحات المنتجات، والـ SEO التقني، وصفحة الدفع. ولو تصميم جديد كامل هيبقى أفضل، بنقولك بعد الاستشارة المجانية." },
+      { "q": "هل بتعملوا متاجر عربي وإنجليزي؟", "a": "أيوه. بنبني ونحسّن متاجر شوبيفاي بالعربي والإنجليزي، بما فيها التصميم من اليمين للشمال والـ SEO باللغتين." }
+    ]
+  },
+  "ai-smart-ads": {
+    "en": [
+      { "q": "How is an AI Facebook ads agency in Egypt different from a regular one?", "a": "AI watches your Meta and Google campaigns every day and moves budget to the ads that are selling. Instead of waiting for a weekly review, your money shifts to what works while the campaign is running." },
+      { "q": "Do you manage Google Ads as well as Facebook and Instagram?", "a": "Yes. We manage Meta (Facebook and Instagram) and Google campaigns together, so budget moves to whichever channel brings orders at the lowest cost." },
+      { "q": "Will it lower my cost per order?", "a": "That is the goal. By cutting spend on ads that don't convert and scaling the ones that do, the same budget brings more orders and a better return on ad spend." },
+      { "q": "Do I keep control of my ad accounts and budget?", "a": "Yes. The ad accounts stay yours, you set the total budget, and you can see where every pound goes." }
+    ],
+    "ar": [
+      { "q": "ادارة اعلانات ذكية بالذكاء الاصطناعي بتفرق إيه عن الإدارة العادية؟", "a": "الذكاء الاصطناعي بيتابع حملاتك على ميتا وجوجل كل يوم، وبينقل الميزانية للإعلانات اللي بتبيع. بدل ما تستنى مراجعة كل أسبوع، فلوسك بتروح للي شغال والحملة لسه شغالة." },
+      { "q": "هل بتديروا إعلانات جوجل كمان مع فيسبوك وإنستجرام؟", "a": "أيوه. بنعمل ادارة اعلانات ميتا (فيسبوك وإنستجرام) وجوجل مع بعض، فالميزانية بتروح للقناة اللي بتجيب طلبات بأقل تكلفة." },
+      { "q": "هل الإعلانات الممولة كده هتقلل تكلفة الطلب؟", "a": "ده الهدف. لما نوقف الصرف على الإعلانات اللي مش بتبيع ونكبّر اللي بتبيع، نفس الميزانية بتجيب طلبات أكتر وعائد أعلى على الإعلان." },
+      { "q": "هل حسابات الإعلانات والميزانية بتفضل تحت إيدي؟", "a": "أيوه. حسابات الإعلانات بتاعتك، وإنت اللي بتحدد الميزانية الكلية، وتقدر تشوف كل جنيه راح فين." }
+    ]
+  },
+  "ai-customer-support": {
+    "en": [
+      { "q": "What is AI customer service and how does it work?", "a": "An AI assistant answers your customers instantly on WhatsApp and your website, day and night. It handles common questions like prices, sizes, order status and delivery, and passes anything complex to your team with the full conversation." },
+      { "q": "How many questions can the AI answer on its own?", "a": "The AI assistant answers around 80% of questions instantly. The rest go to your team, who see the whole chat so the customer never has to repeat themselves." },
+      { "q": "Does it reply in Egyptian Arabic?", "a": "Yes. It replies naturally in Egyptian Arabic as well as English, in the tone of your brand." },
+      { "q": "Can it take orders, not just answer questions?", "a": "Yes. On WhatsApp, Messenger and Instagram it can turn a conversation into an order on your Shopify store, so a customer can ask and buy in the same chat." }
+    ],
+    "ar": [
+      { "q": "يعني إيه خدمة عملاء بالذكاء الاصطناعي، وبتشتغل إزاي؟", "a": "مساعد ذكي بيرد على عملائك فورًا على واتساب وموقعك، ليل ونهار. بيجاوب على الأسئلة المتكررة زي الأسعار والمقاسات وحالة الطلب والتوصيل، وأي حاجة صعبة بيحوّلها لفريقك ومعاها المحادثة كاملة." },
+      { "q": "المساعد الذكي بيرد لوحده على كام سؤال؟", "a": "المساعد الذكي بيرد على حوالي 80% من الأسئلة فورًا. والباقي بيروح لفريقك، وهم شايفين المحادثة كلها، فالعميل مش بيضطر يعيد كلامه." },
+      { "q": "هل بيرد بالعامية المصرية؟", "a": "أيوه. بيرد بالعامية المصرية بشكل طبيعي، وبالإنجليزي كمان، وبأسلوب البراند بتاعك." },
+      { "q": "هل يقدر ياخد أوردرات مش بس يرد على أسئلة؟", "a": "أيوه. على واتساب وماسنجر وإنستجرام يقدر يحوّل المحادثة لطلب على متجرك في شوبيفاي، فالعميل يسأل ويشتري في نفس الشات." }
+    ]
+  }
+}

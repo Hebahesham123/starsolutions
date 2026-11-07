@@ -201,6 +201,29 @@ export function service(entry: Entry, locale: Locale, path: string) {
   });
 }
 
+export type FaqItem = { q: string; a: string };
+
+/**
+ * FAQ block. Only for questions printed on the same page (the Faq component
+ * renders from the same items), since Google ignores FAQ markup that is not
+ * visible to the reader.
+ */
+export function faqPage(items: FaqItem[], locale: Locale, path: string) {
+  const url = abs(localeHref(locale, path));
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': `${url}#faq`,
+    url,
+    inLanguage: locale,
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
+    })),
+  };
+}
+
 /** Team member pages. */
 export function profilePage(entry: Entry, locale: Locale, path: string) {
   const url = abs(localeHref(locale, path));
