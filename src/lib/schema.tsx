@@ -184,9 +184,27 @@ export function blogPosting(post: Post, locale: Locale, path: string) {
   });
 }
 
-/** Solutions, automations and systems. */
+/**
+ * The plain name of each solution's service, for `serviceType`. The page title
+ * is a marketing headline; this is what the service is called when searched.
+ */
+const SOLUTION_SERVICE_TYPE: Record<string, Record<Locale, string>> = {
+  'revenue-automation': { en: 'E-commerce automation', ar: 'أتمتة المتاجر الإلكترونية' },
+  'order-fulfillment': { en: 'Shopify order automation', ar: 'اتمتة متجر شوبيفاي' },
+  'social-media-growth': { en: 'Social media management', ar: 'إدارة صفحات السوشيال ميديا' },
+  'shopify-optimization': { en: 'Shopify store design and optimization', ar: 'تصميم متجر شوبيفاي' },
+  'ai-smart-ads': { en: 'Facebook and Google ads management', ar: 'إدارة إعلانات ممولة' },
+  'ai-customer-support': { en: 'AI customer service', ar: 'خدمة عملاء بالذكاء الاصطناعي' },
+};
+
+/**
+ * Solutions, automations and systems. No `inLanguage`: schema.org does not
+ * define it for Service, and the validator flags it. `serviceType` is the
+ * plain service name for a solution, and the entry title for anything else.
+ */
 export function service(entry: Entry, locale: Locale, path: string) {
   const url = abs(localeHref(locale, path));
+  const isSolution = path.startsWith('/solutions/');
   return clean({
     '@context': 'https://schema.org',
     '@type': 'Service',
@@ -194,8 +212,7 @@ export function service(entry: Entry, locale: Locale, path: string) {
     url,
     name: entry.title,
     description: entry.summary,
-    serviceType: entry.title,
-    inLanguage: locale,
+    serviceType: (isSolution && SOLUTION_SERVICE_TYPE[entry.slug]?.[locale]) || entry.title,
     provider: { '@id': ORG_ID },
     areaServed: { '@type': 'Country', name: 'Egypt' },
   });
