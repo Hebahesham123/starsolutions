@@ -24,7 +24,9 @@ export function getContent(locale: Locale): SiteContent {
 
 export type Post = {
   slug: string; title: string; excerpt: string;
-  date: string; readingTime: string; tag: string; body: string[];
+  date: string; readingTime: string; tag: string;
+  /** Plain paragraphs, or one Markdown string (see PostBody). */
+  body: string[] | string;
 };
 
 /**

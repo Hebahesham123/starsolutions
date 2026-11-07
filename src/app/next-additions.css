@@ -4383,3 +4383,30 @@
 @media (prefers-reduced-motion: reduce){
   .faq-icon, .faq-icon::before, .faq-icon::after{ transition: none; }
 }
+
+
+/* =========================================================
+   Blog post body (Markdown posts)
+   ---------------------------------------------------------
+   Paragraphs keep the .section-sub look the posts always had; this adds the
+   headings, lists and rule. h2 already comes from .detail-body h2. Logical
+   properties, so lists indent from the right in Arabic with no override.
+   ========================================================= */
+.post-md h3{
+  margin-top: 22px; margin-bottom: 4px;
+  font-size: 16.5px; font-weight: 600; letter-spacing: -.02em; color: var(--ink);
+}
+.post-md .post-list{
+  margin-top: 12px; padding-inline-start: 22px;
+  font-size: 15.5px; line-height: 1.55; color: var(--muted);
+  max-width: 62ch;
+}
+.post-md .post-ul{ list-style: disc; }
+.post-md .post-ol{ list-style: decimal; }
+.post-md .post-list li{ margin-top: 8px; padding-inline-start: 4px; }
+.post-md .post-list li::marker{ color: var(--brand); font-weight: 600; }
+.post-md strong{ color: var(--ink-2); font-weight: 600; }
+.post-md hr{ margin: 32px 0 4px; border: 0; border-top: 1px solid var(--line); max-width: 62ch; }
+.post-md .faq-embedded{ margin-top: 32px; }
+.post-md .faq-embedded h2{ margin-top: 0; }
+.post-md .faq-list{ max-width: 62ch; }

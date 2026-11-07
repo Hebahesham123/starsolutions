@@ -1,0 +1,80 @@
+import Link from 'next/link';
+import * as React from 'react';
+import { Faq } from './Faq';
+import { Linked } from './Linked';
+import { parseMarkdown, splitFaq, type Block, type Inline } from '@/lib/markdown';
+import { getDict, type Locale } from '@/lib/i18n';
+
+/** The paragraph look the posts have always had. */
+const P_STYLE: React.CSSProperties = { fontSize: '15.5px', marginTop: '14px' };
+
+/**
+ * A blog post's body.
+ *
+ * `body` is either the original list of plain paragraphs, rendered exactly as
+ * before, or one Markdown string (headings, lists, bold, links). A Markdown
+ * post's "Frequently asked questions" section is lifted out and rendered with
+ * the same Faq component as the solution pages, which also writes its FAQPage
+ * JSON-LD. Plain text still goes through Linked, so the phrases in
+ * internal-links.json keep becoming links; text already inside a Markdown
+ * link is left alone.
+ */
+export function PostBody({
+  body, locale, path,
+}: {
+  body: string | string[];
+  locale: Locale;
+  /** Locale-free path, e.g. '/blog/my-post'. */
+  path: string;
+}) {
+  if (Array.isArray(body)) {
+    return (
+      <>
+        {body.map((para) => (
+          <p key={para.slice(0, 24)} className="section-sub" style={P_STYLE}>
+            <Linked text={para} locale={locale} path={path} />
+          </p>
+        ))}
+      </>
+    );
+  }
+
+  const faqHeadings = [getDict('en')('detail.faq'), getDict('ar')('detail.faq')];
+  const { before, faq, after } = splitFaq(parseMarkdown(body), faqHeadings);
+
+  const inline = (nodes: Inline[], linked: boolean, key = ''): React.ReactNode[] =>
+    nodes.map((n, i) => {
+      const k = `${key}${i}`;
+      if (n.type === 'text') {
+        return linked ? <Linked key={k} text={n.text} locale={locale} path={path} /> : <React.Fragment key={k}>{n.text}</React.Fragment>;
+      }
+      if (n.type === 'bold') return <strong key={k}>{inline(n.children, linked, `${k}-`)}</strong>;
+      return <Link key={k} href={n.href} className="inline-link">{inline(n.children, false, `${k}-`)}</Link>;
+    });
+
+  const blocks = (list: Block[]) =>
+    list.map((b, i) => {
+      switch (b.type) {
+        case 'h2': return <h2 key={i}>{b.text}</h2>;
+        case 'h3': return <h3 key={i}>{b.text}</h3>;
+        case 'hr': return <hr key={i} />;
+        case 'p': return <p key={i} className="section-sub" style={P_STYLE}>{inline(b.inline, true)}</p>;
+        default: {
+          const List = b.type === 'ol' ? 'ol' : 'ul';
+          return (
+            <List key={i} className={`post-list post-${b.type}`}>
+              {b.items.map((item, j) => <li key={j}>{inline(item, true)}</li>)}
+            </List>
+          );
+        }
+      }
+    });
+
+  return (
+    <div className="post-md">
+      {blocks(before)}
+      <Faq items={faq} locale={locale} path={path} embedded />
+      {blocks(after)}
+    </div>
+  );
+}

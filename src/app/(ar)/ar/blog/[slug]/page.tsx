@@ -6,7 +6,7 @@ import { Reveal } from '@/components/Reveal';
 import { getDict, getPosts, localeHref } from '@/lib/i18n';
 import { alternates, withSeo } from '@/lib/seo';
 import { JsonLd, blogPosting } from '@/lib/schema';
-import { Linked } from '@/components/Linked';
+import { PostBody } from '@/components/PostBody';
 
 const locale = 'ar' as const;
 const t = getDict(locale);
@@ -46,9 +46,7 @@ export default function ArabicPostPage({ params }: { params: { slug: string } })
           <div className="detail-layout">
             <div className="detail-body">
               <Reveal eager fade={false}>
-                {post.body.map((para) => (
-                  <p key={para.slice(0, 24)} className="section-sub" style={{ fontSize: '15.5px', marginTop: '14px' }}><Linked text={para} locale={locale} path={`/blog/${post.slug}`} /></p>
-                ))}
+                <PostBody body={post.body} locale={locale} path={`/blog/${post.slug}`} />
               </Reveal>
             </div>
             <aside className="detail-aside">
