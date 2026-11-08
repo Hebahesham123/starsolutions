@@ -11,7 +11,7 @@ import { getDict, type Locale } from '@/lib/i18n';
  * markup and the JSON-LD come from the same items, so they cannot disagree.
  */
 export function Faq({
-  items, locale = 'en', path, embedded = false,
+  items, locale = 'en', path, embedded = false, title,
 }: {
   items: FaqItem[];
   locale?: Locale;
@@ -20,9 +20,13 @@ export function Faq({
   /** Inside an article column (blog posts) rather than as its own full-width
    *  section: same list and JSON-LD, with the column's own h2 style. */
   embedded?: boolean;
+  /** The heading as the article wrote it (a post may add an emoji); defaults
+   *  to the locale's "Frequently asked questions". */
+  title?: string;
 }) {
   if (items.length === 0) return null;
   const t = getDict(locale);
+  const heading = title ?? t('detail.faq');
   const list = (
     <div className="faq-list">
       {items.map((item) => (
@@ -40,7 +44,7 @@ export function Faq({
   if (embedded) {
     return (
       <section className="faq-embedded" aria-labelledby="faqTitle">
-        <h2 id="faqTitle">{t('detail.faq')}</h2>
+        <h2 id="faqTitle">{heading}</h2>
         {list}
         <JsonLd data={faqPage(items, locale, path)} />
       </section>
@@ -50,7 +54,7 @@ export function Faq({
   return (
     <section className="section faq-section" aria-labelledby="faqTitle">
       <div className="mx-auto max-w-shell px-5 lg:px-8">
-        <h2 id="faqTitle" className="section-title faq-title">{t('detail.faq')}</h2>
+        <h2 id="faqTitle" className="section-title faq-title">{heading}</h2>
         {list}
       </div>
       <JsonLd data={faqPage(items, locale, path)} />

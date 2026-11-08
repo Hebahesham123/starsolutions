@@ -4410,3 +4410,35 @@
 .post-md .faq-embedded{ margin-top: 32px; }
 .post-md .faq-embedded h2{ margin-top: 0; }
 .post-md .faq-list{ max-width: 62ch; }
+
+/* Tables in posts. The wrapper scrolls on a narrow phone so the page itself
+   never scrolls sideways. text-align:start, so cells read right-aligned in
+   Arabic with no RTL override. Header in the soft brand tint, light rules. */
+.post-md .post-table-wrap{
+  margin-top: 18px; max-width: 62ch;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--line); border-radius: var(--r-sm);
+  background: #fff;
+}
+.post-md .post-table-wrap:focus-visible{ outline: 2px solid var(--brand); outline-offset: 2px; }
+.post-md .post-table{
+  width: 100%; border-collapse: collapse;
+  font-size: 14.5px; line-height: 1.5;
+}
+.post-md .post-table th,
+.post-md .post-table td{
+  padding: 11px 14px; text-align: start; vertical-align: top;
+  border-bottom: 1px solid var(--line);
+}
+.post-md .post-table th{
+  background: var(--soft); color: var(--ink);
+  font-family: var(--font-general-sans), 'SF Pro Display', -apple-system, sans-serif;
+  font-weight: 600; font-size: 14px;
+}
+.post-md .post-table td{ color: var(--ink-2); }
+.post-md .post-table th + th,
+.post-md .post-table td + td{ border-inline-start: 1px solid var(--line); }
+.post-md .post-table tbody tr:last-child td{ border-bottom: 0; }
+[dir='rtl'] .post-md .post-table th{ font-family: var(--font-plex-ar), 'IBM Plex Sans Arabic', 'Noto Sans Arabic', sans-serif; }
+/* A rule already separates sections; pull the next heading up to it. */
+.post-md hr + h2{ margin-top: 20px; }

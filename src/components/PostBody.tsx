@@ -2,7 +2,7 @@ import Link from 'next/link';
 import * as React from 'react';
 import { Faq } from './Faq';
 import { Linked } from './Linked';
-import { parseMarkdown, splitFaq, type Block, type Inline } from '@/lib/markdown';
+import { inlineText, parseMarkdown, splitFaq, type Block, type Inline } from '@/lib/markdown';
 import { getDict, type Locale } from '@/lib/i18n';
 
 /** The paragraph look the posts have always had. */
@@ -40,7 +40,7 @@ export function PostBody({
   }
 
   const faqHeadings = [getDict('en')('detail.faq'), getDict('ar')('detail.faq')];
-  const { before, faq, after } = splitFaq(parseMarkdown(body), faqHeadings);
+  const { before, title, faq, after } = splitFaq(parseMarkdown(body), faqHeadings);
 
   const inline = (nodes: Inline[], linked: boolean, key = ''): React.ReactNode[] =>
     nodes.map((n, i) => {
@@ -59,6 +59,23 @@ export function PostBody({
         case 'h3': return <h3 key={i}>{b.text}</h3>;
         case 'hr': return <hr key={i} />;
         case 'p': return <p key={i} className="section-sub" style={P_STYLE}>{inline(b.inline, true)}</p>;
+        case 'table':
+          // The wrapper scrolls sideways on a narrow phone instead of letting
+          // a wide table push the page wider than the screen.
+          return (
+            <div key={i} className="post-table-wrap" role="region" aria-label={b.head.map((c) => inlineText(c)).join(' / ')} tabIndex={0}>
+              <table className="post-table">
+                <thead>
+                  <tr>{b.head.map((c, j) => <th key={j} scope="col">{inline(c, false)}</th>)}</tr>
+                </thead>
+                <tbody>
+                  {b.rows.map((row, r) => (
+                    <tr key={r}>{row.map((c, j) => <td key={j}>{inline(c, true)}</td>)}</tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          );
         default: {
           const List = b.type === 'ol' ? 'ol' : 'ul';
           return (
@@ -73,7 +90,7 @@ export function PostBody({
   return (
     <div className="post-md">
       {blocks(before)}
-      <Faq items={faq} locale={locale} path={path} embedded />
+      <Faq items={faq} locale={locale} path={path} embedded title={title} />
       {blocks(after)}
     </div>
   );

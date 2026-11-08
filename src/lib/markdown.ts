@@ -2,9 +2,10 @@
  * A small Markdown reader for blog post bodies.
  *
  * Covers what the posts use and nothing more: "## " and "### " headings,
- * "- " and "1. " lists, paragraphs, "---" rules, **bold** and [text](/path)
- * links. It returns plain data, not HTML, so the page builds real elements
- * (and Next.js links) from it and nothing is ever injected as markup.
+ * "- " and "1. " lists, paragraphs, "---" rules, pipe tables, **bold** and
+ * [text](/path) links. It returns plain data, not HTML, so the page builds
+ * real elements (and Next.js links) from it and nothing is ever injected as
+ * markup.
  */
 
 export type Inline =
@@ -16,7 +17,15 @@ export type Block =
   | { type: 'h2' | 'h3'; text: string }
   | { type: 'p'; inline: Inline[] }
   | { type: 'ul' | 'ol'; items: Inline[][] }
+  | { type: 'table'; head: Inline[][]; rows: Inline[][][] }
   | { type: 'hr' };
+
+/** "| a | b |" -> ["a", "b"]. Outer pipes are optional. */
+function cells(line: string): string[] {
+  return line.replace(/^\|/, '').replace(/\|$/, '').split('|').map((c) => c.trim());
+}
+const isTableRow = (line: string) => line.startsWith('|') && line.endsWith('|');
+const isTableRule = (line: string) => /^\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?$/.test(line);
 
 /** **bold** and [text](href), in any order; bold may contain a link and vice versa. */
 export function parseInline(src: string): Inline[] {
@@ -46,10 +55,24 @@ export function parseMarkdown(src: string): Block[] {
     list = null;
   };
 
-  for (const raw of lines) {
-    const line = raw.trim();
+  for (let n = 0; n < lines.length; n++) {
+    const line = lines[n].trim();
     let m: RegExpMatchArray | null;
     if (!line) { flush(); continue; }
+    // A table: a header row, a "|---|---|" rule, then body rows.
+    if (isTableRow(line) && isTableRule((lines[n + 1] ?? '').trim())) {
+      flush();
+      const head = cells(line).map(parseInline);
+      const rows: Inline[][][] = [];
+      n += 2;
+      while (n < lines.length && isTableRow(lines[n].trim())) {
+        rows.push(cells(lines[n].trim()).map(parseInline));
+        n++;
+      }
+      n--;
+      blocks.push({ type: 'table', head, rows });
+      continue;
+    }
     if (/^-{3,}$/.test(line)) { flush(); blocks.push({ type: 'hr' }); continue; }
     if ((m = line.match(/^(#{2,3})\s+(.*)$/))) {
       flush();
@@ -76,14 +99,20 @@ export function inlineText(nodes: Inline[]): string {
   return nodes.map((n) => (n.type === 'text' ? n.text : inlineText(n.children))).join('');
 }
 
+/** A heading without emoji or stray symbols, for matching ("FAQ 💬" -> "FAQ"). */
+const bare = (s: string) => s.replace(/[\p{Extended_Pictographic}\u{FE0F}\u{200D}]/gu, '').replace(/\s+/g, ' ').trim();
+
 /**
  * Splits out a "## <FAQ heading>" section: each "### " question and the
  * paragraphs under it until the next question, h2 or rule. Returns the
- * blocks before it, the questions, and the blocks after it.
+ * blocks before it, the heading as written (emoji included), the questions,
+ * and the blocks after it. The heading matches with or without emoji.
  */
 export function splitFaq(blocks: Block[], headings: string[]) {
-  const start = blocks.findIndex((b) => b.type === 'h2' && headings.includes(b.text.trim()));
-  if (start === -1) return { before: blocks, faq: [] as { q: string; a: string }[], after: [] as Block[] };
+  const wanted = headings.map(bare);
+  const start = blocks.findIndex((b) => b.type === 'h2' && wanted.includes(bare(b.text)));
+  if (start === -1) return { before: blocks, title: undefined, faq: [] as { q: string; a: string }[], after: [] as Block[] };
+  const title = (blocks[start] as { text: string }).text;
 
   const faq: { q: string; a: string }[] = [];
   let i = start + 1;
@@ -96,5 +125,5 @@ export function splitFaq(blocks: Block[], headings: string[]) {
       last.a = last.a ? `${last.a} ${inlineText(b.inline)}` : inlineText(b.inline);
     }
   }
-  return { before: blocks.slice(0, start), faq, after: blocks.slice(i) };
+  return { before: blocks.slice(0, start), title, faq, after: blocks.slice(i) };
 }
