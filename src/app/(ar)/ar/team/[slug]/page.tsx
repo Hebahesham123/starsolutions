@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { EntryPage } from '@/components/EntryPage';
+import { AuthorPosts } from '@/components/AuthorPosts';
 import { getContent, getDict, localeHref } from '@/lib/i18n';
 import { alternates, withSeo } from '@/lib/seo';
 import { JsonLd, profilePage } from '@/lib/schema';
@@ -42,6 +43,7 @@ export default function TeamDetailPage({ params }: { params: { slug: string } })
       pointsTitle={t('team.skills')}
       pointsAs="chips"
     />
+    <AuthorPosts slug={list[index].slug} name={list[index].title} locale={locale} />
     <JsonLd data={profilePage(list[index], 'ar', `/team/${params.slug}`)} />
     </>
   );

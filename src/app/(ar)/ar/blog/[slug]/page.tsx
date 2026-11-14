@@ -7,6 +7,8 @@ import { getDict, getPosts, localeHref } from '@/lib/i18n';
 import { alternates, withSeo } from '@/lib/seo';
 import { JsonLd, blogPosting } from '@/lib/schema';
 import { PostBody } from '@/components/PostBody';
+import { Byline } from '@/components/Byline';
+import { postAuthor } from '@/lib/authors';
 
 const locale = 'ar' as const;
 const t = getDict(locale);
@@ -25,15 +27,17 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   });
 }
 
-export default function ArabicPostPage({ params }: { params: { slug: string } }) {
+export default async function ArabicPostPage({ params }: { params: { slug: string } }) {
   const post = posts.find((p) => p.slug === params.slug);
   if (!post) notFound();
+  const author = await postAuthor(post, locale);
 
   return (
     <>
       <PageHead
         eyebrow={`${post.tag} · ${post.readingTime}`}
         title={post.title}
+        byline={author ? <Byline author={author} locale={locale} /> : undefined}
         lede={post.excerpt}
         crumbs={[
           { href: localeHref(locale, '/'), label: t('crumbs.home') },
@@ -57,7 +61,7 @@ export default function ArabicPostPage({ params }: { params: { slug: string } })
           </div>
         </div>
       </section>
-      <JsonLd data={blogPosting(post, locale, `/blog/${post.slug}`)} />
+      <JsonLd data={blogPosting(post, locale, `/blog/${post.slug}`, author)} />
     </>
   );
 }

@@ -165,8 +165,15 @@ export function breadcrumbs(crumbs: Crumb[]) {
   };
 }
 
-/** Blog posts. `path` is locale-free, e.g. '/blog/my-post'. */
-export function blogPosting(post: Post, locale: Locale, path: string) {
+/** The author of a post, as BlogPosting needs it. */
+export type PostAuthor = { name: string; href: string; personId: string };
+
+/**
+ * Blog posts. `path` is locale-free, e.g. '/blog/my-post'. With an author the
+ * byline's person is the author, under the same @id as the Person on their
+ * team page; without one, the Organization stays the author as before.
+ */
+export function blogPosting(post: Post, locale: Locale, path: string, author?: PostAuthor | null) {
   const url = abs(localeHref(locale, path));
   return clean({
     '@context': 'https://schema.org',
@@ -179,7 +186,9 @@ export function blogPosting(post: Post, locale: Locale, path: string) {
     datePublished: post.date,
     inLanguage: locale,
     articleSection: post.tag,
-    author: { '@id': ORG_ID },
+    author: author
+      ? { '@type': 'Person', '@id': author.personId, name: author.name, url: abs(author.href) }
+      : { '@id': ORG_ID },
     publisher: { '@id': ORG_ID },
   });
 }

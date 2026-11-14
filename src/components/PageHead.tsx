@@ -5,10 +5,12 @@ import { Reveal } from './Reveal';
 import { JsonLd, breadcrumbs } from '@/lib/schema';
 
 export function PageHead({
-  eyebrow, title, lede, crumbs, icon, tone, aside,
+  eyebrow, title, lede, crumbs, icon, tone, aside, byline,
 }: {
   eyebrow?: string;
   title: string;
+  /** Directly under the title, above the lede: a post's author. */
+  byline?: React.ReactNode;
   lede?: React.ReactNode;
   crumbs?: { href?: string; label: string }[];
   /** Draws the entry's own mark above the title, so a detail page opens with the
@@ -60,6 +62,7 @@ export function PageHead({
           {icon && <span className="head-mark" aria-hidden="true"><Icon name={icon} /></span>}
           {eyebrow && <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> {eyebrow}</p>}
           <h1 className="page-title">{title}</h1>
+          {byline}
           {lede && <p className="page-lede">{lede}</p>}
         </Reveal>
         {aside && <Reveal className="page-head-aside" delay={0.1} eager fade={false}>{aside}</Reveal>}

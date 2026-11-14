@@ -25,6 +25,8 @@ export function getContent(locale: Locale): SiteContent {
 export type Post = {
   slug: string; title: string; excerpt: string;
   date: string; readingTime: string; tag: string;
+  /** Team member slug (src/data/site*.json team / the Supabase team table). */
+  author?: string;
   /** Plain paragraphs, or one Markdown string (see PostBody). */
   body: string[] | string;
 };
@@ -166,6 +168,8 @@ const STRINGS: Record<Locale, Dict> = {
     'aside.body': 'We analyze your store, ads and workflows and send back a written growth plan. No commitment.',
     'detail.whatYouGet': 'What you get',
     'detail.faq': 'Frequently asked questions',
+    'post.by': 'By',
+    'team.articlesBy': 'Articles by',
     'work.whatWeDid': 'What we did',
     'work.visitTitle': 'Visit the live store',
     'work.visitBody': 'See the finished build in production.',
@@ -402,6 +406,8 @@ const STRINGS: Record<Locale, Dict> = {
     'aside.body': 'نراجع متجرك وإعلاناتك وطريقة عملك، ونرسل لك خطة نمو مكتوبة. بدون أي التزام.',
     'detail.whatYouGet': 'ما ستحصل عليه',
     'detail.faq': 'أسئلة شائعة',
+    'post.by': 'بقلم',
+    'team.articlesBy': 'مقالات كتبتها',
     'work.whatWeDid': 'ما نفّذناه',
     'work.visitTitle': 'ادخل المتجر',
     'work.visitBody': 'شاهد الشكل النهائي وهو يعمل.',

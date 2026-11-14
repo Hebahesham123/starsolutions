@@ -4442,3 +4442,51 @@
 [dir='rtl'] .post-md .post-table th{ font-family: var(--font-plex-ar), 'IBM Plex Sans Arabic', 'Noto Sans Arabic', sans-serif; }
 /* A rule already separates sections; pull the next heading up to it. */
 .post-md hr + h2{ margin-top: 20px; }
+
+
+/* =========================================================
+   Post author: byline under the title, and "Articles by" on team pages
+   ---------------------------------------------------------
+   The byline's badge is a fixed 30px (.avatar resized), so it reserves its
+   space before anything loads. Logical properties and flex gap only, so the
+   Arabic version mirrors with no override.
+   ========================================================= */
+.post-byline{
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px;
+  margin-top: 14px;
+  font-size: 14px; color: var(--muted);
+}
+.post-byline-link{
+  display: inline-flex; align-items: center; gap: 9px;
+  color: var(--ink-2); text-decoration: none;
+}
+.post-byline-link strong{ color: var(--ink); font-weight: 600; }
+.post-byline-link:hover strong{ color: var(--brand-deep); text-decoration: underline; text-underline-offset: .2em; }
+.post-byline-link:focus-visible{ outline: 2px solid var(--brand); outline-offset: 3px; border-radius: 999px; }
+.post-byline-avatar{ width: 30px; height: 30px; font-size: 11px; box-shadow: none; }
+.post-byline-photo{ width: 30px; height: 30px; border-radius: 50%; object-fit: cover; flex: none; }
+.post-byline-role{ font-size: 13px; }
+.post-byline-role::before{ content: "·"; margin-inline-end: 12px; color: var(--line); }
+
+.author-posts{ padding-top: 8px; }
+.author-posts-title{
+  margin-bottom: 14px;
+  font-family: var(--font-general-sans), 'SF Pro Display', -apple-system, sans-serif;
+  font-size: 20px; font-weight: 600; letter-spacing: -.03em; color: var(--ink);
+}
+[dir='rtl'] .author-posts-title{ font-family: var(--font-plex-ar), 'IBM Plex Sans Arabic', 'Noto Sans Arabic', sans-serif; letter-spacing: 0; }
+.author-posts-list{ max-width: 820px; border-top: 1px solid var(--line); }
+.author-posts-list li{ border-bottom: 1px solid var(--line); }
+.author-posts-list a{
+  display: grid; grid-template-columns: 1fr auto; align-items: center; column-gap: 16px;
+  padding-block: 14px; color: var(--ink); text-decoration: none;
+}
+.author-posts-meta{ grid-column: 1; font-size: 12.5px; color: var(--muted); }
+.author-posts-name{ grid-column: 1; margin-top: 3px; font-size: 16px; font-weight: 600; line-height: 1.4; }
+.author-posts-list a svg{ grid-column: 2; grid-row: 1 / span 2; width: 18px; height: 18px; color: var(--brand-deep); transition: transform .2s var(--ease); }
+.author-posts-list a:hover .author-posts-name{ color: var(--brand-deep); }
+.author-posts-list a:hover svg{ transform: translateX(3px); }
+[dir='rtl'] .author-posts-list a svg{ transform: scaleX(-1); }
+[dir='rtl'] .author-posts-list a:hover svg{ transform: scaleX(-1) translateX(3px); }
+.author-posts-list a:focus-visible{ outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 6px; }
+@media (prefers-reduced-motion: reduce){ .author-posts-list a svg{ transition: none; } }
