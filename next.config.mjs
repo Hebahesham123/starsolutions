@@ -39,6 +39,13 @@ const nextConfig = {
           { key: 'Vary', value: 'Accept' },
         ],
       },
+      /* The machine-readable files are for agents, not for search results:
+         keep them out of Google's index (they stay crawlable, so agents and
+         Google can still read them). Pages themselves are not touched — the
+         Markdown version of a page already points to the HTML as canonical. */
+      ...['/developers.md', '/auth.md', '/openapi.json', '/mcp', '/a2a', '/.well-known/:path*', '/api/:path*'].map(
+        (source) => ({ source, headers: [{ key: 'X-Robots-Tag', value: 'noindex' }] }),
+      ),
     ];
   },
 
