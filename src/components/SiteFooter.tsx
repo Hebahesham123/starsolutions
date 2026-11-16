@@ -24,6 +24,8 @@ export function SiteFooter({ locale = 'en' }: { locale?: Locale }) {
             <h2 id="fProduct" className="footer-h">{t('footer.product')}</h2>
             <ul>
               <li><Link href={href('/solutions')}>{t('nav.solutions')}</Link></li>
+              <li><Link href={href('/automations')}>{t('search.page.automations')}</Link></li>
+              <li><Link href={href('/systems')}>{t('search.page.systems')}</Link></li>
               <li><Link href={href('/results')}>{t('nav.results')}</Link></li>
               <li><Link href={href('/work')}>{t('nav.work')}</Link></li>
               <li><Link href={href('/blog')}>{t('nav.blog')}</Link></li>
