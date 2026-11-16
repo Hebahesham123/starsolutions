@@ -53,6 +53,13 @@ export const BUSINESS = {
 
 const PLACEHOLDER_PHONE = /123\s*456\s*7890/;
 
+/** The share image per language (public/og-*.png), also used by withSeo for Open Graph. */
+export const OG_IMAGE = {
+  src: { en: '/og-en.png', ar: '/og-ar.png' } as Record<Locale, string>,
+  width: 1200,
+  height: 630,
+};
+
 export function abs(path: string) {
   if (/^https?:\/\//.test(path)) return path;
   return `${SITE_URL}${path.startsWith('/') ? path : `/${path}`}`;
@@ -176,6 +183,8 @@ export type PostAuthor = { name: string; href: string; personId: string };
  */
 export function blogPosting(post: Post, locale: Locale, path: string, author?: PostAuthor | null) {
   const url = abs(localeHref(locale, path));
+  // The post's own cover when it has one, otherwise the language's share image.
+  const img = post.cover ?? { src: OG_IMAGE.src[locale], width: OG_IMAGE.width, height: OG_IMAGE.height };
   return clean({
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -184,6 +193,7 @@ export function blogPosting(post: Post, locale: Locale, path: string, author?: P
     url,
     headline: post.title,
     description: post.excerpt,
+    image: { '@type': 'ImageObject', url: abs(img.src), width: img.width, height: img.height },
     // Full ISO 8601 with Cairo's offset for that day; a bare date fails the
     // Rich Results Test ("missing a timezone").
     datePublished: cairoIso(post.date),

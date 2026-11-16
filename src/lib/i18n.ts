@@ -31,6 +31,11 @@ export type Post = {
   readingTime: string; tag: string;
   /** Team member slug (src/data/site*.json team / the Supabase team table). */
   author?: string;
+  /**
+   * The post's own cover image, e.g. { "src": "/blog/my-post.png", "width": 1200, "height": 630 }.
+   * Used in the BlogPosting schema; without it the language's OG image is used.
+   */
+  cover?: { src: string; width: number; height: number };
   /** Plain paragraphs, or one Markdown string (see PostBody). */
   body: string[] | string;
 };
