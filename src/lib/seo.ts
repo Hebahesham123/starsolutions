@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import seoCopy from '@/data/seo.json';
 import { localeHref, type Locale } from './i18n';
+import { OG_IMAGE } from './schema';
 
 /**
  * `canonical` plus the hreflang alternates for one page.
@@ -38,7 +39,6 @@ const COPY = seoCopy as unknown as Record<Locale, Record<string, Copy>>;
 
 const SITE_NAME: Record<Locale, string> = { en: 'StarSolution.ai', ar: 'ستار سوليوشن' };
 const OG_LOCALE: Record<Locale, string> = { en: 'en_US', ar: 'ar_EG' };
-const OG_IMAGE: Record<Locale, string> = { en: '/og-en.png', ar: '/og-ar.png' };
 const DEFAULT_TITLE: Record<Locale, string> = {
   en: 'StarSolution.ai — More orders. More revenue. Less work.',
   ar: 'ستار سوليوشن — طلبات أكثر. إيرادات أكبر. جهد أقل.',
@@ -93,13 +93,13 @@ export function withSeo(meta: Metadata): Metadata {
       url: canonical,
       title: shareTitle,
       ...(description ? { description } : {}),
-      images: [{ url: OG_IMAGE[locale], width: 1200, height: 630, alt: SITE_NAME[locale] }],
+      images: [{ url: OG_IMAGE.src[locale], width: OG_IMAGE.width, height: OG_IMAGE.height, alt: SITE_NAME[locale] }],
     },
     twitter: {
       card: 'summary_large_image',
       title: shareTitle,
       ...(description ? { description } : {}),
-      images: [OG_IMAGE[locale]],
+      images: [OG_IMAGE.src[locale]],
     },
   };
 }
