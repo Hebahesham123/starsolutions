@@ -10,6 +10,7 @@ import { site } from '@/lib/content';
 import { buildSearchIndex } from '@/components/ui/search-index';
 import { SiteSplash } from '@/components/ui/SiteSplash';
 import { MetaPixel } from '@/components/MetaPixel';
+import { GoogleTag } from '@/components/GoogleTag';
 import { WebMcp } from '@/components/WebMcp';
 
 export const metadata: Metadata = {
@@ -51,6 +52,8 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
       <SiteSplash />
       {/* Meta Pixel — public pages only, so /admin is never tracked. */}
       <MetaPixel />
+      {/* Google tag — production on www.starsolution.ai only. */}
+      <GoogleTag />
       {/* WebMCP tools for in-browser AI agents. */}
       <WebMcp />
       <a href="#main" className="skip-link">Skip to content</a>
