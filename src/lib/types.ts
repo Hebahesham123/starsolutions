@@ -26,6 +26,10 @@ export interface Entry {
   hidden?: boolean;
   /** Set by Supabase on every edit (touch_updated_at trigger); absent in the JSON seed. */
   updated_at?: string | null;
+  /** Long-form Markdown shown after `points` (see lib/entry-content.ts). */
+  body?: string | null;
+  /** Questions for the page's FAQ block and FAQPage schema. */
+  faq?: { q: string; a: string }[] | null;
   icon?: string;
   tone?: string;
   badge?: string;

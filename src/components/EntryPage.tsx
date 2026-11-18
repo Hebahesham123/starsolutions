@@ -3,6 +3,9 @@ import { Icon } from './Icon';
 import { PageHead } from './PageHead';
 import { Reveal } from './Reveal';
 import { Linked } from './Linked';
+import { PostBody } from './PostBody';
+import { Faq } from './Faq';
+import { entryContent } from '@/lib/entry-content';
 import { site } from '@/lib/content';
 import type { Entry } from '@/lib/types';
 import { getDict, localeHref, type Locale } from '@/lib/i18n';
@@ -47,6 +50,7 @@ export function EntryPage({
   /* This page's path without the locale, for its internal links. */
   const basePath = locale === 'ar' ? sectionHref.replace(/^\/ar(?=\/|$)/, '') : sectionHref;
   const path = `${basePath}/${entry.slug}`;
+  const extra = entryContent(basePath.replace(/^\//, ''), entry, locale);
 
   return (
     <>
@@ -116,6 +120,16 @@ export function EntryPage({
                   </>
                 )}
               </Reveal>
+
+              {/* Long-form copy and FAQ, when the entry has them: the blog's
+                  Markdown renderer, then the shared Faq (which also writes the
+                  FAQPage JSON-LD). Below the first screen, so no Reveal. */}
+              {extra.body && <PostBody body={extra.body} locale={locale} path={path} />}
+              {extra.faq.length > 0 && (
+                <div className="post-md">
+                  <Faq items={extra.faq} locale={locale} path={path} embedded />
+                </div>
+              )}
 
               {/* The prev/next pager used to sit here. It listed the same two
                   entries the "More in ..." panel now lists, and with one

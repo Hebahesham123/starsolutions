@@ -1,0 +1,48 @@
+{
+  "automations": {
+    "whatsapp-ai-system": {
+      "en": {
+        "body": "## Who the smart WhatsApp inbox is for\n\nMost online stores in Egypt don't run on one WhatsApp number. There's a number for sales, another for customer service, one per branch, and an old number customers still message. Each lives on a different phone, and every phone needs someone watching it.\n\nThe smart WhatsApp inbox is built for that situation. It fits best when:\n\n- **You use more than one WhatsApp number** for sales, support or different branches.\n- **Several people answer customers**, and you need to know who is handling what.\n- **Messages pile up** after campaigns, sales or busy seasons, and urgent chats get buried.\n- **You can't see the whole picture**: how many complaints came in today, or which customers are waiting longest.\n\n## How it works\n\n1. **Connect your numbers.** Add each WhatsApp Business number through the official Meta Cloud API or by linking it with a QR code. It takes minutes per number.\n2. **Every chat lands in one inbox.** Messages from all connected numbers appear on one screen, synced both ways in real time. Filter to all numbers at once or to a single one.\n3. **The AI reads and sorts every conversation.** It detects what the customer wants (price, product, order, return, complaint or tracking) and how they feel, from positive to angry, with a confidence score.\n4. **Your team handles the exceptions.** Conversations flagged NEED HUMAN, angry customers and VIP chats rise to the top. Your team stops scrolling and starts with what matters.\n\n## Cloud API or QR: which should you use?\n\nBoth connect a number to the same inbox. The difference is how:\n\n- **Official Meta Cloud API** is the official WhatsApp Business Platform. It's the stable choice for high message volumes, campaigns and automation, and it's what we recommend for your main sales and support numbers.\n- **QR-linked numbers** connect a number you already use on the WhatsApp app in a few minutes. They suit smaller or secondary numbers.\n\nYou can mix both in one inbox. We help you decide which number goes where during setup.\n\n## What changes for your team\n\n- **No more switching phones.** Every number, every chat, one screen.\n- **Nothing gets lost.** Accurate unread counts and full-text search across customers, phone numbers and messages.\n- **Urgent chats come first.** Tag totals are counted across all conversations, not just the ones on screen, so complaints and VIP customers surface on their own.\n- **Context before every reply.** Each chat shows the customer's lifetime orders, lifetime value, notes and history, so your team answers once and correctly.\n- **Less manual sorting.** The AI tags conversations and records outcomes, such as an exchange that happened, without anyone typing labels.\n\n## Works with the rest of your WhatsApp automation\n\nThe inbox organizes conversations and gets each one to the right person. If you also want automatic replies and orders taken inside the chat, it works alongside our [e-commerce chatbot](/automations/ecommerce-chatbot), which answers common questions in Egyptian Arabic and hands harder cases to the same inbox. For the full picture of AI support across WhatsApp and your website, see [AI customer support](/solutions/ai-customer-support), or read our guide on [putting an AI agent on WhatsApp](/blog/an-ai-agent-on-whatsapp).",
+        "faq": [
+          {
+            "q": "Can I keep my current WhatsApp number?",
+            "a": "Yes. You can link a number you already use with a QR code, or move it to the official Meta Cloud API. We'll help you choose the right option for each number during setup."
+          },
+          {
+            "q": "How many WhatsApp numbers can I connect?",
+            "a": "You can connect all the business numbers you use, for sales, support or branches. Each number is managed on its own: you can rename, enable, disable or disconnect it at any time."
+          },
+          {
+            "q": "Does the AI reply to customers automatically?",
+            "a": "The inbox's AI reads, tags and prioritizes every conversation so your team knows what to answer first. For automatic replies to customers, it's paired with our e-commerce chatbot, which answers common questions and passes the rest to the inbox."
+          },
+          {
+            "q": "Do I need the WhatsApp Business API?",
+            "a": "Not for every number. Numbers can be linked by QR code in minutes. For your main numbers, high volumes and automation, we recommend the official Meta Cloud API, and we handle the setup as part of the project."
+          }
+        ]
+      },
+      "ar": {
+        "body": "## لمن صندوق واتساب الموحّد؟\n\nأغلب المتاجر الإلكترونية في مصر لا تعمل برقم واتساب واحد. هناك رقم للمبيعات، ورقم لخدمة العملاء، ورقم لكل فرع، ورقم قديم ما زال العملاء يراسلونه. كل رقم على موبايل مختلف، وكل موبايل يحتاج شخصًا يتابعه.\n\nصندوق واتساب الموحّد مصمم لهذا الوضع بالضبط، ويناسبك أكثر عندما:\n\n- **تستخدم أكثر من رقم واتساب** للمبيعات أو خدمة العملاء أو الفروع.\n- **أكثر من شخص يرد على العملاء**، وتحتاج أن تعرف من يتابع ماذا.\n- **الرسائل تتراكم** بعد الحملات والعروض والمواسم، والمحادثات العاجلة تضيع وسطها.\n- **لا ترى الصورة كاملة**: كم شكوى وصلت اليوم، ومن العملاء الذين ينتظرون أطول وقت.\n\n## كيف يعمل؟\n\n1. **اربط أرقامك.** أضف كل رقم واتساب بيزنس عبر Meta Cloud API الرسمي أو بربطه بكود QR، خلال دقائق لكل رقم.\n2. **كل المحادثات في صندوق واحد.** رسائل كل الأرقام المتصلة تظهر في شاشة واحدة، وتتزامن في الاتجاهين في الحال. وتقدر تفلتر على كل الأرقام مرة واحدة أو على رقم واحد.\n3. **الذكاء الاصطناعي يقرأ ويرتّب كل محادثة.** يحدد ماذا يريد العميل (سعر أو منتج أو طلب أو مرتجع أو شكوى أو تتبّع)، ومزاجه من راضٍ إلى غاضب، بدرجة ثقة لكل حالة.\n4. **فريقك يتعامل مع الاستثناءات فقط.** المحادثات المعلَّمة «تحتاج موظفًا» والعملاء الغاضبون وعملاء VIP يظهرون في الأعلى، فيبدأ فريقك بالأهم بدل أن يقلّب في كل الرسائل.\n\n## Cloud API أم QR: أيهما تستخدم؟\n\nالاثنان يربطان الرقم بنفس الصندوق، والفرق في طريقة الربط:\n\n- **Meta Cloud API الرسمي** هو منصة واتساب بيزنس الرسمية. هو الاختيار المستقر للرسائل الكثيرة والحملات والأتمتة، وننصح به لأرقام المبيعات وخدمة العملاء الأساسية.\n- **الأرقام المربوطة بـ QR** تربط رقمًا تستخدمه بالفعل على تطبيق واتساب خلال دقائق، وتناسب الأرقام الأصغر أو الإضافية.\n\nتقدر تجمع بين الاثنين في صندوق واحد، ونساعدك وقت الإعداد تحدد أي رقم يُربط بأي طريقة.\n\n## ما الذي يتغير في شغل فريقك؟\n\n- **لا تنقّل بين الموبايلات.** كل الأرقام وكل المحادثات في شاشة واحدة.\n- **لا شيء يضيع.** عدّاد دقيق للرسائل غير المقروءة، وبحث في كل النصوص: العملاء والأرقام ومحتوى الرسائل.\n- **العاجل أولًا.** إجماليات التصنيف محسوبة على كل المحادثات لا على الظاهر منها فقط، فتظهر الشكاوى وعملاء VIP وحدهم.\n- **الصورة كاملة قبل كل رد.** كل محادثة يظهر بجانبها إجمالي طلبات العميل وقيمتها وملاحظاته وتاريخه، فيرد فريقك مرة واحدة وبشكل صحيح.\n- **فرز يدوي أقل.** الذكاء الاصطناعي يصنّف المحادثات ويسجّل ما حدث، مثل «تم الاستبدال»، بدون أن يكتب أحد تصنيفات بيده.\n\n## يعمل مع باقي أتمتة الواتساب عندك\n\nالصندوق ينظّم المحادثات ويوصل كل واحدة للشخص المناسب. ولو تريد أيضًا ردودًا تلقائية وأخذ الطلبات داخل المحادثة، فهو يعمل مع [شات بوت المتاجر](/ar/automations/ecommerce-chatbot)، الذي يرد على الأسئلة المتكررة بالعامية المصرية ويحوّل الحالات الأصعب لنفس الصندوق. وللصورة الكاملة لخدمة العملاء بالذكاء الاصطناعي على واتساب وموقعك، شاهد [خدمة عملاء بالذكاء الاصطناعي](/ar/solutions/ai-customer-support)، أو اقرأ دليلنا عن [شات بوت واتساب للمتاجر](/ar/blog/an-ai-agent-on-whatsapp).",
+        "faq": [
+          {
+            "q": "هل أقدر أحتفظ برقم الواتساب الحالي؟",
+            "a": "نعم. تقدر تربط رقمًا تستخدمه بالفعل بكود QR، أو تنقله إلى Meta Cloud API الرسمي. ونساعدك وقت الإعداد تختار الطريقة المناسبة لكل رقم."
+          },
+          {
+            "q": "كم رقم واتساب أقدر أربط؟",
+            "a": "تقدر تربط كل أرقام البيزنس التي تستخدمها، للمبيعات أو خدمة العملاء أو الفروع. وكل رقم يُدار وحده: تقدر تغيّر اسمه أو تفعّله أو توقفه أو تفصله في أي وقت."
+          },
+          {
+            "q": "هل الذكاء الاصطناعي يرد على العملاء تلقائيًا؟",
+            "a": "ذكاء الصندوق يقرأ كل محادثة ويصنّفها ويرتّبها، حتى يعرف فريقك بماذا يبدأ. وللردود التلقائية على العملاء، يعمل معه شات بوت المتاجر، الذي يرد على الأسئلة المتكررة ويحوّل الباقي للصندوق."
+          },
+          {
+            "q": "هل أحتاج WhatsApp Business API؟",
+            "a": "ليس لكل رقم. الأرقام يمكن ربطها بكود QR خلال دقائق. أما للأرقام الأساسية والرسائل الكثيرة والأتمتة، فننصح بـ Meta Cloud API الرسمي، ونقوم بالإعداد كجزء من المشروع."
+          }
+        ]
+      }
+    }
+  }
+}
