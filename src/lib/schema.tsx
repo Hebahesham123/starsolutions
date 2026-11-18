@@ -211,7 +211,7 @@ export function blogPosting(post: Post, locale: Locale, path: string, author?: P
  * The plain name of each solution's service, for `serviceType`. The page title
  * is a marketing headline; this is what the service is called when searched.
  */
-const SOLUTION_SERVICE_TYPE: Record<string, Record<Locale, string>> = {
+export const SOLUTION_SERVICE_TYPE: Record<string, Record<Locale, string>> = {
   'revenue-automation': { en: 'E-commerce automation', ar: 'أتمتة المتاجر الإلكترونية' },
   'order-fulfillment': { en: 'Shopify order automation', ar: 'اتمتة متجر شوبيفاي' },
   'social-media-growth': { en: 'Social media management', ar: 'إدارة صفحات السوشيال ميديا' },

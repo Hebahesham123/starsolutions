@@ -4492,3 +4492,15 @@
 [dir='rtl'] .author-posts-list a:hover svg{ transform: scaleX(-1) translateX(3px); }
 .author-posts-list a:focus-visible{ outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 6px; }
 @media (prefers-reduced-motion: reduce){ .author-posts-list a svg{ transition: none; } }
+
+/* ---------- Home: links to every solution, under the goals ----------
+   A labelled row of chips; each whole chip is the link. */
+.home-solutions{ display:flex; flex-wrap:wrap; align-items:center; gap:10px 14px; margin-top:28px; }
+.home-solutions-h{
+  font-family:var(--font-jetbrains-mono),monospace; font-size:11px; font-weight:500;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--muted);
+}
+[dir="rtl"] .home-solutions-h{ font-family:inherit; letter-spacing:0; font-size:13px; }
+.home-solutions .chip-row li{ padding:0; }
+.home-solutions .chip-row a{ display:block; padding:8px 13px; border-radius:inherit; color:inherit; }
+.home-solutions .chip-row a:focus-visible{ outline:2px solid var(--brand); outline-offset:2px; }

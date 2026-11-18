@@ -24,6 +24,8 @@ export interface Entry {
    * Flip it back to publish; nothing else needs touching.
    */
   hidden?: boolean;
+  /** Set by Supabase on every edit (touch_updated_at trigger); absent in the JSON seed. */
+  updated_at?: string | null;
   icon?: string;
   tone?: string;
   badge?: string;

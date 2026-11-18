@@ -11,6 +11,7 @@ import { LogoStatic } from './ui/LogoStatic';
 import type { Entry, Project, Testimonial } from '@/lib/types';
 import { GoalsShowcase } from './GoalsShowcase';
 import { getDict, localeHref, type Locale } from '@/lib/i18n';
+import { SOLUTION_SERVICE_TYPE } from '@/lib/schema';
 
 /** Every section takes one of these and nothing else changes at the call
  *  site: the default keeps existing English usage exactly as it was. */
@@ -48,7 +49,7 @@ export function SectionHead({
 }
 
 /* ---------------- Goals ---------------- */
-export function Goals({ goals, locale = 'en' }: { goals: Entry[] } & Localised) {
+export function Goals({ goals, solutions = [], locale = 'en' }: { goals: Entry[]; solutions?: Entry[] } & Localised) {
   const t = getDict(locale);
   return (
     <section className="section section-soft" aria-labelledby="goalsTitle">
@@ -59,6 +60,22 @@ export function Goals({ goals, locale = 'en' }: { goals: Entry[] } & Localised) 
           around this one, and a frame has to end somewhere — full bleed would
           put its left and right edges off the screen. */}
       <GoalsShowcase goals={goals} locale={locale} />
+      {/* A direct link to every solution page from the home page. The anchor
+          is the plain service name (what people search), not the headline. */}
+      {solutions.length > 0 && (
+        <nav className="home-solutions mx-auto max-w-shell px-5 lg:px-8" aria-labelledby="homeSolTitle">
+          <h3 id="homeSolTitle" className="home-solutions-h">{t('nav.solutions')}</h3>
+          <ul className="chip-row">
+            {solutions.map((s) => (
+              <li key={s.slug}>
+                <Link href={localeHref(locale, `/solutions/${s.slug}`)}>
+                  {SOLUTION_SERVICE_TYPE[s.slug]?.[locale] ?? s.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
     </section>
   );
 }

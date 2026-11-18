@@ -10,12 +10,18 @@ import { SITE_URL } from '@/lib/schema';
  * solution, post or team member is listed the moment its page exists, and a
  * hidden one drops out with it.
  *
- * Each URL carries its hreflang twin when the twin exists (the same rule as
- * `alternates()` in lib/seo.ts: never point at a URL that 404s). English is
- * `x-default`, matching the pages' own <link rel="alternate"> tags.
+ * Each URL carries the same hreflang set as the page's own <link rel="alternate">
+ * tags (the rule in `alternates()` in lib/seo.ts: list a twin only when it
+ * exists, English is `x-default`). Single-language pages list themselves, as
+ * their heads do.
  *
- * `lastModified` is set only where the data has a real date (blog posts).
- * Stamping every URL with the build time teaches Google to ignore the field.
+ * `lastModified`, most specific first:
+ *  - blog posts: `updated`, else `date`, from the post data;
+ *  - English entries served from Supabase: the row's `updated_at`, which the
+ *    touch_updated_at trigger moves on every edit in /admin;
+ *  - everything else (static pages, Arabic entries from site.ar.json, project
+ *    pages): the deploy date, since those only change when the site is
+ *    deployed.
  *
  * This replaces the static public/sitemap.xml, which must not exist alongside
  * it: a file in /public is served before this route.
@@ -31,7 +37,10 @@ const STATIC_AR = [
   '/work', '/team', '/blog', '/results', '/process', '/contact',
 ];
 
-type Row = { slug: string; hidden?: boolean };
+type Row = { slug: string; hidden?: boolean; updated_at?: string | null };
+
+/** When this build ran: the deploy date for content that ships with the code. */
+const DEPLOYED = new Date().toISOString();
 const slugs = (section: string, rows: Row[]) =>
   rows.filter((row) => !row.hidden).map((row) => `${section}/${row.slug}`);
 
@@ -72,24 +81,35 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   };
   const has = { en: new Set(paths.en), ar: new Set(paths.ar) };
 
+  // Real content dates. Anything missing here falls back to DEPLOYED.
+  const rowDates = (section: string, rows: Row[]) =>
+    rows.filter((r) => !r.hidden && r.updated_at).map((r) => [`${section}/${r.slug}`, r.updated_at as string] as const);
   const dates: Record<Locale, Map<string, string>> = {
-    en: new Map(postsEn.map((p) => [`/blog/${p.slug}`, p.date])),
-    ar: new Map(postsAr.map((p) => [`/blog/${p.slug}`, p.date])),
+    en: new Map([
+      ...rowDates('/solutions', solutions),
+      ...rowDates('/automations', automations),
+      ...rowDates('/systems', systems),
+      ...rowDates('/goals', goals),
+      ...rowDates('/case-studies', cases),
+      ...rowDates('/team', team),
+      ...postsEn.map((p) => [`/blog/${p.slug}`, p.updated ?? p.date] as const),
+    ]),
+    ar: new Map(postsAr.map((p) => [`/blog/${p.slug}`, p.updated ?? p.date] as const)),
   };
 
-  const abs = (locale: Locale, path: string) => `${SITE_URL}${localeHref(locale, path)}`;
+  // The home page as the head writes it (no trailing slash), so the two match
+  // character for character; both are the same URL.
+  const abs = (locale: Locale, path: string) => `${SITE_URL}${localeHref(locale, path)}`.replace(/\/$/, '');
 
   const entry = (locale: Locale, path: string): MetadataRoute.Sitemap[number] => {
     const languages: Record<string, string> = {};
     if (has.en.has(path)) languages.en = abs('en', path);
     if (has.ar.has(path)) languages.ar = abs('ar', path);
     if (has.en.has(path)) languages['x-default'] = abs('en', path);
-    const date = dates[locale].get(path);
     return {
       url: abs(locale, path),
-      ...(date ? { lastModified: date } : {}),
-      // A lone language needs no alternates block.
-      ...(Object.keys(languages).length > 2 ? { alternates: { languages } } : {}),
+      lastModified: dates[locale].get(path) ?? DEPLOYED,
+      alternates: { languages },
     };
   };
 

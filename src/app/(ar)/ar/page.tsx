@@ -32,7 +32,7 @@ export default function ArabicHomePage() {
   return (
     <>
       <Hero locale={locale} nodes={c.heroNodes} stats={c.heroStats} platforms={c.platforms} />
-      <Goals locale={locale} goals={visible(c.goals)} />
+      <Goals locale={locale} goals={visible(c.goals)} solutions={visible(c.solutions)} />
       <Automations locale={locale} automations={visible(c.automations)} platforms={c.platforms} />
 
       {/* See the English page: the heading came off this section. */}
