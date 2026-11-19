@@ -36,6 +36,7 @@ export default async function SystemsDetailPage({ params }: { params: { slug: st
       sectionHref="/systems"
       prev={items[index - 1] ?? null}
       next={items[index + 1] ?? null}
+      all={items}
       icon={look.icon}
       tone={look.tone}
     />

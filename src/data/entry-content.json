@@ -43,6 +43,50 @@
           }
         ]
       }
+    },
+    "ecommerce-chatbot": {
+      "en": {
+        "body": "## Who the e-commerce chatbot is for\n\nThe e-commerce chatbot is built for online stores in Egypt that sell through conversations:\n\n- **Stores where most orders start on WhatsApp, Messenger or Instagram**, not on the website.\n- **Brands answering the same questions all day**: price, size, availability, delivery and returns.\n- **Teams that lose sales at night and on weekends** because nobody is there to reply.\n- **Stores running WhatsApp campaigns** that want to know which campaign actually brought orders.\n\n## From a message to a confirmed order\n\nHere's what a typical conversation looks like:\n\n1. **The customer sends a photo** of a product they saw on Instagram, or a voice note asking \"is this available?\"\n2. **The chatbot identifies the product** from the photo or message and replies in natural Egyptian Arabic with the price and available sizes, straight from your live store data.\n3. **The customer chooses.** The chatbot collects the size, address and payment method, and confirms the order.\n4. **A real Shopify order is created.** If the customer adds another item later, it's added to the same order instead of creating a duplicate.\n5. **Payment is handled by your rules.** Deposits and payment screenshots are verified, and exchanges, returns and tracking follow the policies you set.\n6. **A person steps in when needed.** If a case genuinely needs your team, the conversation is flagged and handed over with the full context.\n\n## More than a chatbot\n\nThe chatbot is one part of a single operations hub:\n\n- **One inbox for every channel.** Multiple WhatsApp numbers, Messenger and Instagram on one real-time screen.\n- **Conversations sorted for you.** Every chat is classified by intent and sentiment, and urgent and VIP customers move to the top.\n- **WhatsApp campaigns with real results.** Send text or image-and-button templates now or on a schedule, and see sent, delivered, read and orders generated, tied to purchases by discount code.\n- **Numbers you can act on.** Live metrics on conversations handled, automation rate and team performance, plus AI analytics on the products and questions customers ask about most.\n\n## What changes for your store\n\n- **Sales at any hour.** Customers get an answer and can order at 2 a.m., not the next morning.\n- **Less repetitive work.** The chatbot resolves most conversations without anyone on your team touching them.\n- **Fewer mistakes in orders.** Orders are created directly in Shopify with the details the customer confirmed.\n- **Campaigns you can measure.** You see which broadcast brought orders, not just how many people read it.\n\n## Related\n\nIf you mainly need to organize several WhatsApp numbers for your team, see our [smart multi-number WhatsApp inbox](/automations/whatsapp-ai-system). For how to set up an AI agent that customers don't find annoying, read our guide on [putting an AI agent on WhatsApp](/blog/an-ai-agent-on-whatsapp). And for AI support across WhatsApp and your website, see [AI customer support](/solutions/ai-customer-support).",
+        "faq": [
+          {
+            "q": "What can the e-commerce chatbot answer?",
+            "a": "Product, price, size and availability questions, store policies, order status and tracking, all from your live store data. It also understands product photos and voice notes."
+          },
+          {
+            "q": "Does it work with my Shopify store?",
+            "a": "Yes. It reads your products and stock from Shopify and creates real Shopify orders from the conversation."
+          },
+          {
+            "q": "Which channels does it work on?",
+            "a": "WhatsApp (including several numbers), Messenger and Instagram, all in one inbox. Each channel can be turned on or off on its own."
+          },
+          {
+            "q": "What happens when the chatbot can't handle a case?",
+            "a": "It flags the conversation and hands it to your team with the full context, so the customer doesn't have to repeat anything."
+          }
+        ]
+      },
+      "ar": {
+        "body": "## لمن شات بوت المتاجر؟\n\nشات بوت المتاجر مبني للمتاجر الإلكترونية في مصر التي تبيع من خلال المحادثات:\n\n- **متاجر أغلب طلباتها تبدأ على واتساب أو ماسنجر أو إنستجرام**، لا على الموقع.\n- **براندات ترد على نفس الأسئلة طول اليوم**: السعر والمقاس والتوفر والشحن والاسترجاع.\n- **فرق تخسر مبيعات بالليل وفي الإجازات** لأن لا أحد موجود ليرد.\n- **متاجر تعمل حملات على واتساب** وتريد أن تعرف أي حملة جابت طلبات فعلًا.\n\n## من رسالة إلى طلب مؤكد\n\nهكذا تبدو محادثة معتادة مع الشات بوت:\n\n1. **العميل يرسل صورة** لمنتج شافه على إنستجرام، أو رسالة صوتية يسأل «ده متاح؟».\n2. **الشات بوت يتعرّف على المنتج** من الصورة أو الرسالة، ويرد بعربية مصرية طبيعية بالسعر والمقاسات المتاحة، مباشرة من بيانات متجرك.\n3. **العميل يختار.** الشات بوت يجمع المقاس والعنوان وطريقة الدفع، ويؤكد الطلب.\n4. **طلب شوبيفاي حقيقي يتسجل.** ولو العميل أضاف منتجًا آخر بعد ذلك، يُضاف إلى نفس الطلب بدل أن يتكرر.\n5. **الدفع حسب قواعدك.** العربون وصور التحويل يتم التحقق منها، والاستبدال والمرتجعات والتتبع تمشي حسب السياسات التي تحددها.\n6. **الموظف يتدخل عند الحاجة.** لو الحالة تحتاج فريقك فعلًا، المحادثة تُعلَّم وتتحول له وسياقها كامل.\n\n## أكثر من شات بوت\n\nالشات بوت جزء من منصة تشغيل واحدة:\n\n- **صندوق واحد لكل القنوات.** أكثر من رقم واتساب وماسنجر وإنستجرام في شاشة واحدة مباشرة.\n- **محادثات مرتبة لك.** كل محادثة تُصنف حسب موضوعها ومزاج العميل، والعاجل وعملاء VIP في الأعلى.\n- **حملات واتساب بنتائج حقيقية.** أرسل قوالب نصية أو صورًا وأزرارًا فورًا أو بجدولة، وشوف كم رسالة أُرسلت ووصلت وقُرئت، وكم طلبًا نتج عنها بكود الخصم.\n- **أرقام تقدر تتصرف بناءً عليها.** مؤشرات مباشرة لعدد المحادثات ونسبة الأتمتة وأداء الفريق، وتحليلات بالذكاء الاصطناعي لأكثر المنتجات والأسئلة التي يسأل عنها العملاء.\n\n## ما الذي يتغير في متجرك؟\n\n- **مبيعات في أي وقت.** العميل ياخد رد ويقدر يطلب الساعة 2 بالليل، مش الصبح.\n- **شغل متكرر أقل.** الشات بوت ينهي معظم المحادثات بدون أن يلمسها أحد من فريقك.\n- **أخطاء أقل في الطلبات.** الطلبات تتسجل مباشرة على شوبيفاي بالتفاصيل التي أكدها العميل.\n- **حملات تقدر تقيسها.** تعرف أي حملة جابت طلبات، مش بس كم واحد قرأها.\n\n## صفحات مرتبطة\n\nلو محتاج بالأساس تنظّم أكثر من رقم واتساب لفريقك، شاهد [صندوق واتساب موحّد بالذكاء الاصطناعي](/ar/automations/whatsapp-ai-system). ولتعرف يعني إيه شات بوت وإزاي تشغّله من غير ما يضايق عملاءك، اقرأ دليلنا عن [شات بوت واتساب](/ar/blog/an-ai-agent-on-whatsapp). ولخدمة العملاء بالذكاء الاصطناعي على واتساب وموقعك، شاهد [خدمة عملاء بالذكاء الاصطناعي](/ar/solutions/ai-customer-support).",
+        "faq": [
+          {
+            "q": "الشات بوت يقدر يرد على إيه؟",
+            "a": "أسئلة المنتجات والسعر والمقاس والتوفر، وسياسات المتجر، وحالة الطلب وتتبعه، كلها من بيانات متجرك مباشرة. ويفهم كمان صور المنتجات والرسائل الصوتية."
+          },
+          {
+            "q": "هل يشتغل مع متجري على شوبيفاي؟",
+            "a": "نعم. يقرأ منتجاتك ومخزونك من شوبيفاي، وينشئ طلبات شوبيفاي حقيقية من المحادثة."
+          },
+          {
+            "q": "يشتغل على أنهي قنوات؟",
+            "a": "واتساب (بما فيه أكثر من رقم) وماسنجر وإنستجرام، كلهم في صندوق واحد. وكل قناة ممكن تتشغل أو تتوقف لوحدها."
+          },
+          {
+            "q": "إيه اللي يحصل لو الشات بوت ماقدرش يتعامل مع حالة؟",
+            "a": "يعلّم المحادثة ويحوّلها لفريقك وسياقها كامل، فالعميل مش بيضطر يعيد كلامه."
+          }
+        ]
+      }
     }
   },
   "systems": {
@@ -130,6 +174,53 @@
           {
             "q": "هل هو برنامج جاهز أم مبني لشركتي؟",
             "a": "هو نظام مخصص. نجهز المناطق وجداول الأسعار والمندوبين وطريقة العمل حسب طريقة تشغيلك الفعلية."
+          }
+        ]
+      }
+    },
+    "accounting-system": {
+      "more": [
+        "courier-system"
+      ],
+      "en": {
+        "body": "## Who the accounting system is for\n\nThe accounting system is built for businesses in Egypt that have outgrown spreadsheets:\n\n- **Online stores** that take payments in cash, bank transfer, card and cash on delivery, and need to know what was actually collected.\n- **Service and trading companies** that issue invoices, follow up on unpaid balances and pay suppliers on terms.\n- **Businesses that must issue ETA e-invoices** and want submission and status tracking inside the same system they use every day.\n- **Owners who want clear numbers**: profit, cash position and who owes what, without waiting for the end of the month.\n\n## When Excel stops being enough\n\nSpreadsheets work at the start. Then the signs appear:\n\n- Several versions of the same file, and nobody is sure which one is right.\n- Payments recorded late, or twice, or not at all.\n- No quick answer to \"how much do customers owe us?\" or \"how much cash do we have?\"\n- E-invoices handled in a separate portal, with no link to your own records.\n- Month-end closing that takes days of manual reconciliation.\n\nThe accounting system replaces this with one source of truth for revenue, costs and receivables.\n\n## How the full cycle works\n\n1. **Quotation and invoice.** Issue invoices and credit notes in EGP, with other currencies where needed.\n2. **E-invoicing.** Invoices are submitted to the Egyptian Tax Authority (ETA), and their status is tracked inside the system.\n3. **Payment.** Record payments by cash, bank transfer, card or cash on delivery, matched to the right invoice and customer.\n4. **Follow-up.** Customer and supplier ledgers with aging reports show what's overdue, for you and against you.\n5. **Expenses.** Capture expenses by category and cost center, so you know what each part of the business costs.\n6. **Posting and closing.** A chart of accounts, journal entries and automated posting rules keep the books up to date, and periods close with a clear audit trail.\n\n## What changes for your business\n\n- **One version of the truth.** Revenue, costs and balances live in one system, not in scattered files.\n- **Less manual reconciliation.** Automated posting rules record entries for you as transactions happen.\n- **Faster collections.** Aging reports show who to follow up with first.\n- **Tax handled inside your workflow.** VAT handling, tax reports and ETA e-invoicing in the same place as your invoices.\n- **The right access for each person.** Role-based access means staff see only what their job requires.\n- **Decisions on real numbers.** Dashboards and exportable reports for profit and loss, cash position, collections and revenue by channel.\n\n## Connected to your operations\n\nFor businesses that deliver orders, cash on delivery is where the numbers usually go wrong. Our [courier system](/systems/courier-system) tracks cash collected per courier with a daily settlement report, which can feed into your accounts. And if your orders come from an online store, our [order-to-delivery automation](/solutions/order-fulfillment) keeps every order moving from payment to delivery.",
+        "faq": [
+          {
+            "q": "Does it support Egyptian e-invoicing (ETA)?",
+            "a": "Yes. Invoices are submitted to the Egyptian Tax Authority, and their status is tracked in the system, alongside VAT handling and tax reports."
+          },
+          {
+            "q": "Can I move my data from Excel?",
+            "a": "Yes. As part of setup, we plan the move of your existing customers, suppliers and opening balances so you start with clean records."
+          },
+          {
+            "q": "Can several people use it with different permissions?",
+            "a": "Yes. Access is role-based, so each person sees only the parts of the system their function requires."
+          },
+          {
+            "q": "Is it ready-made accounting software or built for my business?",
+            "a": "It's a custom system. We set up your chart of accounts, posting rules, cost centers and reports around how your business actually works."
+          }
+        ]
+      },
+      "ar": {
+        "body": "## لمن نظام المحاسبة؟\n\nنظام المحاسبة مبني للشركات في مصر التي كبرت على ملفات الإكسل، ويناسبك لو كنت تبحث عن برنامج حسابات لواحد من هذه الأنشطة:\n\n- **المتاجر الإلكترونية** التي تستلم المدفوعات نقدًا وتحويلًا وبالبطاقة وعند الاستلام، وتحتاج أن تعرف ما تم تحصيله فعلًا.\n- **شركات الخدمات والتجارة** التي تصدر فواتير، وتتابع المبالغ المتأخرة، وتدفع للموردين بالآجل.\n- **الشركات الملزمة بالفاتورة الإلكترونية** التي تريد الإرسال لمصلحة الضرائب ومتابعة الحالة داخل نفس النظام الذي تعمل عليه كل يوم.\n- **أصحاب الشركات الذين يريدون أرقامًا واضحة**: الربح والنقدية ومن عليه كم، بدون انتظار آخر الشهر.\n\n## متى لا يكفي الإكسل؟\n\nالإكسل مناسب في البداية، ثم تبدأ العلامات في الظهور:\n\n- أكثر من نسخة من نفس الملف، ولا أحد متأكد أيها الصحيحة.\n- مدفوعات تُسجل متأخرة، أو مرتين، أو لا تُسجل أصلًا.\n- لا توجد إجابة سريعة على «العملاء عليهم كم؟» أو «معانا كم نقدية؟».\n- الفاتورة الإلكترونية تُدار في بوابة منفصلة، بدون ربط بسجلاتك.\n- إقفال الشهر يأخذ أيامًا من التسويات اليدوية.\n\nنظام المحاسبة يستبدل كل هذا بمكان واحد موثوق للإيراد والتكاليف والمستحقات.\n\n## كيف تمشي الدورة كاملة؟\n\n1. **عرض السعر والفاتورة.** إصدار الفواتير والإشعارات الدائنة بالجنيه، ودعم عملات أخرى عند الحاجة.\n2. **الفاتورة الإلكترونية.** الفواتير تُرسل لمصلحة الضرائب المصرية، وحالتها تُتابع داخل النظام.\n3. **الدفع.** تسجيل المدفوعات نقدًا أو تحويلًا أو بالبطاقة أو عند الاستلام، وربطها بالفاتورة والعميل الصحيح.\n4. **المتابعة.** حساب لكل عميل ومورّد، مع تقرير بأعمار المتأخرات يوضح ما لك وما عليك.\n5. **المصروفات.** تسجيل المصروفات وتوزيعها على البند ومركز التكلفة، فتعرف تكلفة كل جزء من الشغل.\n6. **التسجيل والإقفال.** شجرة حسابات وقيود يومية وقواعد تسجيل تلقائي تحافظ على الحسابات محدثة، وإقفال الفترات بسجل واضح.\n\n## ما الذي يتغير في شغلك؟\n\n- **نسخة واحدة من الحقيقة.** الإيراد والتكاليف والأرصدة في نظام واحد، لا في ملفات متفرقة.\n- **تسويات يدوية أقل.** قواعد التسجيل التلقائي تسجل القيود وقت حدوث العمليات.\n- **تحصيل أسرع.** تقرير أعمار المتأخرات يوضح من تتابع معه أولًا.\n- **الضرائب داخل شغلك اليومي.** ضريبة القيمة المضافة والتقارير الضريبية والفاتورة الإلكترونية في نفس مكان فواتيرك.\n- **صلاحيات مناسبة لكل شخص.** كل موظف يرى ما يخص وظيفته فقط.\n- **قرارات على أرقام حقيقية.** لوحات وتقارير تُصدَّر للأرباح والخسائر والنقدية والتحصيلات والإيراد لكل قناة.\n\n## مربوط بتشغيل شغلك\n\nفي الشركات التي توصّل طلبات، الدفع عند الاستلام هو المكان الذي تختل فيه الأرقام غالبًا. [نظام إدارة الشحن والتوصيل](/ar/systems/courier-system) يتابع المبالغ المحصلة لكل مندوب مع تقرير تسوية يومي، يمكن أن ينتقل إلى حساباتك. ولو طلباتك تأتي من متجر إلكتروني، فخدمة [اتمتة الطلبات من الطلب للتسليم](/ar/solutions/order-fulfillment) تحرّك كل طلب من الدفع حتى التسليم.",
+        "faq": [
+          {
+            "q": "هل يدعم الفاتورة الإلكترونية المصرية؟",
+            "a": "نعم. الفواتير تُرسل لمصلحة الضرائب المصرية، وحالتها تُتابع داخل النظام، مع ضريبة القيمة المضافة والتقارير الضريبية."
+          },
+          {
+            "q": "هل أقدر أنقل بياناتي من الإكسل؟",
+            "a": "نعم. وقت الإعداد، نخطط لنقل العملاء والموردين والأرصدة الافتتاحية الحالية، حتى تبدأ بسجلات نظيفة."
+          },
+          {
+            "q": "هل يقدر أكثر من شخص يستخدمه بصلاحيات مختلفة؟",
+            "a": "نعم. الصلاحيات حسب الوظيفة، فكل شخص يرى الأجزاء التي يحتاجها في شغله فقط."
+          },
+          {
+            "q": "هل هو برنامج حسابات جاهز أم مبني لشركتي؟",
+            "a": "هو نظام مخصص. نجهز شجرة الحسابات وقواعد التسجيل ومراكز التكلفة والتقارير حسب طريقة عمل شركتك الفعلية."
           }
         ]
       }

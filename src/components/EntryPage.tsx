@@ -5,13 +5,13 @@ import { Reveal } from './Reveal';
 import { Linked } from './Linked';
 import { PostBody } from './PostBody';
 import { Faq } from './Faq';
-import { entryContent } from '@/lib/entry-content';
+import { entryContent, entryMore } from '@/lib/entry-content';
 import { site } from '@/lib/content';
 import type { Entry } from '@/lib/types';
 import { getDict, localeHref, type Locale } from '@/lib/i18n';
 
 export function EntryPage({
-  entry, section, sectionHref, prev, next,
+  entry, section, sectionHref, prev, next, all,
   pointsTitle,
   locale = 'en',
   pointsAs = 'list',
@@ -23,6 +23,8 @@ export function EntryPage({
   sectionHref: string;
   prev?: Entry | null;
   next?: Entry | null;
+  /** The whole section, so `more` slugs from entry-content.json can be found. */
+  all?: Entry[];
   /** Heading above `points`. Defaults to the locale's "What you get"; a
    *  person needs its own word. */
   pointsTitle?: string;
@@ -46,9 +48,15 @@ export function EntryPage({
   /* Everything else in this section, for the aside. On a desktop the sticky CTA
      card left most of a screen of empty column beside the body; somewhere to go
      next is more use there than white space, and it links the section together. */
-  const more = [next, prev].filter((e): e is Entry => !!e);
   /* This page's path without the locale, for its internal links. */
   const basePath = locale === 'ar' ? sectionHref.replace(/^\/ar(?=\/|$)/, '') : sectionHref;
+  /* Neighbours first, then any related entries named in entry-content.json
+     that exist in this language, without repeats. */
+  const related = entryMore(basePath.replace(/^\//, ''), entry.slug)
+    .map((slug) => all?.find((e) => e.slug === slug));
+  const more = [next, prev, ...related]
+    .filter((e): e is Entry => !!e && e.slug !== entry.slug)
+    .filter((e, i, list) => list.findIndex((x) => x.slug === e.slug) === i);
   const path = `${basePath}/${entry.slug}`;
   const extra = entryContent(basePath.replace(/^\//, ''), entry, locale);
 

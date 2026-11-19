@@ -41,6 +41,7 @@ export default function SystemsDetailPage({ params }: { params: { slug: string }
       sectionHref={localeHref(locale, '/systems')}
       prev={list[index - 1] ?? null}
       next={list[index + 1] ?? null}
+      all={list}
       icon={look.icon}
       tone={look.tone}
     />
