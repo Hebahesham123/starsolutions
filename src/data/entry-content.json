@@ -44,5 +44,95 @@
         ]
       }
     }
+  },
+  "systems": {
+    "seo-forge": {
+      "en": {
+        "body": "## What SEO Forge is\n\nSEO Forge is a custom SEO system that brings the four jobs of search optimization into one place: finding the keywords your customers actually use, drafting the content for them, tracking where every page ranks each day, and auditing the site for technical problems. AI does the heavy lifting, and your team decides what gets published.\n\nIt works in Arabic and English, which matters in Egypt: people search for the same product in both languages, often with different words, spellings and intent.\n\n## Who it's for\n\n- **Online stores and service businesses** that want more visitors from Google without paying for every click.\n- **Bilingual brands** that need Arabic and English pages to rank, not just exist.\n- **Teams without a full-time SEO specialist**, who need clear priorities instead of long reports.\n- **Agencies and marketers** managing SEO for several sites who want one system instead of scattered tools and spreadsheets.\n\n## How SEO Forge works\n\n1. **Keyword research with local intent.** It finds the searches your customers use in Egypt and the region, in Arabic and English, and groups them by what the searcher wants: to learn, to compare or to buy.\n2. **One keyword, one page.** Each important keyword is matched to the page that should rank for it, so your own pages don't compete with each other.\n3. **AI-drafted briefs and copy.** For every page or article, it drafts a content brief and first copy around the target keyword: headings, questions to answer and internal links to add. Your team reviews and edits before anything goes live.\n4. **Daily rank tracking.** Rankings are tracked every day by keyword and by page, so you see what moved after each change instead of guessing.\n5. **Technical site audits.** It checks the site for the problems that hold rankings back, such as missing titles, slow pages, broken links and indexing issues, and lists the fixes in order of impact.\n\n## What changes for your business\n\n- **Clear priorities.** You know which page to improve next and why, instead of a long list of \"issues\".\n- **Content that targets real searches.** Every new page or article starts from a keyword people actually type.\n- **Progress you can see.** Daily tracking shows which changes worked, page by page.\n- **Arabic and English handled together.** Both versions of each page are researched, written and tracked.\n\n## SEO Forge and the rest of your growth\n\nSEO brings visitors; your store has to turn them into buyers. SEO Forge works well alongside our [Shopify store optimization](/solutions/shopify-optimization), which makes the store faster and better at converting the traffic SEO brings in. You can also see how we write search-focused guides on our [blog](/blog).",
+        "faq": [
+          {
+            "q": "Is SEO Forge a tool I log into, or a service?",
+            "a": "It's a custom system we set up around your site and goals. You get the research, content drafts, rank tracking and audits, and we can walk you through it in a demo on request."
+          },
+          {
+            "q": "Does it work for Arabic websites?",
+            "a": "Yes. SEO Forge handles Arabic and English keyword research, content and rank tracking, including the different words and spellings people use for the same search."
+          },
+          {
+            "q": "Does the AI publish content automatically?",
+            "a": "No. The AI drafts briefs and copy, and your team reviews and approves everything before it's published. That keeps the content accurate and in your brand's voice."
+          },
+          {
+            "q": "How soon will I see results from SEO?",
+            "a": "SEO builds over time. Technical fixes and better titles can show changes within weeks, while new content usually takes a few months to rank well. Daily tracking shows you the progress along the way."
+          }
+        ]
+      },
+      "ar": {
+        "body": "## ما هو SEO Forge؟\n\nSEO Forge نظام سيو مخصص يجمع المهام الأربع لتحسين الظهور في جوجل في مكان واحد: البحث عن الكلمات التي يستخدمها عملاؤك فعلًا، وكتابة المحتوى لها، ومتابعة ترتيب كل صفحة يوميًا، وفحص الموقع تقنيًا. الذكاء الاصطناعي يقوم بالجزء الأكبر من الشغل، وفريقك هو الذي يقرر ماذا يُنشر.\n\nويعمل بالعربي والإنجليزي، وهذا مهم في مصر: الناس يبحثون عن نفس المنتج باللغتين، وغالبًا بكلمات وطرق كتابة ونوايا مختلفة.\n\n## لمن هذا النظام؟\n\n- **المتاجر الإلكترونية وشركات الخدمات** التي تريد زوارًا أكثر من جوجل بدون أن تدفع مقابل كل ضغطة.\n- **البراندات التي تعمل باللغتين** وتحتاج أن تظهر صفحاتها العربية والإنجليزية في البحث، لا أن تكون موجودة فقط.\n- **الفرق التي ليس لديها متخصص سيو بدوام كامل**، وتحتاج أولويات واضحة بدل تقارير طويلة.\n- **الوكالات والمسوقين** الذين يديرون السيو لأكثر من موقع ويريدون نظامًا واحدًا بدل أدوات وشيتات متفرقة.\n\n## كيف يعمل SEO Forge؟\n\n1. **بحث عن الكلمات بنية البحث المحلية.** يجد الكلمات التي يبحث بها عملاؤك في مصر والمنطقة، بالعربي والإنجليزي، ويقسمها حسب ما يريده الباحث: أن يتعلم، أو يقارن، أو يشتري.\n2. **كلمة واحدة لكل صفحة.** كل كلمة مهمة تُربط بالصفحة التي يجب أن تظهر بها، حتى لا تتنافس صفحاتك مع بعضها.\n3. **مسودات محتوى بالذكاء الاصطناعي.** لكل صفحة أو مقالة، يكتب خطة محتوى ومسودة أولى حول الكلمة المستهدفة: العناوين، والأسئلة التي يجب الإجابة عنها، والروابط الداخلية. وفريقك يراجع ويعدّل قبل النشر.\n4. **تتبّع الترتيب يوميًا.** الترتيب يُتابع كل يوم لكل كلمة ولكل صفحة، فتعرف ما الذي تحرك بعد كل تعديل بدل التخمين.\n5. **فحص تقني للموقع.** يفحص الموقع بحثًا عن المشاكل التي تؤخر الترتيب، مثل العناوين الناقصة والصفحات البطيئة والروابط المعطلة ومشاكل الأرشفة، ويرتّب الحلول من الأهم للمهم.\n\n## ما الذي يتغير في شغلك؟\n\n- **أولويات واضحة.** تعرف أي صفحة تحسّنها بعد ذلك ولماذا، بدل قائمة طويلة من «المشاكل».\n- **محتوى يستهدف بحثًا حقيقيًا.** كل صفحة أو مقالة جديدة تبدأ من كلمة يكتبها الناس فعلًا.\n- **تقدّم تراه بعينك.** المتابعة اليومية توضح أي تعديل نجح، صفحة بصفحة.\n- **العربي والإنجليزي معًا.** النسختان من كل صفحة يتم البحث لهما وكتابتهما ومتابعتهما.\n\n## SEO Forge وباقي نمو متجرك\n\nالسيو يجيب الزوار، والمتجر هو الذي يحوّلهم إلى مشترين. لذلك يعمل SEO Forge بشكل ممتاز مع خدمة [تصميم متجر شوبيفاي وتحسينه](/ar/solutions/shopify-optimization)، التي تجعل المتجر أسرع وأقدر على تحويل الزيارات التي يجيبها السيو. وتقدر تشوف كيف نكتب أدلة مبنية على البحث في [المدونة](/ar/blog).",
+        "faq": [
+          {
+            "q": "هل SEO Forge أداة أدخل عليها بنفسي أم خدمة؟",
+            "a": "هو نظام مخصص نجهزه حول موقعك وأهدافك. تحصل على البحث عن الكلمات ومسودات المحتوى وتتبّع الترتيب والفحص التقني، ونقدر نعرضه لك في عرض توضيحي عند الطلب."
+          },
+          {
+            "q": "هل يعمل مع المواقع العربية؟",
+            "a": "نعم. SEO Forge يتعامل مع البحث عن الكلمات والمحتوى وتتبّع الترتيب بالعربي والإنجليزي، بما في ذلك الكلمات وطرق الكتابة المختلفة لنفس البحث."
+          },
+          {
+            "q": "هل الذكاء الاصطناعي ينشر المحتوى تلقائيًا؟",
+            "a": "لا. الذكاء الاصطناعي يكتب خطط المحتوى والمسودات، وفريقك يراجع ويوافق على كل شيء قبل النشر، حتى يبقى المحتوى دقيقًا وبأسلوب البراند."
+          },
+          {
+            "q": "متى تظهر نتائج السيو؟",
+            "a": "السيو يُبنى مع الوقت. الإصلاحات التقنية والعناوين الأفضل قد تظهر نتيجتها خلال أسابيع، أما المحتوى الجديد فيأخذ عادة بضعة أشهر ليظهر في ترتيب جيد. والمتابعة اليومية توضح لك التقدم خطوة بخطوة."
+          }
+        ]
+      }
+    },
+    "courier-system": {
+      "en": {
+        "body": "## Who the courier system is for\n\nThe courier system is a delivery management system built for two kinds of businesses in Egypt:\n\n- **Courier and last-mile delivery companies** that need to run pickups, routes, couriers and cash on delivery from one place instead of spreadsheets and phone calls.\n- **Online stores with their own delivery team** that want the same control over their fleet that the big couriers have.\n\nIt fits best when you're dealing with any of these:\n\n- **Orders arriving from many channels**, typed in by hand.\n- **Couriers reporting by phone**, so nobody knows where a shipment is until the end of the day.\n- **Cash on delivery that's hard to reconcile**, with differences between what was collected and what was handed in.\n- **Customers calling to ask \"where is my order?\"** because they get no updates.\n\n## How a shipment moves through the system\n\n1. **The order comes in.** Orders arrive from the dashboard, a bulk file upload or directly from your sales channels through the API.\n2. **The label is ready.** An airway bill (AWB) and a printable label are generated automatically, and the price is calculated from your zone and weight rate cards.\n3. **The shipment is assigned.** It's allocated to a courier by zone or capacity, or assigned manually when you need to override.\n4. **The courier delivers.** On the mobile view, the courier updates the status, logs each delivery attempt and records proof of delivery with a signature or a photo.\n5. **The customer is kept informed.** A live tracking page plus WhatsApp and SMS notifications update the customer at every step, without anyone following up by hand.\n6. **Cash is settled.** Cash on delivery is tracked per courier, with a daily settlement and remittance report.\n\nReturns and failed deliveries follow their own path, with reattempts scheduled automatically.\n\n## What changes in your operation\n\n- **A live view of every order.** Dispatch sees every shipment in real time, not at the end of the day.\n- **Fewer calls from customers.** Tracking pages and WhatsApp updates answer \"where is my order?\" before it's asked.\n- **Cash you can account for.** Daily settlement per courier shows what was collected and what was handed in.\n- **Decisions based on numbers.** Reports on delivery success rate, average transit time, courier productivity and zone profitability show where you're losing time and money.\n\n## Connected to the rest of your store\n\nFor online stores, the courier system is the delivery end of the chain. It works with our [order-to-delivery automation](/solutions/order-fulfillment), which sends paid orders to the right supplier and on to shipping automatically. Read how the full chain works in our guide to [Shopify automation from order to delivery](/blog/automate-shopify-order-to-delivery). For the money side, cash settlements can feed into our [accounting system](/systems/accounting-system).",
+        "faq": [
+          {
+            "q": "Can it receive orders from my Shopify store or other sales channels?",
+            "a": "Yes. Orders can come in from your sales channels through the API, from a bulk file upload, or be added from the dashboard."
+          },
+          {
+            "q": "Do couriers need a special device?",
+            "a": "No. Couriers use a mobile view on their phones to update status, log delivery attempts and capture proof of delivery with a signature or a photo."
+          },
+          {
+            "q": "How does cash on delivery settlement work?",
+            "a": "Cash collected is tracked per courier for every delivery. At the end of each day, the system produces a settlement and remittance report, so differences show up the same day."
+          },
+          {
+            "q": "Is it a ready-made app or built for my business?",
+            "a": "It's a custom system. We set up your zones, rate cards, couriers and workflows around how your operation actually runs."
+          }
+        ]
+      },
+      "ar": {
+        "body": "## لمن نظام إدارة الشحن والتوصيل؟\n\nنظام إدارة الشحن والتوصيل مبني لنوعين من الشركات في مصر:\n\n- **شركات الشحن والتوصيل** التي تحتاج أن تدير الاستلام وخطوط السير والمندوبين والدفع عند الاستلام من مكان واحد، بدل الشيتات والمكالمات.\n- **المتاجر الإلكترونية التي لديها فريق توصيل خاص**، وتريد نظام إدارة توصيل الطلبات بنفس التحكم الذي تملكه شركات الشحن الكبيرة.\n\nويناسبك أكثر لو تواجه أيًا من هذه المشاكل:\n\n- **طلبات تصل من قنوات كثيرة** وتُكتب يدويًا.\n- **مندوبون يبلغون بالتليفون**، فلا أحد يعرف مكان الشحنة حتى آخر اليوم.\n- **تحصيل الدفع عند الاستلام صعب المراجعة**، وفيه فروق بين ما تم تحصيله وما تم توريده.\n- **عملاء يتصلون ليسألوا «طلبي فين؟»** لأن لا أحد يبلغهم بالتحديثات.\n\n## كيف تتحرك الشحنة داخل النظام؟\n\n1. **الطلب يصل.** الطلبات تأتي من اللوحة، أو برفع ملف، أو مباشرة من قنوات البيع عبر الـ API.\n2. **البوليصة جاهزة.** بوليصة الشحن والملصق يصدران تلقائيًا، والسعر يُحسب من جداول الأسعار حسب المنطقة والوزن.\n3. **الشحنة تُوزَّع.** تذهب إلى مندوب حسب المنطقة أو الحمولة، أو تُوزَّع يدويًا عند الحاجة.\n4. **المندوب يسلّم.** من شاشة الموبايل، يحدّث المندوب الحالة، ويسجل كل محاولة تسليم، ويثبت الاستلام بتوقيع أو صورة.\n5. **العميل يعرف كل خطوة.** صفحة تتبّع مباشرة مع إشعارات على واتساب والرسائل تبلغ العميل في كل مرحلة، بدون متابعة يدوية.\n6. **المبالغ تُسوَّى.** الدفع عند الاستلام يُتابع لكل مندوب، مع تسوية يومية وتقرير توريد.\n\nوالمرتجعات والتسليم الفاشل لهما مسار خاص، مع إعادة جدولة المحاولة تلقائيًا.\n\n## ما الذي يتغير في التشغيل؟\n\n- **كل طلب أمامك لحظة بلحظة.** فريق التوزيع يرى كل شحنة في الحال، لا في آخر اليوم.\n- **مكالمات أقل من العملاء.** صفحة التتبّع وإشعارات واتساب تجاوب على «طلبي فين؟» قبل أن يُسأل.\n- **فلوس تقدر تحاسب عليها.** التسوية اليومية لكل مندوب توضح ما تم تحصيله وما تم توريده.\n- **قرارات مبنية على أرقام.** تقارير نسبة التسليم الناجح ومتوسط وقت النقل وإنتاجية المندوب وربحية كل منطقة توضح أين تضيع الوقت والفلوس.\n\n## مربوط بباقي متجرك\n\nللمتاجر الإلكترونية، نظام الشحن هو آخر حلقة في السلسلة. يعمل مع خدمة [اتمتة الطلبات من الطلب للتسليم](/ar/solutions/order-fulfillment)، التي ترسل الطلبات المدفوعة للمورّد الصحيح ثم للشحن تلقائيًا. واقرأ كيف تعمل السلسلة كاملة في دليل [اتمتة متجر شوبيفاي من الطلب للتسليم](/ar/blog/automate-shopify-order-to-delivery). وللجانب المالي، تسويات الدفع عند الاستلام يمكن أن تنتقل إلى [نظام المحاسبة](/ar/systems/accounting-system).",
+        "faq": [
+          {
+            "q": "هل يستقبل الطلبات من متجري على شوبيفاي أو قنوات البيع الأخرى؟",
+            "a": "نعم. الطلبات يمكن أن تصل من قنوات البيع عبر الـ API، أو برفع ملف، أو تُضاف من اللوحة."
+          },
+          {
+            "q": "هل يحتاج المندوب جهازًا خاصًا؟",
+            "a": "لا. المندوب يستخدم شاشة على موبايله لتحديث الحالة وتسجيل محاولات التسليم وإثبات الاستلام بتوقيع أو صورة."
+          },
+          {
+            "q": "كيف تتم تسوية الدفع عند الاستلام؟",
+            "a": "المبالغ المحصلة تُتابع لكل مندوب في كل عملية تسليم. وفي آخر كل يوم، يطلع النظام تقرير تسوية وتوريد، فتظهر أي فروق في نفس اليوم."
+          },
+          {
+            "q": "هل هو برنامج جاهز أم مبني لشركتي؟",
+            "a": "هو نظام مخصص. نجهز المناطق وجداول الأسعار والمندوبين وطريقة العمل حسب طريقة تشغيلك الفعلية."
+          }
+        ]
+      }
+    }
   }
 }
