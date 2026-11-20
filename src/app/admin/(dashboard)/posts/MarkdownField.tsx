@@ -13,7 +13,7 @@ type Panel = null | 'link' | 'callout' | 'video' | 'image' | 'cta';
  * in as `preview`, rendered with the real PostBody).
  */
 export function MarkdownField({
-  id, value, onChange, dir, services, onUpload, preview, rows = 22,
+  id, value, onChange, dir, services, onUpload, preview, rows = 22, onImport,
 }: {
   id: string;
   value: string;
@@ -23,6 +23,8 @@ export function MarkdownField({
   onUpload: (file: File) => Promise<PostImage | null>;
   preview?: React.ReactNode;
   rows?: number;
+  /** An imported .md file (raw, front matter included) or converted HTML (already Markdown). */
+  onImport?: (text: string, kind: 'md' | 'html') => void;
 }) {
   const ref = React.useRef<HTMLTextAreaElement>(null);
   const [panel, setPanel] = React.useState<Panel>(null);
@@ -32,6 +34,41 @@ export function MarkdownField({
   const field = (k: string) => f[k] ?? '';
   const setField = (k: string, v: string) => setF((s) => ({ ...s, [k]: v }));
   const fileRef = React.useRef<HTMLInputElement>(null);
+  const mdRef = React.useRef<HTMLInputElement>(null);
+  const [mode, setMode] = React.useState<'md' | 'html'>('md');
+  const [html, setHtml] = React.useState('');
+  const [htmlError, setHtmlError] = React.useState('');
+
+  /** A .md file, read as UTF-8 and handed to the editor (front matter and all). */
+  const importFile = async (files: FileList | null) => {
+    const file = files?.[0];
+    if (mdRef.current) mdRef.current.value = '';
+    if (!file || !onImport) return;
+    onImport(await file.text(), 'md');
+  };
+
+  /** Paste from Docs / Word / a web page: keep the HTML the clipboard carries, not its plain text. */
+  const onPasteHtml = (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
+    const rich = e.clipboardData.getData('text/html');
+    if (rich) { e.preventDefault(); setHtml(rich); setHtmlError(''); }
+  };
+
+  const convert = async () => {
+    if (!onImport) return;
+    setBusy(true);
+    try {
+      const { htmlToMarkdown } = await import('@/lib/html-to-markdown');
+      const md = htmlToMarkdown(html);
+      if (!md.trim()) { setHtmlError('Nothing to convert: the HTML had no text.'); return; }
+      onImport(md, 'html');
+      setHtml('');
+      setMode('md');
+    } catch (e) {
+      setHtmlError(`Could not convert: ${(e as Error).message}`);
+    } finally {
+      setBusy(false);
+    }
+  };
 
   /** Replaces the selection with `text` and puts the cursor/selection at [selStart, selEnd] within it. */
   const replace = (text: string, selStart = text.length, selEnd = selStart) => {
@@ -101,6 +138,39 @@ export function MarkdownField({
 
   return (
     <div className="md-field">
+      {onImport && (
+        <div className="md-modes">
+          <div className="post-lang-tabs" role="tablist" aria-label="Editor">
+            <button type="button" role="tab" aria-selected={mode === 'md'} className={mode === 'md' ? 'is-on' : ''} onClick={() => setMode('md')}>Markdown</button>
+            <button type="button" role="tab" aria-selected={mode === 'html'} className={mode === 'html' ? 'is-on' : ''} onClick={() => setMode('html')}>HTML / paste from Docs</button>
+          </div>
+          <button type="button" className="btn btn-ghost btn-sm" onClick={() => mdRef.current?.click()}>Import .md</button>
+          <input ref={mdRef} type="file" accept=".md,.markdown,.txt,text/markdown,text/plain" hidden onChange={(e) => importFile(e.target.files)} />
+        </div>
+      )}
+
+      {mode === 'html' && onImport && (
+        <div className="md-html">
+          <textarea
+            value={html}
+            onChange={(e) => { setHtml(e.target.value); setHtmlError(''); }}
+            onPaste={onPasteHtml}
+            rows={12}
+            dir="ltr"
+            className="admin-mono"
+            aria-label="HTML to convert"
+            placeholder="Paste here from Google Docs, Word or a web page (formatting is kept), or paste raw HTML."
+          />
+          <div className="md-html-foot">
+            <button type="button" className="btn btn-primary btn-sm" disabled={!html.trim() || busy} onClick={convert}>{busy ? 'Converting…' : 'Convert to Markdown'}</button>
+            <button type="button" className="btn btn-ghost btn-sm" onClick={() => { setHtml(''); setMode('md'); }}>Cancel</button>
+            <span className="admin-help">Keeps headings, paragraphs, bold, italic, lists, links, tables, quotes and images (with alt). Styles, scripts, classes and everything else are removed. The body is saved as Markdown, never HTML.</span>
+          </div>
+          {htmlError && <p className="post-error">{htmlError}</p>}
+        </div>
+      )}
+
+      {mode === 'md' && (<>
       <div className="md-toolbar" role="toolbar" aria-label="Formatting">
         <button type="button" onClick={() => prefixLines(() => '## ')} title="Heading 2">H2</button>
         <button type="button" onClick={() => prefixLines(() => '### ')} title="Heading 3">H3</button>
@@ -193,6 +263,7 @@ export function MarkdownField({
         />
         {preview && showPreview && <div className="md-preview" dir={dir} lang={dir === 'rtl' ? 'ar' : 'en'}>{preview}</div>}
       </div>
+      </>)}
     </div>
   );
 }

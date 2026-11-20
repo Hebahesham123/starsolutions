@@ -138,6 +138,7 @@ export function PostBody({
         return linked ? <Linked key={k} text={n.text} locale={locale} path={path} /> : <React.Fragment key={k}>{n.text}</React.Fragment>;
       }
       if (n.type === 'bold') return <strong key={k}>{inline(n.children, linked, `${k}-`)}</strong>;
+      if (n.type === 'em') return <em key={k}>{inline(n.children, linked, `${k}-`)}</em>;
       if (isExternal(n.href)) {
         return <a key={k} href={n.href} className="inline-link" rel="noopener noreferrer" target="_blank">{inline(n.children, false, `${k}-`)}</a>;
       }
@@ -191,6 +192,7 @@ export function PostBody({
         case 'h3': out.push(<h3 key={i}>{b.text}</h3>); break;
         case 'hr': out.push(<hr key={i} />); break;
         case 'p': out.push(<p key={i} className="section-sub" style={P_STYLE}>{inline(b.inline, true)}</p>); break;
+        case 'quote': out.push(<blockquote key={i} className="post-quote">{inline(b.inline, true)}</blockquote>); break;
         case 'directive': {
           if (b.name !== 'image') { out.push(directive(b, i)); break; }
           // Consecutive images: one figure, or a gallery of several.
@@ -251,6 +253,7 @@ export function InlineMd({ text, locale, path }: { text: string; locale: Locale;
       const k = `${key}${i}`;
       if (n.type === 'text') return <Linked key={k} text={n.text} locale={locale} path={path} />;
       if (n.type === 'bold') return <strong key={k}>{render(n.children, `${k}-`)}</strong>;
+      if (n.type === 'em') return <em key={k}>{render(n.children, `${k}-`)}</em>;
       return isExternal(n.href)
         ? <a key={k} href={n.href} className="inline-link" rel="noopener noreferrer" target="_blank">{inlineText(n.children)}</a>
         : <Link key={k} href={n.href} className="inline-link">{inlineText(n.children)}</Link>;

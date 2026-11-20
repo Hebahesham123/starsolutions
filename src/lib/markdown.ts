@@ -2,8 +2,8 @@
  * A small Markdown reader for blog post bodies.
  *
  * Covers what the posts use and nothing more: "## " and "### " headings,
- * "- " and "1. " lists, paragraphs, "---" rules, pipe tables, **bold** and
- * [text](/path) links. It returns plain data, not HTML, so the page builds
+ * "- " and "1. " lists, paragraphs, "> " quotes, "---" rules, pipe tables,
+ * **bold**, *italic* and [text](/path) links. It returns plain data, not HTML, so the page builds
  * real elements (and Next.js links) from it and nothing is ever injected as
  * markup.
  *
@@ -20,11 +20,13 @@
 export type Inline =
   | { type: 'text'; text: string }
   | { type: 'bold'; children: Inline[] }
+  | { type: 'em'; children: Inline[] }
   | { type: 'link'; href: string; children: Inline[] };
 
 export type Block =
   | { type: 'h2' | 'h3'; text: string }
   | { type: 'p'; inline: Inline[] }
+  | { type: 'quote'; inline: Inline[] }
   | { type: 'ul' | 'ol'; items: Inline[][] }
   | { type: 'table'; head: Inline[][]; rows: Inline[][][] }
   | { type: 'hr' }
@@ -50,14 +52,15 @@ function cells(line: string): string[] {
 const isTableRow = (line: string) => line.startsWith('|') && line.endsWith('|');
 const isTableRule = (line: string) => /^\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?$/.test(line);
 
-/** **bold** and [text](href), in any order; bold may contain a link and vice versa. */
+/** **bold**, *italic* and [text](href), in any order; each may contain the others. */
 export function parseInline(src: string): Inline[] {
   const out: Inline[] = [];
-  const re = /\*\*(.+?)\*\*|\[([^\]]+)\]\(([^)\s]+)\)/g;
+  const re = /\*\*(.+?)\*\*|\[([^\]]+)\]\(([^)\s]+)\)|\*(?![\s*])([^*]*?[^\s*])\*/g;
   let last = 0;
   for (let m = re.exec(src); m; m = re.exec(src)) {
     if (m.index > last) out.push({ type: 'text', text: src.slice(last, m.index) });
     if (m[1] !== undefined) out.push({ type: 'bold', children: parseInline(m[1]) });
+    else if (m[4] !== undefined) out.push({ type: 'em', children: parseInline(m[4]) });
     else out.push({ type: 'link', href: m[3], children: parseInline(m[2]) });
     last = m.index + m[0].length;
   }
@@ -102,6 +105,18 @@ export function parseMarkdown(src: string): Block[] {
       continue;
     }
     if (/^-{3,}$/.test(line)) { flush(); blocks.push({ type: 'hr' }); continue; }
+    // "> " lines: one blockquote; a bare ">" line separates two.
+    if (line.startsWith('>')) {
+      flush();
+      const quote: string[] = [];
+      while (n < lines.length && /^>/.test(lines[n].trim()) && lines[n].trim() !== '>') {
+        quote.push(lines[n].trim().replace(/^>\s?/, ''));
+        n++;
+      }
+      if (n < lines.length && lines[n].trim() !== '>') n--;
+      if (quote.length) blocks.push({ type: 'quote', inline: parseInline(quote.join(' ')) });
+      continue;
+    }
     if ((m = line.match(/^(#{2,3})\s+(.*)$/))) {
       flush();
       blocks.push({ type: m[1].length === 2 ? 'h2' : 'h3', text: m[2] });

@@ -5,7 +5,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { deletePost, savePost, uploadPostImage } from './actions';
 import { MarkdownField } from './MarkdownField';
-import { PostBody, type ServiceLookup } from '@/components/PostBody';
+import { InlineMd, PostBody, type ServiceLookup } from '@/components/PostBody';
+import { Faq } from '@/components/Faq';
+import { detectSections, normalizeMarkdown, parseFrontMatter, type FrontMatter } from '@/lib/post-import';
 import {
   SERVICE_SECTIONS, checkExtraJsonLd, displayStatus, isLive, seoChecklist, slugify,
   type Lang, type PostImage, type PostLang, type PostRow, type PostStatus,
@@ -77,6 +79,64 @@ export function PostEditor({ id: initialId, initial, authors, services, categori
   const onTitle = (value: string) => {
     setL(lang, { title: value });
     if (lang === 'en' && !slugTouched) set({ slug: slugify(value) });
+  };
+
+  /**
+   * A whole article into the Body: an .md file (front matter fills slug,
+   * language and focus keyword; a leading "# Title" fills an empty title) or
+   * converted HTML. FAQ / Sources / "Short answer" sections are offered to
+   * their own fields, with a confirmation, before anything moves.
+   */
+  const handleImport = (text: string, kind: 'md' | 'html') => {
+    const { meta, body: raw } = kind === 'md' ? parseFrontMatter(text) : { meta: {} as FrontMatter, body: text };
+    const target: Lang = meta.locale ?? lang;
+    const current = row[target];
+    if (current.body.trim() && !window.confirm(`Replace the current ${LANG_NAME[target]} body with the imported article?`)) return;
+
+    const { body: normalized, title } = normalizeMarkdown(raw);
+    const found = detectSections(normalized);
+    let move = false;
+    if (found.found.length) {
+      const replacing = [
+        found.faq.length && current.faq.length ? 'FAQ' : '',
+        found.sources.length && current.sources.length ? 'Sources' : '',
+        found.summary.length && current.summary.length ? 'Short answer' : '',
+      ].filter(Boolean);
+      move = window.confirm(
+        `Found in the article:\n• ${found.found.join('\n• ')}\n\nMove them into their fields?`
+        + (replacing.length ? `\n(This replaces the current ${replacing.join(', ')}.)` : '')
+        + '\n\nCancel keeps everything in the body.',
+      );
+    }
+
+    const patch: Partial<PostLang> = { body: move ? found.body : normalized };
+    if (move && found.faq.length) { patch.faq = found.faq; patch.faq_title = found.faqTitle; }
+    if (move && found.sources.length) patch.sources = found.sources;
+    if (move && found.summary.length) {
+      patch.summary = found.summary;
+      setSummaryText((s) => ({ ...s, [target]: found.summary.join('\n') }));
+    }
+    const newTitle = meta.title || title;
+    if (newTitle && !current.title.trim()) patch.title = newTitle;
+    if (meta.keyword) patch.focus_keyword = meta.keyword;
+
+    setRow((r) => ({
+      ...r,
+      [`${target}_enabled`]: true,
+      ...(meta.slug ? { slug: slugify(meta.slug) || r.slug } : !r.slug && target === 'en' && patch.title ? { slug: slugify(patch.title) } : {}),
+      [target]: { ...r[target], ...patch },
+    }));
+    if (meta.slug) setSlugTouched(true);
+    setLang(target);
+
+    const filled = [
+      meta.slug && `slug "${meta.slug}"`,
+      meta.locale && `language ${LANG_NAME[meta.locale]}`,
+      meta.keyword && `focus keyword "${meta.keyword}"`,
+      patch.title && 'title',
+      move && found.found.length && found.found.map((f) => f.split(' → ')[0]).join(', '),
+    ].filter(Boolean);
+    setMessage({ ok: `Imported into the ${LANG_NAME[target]} body${filled.length ? `; filled ${filled.join(', ')}` : ''}. Review it, then save.` });
   };
 
   const upload = async (file: File, label: string): Promise<PostImage | null> => {
@@ -213,7 +273,25 @@ export function PostEditor({ id: initialId, initial, authors, services, categori
                 dir={dir}
                 services={services[lang]}
                 onUpload={(file) => upload(file, 'body')}
-                preview={<div className="detail-body"><PostBody body={L.body} locale={lang} path={path} services={services[lang]} whatsapp={whatsapp[lang]} /></div>}
+                onImport={handleImport}
+                preview={
+                  <div className="detail-body">
+                    {L.summary.some((s) => s.trim()) && (
+                      <aside className="post-summary">
+                        <p className="post-summary-title">{lang === 'ar' ? 'الإجابة المختصرة في 30 ثانية' : 'Short answer in 30 seconds'}</p>
+                        <ul>{L.summary.filter((s) => s.trim()).map((s) => <li key={s}><InlineMd text={s} locale={lang} path={path} /></li>)}</ul>
+                      </aside>
+                    )}
+                    <PostBody body={L.body} locale={lang} path={path} services={services[lang]} whatsapp={whatsapp[lang]} />
+                    {L.faq.length > 0 && <div className="post-md"><Faq items={L.faq} locale={lang} path={path} embedded title={L.faq_title} /></div>}
+                    {L.sources.length > 0 && (
+                      <section className="post-sources">
+                        <h2>{lang === 'ar' ? 'المصادر' : 'Sources'}</h2>
+                        <ol>{L.sources.map((s, i) => <li key={i}><a href={s.url} target="_blank" rel="noopener noreferrer">{s.title}</a></li>)}</ol>
+                      </section>
+                    )}
+                  </div>
+                }
               />
             </Field>
           </div>

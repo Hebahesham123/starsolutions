@@ -237,7 +237,7 @@ export type CheckItem = { ok: boolean; label: string; detail?: string };
 const internalHref = (href: string) => href.startsWith('/') || /^https?:\/\/(www\.)?starsolution\.ai/i.test(href);
 
 function links(nodes: Inline[]): string[] {
-  return nodes.flatMap((n) => (n.type === 'link' ? [n.href, ...links(n.children)] : n.type === 'bold' ? links(n.children) : []));
+  return nodes.flatMap((n) => (n.type === 'link' ? [n.href, ...links(n.children)] : n.type === 'text' ? [] : links(n.children)));
 }
 
 export function seoChecklist(lang: PostLang, cover: PostImage | null): CheckItem[] {
@@ -249,7 +249,7 @@ export function seoChecklist(lang: PostLang, cover: PostImage | null): CheckItem
   const words = postWords(lang);
 
   const inlineOf = (b: Block): Inline[][] =>
-    b.type === 'p' ? [b.inline] : b.type === 'ul' || b.type === 'ol' ? b.items : b.type === 'table' ? [...b.head, ...b.rows.flat()] : [];
+    b.type === 'p' || b.type === 'quote' ? [b.inline] : b.type === 'ul' || b.type === 'ol' ? b.items : b.type === 'table' ? [...b.head, ...b.rows.flat()] : [];
   const hrefs = blocks.flatMap((b) => inlineOf(b).flatMap(links));
   const callouts = blocks.filter((b) => b.type === 'directive' && (b.name === 'callout' || b.name === 'cta')).length;
   const internal = hrefs.filter(internalHref).length + callouts + lang.summary.flatMap((s) => links(parseInlineSafe(s))).filter(internalHref).length;

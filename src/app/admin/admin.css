@@ -758,3 +758,11 @@
 }
 .post-preview-page{ padding-bottom: 40px; }
 .post-preview-page > .admin-alert{ margin: 0 0 12px; }
+
+/* Body editor: import .md / paste HTML */
+.md-modes{ display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+.md-modes .post-lang-tabs{ margin: 0; }
+.md-html{ display: grid; gap: 8px; }
+.md-html textarea{ width: 100%; min-height: 260px; padding: 10px 12px; border: 1px dashed #CFE0FA; border-radius: 12px; background: #fff; resize: vertical; }
+.md-html-foot{ display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.md-html-foot .admin-help{ flex: 1 1 260px; margin: 0; }

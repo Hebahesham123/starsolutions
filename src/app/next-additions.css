@@ -4648,3 +4648,10 @@
   .post-pager-link.is-next{ text-align: start; }
   .post-pager-link.is-next .post-pager-dir{ justify-content: flex-start; }
 }
+
+/* Quotes in posts ("> " lines). */
+.post-md .post-quote{
+  max-width: 62ch; margin-top: 18px; padding: 4px 0 4px 16px; padding-inline: 16px 0;
+  border-inline-start: 3px solid var(--brand);
+  font-size: 15.5px; line-height: 1.65; color: var(--ink-2); font-style: italic;
+}
