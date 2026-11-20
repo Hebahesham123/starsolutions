@@ -4504,3 +4504,147 @@
 .home-solutions .chip-row li{ padding:0; }
 .home-solutions .chip-row a{ display:block; padding:8px 13px; border-radius:inherit; color:inherit; }
 .home-solutions .chip-row a:focus-visible{ outline:2px solid var(--brand); outline-offset:2px; }
+
+/* =========================================================
+   Standard blog post template (components/post/PostArticle)
+   ---------------------------------------------------------
+   Every media box reserves its space before it loads (width/height on
+   images, aspect-ratio on video), so nothing shifts: CLS stays 0. No new
+   fonts, no JavaScript. Logical properties, so Arabic mirrors untouched.
+   ========================================================= */
+.post-byline > :first-child::before{ content: none; }
+
+.post-cover{ margin: 0 0 22px; max-width: 720px; }
+.post-cover img{ display: block; width: 100%; height: auto; border-radius: var(--r-lg); border: 1px solid var(--line); background: var(--soft); }
+
+/* Table of contents: a native <details>, open by default. */
+.post-toc{
+  max-width: 62ch; margin: 0 0 22px; padding: 14px 18px;
+  background: var(--soft); border: 1px solid var(--line); border-radius: var(--r-md);
+}
+.post-toc summary{
+  cursor: pointer; list-style: none;
+  font-family: var(--font-jetbrains-mono), monospace; font-size: 11px; font-weight: 500;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
+}
+.post-toc summary::-webkit-details-marker{ display: none; }
+.post-toc summary::after{ content: "\2212"; margin-inline-start: 8px; color: var(--brand); }
+.post-toc:not([open]) summary::after{ content: "+"; }
+[dir='rtl'] .post-toc summary{ font-family: inherit; letter-spacing: 0; font-size: 13px; }
+.post-toc ol{ margin-top: 10px; padding-inline-start: 20px; list-style: decimal; font-size: 14.5px; line-height: 1.5; }
+.post-toc li{ margin-top: 6px; }
+.post-toc li::marker{ color: var(--brand); }
+.post-toc a{ color: var(--ink-2); text-decoration: none; }
+.post-toc a:hover{ color: var(--brand-deep); text-decoration: underline; text-underline-offset: .2em; }
+
+/* "Short answer in 30 seconds" */
+.post-summary{
+  max-width: 62ch; margin: 0 0 8px; padding: 16px 18px 18px;
+  background: linear-gradient(135deg, var(--blue-100), var(--lav-100));
+  border: 1px solid #D5E6FB; border-radius: var(--r-md);
+}
+.post-summary-title{ display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; color: var(--ink); }
+.post-summary-title svg{ width: 18px; height: 18px; color: var(--brand-deep); flex: none; }
+.post-summary ul{ margin-top: 8px; padding-inline-start: 20px; list-style: disc; }
+.post-summary li{ margin-top: 6px; font-size: 15px; line-height: 1.55; color: var(--ink-2); }
+.post-summary li::marker{ color: var(--brand); }
+
+/* Callout card: a solution / automation / system page */
+.post-callout{
+  display: grid; gap: 4px; max-width: 62ch; margin-top: 20px; padding: 16px 18px;
+  background: #fff; border: 1px solid var(--line); border-inline-start: 3px solid var(--brand);
+  border-radius: var(--r-md); box-shadow: var(--shadow-xs); text-decoration: none;
+  transition: border-color .2s var(--ease), box-shadow .2s var(--ease);
+}
+.post-callout:hover{ box-shadow: var(--shadow-sm); border-color: #CFE0FA; border-inline-start-color: var(--brand); }
+.post-callout-group{
+  font-family: var(--font-jetbrains-mono), monospace; font-size: 10px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--brand-deep);
+}
+[dir='rtl'] .post-callout-group{ font-family: inherit; letter-spacing: 0; font-size: 12px; }
+.post-callout-title{ font-size: 16.5px; font-weight: 600; color: var(--ink); letter-spacing: -.02em; }
+.post-callout-text{ font-size: 14.5px; line-height: 1.55; color: var(--muted); }
+.post-callout-more{ display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 13.5px; font-weight: 600; color: var(--brand-deep); }
+.post-callout-more svg{ width: 15px; height: 15px; }
+[dir='rtl'] .post-callout-more svg{ transform: scaleX(-1); }
+
+/* Inline CTA */
+.post-inline-cta{
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 18px;
+  max-width: 62ch; margin-top: 20px; padding: 16px 18px;
+  background: var(--soft); border: 1px solid var(--line); border-radius: var(--r-md);
+}
+.post-inline-cta p{ flex: 1 1 240px; font-size: 15px; line-height: 1.5; color: var(--ink-2); }
+
+/* Video: a fixed 16:9 box; the player loads only when played. */
+.post-video{ max-width: 62ch; margin: 22px 0 0; }
+.post-video-box{ position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--r-md); background: var(--ink); }
+.post-video-box iframe, .post-video-box video{ position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.post-video figcaption, .post-figure figcaption{ margin-top: 8px; font-size: 13px; line-height: 1.5; color: var(--muted); }
+
+/* Images and galleries */
+.post-figure{ max-width: 62ch; margin: 22px 0 0; }
+.post-figure img{ display: block; width: 100%; height: auto; border-radius: var(--r-md); border: 1px solid var(--line); background: var(--soft); }
+.post-gallery{ display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 12px; max-width: 62ch; margin-top: 22px; }
+.post-gallery .post-figure{ margin: 0; }
+
+/* Sources */
+.post-sources{ margin-top: 32px; max-width: 62ch; }
+.post-sources ol{ padding-inline-start: 22px; list-style: decimal; font-size: 14.5px; line-height: 1.55; }
+.post-sources li{ margin-top: 6px; }
+.post-sources li::marker{ color: var(--brand); }
+.post-sources a{ color: var(--brand-deep); text-decoration: underline; text-underline-offset: .2em; word-break: break-word; }
+
+/* Closing CTA block */
+.post-cta-block{
+  max-width: 62ch; margin-top: 34px; padding: 22px 22px 24px;
+  background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--shadow-sm);
+}
+.detail-body .post-cta-block h2{ margin-top: 0; }
+.post-cta-block .post-md > :first-child{ margin-top: 0 !important; }
+.post-cta-text{ font-size: 15.5px; line-height: 1.6; color: var(--muted); }
+.post-cta-actions{ display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+
+/* Share */
+.post-share{ display: flex; flex-wrap: wrap; align-items: center; gap: 8px; max-width: 62ch; margin-top: 26px; }
+.post-share-label{ margin-inline-end: 4px; font-size: 13.5px; font-weight: 600; color: var(--ink-2); }
+.post-share-btn{
+  display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 14px;
+  border: 1px solid var(--line); border-radius: 999px; background: #fff;
+  font-size: 13.5px; font-weight: 500; color: var(--ink-2); text-decoration: none;
+  transition: background .2s var(--ease), border-color .2s var(--ease);
+}
+.post-share-btn:hover{ background: var(--soft); border-color: #D9E2F5; color: var(--ink); }
+.post-share-btn svg{ width: 16px; height: 16px; color: #25D366; }
+
+/* Related services, related articles, previous / next */
+.post-related{ margin-top: 36px; }
+.post-related-services{ display: grid; gap: 10px; max-width: 62ch; }
+.post-related-services a{
+  display: grid; grid-template-columns: 1fr auto; align-items: center; column-gap: 12px;
+  padding: 12px 16px; border: 1px solid var(--line); border-radius: var(--r-md); background: #fff; text-decoration: none;
+}
+.post-related-services .post-callout-group{ grid-column: 1; }
+.post-related-name{ grid-column: 1; font-size: 15px; font-weight: 600; color: var(--ink); }
+.post-related-services svg{ grid-column: 2; grid-row: 1 / span 2; width: 17px; height: 17px; color: var(--brand-deep); }
+[dir='rtl'] .post-related-services svg{ transform: scaleX(-1); }
+.post-related-services a:hover .post-related-name{ color: var(--brand-deep); }
+.post-related-posts{ display: grid; gap: 12px; }
+@media (min-width: 720px){ .post-related-posts{ grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.post-related-posts .post-card h3{ margin-top: 8px; font-size: 15.5px; font-weight: 600; line-height: 1.35; letter-spacing: -.02em; color: var(--ink); }
+.post-related-posts .post-card p:not(.post-meta){ margin-top: 6px; font-size: 13.5px; line-height: 1.5; color: var(--muted); }
+
+.post-pager{ display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 62ch; margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--line); }
+.post-pager-link{ display: grid; gap: 4px; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--r-md); background: #fff; text-decoration: none; }
+.post-pager-link.is-next{ text-align: end; }
+.post-pager-dir{ display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); }
+.post-pager-link.is-next .post-pager-dir{ justify-content: flex-end; }
+.post-pager-dir svg{ width: 14px; height: 14px; }
+[dir='rtl'] .post-pager-dir svg{ transform: scaleX(-1); }
+.post-pager-title{ font-size: 14.5px; font-weight: 600; line-height: 1.35; color: var(--ink); }
+.post-pager-link:hover .post-pager-title{ color: var(--brand-deep); }
+@media (max-width: 560px){
+  .post-pager{ grid-template-columns: 1fr; }
+  .post-pager-link.is-next{ text-align: start; }
+  .post-pager-link.is-next .post-pager-dir{ justify-content: flex-start; }
+}

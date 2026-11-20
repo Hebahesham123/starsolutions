@@ -1,7 +1,8 @@
 import type { Entry } from './types';
-import type { Locale, Post } from './i18n';
+import type { Locale } from './i18n';
+import type { BlogPost } from './posts';
 import { getContent, localeHref } from './i18n';
-import { cairoIso } from './dates';
+import { cairoInstantIso, cairoIso } from './dates';
 
 /**
  * Structured data (schema.org JSON-LD) for Google.
@@ -181,7 +182,7 @@ export type PostAuthor = { name: string; href: string; personId: string };
  * byline's person is the author, under the same @id as the Person on their
  * team page; without one, the Organization stays the author as before.
  */
-export function blogPosting(post: Post, locale: Locale, path: string, author?: PostAuthor | null) {
+export function blogPosting(post: BlogPost, locale: Locale, path: string, author?: PostAuthor | null) {
   const url = abs(localeHref(locale, path));
   // The post's own cover when it has one, otherwise the language's share image.
   const img = post.cover ?? { src: OG_IMAGE.src[locale], width: OG_IMAGE.width, height: OG_IMAGE.height };
@@ -192,14 +193,14 @@ export function blogPosting(post: Post, locale: Locale, path: string, author?: P
     mainEntityOfPage: url,
     url,
     headline: post.title,
-    description: post.excerpt,
+    description: post.subtitle,
     image: { '@type': 'ImageObject', url: abs(img.src), width: img.width, height: img.height },
     // Full ISO 8601 with Cairo's offset for that day; a bare date fails the
     // Rich Results Test ("missing a timezone").
     datePublished: cairoIso(post.date),
-    dateModified: post.updated ? cairoIso(post.updated) : undefined,
+    dateModified: post.updated ? cairoInstantIso(post.updated) : cairoIso(post.date),
     inLanguage: locale,
-    articleSection: post.tag,
+    articleSection: post.category,
     author: author
       ? { '@type': 'Person', '@id': author.personId, name: author.name, url: abs(author.href) }
       : { '@id': ORG_ID },

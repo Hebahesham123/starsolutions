@@ -2,7 +2,8 @@ import type { MetadataRoute } from 'next';
 import {
   getSolutions, getAutomations, getSystems, getGoals, getCaseStudies, getTeam, getProjects,
 } from '@/lib/content';
-import { getContent, getPosts, localeHref, type Locale } from '@/lib/i18n';
+import { getContent, localeHref, type Locale } from '@/lib/i18n';
+import { getPosts, postLastmod } from '@/lib/posts';
 import { SITE_URL } from '@/lib/schema';
 
 /**
@@ -16,7 +17,9 @@ import { SITE_URL } from '@/lib/schema';
  * their heads do.
  *
  * `lastModified`, most specific first:
- *  - blog posts: `updated`, else `date`, from the post data;
+ *  - blog posts: the content-updated date (else the published date) from the
+ *    posts table. Only live posts, only in their enabled languages, and not
+ *    noindex ones; a scheduled post appears once its time has passed;
  *  - English entries served from Supabase: the row's `updated_at`, which the
  *    touch_updated_at trigger moves on every edit in /admin;
  *  - everything else (static pages, Arabic entries from site.ar.json, project
@@ -39,6 +42,10 @@ const STATIC_AR = [
 
 type Row = { slug: string; hidden?: boolean; updated_at?: string | null };
 
+/* Rebuilt at most once a minute, like the pages: that is what brings a
+   scheduled post in on time, and a publish in /admin revalidates it at once. */
+export const revalidate = 60;
+
 /** When this build ran: the deploy date for content that ships with the code. */
 const DEPLOYED = new Date().toISOString();
 const slugs = (section: string, rows: Row[]) =>
@@ -52,8 +59,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     getSolutions(), getAutomations(), getSystems(), getGoals(), getCaseStudies(), getTeam(), getProjects(),
   ]);
   const ar = getContent('ar');
-  const postsEn = getPosts('en');
-  const postsAr = getPosts('ar');
+  const [postsEn, postsAr] = (await Promise.all([getPosts('en'), getPosts('ar')]))
+    .map((list) => list.filter((p) => !p.seo.noindex));
 
   const paths: Record<Locale, string[]> = {
     en: [
@@ -92,9 +99,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ...rowDates('/goals', goals),
       ...rowDates('/case-studies', cases),
       ...rowDates('/team', team),
-      ...postsEn.map((p) => [`/blog/${p.slug}`, p.updated ?? p.date] as const),
+      ...postsEn.map((p) => [`/blog/${p.slug}`, postLastmod(p)] as const),
     ]),
-    ar: new Map(postsAr.map((p) => [`/blog/${p.slug}`, p.updated ?? p.date] as const)),
+    ar: new Map(postsAr.map((p) => [`/blog/${p.slug}`, postLastmod(p)] as const)),
   };
 
   // The home page as the head writes it (no trailing slash), so the two match
@@ -102,6 +109,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const abs = (locale: Locale, path: string) => `${SITE_URL}${localeHref(locale, path)}`.replace(/\/$/, '');
 
   const entry = (locale: Locale, path: string): MetadataRoute.Sitemap[number] => {
+    // A post in one language carries no hreflang, as its head does not.
+    if (path.startsWith('/blog/') && !(has.en.has(path) && has.ar.has(path))) {
+      return { url: abs(locale, path), lastModified: dates[locale].get(path) ?? DEPLOYED };
+    }
     const languages: Record<string, string> = {};
     if (has.en.has(path)) languages.en = abs('en', path);
     if (has.ar.has(path)) languages.ar = abs('ar', path);

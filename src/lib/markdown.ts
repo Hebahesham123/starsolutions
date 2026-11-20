@@ -6,6 +6,15 @@
  * [text](/path) links. It returns plain data, not HTML, so the page builds
  * real elements (and Next.js links) from it and nothing is ever injected as
  * markup.
+ *
+ * Plus one line per reusable block, written by the admin's "Insert" buttons:
+ *
+ *   ::callout{section="systems" slug="courier-system" text="Optional line"}
+ *   ::video{src="https://www.youtube.com/watch?v=…" caption="…"}
+ *   ::image{src="…webp" alt="…" caption="…" width="1600" height="900"}
+ *   ::cta{type="audit" text="Optional line"}      (type: audit | whatsapp)
+ *
+ * Consecutive ::image lines render as one gallery.
  */
 
 export type Inline =
@@ -18,7 +27,21 @@ export type Block =
   | { type: 'p'; inline: Inline[] }
   | { type: 'ul' | 'ol'; items: Inline[][] }
   | { type: 'table'; head: Inline[][]; rows: Inline[][][] }
-  | { type: 'hr' };
+  | { type: 'hr' }
+  | { type: 'directive'; name: string; attrs: Record<string, string> };
+
+/** `::name{key="value" …}` — one reusable block per line. */
+const DIRECTIVE = /^::([a-z]+)\s*(?:\{(.*)\})?\s*$/;
+
+export function parseAttrs(src: string): Record<string, string> {
+  const attrs: Record<string, string> = {};
+  const re = /([a-z_]+)\s*=\s*"((?:[^"\\]|\\.)*)"/gi;
+  for (let m = re.exec(src); m; m = re.exec(src)) attrs[m[1].toLowerCase()] = m[2].replace(/\\(.)/g, '$1');
+  return attrs;
+}
+
+/** A value quoted for a directive attribute. */
+export const attr = (value: string) => `"${value.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"`;
 
 /** "| a | b |" -> ["a", "b"]. Outer pipes are optional. */
 function cells(line: string): string[] {
@@ -71,6 +94,11 @@ export function parseMarkdown(src: string): Block[] {
       }
       n--;
       blocks.push({ type: 'table', head, rows });
+      continue;
+    }
+    if ((m = line.match(DIRECTIVE))) {
+      flush();
+      blocks.push({ type: 'directive', name: m[1], attrs: parseAttrs(m[2] ?? '') });
       continue;
     }
     if (/^-{3,}$/.test(line)) { flush(); blocks.push({ type: 'hr' }); continue; }

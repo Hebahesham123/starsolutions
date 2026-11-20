@@ -7,6 +7,10 @@ import { alternates, withSeo } from '@/lib/seo';
 import { getContent } from '@/lib/i18n';
 import { JsonLd, profilePage } from '@/lib/schema';
 
+/* Refreshed like the Arabic team page, so the author's article list follows
+   the posts table (a publish in /admin also revalidates it at once). */
+export const revalidate = 60;
+
 export async function generateStaticParams() {
   const items = await getTeam();
   return items.map((item) => ({ slug: item.slug }));

@@ -27,3 +27,48 @@ export function formatDate(date: string, locale: Locale): string {
     timeZone: TZ, day: 'numeric', month: locale === 'ar' ? 'long' : 'short', year: 'numeric',
   }).format(new Date(cairoIso(date)));
 }
+
+/* ---------- Instants (timestamptz) ---------- */
+
+/** The parts of an instant on Cairo's wall clock. */
+function cairoParts(iso: string) {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23', timeZoneName: 'longOffset',
+  }).formatToParts(new Date(iso));
+  const get = (t: string) => parts.find((p) => p.type === t)?.value ?? '';
+  const m = get('timeZoneName').match(/GMT([+-]\d{2}):?(\d{2})?/);
+  return {
+    date: `${get('year')}-${get('month')}-${get('day')}`,
+    time: `${get('hour')}:${get('minute')}:${get('second')}`,
+    offset: m ? `${m[1]}:${m[2] ?? '00'}` : '+02:00',
+  };
+}
+
+/** A stored timestamp as ISO 8601 on Cairo's clock, e.g. "2026-11-07T09:00:00+02:00". */
+export function cairoInstantIso(iso: string): string {
+  const p = cairoParts(iso);
+  return `${p.date}T${p.time}${p.offset}`;
+}
+
+/** The Cairo calendar day of a timestamp, "YYYY-MM-DD". */
+export function cairoDateOf(iso: string): string {
+  return cairoParts(iso).date;
+}
+
+/** Today in Cairo, "YYYY-MM-DD". */
+export function cairoToday(): string {
+  return cairoDateOf(new Date().toISOString());
+}
+
+/** A Cairo wall-clock "YYYY-MM-DDTHH:mm" (a datetime-local input) as ISO 8601 with Cairo's offset. */
+export function cairoLocalToIso(local: string): string {
+  const [date, time = '00:00'] = local.split('T');
+  return `${date}T${time.slice(0, 5)}:00${cairoOffset(date)}`;
+}
+
+/** The reverse, for filling a datetime-local input: "YYYY-MM-DDTHH:mm" in Cairo. */
+export function cairoLocalOf(iso: string): string {
+  const p = cairoParts(iso);
+  return `${p.date}T${p.time.slice(0, 5)}`;
+}

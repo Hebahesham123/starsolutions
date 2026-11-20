@@ -5,10 +5,10 @@ import { getDict, localeHref, type Locale } from '@/lib/i18n';
 
 /**
  * "Articles by <name>" on a team page: the blog posts that person wrote.
- * Renders nothing for someone with no posts.
+ * Live posts in this language only. Renders nothing for someone with none.
  */
-export function AuthorPosts({ slug, name, locale = 'en' }: { slug: string; name: string; locale?: Locale }) {
-  const posts = postsBy(slug, locale);
+export async function AuthorPosts({ slug, name, locale = 'en' }: { slug: string; name: string; locale?: Locale }) {
+  const posts = await postsBy(slug, locale);
   if (posts.length === 0) return null;
   const t = getDict(locale);
   return (
@@ -19,7 +19,7 @@ export function AuthorPosts({ slug, name, locale = 'en' }: { slug: string; name:
           {posts.map((p) => (
             <li key={p.slug}>
               <Link href={localeHref(locale, `/blog/${p.slug}`)}>
-                <span className="author-posts-meta">{p.tag} · {p.readingTime}</span>
+                <span className="author-posts-meta">{p.category} · {p.readingTime}</span>
                 <span className="author-posts-name">{p.title}</span>
                 <Icon name="arrow" />
               </Link>

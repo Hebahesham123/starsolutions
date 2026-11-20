@@ -2,7 +2,7 @@ import { createHash } from 'crypto';
 import {
   getSolutions, getAutomations, getSystems, getCaseStudies,
 } from '@/lib/content';
-import { getPosts } from '@/lib/i18n';
+import { getPosts } from '@/lib/posts';
 import { SITE_URL } from '@/lib/schema';
 import type { Entry } from '@/lib/types';
 
@@ -71,17 +71,18 @@ export async function listCaseStudies() {
   }));
 }
 
-export function listPosts(query?: string, limit = 10) {
+/** Live English posts only (drafts and scheduled posts never appear). */
+export async function listPosts(query?: string, limit = 10) {
   const q = (query ?? '').trim().toLowerCase();
-  return getPosts('en')
-    .filter((p) => !q || `${p.title} ${p.excerpt} ${p.tag} ${p.body}`.toLowerCase().includes(q))
+  return (await getPosts('en'))
+    .filter((p) => !q || `${p.title} ${p.subtitle} ${p.category} ${p.tags.join(' ')} ${p.body}`.toLowerCase().includes(q))
     .slice(0, Math.max(1, Math.min(limit, 50)))
     .map((p) => ({
       slug: p.slug,
       title: p.title,
-      excerpt: p.excerpt,
+      excerpt: p.subtitle,
       date: p.date,
-      tag: p.tag,
+      tag: p.category,
       url: `${SITE_URL}/blog/${p.slug}`,
     }));
 }

@@ -11,6 +11,7 @@ import { signOut } from './auth-actions';
 const NAV = [
   { group: 'Overview', items: [{ href: '/admin', label: 'Dashboard', icon: 'chart' }] },
   { group: 'Enquiries', items: [{ href: '/admin/leads', label: 'Leads', icon: 'mail' }] },
+  { group: 'Blog', items: [{ href: '/admin/posts', label: 'Posts', icon: 'layers' }] },
   // Straight from the CMS registry, grouped by each entity's `group`, so a new
   // table appears in the right section the moment it is declared.
   ...entityGroups().map(({ group, items }) => ({

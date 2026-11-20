@@ -1,6 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  /* Post images are uploaded to /admin through a server action (converted to
+     WebP there); the default 1 MB body limit is too small for a photo. */
+  experimental: {
+    serverActions: { bodySizeLimit: '10mb' },
+  },
   images: {
     remotePatterns: [{ protocol: 'https', hostname: '**' }],
   },

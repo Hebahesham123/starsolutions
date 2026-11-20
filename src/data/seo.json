@@ -105,18 +105,6 @@
       "title": "SEO Forge: AI SEO Tool for Online Stores · StarSolution",
       "description": "SEO Forge is our AI SEO tool for online stores: keyword research, content writing and rank tracking in one place. Ask us for a live demo."
     },
-    "/blog/an-ai-agent-on-whatsapp": {
-      "title": "WhatsApp AI Agent That Won't Annoy Customers · StarSolution",
-      "description": "How to put an AI agent on WhatsApp without annoying your customers: what to automate, what to leave to people, and how to get started."
-    },
-    "/blog/automate-shopify-order-to-delivery": {
-      "title": "Shopify Automation Guide: Order to Delivery · StarSolution",
-      "description": "A guide to Shopify automation, from a paid order to supplier notification, shipment and tracking, and where a person still needs to step in."
-    },
-    "/blog/what-ai-ad-management-actually-does": {
-      "title": "AI Ads Management: What It Does to ROAS · StarSolution",
-      "description": "What AI ads management actually does to your Meta and Google campaigns, and how it moves your ROAS. A plain-language guide for store owners."
-    },
     "/case-studies/beauty-brand": {
       "title": "Beauty Brand: 2K to 18K Instagram Followers · StarSolution",
       "description": "How a beauty brand grew its Instagram from 2K to 18K followers in 3 months with AI content and post scheduling. Read the full case study."
@@ -274,18 +262,6 @@
     "/blog": {
       "title": "مقالات عن أتمتة شوبيفاي والواتساب · ستار سوليوشن",
       "description": "أدلة عملية عن اتمتة متاجر شوبيفاي، وإدارة الإعلانات بالذكاء الاصطناعي، وبوتات الواتساب للمتاجر الإلكترونية في مصر والمنطقة العربية."
-    },
-    "/blog/an-ai-agent-on-whatsapp": {
-      "title": "شات بوت واتساب لا يزعج عملاءك · ستار سوليوشن",
-      "description": "إزاي تحط مساعد ذكي على الواتساب من غير ما تزعج عملاءك: إيه اللي يتأتمت، وإيه اللي يفضل للفريق، وتبدأ منين. اقرا الدليل كامل هنا."
-    },
-    "/blog/automate-shopify-order-to-delivery": {
-      "title": "دليل أتمتة متجر شوبيفاي من الطلب للتسليم · ستار سوليوشن",
-      "description": "دليل اتمتة متجر شوبيفاي من الطلب للتسليم: إشعار المورّد، وفتح الشحنة، ورقم التتبّع للعميل، وإمتى الموظف لازم يتدخل. اقرا الدليل كامل."
-    },
-    "/blog/what-ai-ad-management-actually-does": {
-      "title": "إدارة الإعلانات الممولة بالذكاء الاصطناعي · ستار سوليوشن",
-      "description": "إيه اللي إدارة الإعلانات الممولة بالذكاء الاصطناعي بتعمله فعلًا لحملات فيسبوك وجوجل، وإزاي بتأثر على العائد. دليل بسيط لأصحاب المتاجر."
     },
     "/case-studies": {
       "title": "دراسات حالة لمتاجر إلكترونية حقيقية · ستار سوليوشن",

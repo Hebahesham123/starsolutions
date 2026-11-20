@@ -70,36 +70,54 @@ function clip(text: string | null | undefined, max = 155): string | undefined {
  * The locale and path are read from `alternates.canonical`, which every page
  * already sets through `alternates()`. Nothing here renders on the page.
  */
-export function withSeo(meta: Metadata): Metadata {
+export function withSeo(meta: Metadata, opts: SeoOptions = {}): Metadata {
   const canonical = String(meta.alternates?.canonical ?? '/');
   const locale: Locale = canonical === '/ar' || canonical.startsWith('/ar/') ? 'ar' : 'en';
   const path = locale === 'ar' ? canonical.slice(3) || '/' : canonical;
-  const copy = COPY[locale]?.[path] ?? {};
+  // Pages whose copy lives with their own data (blog posts: the posts table)
+  // pass copy:false, so a stale seo.json entry can never override it.
+  const copy = opts.copy === false ? {} : COPY[locale]?.[path] ?? {};
 
   const pageTitle = typeof meta.title === 'string' ? meta.title : undefined;
   // An override is the whole title, as written: no " · StarSolution.ai" added.
   const title: Metadata['title'] = copy.title ? { absolute: copy.title } : meta.title;
-  const shareTitle = copy.title ?? (pageTitle ? `${pageTitle} · ${SITE_NAME[locale]}` : DEFAULT_TITLE[locale]);
+  const shareTitle = opts.shareTitle ?? copy.title ?? (pageTitle ? `${pageTitle} · ${SITE_NAME[locale]}` : DEFAULT_TITLE[locale]);
   const description = copy.description ?? clip(meta.description);
+  const shareDescription = opts.shareDescription ? clip(opts.shareDescription) : description;
+  const image = opts.image ?? { url: OG_IMAGE.src[locale], width: OG_IMAGE.width, height: OG_IMAGE.height };
 
   return {
     ...meta,
     ...(title ? { title } : {}),
     ...(description ? { description } : {}),
     openGraph: {
-      type: 'website',
+      ...(opts.article
+        ? { type: 'article', publishedTime: opts.article.publishedTime, modifiedTime: opts.article.modifiedTime }
+        : { type: 'website' }),
       siteName: SITE_NAME[locale],
       locale: OG_LOCALE[locale],
-      url: canonical,
+      url: opts.url ?? canonical,
       title: shareTitle,
-      ...(description ? { description } : {}),
-      images: [{ url: OG_IMAGE.src[locale], width: OG_IMAGE.width, height: OG_IMAGE.height, alt: SITE_NAME[locale] }],
+      ...(shareDescription ? { description: shareDescription } : {}),
+      images: [{ ...image, alt: opts.imageAlt || SITE_NAME[locale] }],
     },
     twitter: {
       card: 'summary_large_image',
       title: shareTitle,
-      ...(description ? { description } : {}),
-      images: [OG_IMAGE.src[locale]],
+      ...(shareDescription ? { description: shareDescription } : {}),
+      images: [image.url],
     },
   };
 }
+
+export type SeoOptions = {
+  /** false: ignore src/data/seo.json for this page. */
+  copy?: boolean;
+  shareTitle?: string;
+  shareDescription?: string;
+  image?: { url: string; width: number; height: number };
+  imageAlt?: string;
+  /** og:url when the canonical points elsewhere. */
+  url?: string;
+  article?: { publishedTime: string; modifiedTime?: string };
+};

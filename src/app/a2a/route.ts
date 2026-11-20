@@ -64,8 +64,8 @@ export async function POST(request: Request) {
     out = reply(id, contextId, `StarSolution.ai case studies:\n${bullet(rows)}`, rows);
   } else if (/blog|post|article|read|مقال/.test(q)) {
     const words = q.replace(/\b(blog|posts?|articles?|about|any|on|the|read)\b/g, ' ').trim();
-    const rows = listPosts(words, 5);
-    const list = rows.length ? rows : listPosts('', 5);
+    const rows = await listPosts(words, 5);
+    const list = rows.length ? rows : await listPosts('', 5);
     out = reply(id, contextId, `Blog posts:\n${bullet(list)}`, list);
   } else if (/contact|call|reach|email|phone|price|cost|quote|تواصل|سعر/.test(q)) {
     out = reply(

@@ -1,7 +1,5 @@
 import en from '@/data/site.json';
 import ar from '@/data/site.ar.json';
-import postsEn from '@/data/posts.json';
-import postsAr from '@/data/posts.ar.json';
 import type { SiteContent } from './types';
 
 export const LOCALES = ['en', 'ar'] as const;
@@ -20,35 +18,6 @@ export function isLocale(value: string): value is Locale {
 /** Content for a locale. Arabic falls back to English for anything untranslated. */
 export function getContent(locale: Locale): SiteContent {
   return (locale === 'ar' ? ar : en) as unknown as SiteContent;
-}
-
-export type Post = {
-  slug: string; title: string; excerpt: string;
-  /** "YYYY-MM-DD", published. */
-  date: string;
-  /** "YYYY-MM-DD", last meaningful update (dateModified). */
-  updated?: string;
-  readingTime: string; tag: string;
-  /** Team member slug (src/data/site*.json team / the Supabase team table). */
-  author?: string;
-  /**
-   * The post's own cover image, e.g. { "src": "/blog/my-post.png", "width": 1200, "height": 630 }.
-   * Used in the BlogPosting schema; without it the language's OG image is used.
-   */
-  cover?: { src: string; width: number; height: number };
-  /** Plain paragraphs, or one Markdown string (see PostBody). */
-  body: string[] | string;
-};
-
-/**
- * The posts for a locale, newest first in the file's own order.
- *
- * Both files carry the same slugs, so /blog/x and /ar/blog/x are the same
- * article in two languages and the switcher round-trips on a post the way it
- * does everywhere else.
- */
-export function getPosts(locale: Locale): Post[] {
-  return (locale === 'ar' ? postsAr : postsEn) as Post[];
 }
 
 /**
@@ -179,6 +148,17 @@ const STRINGS: Record<Locale, Dict> = {
     'detail.faq': 'Frequently asked questions',
     'post.by': 'By',
     'post.updated': 'Updated',
+    'post.published': 'Published',
+    'post.summary': 'Short answer in 30 seconds',
+    'post.toc': 'In this article',
+    'post.sources': 'Sources',
+    'post.share': 'Share this article',
+    'post.relatedServices': 'Related services',
+    'post.relatedPosts': 'Related articles',
+    'post.prev': 'Previous article',
+    'post.next': 'Next article',
+    'post.playVideo': 'Play video',
+    'post.gallery': 'Gallery',
     'team.articlesBy': 'Articles by',
     'work.whatWeDid': 'What we did',
     'work.visitTitle': 'Visit the live store',
@@ -418,6 +398,17 @@ const STRINGS: Record<Locale, Dict> = {
     'detail.faq': 'أسئلة شائعة',
     'post.by': 'بقلم',
     'post.updated': 'آخر تحديث',
+    'post.published': 'نُشر في',
+    'post.summary': 'الإجابة المختصرة في 30 ثانية',
+    'post.toc': 'محتوى المقال',
+    'post.sources': 'المصادر',
+    'post.share': 'شارك المقال',
+    'post.relatedServices': 'خدمات مرتبطة',
+    'post.relatedPosts': 'مقالات ذات صلة',
+    'post.prev': 'المقال السابق',
+    'post.next': 'المقال التالي',
+    'post.playVideo': 'تشغيل الفيديو',
+    'post.gallery': 'معرض الصور',
     'team.articlesBy': 'مقالات كتبتها',
     'work.whatWeDid': 'ما نفّذناه',
     'work.visitTitle': 'ادخل المتجر',

@@ -78,7 +78,7 @@ export async function callTool(name: string, args: Record<string, unknown>, orig
     case 'search_blog':
       return {
         ok: true,
-        data: listPosts(typeof args.query === 'string' ? args.query : '', Number(args.limit) || 10),
+        data: await listPosts(typeof args.query === 'string' ? args.query : '', Number(args.limit) || 10),
       };
     case 'get_contact':
       return { ok: true, data: CONTACT };

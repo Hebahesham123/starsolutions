@@ -1,5 +1,6 @@
 import { getTeam } from '@/lib/content';
-import { getContent, getPosts, localeHref, type Locale, type Post } from '@/lib/i18n';
+import { getContent, localeHref, type Locale } from '@/lib/i18n';
+import { getPosts, type BlogPost } from '@/lib/posts';
 import { abs } from '@/lib/schema';
 import type { Entry } from '@/lib/types';
 
@@ -27,7 +28,7 @@ async function team(locale: Locale): Promise<Entry[]> {
 }
 
 /** The post's author, from the team data, or null if it has none. */
-export async function postAuthor(post: Post, locale: Locale): Promise<Author | null> {
+export async function postAuthor(post: { author?: string }, locale: Locale): Promise<Author | null> {
   if (!post.author) return null;
   const member = (await team(locale)).find((m) => m.slug === post.author && !m.hidden);
   if (!member) return null;
@@ -44,7 +45,7 @@ export async function postAuthor(post: Post, locale: Locale): Promise<Author | n
   };
 }
 
-/** The posts a team member wrote, in the file's order (newest first). */
-export function postsBy(slug: string, locale: Locale): Post[] {
-  return getPosts(locale).filter((p) => p.author === slug);
+/** The live posts a team member wrote in this language, newest first. */
+export async function postsBy(slug: string, locale: Locale): Promise<BlogPost[]> {
+  return (await getPosts(locale)).filter((p) => p.author === slug);
 }
