@@ -4,7 +4,7 @@
  * their own fields. Pure functions (no DOM), shared by the editor and tests.
  */
 import { attr, parseMarkdown, splitFaq } from './markdown';
-import type { Lang, PostFaq, PostSource } from './post-utils';
+import type { Lang, PostCta, PostFaq, PostSource } from './post-utils';
 
 export type FrontMatter = { slug?: string; locale?: Lang; keyword?: string; title?: string };
 
@@ -70,9 +70,34 @@ export type Detected = {
   faq: PostFaq[];
   sources: PostSource[];
   summary: string[];
+  /** The first other section after the FAQ: the post's closing CTA block. */
+  cta?: PostCta;
   /** What was found, for the confirmation message. */
   found: string[];
 };
+
+/** A paragraph that is only a link (bold and emoji allowed around it): the CTA's button. */
+function buttonOf(paragraph: string): { label: string; href: string } | null {
+  const m = paragraph.trim().replace(/^\*\*|\*\*$/g, '').trim()
+    .match(/^[\p{Extended_Pictographic}\u{FE0F}\s]*\[([^\]]+)\]\(([^)\s]+)\)[\p{Extended_Pictographic}\u{FE0F}\s]*$/u);
+  return m ? { label: m[1].replace(/\*\*/g, '').trim(), href: m[2] } : null;
+}
+
+/** Heading, text and (when a paragraph is just a link) button, from a section's lines. */
+function ctaOf(heading: string, inner: string[]): PostCta {
+  const paragraphs = inner.join('\n').trim().split(/\n{2,}/);
+  const btnIndex = paragraphs.findIndex((p) => buttonOf(p));
+  const cta: PostCta = { heading: heading.trim() };
+  if (btnIndex !== -1) {
+    const b = buttonOf(paragraphs[btnIndex])!;
+    cta.button_label = b.label;
+    cta.button_href = b.href;
+    paragraphs.splice(btnIndex, 1);
+  }
+  const text = paragraphs.join('\n\n').trim();
+  if (text) cta.text = text;
+  return cta;
+}
 
 /** The "## " sections of a body: [heading line index, end index). */
 function sections(lines: string[]) {
@@ -93,13 +118,30 @@ function sections(lines: string[]) {
 const listItems = (lines: string[]) =>
   lines.map((l) => l.trim().match(/^(?:[-*]|\d+[.)])\s+(.*)$/)?.[1]).filter((x): x is string => !!x);
 
-/** Finds the FAQ, Sources and "Short answer" sections; returns them and the body without them. */
+/**
+ * Finds the FAQ, Sources and "Short answer" sections, and the section after
+ * the FAQ that closes the article (its CTA); returns them and the body
+ * without them.
+ */
 export function detectSections(body: string): Detected {
   const lines = body.replace(/\r\n?/g, '\n').split('\n');
   const result: Detected = { body, faq: [], sources: [], summary: [], found: [] };
   const remove: [number, number][] = [];
+  const all = sections(lines);
+  const faqIndex = all.findIndex((s) => FAQ.includes(bare(s.heading)));
 
-  for (const s of sections(lines)) {
+  for (const [index, s] of all.entries()) {
+    // The first ordinary section after the FAQ is the closing CTA.
+    const name0 = bare(s.heading);
+    if (faqIndex !== -1 && index > faqIndex && !result.cta && !SOURCES.includes(name0) && !SUMMARY.test(name0)) {
+      const inner = lines.slice(s.start + 1, s.end);
+      if (inner.join('').trim()) {
+        result.cta = ctaOf(s.heading, inner);
+        result.found.push(`"${s.heading.trim()}" (after the FAQ) → CTA block${result.cta.button_label ? ` with button "${result.cta.button_label}"` : ''}`);
+        remove.push([s.start, s.end]);
+        continue;
+      }
+    }
     const name = bare(s.heading);
     const inner = lines.slice(s.start + 1, s.end);
     if (FAQ.includes(name) && result.faq.length === 0) {
@@ -125,7 +167,9 @@ export function detectSections(body: string): Detected {
         remove.push([s.start, s.end]);
       }
     } else if (SUMMARY.test(name) && result.summary.length === 0) {
-      const items = listItems(inner);
+      // Bullets; or, if the section is plain paragraphs, one bullet each.
+      const bullets = listItems(inner);
+      const items = bullets.length ? bullets : inner.join('\n').split(/\n{2,}/).map((p) => p.replace(/\s*\n\s*/g, ' ').trim()).filter(Boolean);
       if (items.length) {
         result.summary = items;
         result.found.push(`${items.length} bullet${items.length === 1 ? '' : 's'} → "Short answer in 30 seconds" box`);

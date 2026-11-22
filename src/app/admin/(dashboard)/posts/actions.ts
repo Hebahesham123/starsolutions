@@ -81,6 +81,10 @@ export async function savePost(id: string | null, input: PostRow): Promise<SaveR
   for (const l of LANGS) {
     row[l].summary = row[l].summary.map((s) => s.trim()).filter(Boolean);
     row[l].extra_jsonld = row[l].extra_jsonld.trim();
+    // Enabled but never written (no title, no body): treated as off, so an
+    // untouched language never blocks a save. Only enabled languages are
+    // validated below.
+    if (row[`${l}_enabled`] && !row[l].title.trim() && !row[l].body.trim()) row[`${l}_enabled`] = false;
   }
 
   const invalid = validate(row);

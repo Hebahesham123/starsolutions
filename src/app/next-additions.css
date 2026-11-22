@@ -4539,7 +4539,7 @@
 
 /* "Short answer in 30 seconds" */
 .post-summary{
-  max-width: 62ch; margin: 0 0 8px; padding: 16px 18px 18px;
+  max-width: 62ch; margin: 0 0 18px; padding: 16px 18px 18px;
   background: linear-gradient(135deg, var(--blue-100), var(--lav-100));
   border: 1px solid #D5E6FB; border-radius: var(--r-md);
 }

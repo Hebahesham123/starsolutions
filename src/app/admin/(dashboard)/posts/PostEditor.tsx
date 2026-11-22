@@ -101,6 +101,7 @@ export function PostEditor({ id: initialId, initial, authors, services, categori
         found.faq.length && current.faq.length ? 'FAQ' : '',
         found.sources.length && current.sources.length ? 'Sources' : '',
         found.summary.length && current.summary.length ? 'Short answer' : '',
+        found.cta && (current.cta.heading || current.cta.text || current.cta.button_label) ? 'CTA block' : '',
       ].filter(Boolean);
       move = window.confirm(
         `Found in the article:\n• ${found.found.join('\n• ')}\n\nMove them into their fields?`
@@ -116,13 +117,18 @@ export function PostEditor({ id: initialId, initial, authors, services, categori
       patch.summary = found.summary;
       setSummaryText((s) => ({ ...s, [target]: found.summary.join('\n') }));
     }
+    if (move && found.cta) patch.cta = found.cta;
     const newTitle = meta.title || title;
     if (newTitle && !current.title.trim()) patch.title = newTitle;
     if (meta.keyword) patch.focus_keyword = meta.keyword;
 
+    // The imported language is switched on; the other one is switched off if
+    // it has nothing in it yet (a new post starts with both enabled).
+    const other: Lang = target === 'en' ? 'ar' : 'en';
     setRow((r) => ({
       ...r,
       [`${target}_enabled`]: true,
+      ...(!r[other].title.trim() && !r[other].body.trim() ? { [`${other}_enabled`]: false } : {}),
       ...(meta.slug ? { slug: slugify(meta.slug) || r.slug } : !r.slug && target === 'en' && patch.title ? { slug: slugify(patch.title) } : {}),
       [target]: { ...r[target], ...patch },
     }));
@@ -290,6 +296,16 @@ export function PostEditor({ id: initialId, initial, authors, services, categori
                         <ol>{L.sources.map((s, i) => <li key={i}><a href={s.url} target="_blank" rel="noopener noreferrer">{s.title}</a></li>)}</ol>
                       </section>
                     )}
+                    <section className="post-cta-block">
+                      <h2>{L.cta.heading || (lang === 'ar' ? 'تريد تشغيل هذا على متجرك؟' : 'Want this running on your store?')}</h2>
+                      {L.cta.text
+                        ? <PostBody body={L.cta.text} locale={lang} path={path} services={services[lang]} whatsapp={whatsapp[lang]} />
+                        : <p className="post-cta-text">{lang === 'ar' ? 'ابدأ بتحليل مجاني ونرسم لك الخطة.' : 'Start with a free audit and we will map it out for you.'}</p>}
+                      <div className="post-cta-actions">
+                        <span className="btn btn-primary">{L.cta.button_label || (lang === 'ar' ? 'اطلب تحليلك المجاني' : 'Get free audit')}</span>
+                        <span className="btn btn-ghost">WhatsApp</span>
+                      </div>
+                    </section>
                   </div>
                 }
               />

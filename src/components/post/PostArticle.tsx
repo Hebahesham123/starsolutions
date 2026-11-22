@@ -19,8 +19,8 @@ import { JsonLd, abs, blogPosting } from '@/lib/schema';
  *  2. H1 + subtitle                                        — PageHead
  *  3. Author (→ team page), published, updated, read time  — Byline + eyebrow
  *  4. Cover image with its alt text
- *  5. Table of contents from the H2s (per-post toggle)
- *  6. "Short answer in 30 seconds"
+ *  5. "Short answer in 30 seconds" (above the contents list)
+ *  6. Table of contents from the H2s (per-post toggle)
  *  7. Body: Markdown + callout / video / gallery / inline CTA blocks
  *  8. FAQ + FAQPage                                        — Faq
  *  9. Sources
@@ -95,15 +95,8 @@ export function PostArticle({
                   </figure>
                 )}
 
-                {post.showToc && toc.length >= 2 && (
-                  <details className="post-toc" open>
-                    <summary>{t('post.toc')}</summary>
-                    <ol>
-                      {toc.map((h) => <li key={h.id}><a href={`#${h.id}`}>{h.text}</a></li>)}
-                    </ol>
-                  </details>
-                )}
-
+                {/* The short answer first, right under the head: the reader
+                    gets it before the contents list. */}
                 {post.summary.length > 0 && (
                   <aside className="post-summary" aria-labelledby="postSummaryTitle">
                     <p id="postSummaryTitle" className="post-summary-title"><Icon name="clock" /> {t('post.summary')}</p>
@@ -111,6 +104,15 @@ export function PostArticle({
                       {post.summary.map((s) => <li key={s}><InlineMd text={s} locale={locale} path={path} /></li>)}
                     </ul>
                   </aside>
+                )}
+
+                {post.showToc && toc.length >= 2 && (
+                  <details className="post-toc" open>
+                    <summary>{t('post.toc')}</summary>
+                    <ol>
+                      {toc.map((h) => <li key={h.id}><a href={`#${h.id}`}>{h.text}</a></li>)}
+                    </ol>
+                  </details>
                 )}
 
                 <PostBody body={post.body} locale={locale} path={path} services={services} whatsapp={whatsapp} />
