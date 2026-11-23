@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { SITE_ICONS, SITE_MANIFEST } from '@/lib/seo';
 import { LocaleDocument } from '@/components/LocaleDocument';
 import { organization, website } from '@/lib/schema';
 import { SiteHeader } from '@/components/SiteHeader';
@@ -14,6 +15,8 @@ import { GoogleTag } from '@/components/GoogleTag';
 import { WebMcp } from '@/components/WebMcp';
 
 export const metadata: Metadata = {
+  icons: SITE_ICONS,
+  manifest: SITE_MANIFEST,
   metadataBase: new URL('https://www.starsolution.ai'),
   title: {
     default: 'StarSolution.ai — More orders. More revenue. Less work.',

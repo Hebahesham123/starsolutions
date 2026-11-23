@@ -1,4 +1,5 @@
 import { Hero } from '@/components/Hero';
+import { HomeIntro } from '@/components/HomeIntro';
 import { ResultsPanel } from '@/components/ResultsPanel';
 import { CTA } from '@/components/CTA';
 import { Goals, Systems, Process, NightPanel, CaseStudies, Work, Automations, Testimonials, Team } from '@/components/sections';
@@ -22,6 +23,7 @@ export default async function HomePage() {
   return (
     <>
       <Hero nodes={site.heroNodes} stats={site.heroStats} platforms={site.platforms} />
+      <HomeIntro />
       <Goals goals={goals} solutions={solutions} />
       <Automations automations={automations} platforms={site.platforms} />
 

@@ -1,8 +1,11 @@
 import type { Metadata } from 'next';
+import { SITE_ICONS, SITE_MANIFEST } from '@/lib/seo';
 import './admin.css';
 import { LocaleDocument } from '@/components/LocaleDocument';
 
 export const metadata: Metadata = {
+  icons: SITE_ICONS,
+  manifest: SITE_MANIFEST,
   title: { default: 'Admin', template: '%s · StarSolution admin' },
   robots: { index: false, follow: false },
 };

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { SITE_ICONS, SITE_MANIFEST } from '@/lib/seo';
 import { IBM_Plex_Sans_Arabic } from 'next/font/google';
 import '@/app/rtl.css';
 import { LocaleDocument } from '@/components/LocaleDocument';
@@ -27,6 +28,8 @@ const plexArabic = IBM_Plex_Sans_Arabic({
 });
 
 export const metadata: Metadata = {
+  icons: SITE_ICONS,
+  manifest: SITE_MANIFEST,
   metadataBase: new URL('https://www.starsolution.ai'),
   title: {
     default: 'ستار سوليوشن — طلبات أكثر. إيرادات أكبر. جهد أقل.',

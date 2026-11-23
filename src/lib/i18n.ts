@@ -282,6 +282,7 @@ const STRINGS: Record<Locale, Dict> = {
     'results.inTheirWords': 'What our clients say',
     /* --- found by the Latin-text scan of the Arabic pages ------------- */
     'hero.lede': 'We automate your Shopify, social media and marketing — so your business grows while you sleep.',
+    'home.intro': 'StarSolution.ai is an AI automation agency in Egypt for e-commerce brands. We build and optimize Shopify stores, automate orders, shipping and WhatsApp customer service, and manage your Facebook and Google ads, so every order moves from checkout to delivery without manual work.',
     'work.ourServices': 'Our services',
     'work.readProject': 'Read about this project',
     'work.hideProject': 'Show less',
@@ -532,6 +533,7 @@ const STRINGS: Record<Locale, Dict> = {
     'results.inTheirWords': 'آراء عملائنا',
     /* --- found by the Latin-text scan of the Arabic pages ------------- */
     'hero.lede': 'نجعل متجرك على شوبيفاي وصفحاتك على السوشيال ميديا وإعلاناتك تعمل وحدها، فينمو عملك وأنت نائم.',
+    'home.intro': 'ستار سوليوشن شركة تصميم متاجر إلكترونية وأتمتة ذكية للمتاجر في مصر. نبني متجرك على شوبيفاي ونطوّره، ونؤتمت الطلبات والشحن وخدمة العملاء على الواتساب، وندير إعلاناتك على فيسبوك وجوجل، حتى يتحرك كل طلب من الدفع إلى التسليم بدون شغل يدوي.',
     'work.ourServices': 'خدماتنا',
     'work.readProject': 'اقرأ تفاصيل المشروع',
     'work.hideProject': 'اعرض أقل',

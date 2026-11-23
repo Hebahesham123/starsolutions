@@ -1,4 +1,5 @@
 import { Hero } from '@/components/Hero';
+import { HomeIntro } from '@/components/HomeIntro';
 import { ResultsPanel } from '@/components/ResultsPanel';
 import { CTA } from '@/components/CTA';
 import {
@@ -32,6 +33,7 @@ export default function ArabicHomePage() {
   return (
     <>
       <Hero locale={locale} nodes={c.heroNodes} stats={c.heroStats} platforms={c.platforms} />
+      <HomeIntro locale={locale} />
       <Goals locale={locale} goals={visible(c.goals)} solutions={visible(c.solutions)} />
       <Automations locale={locale} automations={visible(c.automations)} platforms={c.platforms} />
 

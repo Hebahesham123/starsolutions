@@ -121,3 +121,18 @@ export type SeoOptions = {
   url?: string;
   article?: { publishedTime: string; modifiedTime?: string };
 };
+
+/**
+ * Favicon and app icons for every page (files made by scripts/make-icons.mjs
+ * from public/logo.png). /favicon.ico is also served at the root for browsers
+ * and crawlers that ask for it directly.
+ */
+export const SITE_ICONS: Metadata['icons'] = {
+  icon: [
+    { url: '/favicon.ico', sizes: '16x16 32x32 48x48' },
+    { url: '/icon-48.png', type: 'image/png', sizes: '48x48' },
+    { url: '/icon-192.png', type: 'image/png', sizes: '192x192' },
+  ],
+  apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
+};
+export const SITE_MANIFEST = '/site.webmanifest';

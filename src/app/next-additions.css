@@ -4655,3 +4655,11 @@
   border-inline-start: 3px solid var(--brand);
   font-size: 15.5px; line-height: 1.65; color: var(--ink-2); font-style: italic;
 }
+
+/* Home: the short intro paragraph under the hero. Static text, no CLS. */
+.home-intro{ padding-block: 34px 34px; }
+.home-intro-text{
+  max-width: 68ch; margin-inline: auto; text-align: center;
+  font-size: 16.5px; line-height: 1.7; color: var(--ink-2);
+}
+@media (max-width: 640px){ .home-intro{ padding-block: 26px 28px; } .home-intro-text{ font-size: 15.5px; text-align: start; } }
